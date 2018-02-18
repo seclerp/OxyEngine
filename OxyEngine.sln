@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.Window", "Oxy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.Input", "Oxy.Framework.Input\Oxy.Framework.Input.csproj", "{01782FBF-9104-4D61-A900-A678EC7B94DE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.TestPlayer", "Oxy.Framework.TestPlayer\Oxy.Framework.TestPlayer.csproj", "{9FC95C42-BC6A-429D-9330-76739D6009DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,5 +74,17 @@ Global
 		{01782FBF-9104-4D61-A900-A678EC7B94DE}.Release|x64.Build.0 = Release|Any CPU
 		{01782FBF-9104-4D61-A900-A678EC7B94DE}.Release|x86.ActiveCfg = Release|Any CPU
 		{01782FBF-9104-4D61-A900-A678EC7B94DE}.Release|x86.Build.0 = Release|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Debug|x64.Build.0 = Debug|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Debug|x86.Build.0 = Debug|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Release|x64.ActiveCfg = Release|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Release|x64.Build.0 = Release|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Release|x86.ActiveCfg = Release|Any CPU
+		{9FC95C42-BC6A-429D-9330-76739D6009DD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
