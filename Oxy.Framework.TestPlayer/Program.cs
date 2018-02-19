@@ -4,12 +4,8 @@
   {
     static void Main(string[] args)
     {
-      // Create window
-      using (var window = new Window(800, 600, "Hello world from OpenTK window!"))
-      {
-        // Run at 60 FPS
-        window.Run(60);
-      }
+      Window.SetTitle("Hello World from OxyEngine!");
+      Window.Show(60);
     }
   }
 }

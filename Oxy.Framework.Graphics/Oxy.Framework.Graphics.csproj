@@ -6,4 +6,7 @@
   <ItemGroup>
     <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
+  </ItemGroup>
 </Project>

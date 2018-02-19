@@ -3,4 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Oxy.Framework</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
+  </ItemGroup>
 </Project>
