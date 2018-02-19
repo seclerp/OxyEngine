@@ -5,5 +5,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Oxy.Framework.Window\Oxy.Framework.Window.csproj" />
+    <ProjectReference Include="..\Oxy.Framework.Input\Oxy.Framework.Input.csproj" />
   </ItemGroup>
 </Project>

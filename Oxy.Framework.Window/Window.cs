@@ -31,6 +31,11 @@ namespace Oxy.Framework
       GL.Enable(EnableCap.DepthTest);
     }
 
+    private static void Update(object sender, FrameEventArgs args)
+    {
+      // TODO
+    }
+
     private static void Resize(object sender, EventArgs e)
     {
       GL.Viewport(Instance.ClientRectangle);
@@ -130,11 +135,28 @@ namespace Oxy.Framework
     {
       // Register listeners
       Instance.Load += Load;
-      //Instance.UpdateFrame += Update;
+      Instance.UpdateFrame += Update;
       Instance.RenderFrame += Draw;
       Instance.Resize += Resize;
 
       Instance.Run(maxFps);
+    }
+
+    /// <summary>
+    /// Closes window and exit game
+    /// </summary>
+    public static void Exit()
+    {
+      Instance.Exit();
+    }
+
+    /// <summary>
+    /// Calls 'handler' function every frame and pass delta time as float
+    /// </summary>
+    /// <param name="handler">Function to call</param>
+    public static void OnUpdate(Action<float> handler) 
+    {
+      Instance.UpdateFrame += (s, e) => handler((float) e.Time);
     }
   }
 }
