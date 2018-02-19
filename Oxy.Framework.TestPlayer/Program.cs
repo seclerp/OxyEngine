@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Oxy.Framework.TestPlayer
 {
@@ -6,7 +7,10 @@ namespace Oxy.Framework.TestPlayer
   {
     static void Main(string[] args)
     {
-      Window.SetTitle("Hello World from OxyEngine!");
+      Common.SetScriptsRoot(Path.Combine(Environment.CurrentDirectory, "scripts"));
+      Common.ExecuteScript("entry.py");
+
+      /*Window.SetTitle("Hello World from OxyEngine!");
 
       Window.OnUpdate((dt) => 
       {
@@ -14,7 +18,7 @@ namespace Oxy.Framework.TestPlayer
           Window.Exit();
       });
 
-      Window.Show(60);
+      Window.Show(60);*/
     }
   }
 }

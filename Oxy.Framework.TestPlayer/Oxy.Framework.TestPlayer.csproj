@@ -4,7 +4,8 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Oxy.Framework.Window\Oxy.Framework.Window.csproj" />
     <ProjectReference Include="..\Oxy.Framework.Input\Oxy.Framework.Input.csproj" />
+    <ProjectReference Include="..\Oxy.Framework.Graphics\Oxy.Framework.Graphics.csproj" />
+    <ProjectReference Include="..\Oxy.Framework.Window\Oxy.Framework.Window.csproj" />
   </ItemGroup>
 </Project>
