@@ -10,8 +10,6 @@ namespace Oxy.Framework
   /// </summary>
   public class Window : GameWindow
   {
-    // " = () => { } " - this shit is needed to do not make 'if' to check listeners at runtime
-    
     public Window(int width, int height, string title)
                 : base(width, height, GraphicsMode.Default, title)
     {
@@ -23,7 +21,11 @@ namespace Oxy.Framework
     {
       base.OnLoad(e);
 
-      GL.ClearColor(0.1f, 0.2f, 0.5f, 0.0f);
+      GL.ClearColor(Color.CornflowerBlue);
+            
+      GL.Enable(EnableCap.Texture2D);
+      GL.Enable(EnableCap.Blend);
+      GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
       GL.Enable(EnableCap.DepthTest);
     }
 
@@ -31,21 +33,27 @@ namespace Oxy.Framework
     {
       base.OnResize(e);
       
-      // TODO: Add normal handling
-    }
+      GL.Viewport(ClientRectangle);
 
-    protected override void OnUpdateFrame(FrameEventArgs e)
-    {
-      base.OnUpdateFrame(e);
-      
-      // TODO: Add normal handling
+      GL.MatrixMode(MatrixMode.Projection);
+      GL.LoadIdentity();
+      GL.Ortho(0, 1, 1, 0, -4.0, 4.0);
     }
 
     protected override void OnRenderFrame(FrameEventArgs e)
     {
       base.OnRenderFrame(e);
 
-      // TODO: Add normal handling
+      GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            
+      #region Camera setup
+
+      GL.MatrixMode(MatrixMode.Modelview);
+      GL.LoadIdentity();
+            
+      #endregion
+      
+      // Render code goes here
       
       SwapBuffers();
     }
