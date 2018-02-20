@@ -1,4 +1,7 @@
 ﻿using System;
+using OpenTK;
+using OpenTK.Graphics;
+using Oxy.Framework.OpenTK.Compatibility;
 
 namespace Oxy.Framework
 {
@@ -11,6 +14,11 @@ namespace Oxy.Framework
     
     // Methods goes here
     
+    static void Some()
+    {
+      var textPrinter = new TextPrinter(); 
+    }
+
     #endregion
   }
 }
