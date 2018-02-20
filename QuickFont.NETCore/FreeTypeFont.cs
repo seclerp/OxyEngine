@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Diagnostics;
 using System.IO;
+using SharpFont;
 
 namespace QuickFont
 {
