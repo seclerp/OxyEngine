@@ -9,6 +9,7 @@ namespace Oxy.Framework
   {
     private ScriptEngine _scriptEngine;
     private string _scriptsRootFolder;
+    private string _libraryRootFolder;
 
     public Common()
     {
@@ -24,6 +25,7 @@ namespace Oxy.Framework
       _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Graphics\")", scope);
       _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Input\")", scope);
       _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Window\")", scope);
+      _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Resources\")", scope);
 
       return scope;
     }
@@ -35,18 +37,36 @@ namespace Oxy.Framework
 
       Instance._scriptsRootFolder = path;
     }
+    
+    public static string GetScriptsRoot()
+    {
+      return Instance._scriptsRootFolder;
+    }
 
+    public static void SetLibraryRoot(string path)
+    {
+      if (!Directory.Exists(path))
+        throw new DirectoryNotFoundException(path);
+
+      Instance._libraryRootFolder = path;
+    }
+    
+    public static string GetLibraryRoot()
+    {
+      return Instance._libraryRootFolder;
+    }
+    
     public static void ExecuteScript(string path)
     {
-      try 
-      {
+      //try 
+      //{
         ScriptScope scope = Instance.CreateConfiguredScope();
         Instance._scriptEngine.ExecuteFile(Path.Combine(Instance._scriptsRootFolder, path), scope);
-      }
-      catch(Exception e)
-      {
-        Console.WriteLine($"Python error ({path}): {e.Message}");
-      }
+     // }
+     // catch(Exception e)
+      //{
+      //  Console.WriteLine($"Python error ({path}): {e.Message}");
+      //}
     }
   }
 }

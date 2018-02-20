@@ -8,5 +8,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
+    <ProjectReference Include="..\Oxy.Framework.Graphics\Oxy.Framework.Graphics.csproj" />
   </ItemGroup>
 </Project>
