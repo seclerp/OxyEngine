@@ -10,6 +10,10 @@ namespace Oxy.Framework
   /// </summary>
   public class Window : Module<GameWindow>
   {
+    private static Action _loadEvent;
+    private static Action<float> _updateEvent;
+    private static Action _drawEvent;
+    
     static Window()
     {
       // Setup default window properties
@@ -23,17 +27,21 @@ namespace Oxy.Framework
 
     private static void Load(object sender, EventArgs e)
     {
-      GL.ClearColor(Color.CornflowerBlue);
+      (byte, byte, byte, byte) bgColor = Graphics.GetBackgroundColor();
+      
+      GL.ClearColor(Color.FromArgb(bgColor.Item4, bgColor.Item1, bgColor.Item2, bgColor.Item3));
             
       GL.Enable(EnableCap.Texture2D);
       GL.Enable(EnableCap.Blend);
       GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
       GL.Enable(EnableCap.DepthTest);
+      
+      _loadEvent?.Invoke();
     }
 
     private static void Update(object sender, FrameEventArgs args)
     {
-      // TODO
+      _updateEvent?.Invoke((float)args.Time);
     }
 
     private static void Resize(object sender, EventArgs e)
@@ -42,7 +50,7 @@ namespace Oxy.Framework
 
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
-      GL.Ortho(0, 1, 1, 0, -4.0, 4.0);
+      GL.Ortho(0, Instance.ClientRectangle.Width, Instance.ClientRectangle.Height, 0, -1.0, 1.0);
     }
 
     private static void Draw(object sender, FrameEventArgs e)
@@ -57,8 +65,12 @@ namespace Oxy.Framework
       #endregion
       
       #region Rendering
-
-      // ....
+      
+      Graphics.ClearFontDrawing();
+      
+      _drawEvent?.Invoke();
+      
+      Graphics.RenderFontDrawing();
 
       #endregion
       
@@ -91,7 +103,7 @@ namespace Oxy.Framework
     /// Returns true if vertical sync enabled, otherwise false
     /// </summary>
     public static bool GetVSyncEnabled() =>
-      Instance.VSync == VSyncMode.On ? true : false;
+      Instance.VSync == VSyncMode.On;
 
     #endregion
 
@@ -154,9 +166,18 @@ namespace Oxy.Framework
     /// Calls 'handler' function every frame and pass delta time as float
     /// </summary>
     /// <param name="handler">Function to call</param>
-    public static void OnUpdate(Action<float> handler) 
+    public static void OnUpdate(Action<float> handler)
     {
-      Instance.UpdateFrame += (s, e) => handler((float) e.Time);
+      _updateEvent += handler;
+    }
+    
+    /// <summary>
+    /// Calls 'handler' function after update (when draw requested)
+    /// </summary>
+    /// <param name="handler">Function to call</param>
+    public static void OnDraw(Action handler)
+    {
+      _drawEvent += handler;
     }
   }
 }

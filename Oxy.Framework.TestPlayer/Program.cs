@@ -8,17 +8,18 @@ namespace Oxy.Framework.TestPlayer
     static void Main(string[] args)
     {
       Common.SetScriptsRoot(Path.Combine(Environment.CurrentDirectory, "scripts"));
-      Common.ExecuteScript("entry.py");
+      Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
 
-      /*Window.SetTitle("Hello World from OxyEngine!");
+      var font = Resources.LoadFont("roboto.ttf");
+      
+      Graphics.SetFont(font);
+      
+      Window.OnDraw(() => Graphics.Print("Hello, World OxyEngine", 50, 50));
 
-      Window.OnUpdate((dt) => 
-      {
-        if (Input.IsMousePressed("middle") || Input.IsKeyPressed("escape"))
-          Window.Exit();
-      });
-
-      Window.Show(60);*/
+      Window.Show(60);
+      
+      //Common.ExecuteScript("entry.py");
+      //Common.ExecuteScript("print-example.py");
     }
   }
 }
