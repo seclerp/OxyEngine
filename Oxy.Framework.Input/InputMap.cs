@@ -145,19 +145,19 @@ namespace Oxy.Framework
 
     private Dictionary<string, MouseButton> _mouseMap => new Dictionary<string, MouseButton>() 
     {
-      { "left", MouseButton.Left },
-      { "middle", MouseButton.Middle },
-      { "right", MouseButton.Right },
-      { "button1", MouseButton.Button1 },
-      { "button2", MouseButton.Button2 },
-      { "button3", MouseButton.Button3 },
-      { "button4", MouseButton.Button4 },
-      { "button5", MouseButton.Button5 },
-      { "button6", MouseButton.Button6 },
-      { "button7", MouseButton.Button7 },
-      { "button8", MouseButton.Button8 },
-      { "button9", MouseButton.Button9 },
-      { "last", MouseButton.LastButton },
+      { "left",           MouseButton.Left },
+      { "middle",         MouseButton.Middle },
+      { "right",          MouseButton.Right },
+      { "button1",        MouseButton.Button1 },
+      { "button2",        MouseButton.Button2 },
+      { "button3",        MouseButton.Button3 },
+      { "button4",        MouseButton.Button4 },
+      { "button5",        MouseButton.Button5 },
+      { "button6",        MouseButton.Button6 },
+      { "button7",        MouseButton.Button7 },
+      { "button8",        MouseButton.Button8 },
+      { "button9",        MouseButton.Button9 },
+      { "last",           MouseButton.LastButton },
     };
 
     public Dictionary<string, Key> KeyMap => _keyMap;

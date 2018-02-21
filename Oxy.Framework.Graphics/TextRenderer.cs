@@ -8,6 +8,7 @@ namespace Oxy.Framework
 {
   /// <summary>
   /// Uses System.Drawing for 2d text rendering.
+  /// Do not use this class explicitly. Use TextObject instead
   /// </summary>
   public class TextRenderer : IDisposable
   {
@@ -30,8 +31,8 @@ namespace Oxy.Framework
         throw new ArgumentOutOfRangeException("width");
       if (height <= 0)
         throw new ArgumentOutOfRangeException("height");
-//      if (GraphicsContext.CurrentContext == null)
-//        throw new InvalidOperationException("No GraphicsContext is current on the calling thread.");
+      if (GraphicsContext.CurrentContext == null)
+        throw new InvalidOperationException("No GraphicsContext is current on the calling thread.");
 
       _bitMap = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
       _graphics = System.Drawing.Graphics.FromImage(_bitMap);

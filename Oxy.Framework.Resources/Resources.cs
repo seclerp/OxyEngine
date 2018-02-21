@@ -16,7 +16,7 @@ namespace Oxy.Framework
     /// <param name="size">Size of the font</param>
     /// <returns>Font object</returns>
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
-    public static Font LoadFont(string path, float size = 12)
+    public static FontObject LoadFont(string path, float size = 12)
     {
       var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
       
@@ -27,7 +27,9 @@ namespace Oxy.Framework
       
       tempCollection.AddFontFile(fullPath);
       
-      return new Font(tempCollection.Families[0], size);
+      var font = new Font(tempCollection.Families[0], size);
+      
+      return new FontObject(font);
     }
   }
 }

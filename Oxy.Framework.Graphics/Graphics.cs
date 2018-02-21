@@ -29,9 +29,25 @@ namespace Oxy.Framework
     
     #region Set
 
+    /// <summary>
+    /// Set drawing color
+    /// Call without parameters to reset to defaults
+    /// </summary>
+    /// <param name="r">Red color component</param>
+    /// <param name="g">Green color component</param>
+    /// <param name="b">Blue color component</param>
+    /// <param name="a">Alpha color component</param>
     public static void SetColor(byte r = DefaultColorR, byte g = DefaultColorG, byte b = DefaultColorB, byte a = DefaultColorA) =>
       Instance.Value._foregroundColor = Color.FromArgb(a, r, g, b);
     
+    /// <summary>
+    /// Set background color
+    /// Call without parameters to reset default color
+    /// </summary>
+    /// <param name="r">Red color component</param>
+    /// <param name="g">Green color component</param>
+    /// <param name="b">Blue color component</param>
+    /// <param name="a">Alpha color component</param>
     public static void SetBackgroundColor(byte r = DefaultBgColorR, byte g = DefaultBgColorG, byte b = DefaultBgColorB, byte a = DefaultBgColorA) =>
       Instance.Value._backgroundColor = Color.FromArgb(a, r, g, b);
     
@@ -39,6 +55,10 @@ namespace Oxy.Framework
     
     #region Get
 
+    /// <summary>
+    /// Returns main drawing color
+    /// </summary>
+    /// <returns>Tuple with 4 items - R, G, B, A color components</returns>
     public static (byte, byte, byte, byte) GetColor() => 
       (
         Instance.Value._foregroundColor.R, 
@@ -47,6 +67,10 @@ namespace Oxy.Framework
         Instance.Value._foregroundColor.A
       );
     
+    /// <summary>
+    /// Returns background color
+    /// </summary>
+    /// <returns>Tuple with 4 items - R, G, B, A color components</returns>   
     public static (byte, byte, byte, byte) GetBackgroundColor() =>
       (
         Instance.Value._backgroundColor.R, 
@@ -57,10 +81,25 @@ namespace Oxy.Framework
     
     #endregion
 
+    /// <summary>
+    /// Draw any drawable object on the screen with given position, rotation and scale
+    /// </summary>
+    /// <param name="drawable">Object to draw</param>
+    /// <param name="x">X coordinate</param>
+    /// <param name="y">Y coordinate</param>
+    /// <param name="r">Rotation</param>
+    /// <param name="sx">X scale factor</param>
+    /// <param name="sy">Y scale factor</param>
     public static void Draw(IDrawable drawable, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1) =>
       drawable.Draw(x, y, r, sx, sy);
     
-    public static TextObject NewText(Font font, string text = "") =>
+    /// <summary>
+    /// Creates new TextObjec
+    /// </summary>
+    /// <param name="font">Font to be used</param>
+    /// <param name="text">Text for printing</param>
+    /// <returns></returns>
+    public static TextObject NewText(FontObject font, string text = "") =>
       new TextObject(font, text);
   }
 }
