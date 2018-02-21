@@ -6,7 +6,10 @@
 **OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
 
 ---
-***Please note: This project in very early stage of development, do not use it for any production projects before first public release. At this time, OxyEngine does not guarantee backward compatibility and stability of your code.***
+
+:exclamation: :exclamation: :exclamation:
+***Please note: 
+This project in very early stage of development at that moment. Do not use it for any production projects before first public release will be published. For now, OxyEngine does not guarantee backward compatibility of API and stability of your code.***
 
 ---
 # Getting Started
