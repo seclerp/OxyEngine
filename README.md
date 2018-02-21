@@ -7,7 +7,7 @@
 
 ---
 
-:exclamation: :exclamation: :exclamation:
+:exclamation::exclamation::exclamation:
 ***Please note: 
 This project in very early stage of development at that moment. Do not use it for any production projects before first public release will be published. For now, OxyEngine does not guarantee backward compatibility of API and stability of your code.***
 
