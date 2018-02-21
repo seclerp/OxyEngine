@@ -1,4 +1,6 @@
 ﻿using System.Drawing;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 using Color = OpenTK.Color;
 
 namespace Oxy.Framework
@@ -81,6 +83,8 @@ namespace Oxy.Framework
     
     #endregion
 
+    #region Drawing
+    
     /// <summary>
     /// Draw any drawable object on the screen with given position, rotation and scale
     /// </summary>
@@ -93,13 +97,65 @@ namespace Oxy.Framework
     public static void Draw(IDrawable drawable, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1) =>
       drawable.Draw(x, y, r, sx, sy);
     
+    #endregion 
+    
+    #region Matrix transformations
+
     /// <summary>
-    /// Creates new TextObjec
+    /// Pushes matrix stack
+    /// </summary>
+    public static void PushMatrix() =>
+      GL.PushMatrix();
+    
+    /// <summary>
+    /// Pops matrix stack
+    /// </summary>
+    public static void PopMatrix() =>
+      GL.PushMatrix();
+
+    /// <summary>
+    /// Moves coordinate system among X and Y axis
+    /// </summary>
+    /// <param name="x">X coordinate</param>
+    /// <param name="y">Y coordinate</param>
+    public static void Translate(float x, float y) =>
+      GL.Translate(x, y, 0);
+
+    /// <summary>
+    /// Rotates coordinate system by given angle
+    /// </summary>
+    /// <param name="r">Angle to rotate</param>
+    public static void Rotate(float r) =>
+      GL.Rotate(r, Vector3.UnitZ);
+
+    /// <summary>
+    /// Scales coordinate system 
+    /// </summary>
+    /// <param name="sx">X scale factor</param>
+    /// <param name="sy">Y scale factor</param>
+    public static void Scale(float sx, float sy) =>
+      GL.Scale(sx, sy, 1);
+    
+    /// <summary>
+    /// Scales coordinate system 
+    /// </summary>
+    /// <param name="s">X and Y scale factor</param>
+    public static void Scale(float s) =>
+      GL.Scale(s, s, 1);
+    
+    #endregion
+    
+    #region Fabrics
+    
+    /// <summary>
+    /// Creates new TextObject
     /// </summary>
     /// <param name="font">Font to be used</param>
     /// <param name="text">Text for printing</param>
     /// <returns></returns>
     public static TextObject NewText(FontObject font, string text = "") =>
       new TextObject(font, text);
+    
+    #endregion
   }
 }
