@@ -30,17 +30,17 @@ Your graphics card must support **OpenGL 3.2+**.
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
 
 ### From NuGet
-For now, we will not provide any NuGet packagaes, because we do not have any releases yet.
+For now, we will not provide any NuGet packages, because we do not have any releases yet.
 
 ### From project sources
-To install stable version of OxyEngine into your :
+To install stable version of OxyEngine into your .NET Core App:
 * Сlone this repository:
  `git clone https://github.com/OxyTeam/OxyEngine.git` 
-  use **master** branch for only stable and production-ready code. 
+  Use **master** branch for only stable and production-ready code. 
   You also can use **default** branch, but it may not build or will work not properly.
 * Build **Oxy.Framework.TestPlayer** project (that command will build all needed modules) with
   `dotnet build`
-  and reference compiled dll's (Oxy.Framework assemblies) to your .NET Core App project.
+  and reference compiled dll's (Oxy.Framework.* assemblies) to your .NET Core App project.
   **OR** 
   you can reference Oxy.Framework.* projects directly without using compiled dll's
   
