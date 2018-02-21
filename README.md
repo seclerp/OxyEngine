@@ -11,7 +11,7 @@
 
 ---
 ---
-## Getting Started
+# Getting Started
 
 These instructions will get you information for getting started with engine.
 
@@ -19,20 +19,20 @@ For now, only  low-level API for graphics, input, window and resources modules a
 
 In future you will be able to create games using high-level **Oxy.Engine** part of the project, such as powerfull visual editor called **Oxy.Editor**.
 
-### Prerequisites
+## Prerequisites
 
 OxyEngine is a .NET Core project. To create .NET Core applications you need to install .NET Core SDK on you system
 
 Any Desktop operation system is supported (Windows, MacOS X, Linux).
 Your graphics card must support **OpenGL 3.2+**.
 
-### Installing
+## Installing
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
 
-#### From NuGet
+### From NuGet
 For now, we will not provide any NuGet packagaes, because we do not have any releases yet.
 
-#### From project sources
+### From project sources
 To install stable version of OxyEngine into your :
 * Сlone this repository:
  `git clone https://github.com/OxyTeam/OxyEngine.git` 
@@ -44,7 +44,7 @@ To install stable version of OxyEngine into your :
   **OR** 
   you can reference Oxy.Framework.* projects directly without using compiled dll's
   
-### Hello, World! 
+## Hello, World! 
 
 "Hello World!" example using low-level Oxy.Framework.
 
@@ -52,7 +52,7 @@ Create folders `scripts` (folder for your Python scripts) and `library`(for game
 
 Also this example use custom .ttf font **that must be placed into `library` folder**, you can use any font you want with this example.
   
-#### Example using only C#
+### Example using only C#
 
 **Program.cs:**
 ```csharp
@@ -94,7 +94,7 @@ namespace Oxy.Framework.TestPlayer
 ```
 Thats all. Build and run this example to see result.
 
-#### Example using Python + C#
+### Example using Python + C#
 
 This is more preffered way to use Oxy.Framework.
 
@@ -152,7 +152,7 @@ Result of both implementations:
 ![Hello? World!](https://i.imgur.com/7o3VPSQ.png)
 
 
-## Built With
+# Built With
 OxyEngine uses some third-party libraries and tools:
 
 * [OpenTK](https://github.com/opentk/opentk) - Open Toolkit library is a fast, low-level C# wrapper for OpenGL and OpenAL.
@@ -160,26 +160,26 @@ OxyEngine uses some third-party libraries and tools:
 * [IronPython](http://ironpython.net/) - the Python programming language for the .NET Framework
 * [DLR](https://github.com/IronLanguages/dlr) - Open source implementation of Dynamic Language Runtime
 
-## Contributing
+# Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+# Versioning
 
 We use [Semantic Versioning](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/OxyTeam/OxyEngine/tags). 
 
-## Authors
+# Authors
 
 * **Andrey Rublyov** - *Programmer* - [AndrewRublyov](https://github.com/AndrewRublyov)
 * **Andrey Belyaev** - *Programmer* - [Svetomech](https://github.com/Svetomech)
 
 See also the list of [contributors](https://github.com/OxyTeam/OxyEngine/contributors) who participated in this project.
 
-## License
+# License
 
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details
 
-## Acknowledgments
+# Acknowledgments
 
 Big thanks to:
 * **Love2d** team for inspiration for Oxy.Framework API 
