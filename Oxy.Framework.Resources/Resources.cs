@@ -19,14 +19,18 @@ namespace Oxy.Framework
     /// <param name="size">Size of the font</param>
     /// <returns>Font object</returns>
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
-    public static QFont LoadFont(string path, float size = 12)
+    public static Font LoadFont(string path, float size = 12)
     {
       var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
       
       if (!File.Exists(fullPath))
         throw new FileNotFoundException(path);
       
-      return new QFont(fullPath, size, new QFontBuilderConfiguration(false));
+      var tempCollection = new PrivateFontCollection();
+      
+      tempCollection.AddFontFile(fullPath);
+      
+      return new Font(tempCollection.Families[0], size);
     }
   }
 }

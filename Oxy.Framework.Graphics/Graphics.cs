@@ -1,5 +1,7 @@
-﻿using OpenTK;
+﻿using System.Drawing;
+using OpenTK;
 using QuickFont;
+using Color = OpenTK.Color;
 
 namespace Oxy.Framework
 {
@@ -18,8 +20,6 @@ namespace Oxy.Framework
     private const byte DefaultBgColorB = 237;
     private const byte DefaultBgColorA = 255;
     
-    private QFont _currentFont;
-    private QFontDrawing _drawing;
     private Color _foregroundColor;
     private Color _backgroundColor;
 
@@ -27,16 +27,10 @@ namespace Oxy.Framework
     {
       _backgroundColor = Color.FromArgb(DefaultBgColorA, DefaultBgColorR, DefaultBgColorG, DefaultBgColorB);
       _foregroundColor = Color.FromArgb(DefaultColorA, DefaultColorR, DefaultColorG, DefaultColorB);
-      _drawing = new QFontDrawing();
     }
     
     #region Set
 
-    public static void SetFont(QFont font)
-    {
-      Instance.Value._currentFont = font;
-    }
-    
     public static void SetColor(byte r = DefaultColorR, byte g = DefaultColorG, byte b = DefaultColorB, byte a = DefaultColorA) =>
       Instance.Value._foregroundColor = Color.FromArgb(a, r, g, b);
     
@@ -47,9 +41,6 @@ namespace Oxy.Framework
     
     #region Get
 
-    public static QFont GetFont() =>
-      Instance.Value._currentFont;
-    
     public static (byte, byte, byte, byte) GetColor() => 
       (
         Instance.Value._foregroundColor.R, 
@@ -68,18 +59,10 @@ namespace Oxy.Framework
     
     #endregion
 
-    public static void ClearFontDrawing() =>
-      Instance.Value._drawing.DrawingPrimitives.Clear();
+    public static void Draw(IDrawable drawable, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1) =>
+      drawable.Draw(x, y, r, sx, sy);
     
-    public static void Print(string text, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1) =>
-      Instance.Value._drawing.Print(Instance.Value._currentFont, text, new Vector3(x, y, 0), QFontAlignment.Left, Instance.Value._foregroundColor);
-
-    public static void RenderFontDrawing()
-    {
-      Instance.Value._drawing.RefreshBuffers();
-      Instance.Value._drawing.Draw();
-    }
-      
-    
+    public static TextObject NewText(Font font, string text = "") =>
+      new TextObject(font, text);
   }
 }

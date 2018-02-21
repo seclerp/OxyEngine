@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Diagnostics;
+using System.Drawing.Text;
 using System.IO;
 using SharpFont;
 
@@ -13,23 +14,21 @@ namespace QuickFont
 	/// </summary>
 	public class FreeTypeFont : IFont
 	{
-		private Library _fontLibrary = new Library();
+	  private PrivateFontCollection _collection;
+	  private Font _font;
+	  
 		private const uint DPI = 96;
-
-		private Face _fontFace;
-
-		private int _maxHorizontalBearyingY = 0;
 
 		/// <summary>
 		/// The size of the font
 		/// </summary>
 		public float Size { get; private set; }
 
-		/// <summary>
-		/// Whether the font has kerning information available, or if it needs
-		/// to be calculated
-		/// </summary>
-		public bool HasKerningInformation { get { return _fontFace.HasKerning; } }
+	  /// <summary>
+	  /// Whether the font has kerning information available, or if it needs
+	  /// to be calculated
+	  /// </summary>
+	  public bool HasKerningInformation => false;
 
 		/// <summary>
 		/// Creates a new instace of FreeTypeFont
@@ -42,66 +41,25 @@ namespace QuickFont
 		/// <exception cref="ArgumentException"></exception>
 		public FreeTypeFont(string fontPath, float size, FontStyle style, int superSampleLevels = 1, float scale = 1.0f)
 		{
+		  _collection = new PrivateFontCollection();
+		  
 			// Check that the font exists
-			if (!File.Exists(fontPath)) throw new ArgumentException("The specified font path does not exist", nameof(fontPath));
-
-			StyleFlags fontStyle = StyleFlags.None;
-			switch (style)
-			{
-				case FontStyle.Bold:
-					fontStyle = StyleFlags.Bold;
-					break;
-				case FontStyle.Italic:
-					fontStyle = StyleFlags.Italic;
-					break;
-				case FontStyle.Regular:
-					fontStyle = StyleFlags.None;
-					break;
-				default:
-					Debug.WriteLine("Invalid style flag chosen for FreeTypeFont: " + style);
-					break;
-			}
-
-			LoadFontFace(fontPath, size, fontStyle, superSampleLevels, scale);
+			if (!File.Exists(fontPath)) 
+			  throw new ArgumentException("The specified font path does not exist", nameof(fontPath));
+		  
+			LoadFontFace(fontPath, size, style, superSampleLevels, scale);
 		}
 
-		private void LoadFontFace(string fontPath, float size, StyleFlags fontStyle, int superSampleLevels, float scale)
+		private void LoadFontFace(string fontPath, float size, FontStyle fontStyle, int superSampleLevels, float scale)
 		{
-			// Get total number of faces in a font file
-			var tempFace = _fontLibrary.NewFace(fontPath, -1);
-			int numberOfFaces = tempFace.FaceCount;
+		  _collection.AddFontFile(fontPath);
 
-			// Dispose of the temporary face
-			tempFace.Dispose();
-			tempFace = null;
-
-			// Loop through to find the style we want
-			for (int i = 0; i < numberOfFaces; i++)
-			{
-				tempFace = _fontLibrary.NewFace(fontPath, i);
-
-				// If we've found the style, exit loop
-				if (tempFace.StyleFlags == fontStyle)
-					break;
-
-				// Dispose temp face and keep searching
-				tempFace.Dispose();
-				tempFace = null;
-			}
-
-			// Use default font face if correct style not found
-			if (tempFace == null)
-			{
-				Debug.WriteLine("Could not find correct face style in font: " + fontStyle);
-				tempFace = _fontLibrary.NewFace(fontPath, 0);
-			}
-
-			// Set the face for this instance
-			_fontFace = tempFace;
-
-			// Set the size
-			Size = size * scale * superSampleLevels;
-			_fontFace.SetCharSize(0, Size, 0, DPI);
+		  if (!_collection.Families[0].IsStyleAvailable(fontStyle))
+		    throw new NotSupportedException("Could not find correct face style in font: " + fontStyle);
+		  
+		  Size = size * scale * superSampleLevels;
+		  
+		  _font = new Font(_collection.Families[0].Name, Size, fontStyle);
 		}
 
 		/// <summary>Returns a string that represents the current object.</summary>
@@ -109,7 +67,7 @@ namespace QuickFont
 		/// <filterpriority>2</filterpriority>
 		public override string ToString()
 		{
-			return _fontFace.FamilyName ?? "";
+			return _font.FontFamily.Name ?? "";
 		}
 
 		/// <summary>
@@ -133,22 +91,26 @@ namespace QuickFont
 
 			var fontColor = ((SolidBrush) color).Color;
 
-			// Load the glyph into the face's glyph slot
-			LoadGlyph(s[0]);
-
-			// Render the glyph
-			_fontFace.Glyph.RenderGlyph(RenderMode.Normal);
-
-			// If glyph rendered correctly, copy onto graphics
-			if (_fontFace.Glyph.Bitmap.Width > 0)
-			{
-				var bitmap = _fontFace.Glyph.Bitmap.ToGdipBitmap(fontColor);
-				int baseline = y + _maxHorizontalBearyingY;
-				graph.DrawImageUnscaled(bitmap, x, (baseline - _fontFace.Glyph.Metrics.HorizontalBearingY.Ceiling()));
-				return new Point(0, baseline - _fontFace.Glyph.Metrics.HorizontalBearingY.Ceiling() - 2*y);
-			}
-
-			return Point.Empty;
+		  graph.DrawString(s, _font, color, new Point(x, y));
+		  
+		  return Point.Empty;
+		  
+//			// Load the glyph into the face's glyph slot
+//			LoadGlyph(s[0]);
+//
+//			// Render the glyph
+//			_fontFace.Glyph.RenderGlyph(RenderMode.Normal);
+//
+//			// If glyph rendered correctly, copy onto graphics
+//			if (_fontFace.Glyph.Bitmap.Width > 0)
+//			{
+//				var bitmap = _fontFace.Glyph.Bitmap.ToGdipBitmap(fontColor);
+//				int baseline = y + _maxHorizontalBearyingY;
+//				graph.DrawImageUnscaled(bitmap, x, (baseline - _fontFace.Glyph.Metrics.HorizontalBearingY.Ceiling()));
+//				return new Point(0, baseline - _fontFace.Glyph.Metrics.HorizontalBearingY.Ceiling() - 2*y);
+//			}
+//
+//			return Point.Empty;
 		}
 
 		/// <summary>
@@ -157,18 +119,8 @@ namespace QuickFont
 		/// <param name="c1">The first character of the character pair</param>
 		/// <param name="c2">The second character of the character pair</param>
 		/// <returns>The horizontal kerning offset of the character pair</returns>
-		public int GetKerning(char c1, char c2)
-		{
-			var c1Index = _fontFace.GetCharIndex(c1);
-			var c2Index = _fontFace.GetCharIndex(c2);
-			var kerning = _fontFace.GetKerning(c1Index, c2Index, KerningMode.Default);
-			return kerning.X.Ceiling();
-		}
-
-		private void LoadGlyph(char c)
-		{
-			_fontFace.LoadGlyph(_fontFace.GetCharIndex(c), LoadFlags.Default, LoadTarget.Normal);
-		}
+		public int GetKerning(char c1, char c2) =>
+		  throw new NotSupportedException();
 
 		/// <summary>
 		/// Measures the given string and returns the size
@@ -182,19 +134,7 @@ namespace QuickFont
 			if (s.Length > 1)
 				throw new ArgumentOutOfRangeException(nameof(s), "Implementation currently only supports drawing individual characters");
 
-			// Load the glyph into the face's glyph slot
-			LoadGlyph(s[0]);
-
-			// Get the glyph metrics
-			var gMetrics = _fontFace.Glyph.Metrics;
-
-			// Update max horizontal y bearing if needed
-			var yBearing = (int)gMetrics.HorizontalBearingY;
-
-			if (yBearing > _maxHorizontalBearyingY)
-				_maxHorizontalBearyingY = yBearing;
-
-			return new SizeF((float)(gMetrics.Width), (float)(gMetrics.Height));
+		  return graph.MeasureString(s, _font);
 		}
 
 		private bool _disposedValue; // To detect redundant calls
@@ -209,16 +149,16 @@ namespace QuickFont
 			{
 				if (disposing)
 				{
-					if (_fontFace != null)
+					if (_font != null)
 					{
-						_fontFace.Dispose();
-						_fontFace = null;
+					  _font.Dispose();
+					  _font = null;
 					}
-				    if (_fontLibrary != null)
-				    {
-				        _fontLibrary.Dispose();
-				        _fontLibrary = null;
-				    }
+          if (_collection != null)
+          {
+            _collection.Dispose();
+            _collection = null;
+          }
 				}
 				_disposedValue = true;
 			}

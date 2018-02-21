@@ -35,6 +35,8 @@ namespace Oxy.Framework
       GL.Enable(EnableCap.Blend);
       GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
       GL.Enable(EnableCap.DepthTest);
+      GL.DepthMask(true);
+      GL.DepthFunc(DepthFunction.Lequal);
       
       _loadEvent?.Invoke();
     }
@@ -66,12 +68,8 @@ namespace Oxy.Framework
       
       #region Rendering
       
-      Graphics.ClearFontDrawing();
-      
       _drawEvent?.Invoke();
       
-      Graphics.RenderFontDrawing();
-
       #endregion
       
       Instance.SwapBuffers();
@@ -160,6 +158,15 @@ namespace Oxy.Framework
     public static void Exit()
     {
       Instance.Exit();
+    }
+    
+    /// <summary>
+    /// Calls 'handler' when window is initialized
+    /// </summary>
+    /// <param name="handler">Function to call</param>
+    public static void OnLoad(Action handler)
+    {
+      _loadEvent += handler;
     }
 
     /// <summary>
