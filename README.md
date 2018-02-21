@@ -22,9 +22,10 @@ In future you will be able to create games using high-level **Oxy.Engine** part 
 
 ## Prerequisites
 
-OxyEngine is a **.NET Core** project. To create .NET Core applications you need to install [.NET Core SDK](https://www.microsoft.com/net/download) on you system
+OxyEngine is a **.NET Core** project. To create .NET Core applications you need to install [.NET Core SDK](https://www.microsoft.com/net/download) on your system.
 
 Any Desktop operation system is supported (**Windows, MacOS X, Linux**).
+
 Your graphics card must support **OpenGL 3.2+**.
 
 ## Installing
