@@ -1,9 +1,6 @@
 ﻿using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
-using System.Net;
-using QuickFont;
-using QuickFont.Configuration;
 
 namespace Oxy.Framework
 {

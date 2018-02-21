@@ -1,6 +1,4 @@
 ﻿using System.Drawing;
-using OpenTK;
-using QuickFont;
 using Color = OpenTK.Color;
 
 namespace Oxy.Framework

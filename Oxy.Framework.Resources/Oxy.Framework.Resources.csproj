@@ -5,7 +5,6 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
-    <ProjectReference Include="..\QuickFont.NETCore\QuickFont.NETCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
