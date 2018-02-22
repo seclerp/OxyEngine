@@ -1,5 +1,6 @@
 ﻿using System.Drawing;
 using OpenTK;
+using OpenTK.Audio.OpenAL;
 using OpenTK.Graphics.OpenGL;
 using Color = OpenTK.Color;
 

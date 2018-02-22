@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
@@ -11,6 +12,14 @@ namespace Oxy.Framework
     private string _scriptsRootFolder;
     private string _libraryRootFolder;
 
+    private List<string> _scriptModules = new List<string>
+    {
+      "Oxy.Framework.Graphics",
+      "Oxy.Framework.Input",
+      "Oxy.Framework.Window",
+      "Oxy.Framework.Resources"
+    };
+    
     public Common()
     {
       _scriptEngine = Python.CreateEngine();
@@ -22,14 +31,38 @@ namespace Oxy.Framework
       scope.ImportModule("clr");
 
       _scriptEngine.Execute("import clr", scope);
-      _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Graphics\")", scope);
-      _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Input\")", scope);
-      _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Window\")", scope);
-      _scriptEngine.Execute("clr.AddReference(\"Oxy.Framework.Resources\")", scope);
+      
+      foreach (var module in _scriptModules)
+        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
 
       return scope;
     }
 
+    /// <summary>
+    /// Add .NET assembly reference to the list of imported libs for executing scripts
+    /// </summary>
+    /// <param name="reference">Reference name or full name</param>
+    public static void AddDefaultNetModule(string reference)
+    {
+      if (!Instance._scriptModules.Contains(reference))
+        Instance._scriptModules.Add(reference);
+    }
+    
+    /// <summary>
+    /// Remove .NET assembly reference from the list of imported libs for executing scripts
+    /// </summary>
+    /// <param name="reference">Reference name or full name</param>
+    public static void RemoveDefaultNetModule(string reference)
+    {
+      if (Instance._scriptModules.Contains(reference))
+        Instance._scriptModules.Remove(reference);
+    }
+    
+    /// <summary>
+    /// Set scripts root folder
+    /// </summary>
+    /// <param name="path">Path to the scripts root folder</param>
+    /// <exception cref="DirectoryNotFoundException">If library directory not exists</exception>
     public static void SetScriptsRoot(string path)
     {
       if (!Directory.Exists(path))
@@ -37,12 +70,12 @@ namespace Oxy.Framework
 
       Instance._scriptsRootFolder = path;
     }
-    
-    public static string GetScriptsRoot()
-    {
-      return Instance._scriptsRootFolder;
-    }
 
+    /// <summary>
+    /// Set library root folder
+    /// </summary>
+    /// <param name="path">Path to the library root folder</param>
+    /// <exception cref="DirectoryNotFoundException">If library directory not exists</exception>
     public static void SetLibraryRoot(string path)
     {
       if (!Directory.Exists(path))
@@ -51,22 +84,32 @@ namespace Oxy.Framework
       Instance._libraryRootFolder = path;
     }
     
+    /// <summary>
+    /// Returns scripts root folder
+    /// </summary>
+    /// <returns>Scripts root folder</returns>
+    public static string GetScriptsRoot()
+    {
+      return Instance._scriptsRootFolder;
+    }
+    
+    /// <summary>
+    /// Returns library root path
+    /// </summary>
+    /// <returns>Library root path</returns>
     public static string GetLibraryRoot()
     {
       return Instance._libraryRootFolder;
     }
     
+    /// <summary>
+    /// Executes Python scripts with importing .NET modules
+    /// </summary>
+    /// <param name="path">Path to the script in scripts folder</param>
     public static void ExecuteScript(string path)
     {
-      //try 
-      //{
-        ScriptScope scope = Instance.CreateConfiguredScope();
-        Instance._scriptEngine.ExecuteFile(Path.Combine(Instance._scriptsRootFolder, path), scope);
-     // }
-     // catch(Exception e)
-      //{
-      //  Console.WriteLine($"Python error ({path}): {e.Message}");
-      //}
+      ScriptScope scope = Instance.CreateConfiguredScope();
+      Instance._scriptEngine.ExecuteFile(Path.Combine(Instance._scriptsRootFolder, path), scope);
     }
   }
 }
