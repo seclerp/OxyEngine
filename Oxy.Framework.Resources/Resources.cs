@@ -1,6 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using Oxy.Framework.Objects;
 
 namespace Oxy.Framework
 {

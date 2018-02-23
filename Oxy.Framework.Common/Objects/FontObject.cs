@@ -2,7 +2,7 @@
 using System.Drawing;
 using Oxy.Framework.Events;
 
-namespace Oxy.Framework
+namespace Oxy.Framework.Objects
 {
   /// <summary>
   /// Represents font with given name and size

@@ -2,7 +2,7 @@
 using System.Drawing;
 using OpenTK.Graphics.OpenGL;
 
-namespace Oxy.Framework
+namespace Oxy.Framework.Objects
 {
   /// <summary>
   /// Object for drawing text on screen

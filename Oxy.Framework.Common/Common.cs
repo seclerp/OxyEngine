@@ -12,6 +12,12 @@ namespace Oxy.Framework
     private string _scriptsRootFolder;
     private string _libraryRootFolder;
 
+    // Those modules cannot be switched off and need to be for correct work of other modules
+    private List<string> _mustHaveScriptModules = new List<string>
+    {
+      "Oxy.Framework.Common",
+    };
+    
     private List<string> _scriptModules = new List<string>
     {
       "Oxy.Framework.Graphics",
@@ -31,6 +37,9 @@ namespace Oxy.Framework
       scope.ImportModule("clr");
 
       _scriptEngine.Execute("import clr", scope);
+      
+      foreach (var module in _mustHaveScriptModules)
+        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
       
       foreach (var module in _scriptModules)
         _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);

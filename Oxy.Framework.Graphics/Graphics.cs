@@ -2,6 +2,7 @@
 using OpenTK;
 using OpenTK.Audio.OpenAL;
 using OpenTK.Graphics.OpenGL;
+using Oxy.Framework.Objects;
 using Color = OpenTK.Color;
 
 namespace Oxy.Framework

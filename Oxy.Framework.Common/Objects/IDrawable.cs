@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Oxy.Framework
+﻿namespace Oxy.Framework.Objects
 {
   /// <summary>
   /// Interface for any object that can be drawn on screen
