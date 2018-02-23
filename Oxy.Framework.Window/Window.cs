@@ -1,6 +1,6 @@
 ﻿using System;
 using OpenTK;
-using OpenTK.Graphics;
+using OpenTK.Audio;
 using OpenTK.Graphics.OpenGL;
 
 namespace Oxy.Framework
@@ -8,11 +8,13 @@ namespace Oxy.Framework
   /// <summary>
   /// Class that represents OxyEngine game window
   /// </summary>
-  public class Window : Module<GameWindow>
+  public class Window : Module<GameWindow>, IDisposable
   {
     private static Action _loadEvent;
     private static Action<float> _updateEvent;
     private static Action _drawEvent;
+
+    private static AudioContext _context;
     
     static Window()
     {
@@ -149,6 +151,9 @@ namespace Oxy.Framework
       Instance.RenderFrame += Draw;
       Instance.Resize += Resize;
 
+      _context = new AudioContext();
+      _context.MakeCurrent();
+      
       Instance.Run(maxFps);
     }
 
@@ -185,6 +190,11 @@ namespace Oxy.Framework
     public static void OnDraw(Action handler)
     {
       _drawEvent += handler;
+    }
+
+    public void Dispose()
+    {
+      _context.Dispose();
     }
   }
 }
