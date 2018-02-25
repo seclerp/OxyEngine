@@ -18,7 +18,9 @@
 
 --------
 
-**Before troubleshooting using instruction below, please make sure you tried to install libraries from [this list](CROSSLIBS.md).
+**Before troubleshooting using instruction below, please make sure you tried to install libraries from [this list](CROSSLIBS.md)**.
+
+--------
 
 ## Windows
 
