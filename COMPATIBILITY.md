@@ -11,7 +11,7 @@
 
  **`*`** only for **[supported Linux distributions](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md)**.
  
-* :white_check_mark: - works
+* :white_check_mark: - working
 * :white_circle: - not tested yet
 * :warning: - works but may require install or configure something
 * :x: - not working
