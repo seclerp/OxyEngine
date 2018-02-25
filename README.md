@@ -24,9 +24,15 @@ In future you will be able to create games using high-level **Oxy.Engine** part 
 
 OxyEngine is a **.NET Core** project. To create .NET Core applications you need to install [.NET Core SDK](https://www.microsoft.com/net/download) on your system.
 
-Any Desktop operation system is supported (**Windows, MacOS X, Linux**).
+For now, only Desktop operation systems are supported (**Windows, MacOS X, *Linux***).
+
+:exclamation:**Note:** Not all Linux distributions are supported by .NET Core. Check [list of supported OS](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md) for details.
 
 Your graphics card must support **OpenGL 3.2+**.
+
+## Compatibility
+
+Because of platform-specific reasons, some modules may have trouble working on your operation system setup. Please read [compatibility notes](COMPATIBILITY.md) for details.
 
 ## Installing
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
