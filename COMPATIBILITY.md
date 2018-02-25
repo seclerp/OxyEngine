@@ -1,12 +1,12 @@
-### Modules compatibility table (for latest state of `develop` branch)
+## Compatibility notes (for latest state of `develop` branch)
 
 |   Module  |       Windows      |       Mac OS X     |        Linux*      |
-|-----------|:------------------:|:------------------:|:------------------:|
-| Window    | :white_check_mark: | :white_check_mark: |      :warning:     |
-| Graphics  | :white_check_mark: | :white_check_mark: |      :warning:     |
-| Resources | :white_check_mark: | :white_check_mark: | :white_check_mark: |
-| Input     |   :white_circle:   |   :white_circle:   | :white_check_mark: |
-| Audio     |      :warning:     | :white_check_mark: |      :warning:     |
+|-----------|:-------------------------------------:|:------------------:|:--------------------------------------:|
+| Window    | :white_check_mark:                    | :white_check_mark: | [:warning:](/COMPATIBILITY.md#window--graphics) |
+| Graphics  | :white_check_mark:                    | :white_check_mark: | [:warning:](/COMPATIBILITY.md#window--graphics) |
+| Resources | :white_check_mark:                    | :white_check_mark: | :white_check_mark:                     |
+| Input     |   :white_circle:                      |   :white_circle:   | :white_check_mark:                     |
+| Audio     | [:warning:](/COMPATIBILITY.md#audio)  | :white_check_mark: | [:warning:](/COMPATIBILITY.md#audio-1) |
 
 
  **`*`** only for **[supported Linux distributions](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md)**.
