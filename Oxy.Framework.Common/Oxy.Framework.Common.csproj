@@ -11,4 +11,7 @@
     <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
     <PackageReference Include="System.Drawing.Common" Version="4.5.0-preview1-25914-04" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OpenAL.NETCore\OpenAL.NETCore.csproj" />
+  </ItemGroup>
 </Project>

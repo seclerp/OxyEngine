@@ -1,5 +1,5 @@
 ﻿using System;
-using OpenTK.Audio.OpenAL;
+using OpenAL.NETCore.AL;
 
 namespace Oxy.Framework.Objects
 {

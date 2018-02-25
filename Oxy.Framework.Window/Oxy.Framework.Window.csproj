@@ -4,6 +4,7 @@
     <RootNamespace>Oxy.Framework</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OpenAL.NETCore\OpenAL.NETCore.csproj" />
     <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
     <ProjectReference Include="..\Oxy.Framework.Graphics\Oxy.Framework.Graphics.csproj" />
   </ItemGroup>

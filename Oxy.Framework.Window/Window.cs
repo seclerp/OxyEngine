@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Audio;
+using OpenTK.Audio.OpenAL;
 using OpenTK.Graphics.OpenGL;
 
 namespace Oxy.Framework
@@ -155,6 +156,7 @@ namespace Oxy.Framework
       _context.MakeCurrent();
       
       Instance.Run(maxFps);
+      Instance.Exit();
     }
 
     /// <summary>
@@ -163,6 +165,7 @@ namespace Oxy.Framework
     public static void Exit()
     {
       Instance.Exit();
+      Instance.Dispose();
     }
     
     /// <summary>
