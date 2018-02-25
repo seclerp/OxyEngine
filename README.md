@@ -26,13 +26,15 @@ OxyEngine is a **.NET Core** project. To create .NET Core applications you need 
 
 For now, only Desktop operation systems are supported (**Windows, MacOS X, *Linux***).
 
-:exclamation:**Note:** Not all Linux distributions are supported by .NET Core. Check [list of supported OS](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md) for details.
+:exclamation:**Note:** Not all Linux distributions are supported by .NET Core. Check **[list of supported OS](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md)** for details.
 
 Your graphics card must support **OpenGL 3.2+**.
 
 ## Compatibility
 
-Because of platform-specific reasons, some modules may have trouble working on your operation system setup. Please read [compatibility notes](COMPATIBILITY.md) for details.
+Because of platform-specific reasons, some modules may have trouble working on your operation system setup. Please read **[compatibility notes](COMPATIBILITY.md)** for details.
+
+There are also **list of libraries, that must be installed on your machine**. If you have troubles in running applications that use OxyEngine, please check **[this list](CROSSLIBS.md)**.
 
 ## Installing
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
