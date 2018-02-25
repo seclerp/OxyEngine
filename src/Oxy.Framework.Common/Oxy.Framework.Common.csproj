@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Oxy.Framework</RootNamespace>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>../../artifacts/Debug/Oxy.Framework.Common/</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>../../artifacts/Release/Oxy.Framework.Common/netstandard2.0/</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="DynamicLanguageRuntime" Version="1.2.1" />
+    <PackageReference Include="IronPython" Version="2.7.8" />
+    <PackageReference Include="IronPython.StdLib" Version="2.7.8.1" />
+    <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0-preview1-25914-04" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Oxy.Framework.Audio\Oxy.Framework.Audio.csproj" />
+  </ItemGroup>
+</Project>

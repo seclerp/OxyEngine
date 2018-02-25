@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DefineConstants>TRACE;DEBUG;NETCOREAPP2_0;NETCORE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Oxy.Framework.Input\Oxy.Framework.Input.csproj" />
+    <ProjectReference Include="..\..\src\Oxy.Framework.Graphics\Oxy.Framework.Graphics.csproj" />
+    <ProjectReference Include="..\..\src\Oxy.Framework.Resources\Oxy.Framework.Resources.csproj" />
+    <ProjectReference Include="..\..\src\Oxy.Framework.Window\Oxy.Framework.Window.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="library" />
+  </ItemGroup>
+</Project>
