@@ -18,9 +18,9 @@
 
 --------
 
-### Windows
+## Windows
 
-#### Audio
+### Audio
 
 Audio module requires `openal32.dll` to be installed in your system. 
 
@@ -28,21 +28,21 @@ If not, please **[download installer](https://www.openal.org/downloads/)**.
 
 Future releases of Oxy.Framework will contain own `openal32.dll` with framework's executable.
 
-#### Other
+### Other
 
 Other modules may work correctly out-of-the-box.
 
 --------
 
-### Mac OS X
+## Mac OS X
 
 All modules may work correctly out-of-the-box.
 
 --------
 
-### Linux
+## Linux
 
-#### Window & Graphics
+### Window & Graphics
 
 Window and Graphics requires some `OpenGL` libraries installed in your system.
 
@@ -56,7 +56,7 @@ But sometimes some headers are not installed and Oxy.Frameworks crushes.
 
 **Global fix**: Try to totally reinstall OpenGL component or to add some dev packages for OpenGL implementation, according to your setup.
 
-#### Audio
+### Audio
 
 Audio requires `OpenAL` libraries installed in your system.
 
@@ -66,6 +66,6 @@ Audio requires `OpenAL` libraries installed in your system.
 
 **Global fix**: You should install package `libopenal1` (or alternative package for your system) and most of the problems are go away.
 
-#### Other
+### Other
 
 Other modules may work correctly out-of-the-box.
