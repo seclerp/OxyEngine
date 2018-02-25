@@ -1,25 +1,46 @@
-<configuration>
-    <dllmap os="linux" dll="opengl32.dll" target="libGL.so.1"/>
-    <dllmap os="linux" dll="glu32.dll" target="libGLU.so.1"/>
-    <dllmap os="linux" dll="openal32.dll" target="libopenal.so.1"/>
-    <dllmap os="linux" dll="alut.dll" target="libalut.so.0"/>
-    <dllmap os="linux" dll="opencl.dll" target="libOpenCL.so"/>
-    <dllmap os="linux" dll="libX11" target="libX11.so.6"/>
-    <dllmap os="linux" dll="libXi" target="libXi.so.6"/>
-    <dllmap os="linux" dll="SDL2.dll" target="libSDL2-2.0.so.0"/>
-    <dllmap os="osx" dll="opengl32.dll" target="/System/Library/Frameworks/OpenGL.framework/OpenGL"/>
-    <dllmap os="osx" dll="openal32.dll" target="/System/Library/Frameworks/OpenAL.framework/OpenAL" />
-    <dllmap os="osx" dll="alut.dll" target="/System/Library/Frameworks/OpenAL.framework/OpenAL" />
-    <dllmap os="osx" dll="libGLES.dll" target="/System/Library/Frameworks/OpenGLES.framework/OpenGLES" />
-    <dllmap os="osx" dll="libGLESv1_CM.dll" target="/System/Library/Frameworks/OpenGLES.framework/OpenGLES" />
-    <dllmap os="osx" dll="libGLESv2.dll" target="/System/Library/Frameworks/OpenGLES.framework/OpenGLES" />
-    <dllmap os="osx" dll="opencl.dll" target="/System/Library/Frameworks/OpenCL.framework/OpenCL"/>
-    <dllmap os="osx" dll="SDL2.dll" target="libSDL2.dylib"/>
-    <!-- XQuartz compatibility (X11 on Mac) -->
-    <dllmap os="osx" dll="libGL.so.1" target="/usr/X11/lib/libGL.dylib"/>
-    <dllmap os="osx" dll="libX11" target="/usr/X11/lib/libX11.dylib"/>
-    <dllmap os="osx" dll="libXcursor.so.1" target="/usr/X11/lib/libXcursor.dylib"/>
-    <dllmap os="osx" dll="libXi" target="/usr/X11/lib/libXi.dylib"/>
-    <dllmap os="osx" dll="libXinerama" target="/usr/X11/lib/libXinerama.dylib"/>
-    <dllmap os="osx" dll="libXrandr.so.2" target="/usr/X11/lib/libXrandr.dylib"/>
-</configuration>
+## Cross Libraries
+
+This file will help you install some libraries for OxyEngine, if your setup is not working.
+
+### Windows:
+
+
+* `opengl32.dll`
+* `openal32.dll`    
+* `alut.dll`
+* `libGLES.dll`
+* `libGLESv1_CM.dll`
+* `opencl.dll`
+* `libGLESv2.dll`
+* `SDL2.dll`
+
+### Mac OS X:
+
+* `/System/Library/Frameworks/OpenGL.framework/OpenGL`
+* `/System/Library/Frameworks/OpenAL.framework/OpenAL`
+* `/System/Library/Frameworks/OpenGLES.framework/OpenGLES`
+* `/System/Library/Frameworks/OpenCL.framework/OpenCL`
+* `libSDL2.dylib`
+
+#### For XQuartz compatibility:
+
+* `/usr/X11/lib/libGL.dyli`
+* `/usr/X11/lib/libX11.dylib`
+* `/usr/X11/lib/libXcursor.dylib`
+* `/usr/X11/lib/libXi.dylib`
+* `/usr/X11/lib/libXinerama.dylib`
+* `/usr/X11/lib/libXrandr.dylib`
+
+### Linux:
+
+* `libGL.so.1`
+* `libGLU.so.1`
+* `libopenal.so.1`
+* `libalut.so.0`
+* `libOpenCL.so`
+* `libOpenCL.so`
+* `libX11.so.6`
+* `libXi.so.6`
+* `libSDL2-2.0.so.0`
+* `libXcursor.so.1`
+* `libXrandr.so.2`
