@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.Resources", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.Audio", "Oxy.Framework.Audio\Oxy.Framework.Audio.csproj", "{A05C3425-D081-426F-8267-697C70873BC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenAL.NETCore", "OpenAL.NETCore\OpenAL.NETCore.csproj", "{B29A6146-F4D7-41C3-9402-C874419B84D0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,17 +114,5 @@ Global
 		{A05C3425-D081-426F-8267-697C70873BC9}.Release|x64.Build.0 = Release|Any CPU
 		{A05C3425-D081-426F-8267-697C70873BC9}.Release|x86.ActiveCfg = Release|Any CPU
 		{A05C3425-D081-426F-8267-697C70873BC9}.Release|x86.Build.0 = Release|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Debug|x64.Build.0 = Debug|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Debug|x86.Build.0 = Debug|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Release|x64.ActiveCfg = Release|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Release|x64.Build.0 = Release|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Release|x86.ActiveCfg = Release|Any CPU
-		{B29A6146-F4D7-41C3-9402-C874419B84D0}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

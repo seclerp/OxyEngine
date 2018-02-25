@@ -37,12 +37,12 @@ namespace Oxy.Framework.Objects
       throw new NotSupportedException();
     }
     
-    public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat format) : base(data, channels, bits, rate, format)
+    public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data, channels, bits, rate, audioFormat)
     {
       _bufferId = AL.GenBuffer();
       _sourceId = AL.GenSource();
       
-      AL.BufferData(_bufferId, GetALSoundFormat(Channels, Bits), _data, _data.Length, Rate);
+      AL.BufferData(_bufferId, GetALSoundFormat(_channels, _bits), _data, _data.Length, _rate);
       AL.Source(_sourceId, ALSourcei.Buffer, _bufferId);
     }
 

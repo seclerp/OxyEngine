@@ -1,5 +1,9 @@
 ﻿namespace Oxy.Framework
 {
+  /// <summary>
+  /// Base class for every non-lazy module
+  /// </summary>
+  /// <typeparam name="T">Singletone instance type (must have parameterless public constructor</typeparam>
   public class Module<T> where T : new()
   {
     private static T _instance;
