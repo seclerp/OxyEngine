@@ -4,7 +4,7 @@
 |-----------|:------------------:|:------------------:|:------------------:|
 | Window    | :white_check_mark: | :white_check_mark: |      :warning:     |
 | Graphics  | :white_check_mark: | :white_check_mark: |      :warning:     |
-| Resources |   :white_circle:   |   :white_circle:   | :white_check_mark: |
+| Resources | :white_check_mark: | :white_check_mark: | :white_check_mark: |
 | Input     |   :white_circle:   |   :white_circle:   | :white_check_mark: |
 | Audio     |      :warning:     | :white_check_mark: |      :warning:     |
 
