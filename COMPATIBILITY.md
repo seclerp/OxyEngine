@@ -14,6 +14,6 @@
  
  :white_circle: - not tested yet
  
- :warning: - works but may need to install/configure something
+ :warning: - works but may require install or configure something
  
  :x: - not working
