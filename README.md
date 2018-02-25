@@ -30,6 +30,10 @@ For now, only Desktop operation systems are supported (**Windows, MacOS X, *Linu
 
 Your graphics card must support **OpenGL 3.2+**.
 
+## Compatibility
+
+Because of platform-specific reasons, some modules may have trouble working on your operation system setup. Please read [compatibility notes](COMPATIBILITY.md) for details.
+
 ## Installing
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
 
