@@ -13,6 +13,24 @@ namespace Oxy.Framework.TestPlayer
       // Set library root folder. All asset paths will be relative to this folder
       Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
 
+      
+      AudioExample();
+    }
+
+    static void AudioExample()
+    {
+      Window.OnLoad(() =>
+      {
+        var audioObj = Resources.LoadAudio("example.wav");
+        audioObj.SetLoop(true);
+        audioObj.Play();
+      });
+      
+      Window.Show();
+    }
+    
+    static void PrintingExample()
+    {
       // Text object for "Hello, World!" text
       TextObject textObj = null;
       
