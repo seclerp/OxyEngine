@@ -1,7 +1,6 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Audio;
-using OpenTK.Audio.OpenAL;
 using OpenTK.Graphics.OpenGL;
 
 namespace Oxy.Framework
@@ -30,9 +29,7 @@ namespace Oxy.Framework
 
     private static void Load(object sender, EventArgs e)
     {
-      (byte, byte, byte, byte) bgColor = Graphics.GetBackgroundColor();
-      
-      GL.ClearColor(Color.FromArgb(bgColor.Item4, bgColor.Item1, bgColor.Item2, bgColor.Item3));
+
             
       GL.Enable(EnableCap.Texture2D);
       GL.Enable(EnableCap.Blend);
@@ -60,6 +57,9 @@ namespace Oxy.Framework
 
     private static void Draw(object sender, FrameEventArgs e)
     {
+      (byte, byte, byte, byte) bgColor = Graphics.GetBackgroundColor();
+      GL.ClearColor(Color.FromArgb(bgColor.Item4, bgColor.Item1, bgColor.Item2, bgColor.Item3));
+      
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
             
       #region Camera setup

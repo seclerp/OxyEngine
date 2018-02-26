@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using OpenTK;
 using OpenTK.Input;
 
 namespace Oxy.Framework

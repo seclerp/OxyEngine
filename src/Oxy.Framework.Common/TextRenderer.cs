@@ -13,7 +13,7 @@ namespace Oxy.Framework
   public class TextRenderer : IDisposable
   {
     private Bitmap _bitMap;
-    private System.Drawing.Graphics _graphics;
+    private Graphics _graphics;
     private int _texture;
     private Rectangle _dirtyRegion;
     private bool _disposed;
@@ -35,7 +35,7 @@ namespace Oxy.Framework
         throw new InvalidOperationException("No GraphicsContext is current on the calling thread.");
 
       _bitMap = new Bitmap(width, height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-      _graphics = System.Drawing.Graphics.FromImage(_bitMap);
+      _graphics = Graphics.FromImage(_bitMap);
       _graphics.SmoothingMode = SmoothingMode.HighQuality;
       _graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAliasGridFit;
 

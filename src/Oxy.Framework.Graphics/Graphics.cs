@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using OpenTK;
-using OpenTK.Audio.OpenAL;
+﻿using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Oxy.Framework.Objects;
 using Color = OpenTK.Color;
@@ -24,11 +22,13 @@ namespace Oxy.Framework
     
     private Color _foregroundColor;
     private Color _backgroundColor;
+    private float _lineThickness;
 
     public Graphics()
     {
       _backgroundColor = Color.FromArgb(DefaultBgColorA, DefaultBgColorR, DefaultBgColorG, DefaultBgColorB);
       _foregroundColor = Color.FromArgb(DefaultColorA, DefaultColorR, DefaultColorG, DefaultColorB);
+      _lineThickness = 1;
     }
     
     #region Set
@@ -41,8 +41,12 @@ namespace Oxy.Framework
     /// <param name="g">Green color component</param>
     /// <param name="b">Blue color component</param>
     /// <param name="a">Alpha color component</param>
-    public static void SetColor(byte r = DefaultColorR, byte g = DefaultColorG, byte b = DefaultColorB, byte a = DefaultColorA) =>
+    public static void SetColor(byte r = DefaultColorR, byte g = DefaultColorG, byte b = DefaultColorB,
+      byte a = DefaultColorA)
+    {
       Instance.Value._foregroundColor = Color.FromArgb(a, r, g, b);
+      GL.Color3(Instance.Value._foregroundColor);
+    }
     
     /// <summary>
     /// Set background color
@@ -54,6 +58,16 @@ namespace Oxy.Framework
     /// <param name="a">Alpha color component</param>
     public static void SetBackgroundColor(byte r = DefaultBgColorR, byte g = DefaultBgColorG, byte b = DefaultBgColorB, byte a = DefaultBgColorA) =>
       Instance.Value._backgroundColor = Color.FromArgb(a, r, g, b);
+
+    /// <summary>
+    /// Set line thickness for drawing primitives
+    /// </summary>
+    /// <param name="thickness">Thickness (>= 1)</param>
+    public static void SetLineThickness(float thickness)
+    {
+      Instance.Value._lineThickness = thickness;
+      GL.LineWidth(thickness);
+    }
     
     #endregion
     
@@ -83,6 +97,13 @@ namespace Oxy.Framework
         Instance.Value._backgroundColor.A
       );
     
+    /// <summary>
+    /// Returns primitive's line thickness
+    /// </summary>
+    /// <returns></returns>
+    public static float GetLineThickness() =>
+      Instance.Value._lineThickness;
+    
     #endregion
 
     #region Drawing
@@ -98,6 +119,87 @@ namespace Oxy.Framework
     /// <param name="sy">Y scale factor</param>
     public static void Draw(IDrawable drawable, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1) =>
       drawable.Draw(x, y, r, sx, sy);
+    
+    /// <summary>
+    /// Draw rectangle
+    /// </summary>
+    /// <param name="style">"fill" for filled rectangle, "line" for outilne rectangle</param>
+    /// <param name="x">X coordinate</param>
+    /// <param name="y">Y coordinate</param>
+    /// <param name="width">Width of rectangle</param>
+    /// <param name="height">Height of rectangle</param>
+    public static void DrawRectangle(string style, float x, float y, float width, float height)
+    {
+      if (style == "line")
+      {
+        float th = Instance.Value._lineThickness / 2;
+        
+        GL.Begin(PrimitiveType.Lines);
+
+        GL.Vertex3(x + width, y - th, 0.1);
+        GL.Vertex3(x + width, y + height + th, 0);
+
+        GL.Vertex3(x - th, y, 0.1);
+        GL.Vertex3(x + width + th, y, 0.1);
+
+        GL.Vertex3(x, y - th, 0.1);
+        GL.Vertex3(x, y + height + th, 0);
+        
+        GL.Vertex3(x - th, y + height, 0);
+        GL.Vertex3(x + width + th, y + height, 0);
+
+        GL.End();
+      }
+      else if (style == "fill")
+      {
+        GL.Begin(PrimitiveType.Quads);
+
+        GL.Vertex3(x + width, y + height, 0);
+        GL.Vertex3(x + width, y, 0.1);
+        GL.Vertex3(x, y, 0.1);
+        GL.Vertex3(x, y + height, 0);
+
+        GL.End();
+      }
+    }
+
+    /// <summary>
+    /// Draw line
+    /// </summary>
+    /// <param name="x1">X coordinate of first point</param>
+    /// <param name="y1">Y coordinate of first point</param>
+    /// <param name="x2">X coordinate of second point</param>
+    /// <param name="y2">Y coordinate of second point</param>
+    public static void DrawLine(float x1, float y1, float x2, float y2)
+    {
+      GL.Begin(PrimitiveType.Lines);
+      
+      GL.Vertex3(x1, y1, 0);
+      GL.Vertex3(x2, y2, 0);
+      
+      GL.End();
+    }    
+    
+    /// <summary>
+    /// Draw point
+    /// </summary>
+    /// <param name="x">X coordinate</param>
+    /// <param name="y">Y coordinate</param>
+    public static void DrawPoint(float x, float y)
+    {
+      float th = Instance.Value._lineThickness / 2;
+      
+      GL.Begin(PrimitiveType.Quads);
+
+      GL.Vertex3(x + th, y + th, 0);
+      GL.Vertex3(x + th, y - th, 0.1);
+      GL.Vertex3(x - th, y - th, 0.1);
+      GL.Vertex3(x - th, y + th, 0);
+
+      GL.End();
+    }
+    
+    //public static void DrawDot
     
     #endregion 
     

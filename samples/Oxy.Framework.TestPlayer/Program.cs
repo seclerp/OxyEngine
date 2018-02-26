@@ -14,9 +14,48 @@ namespace Oxy.Framework.TestPlayer
       Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
 
       
-      AudioExample();
+      PrimitivesExample();
     }
 
+    static void PrimitivesExample()
+    {
+      Window.OnLoad(() =>
+      {
+        Graphics.SetBackgroundColor(100, 100, 100);
+        Graphics.SetColor(0, 255, 0);
+      });
+      
+      Window.OnDraw(() =>
+      {
+        Graphics.SetColor(0, 255, 0);
+        Graphics.SetLineThickness(5);
+        Graphics.DrawRectangle("line", 50, 25, 100, 75);
+        Graphics.DrawRectangle("fill", 175, 25, 100, 75);
+        
+        Graphics.SetColor(255, 255, 0);
+        Graphics.SetLineThickness(4);
+        Graphics.DrawLine(50, 125, 50, 200);
+        Graphics.SetLineThickness(3);
+        Graphics.DrawLine(75, 125, 75, 200);
+        Graphics.SetLineThickness(2);
+        Graphics.DrawLine(100, 125, 100, 200);
+        Graphics.SetLineThickness(1);
+        Graphics.DrawLine(125, 125, 125, 200);
+        
+        Graphics.SetColor(255, 255, 0);
+        Graphics.SetLineThickness(4);
+        Graphics.DrawPoint(50, 225);
+        Graphics.SetLineThickness(3);
+        Graphics.DrawPoint(75, 225);
+        Graphics.SetLineThickness(2);
+        Graphics.DrawPoint(100, 225);
+        Graphics.SetLineThickness(1);
+        Graphics.DrawPoint(125, 225);
+      });
+      
+      Window.Show();
+    }
+    
     static void AudioExample()
     {
       Window.OnLoad(() =>

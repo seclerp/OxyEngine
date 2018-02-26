@@ -15,4 +15,7 @@
   <ItemGroup>
     <Folder Include="library" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ILLink.Tasks" Version="0.1.4-preview-981901" />
+  </ItemGroup>
 </Project>
