@@ -42,7 +42,7 @@ There are also **list of libraries, that must be installed on your machine**. If
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
 
 ### From NuGet
-For now, we will not provide any NuGet packages, because we do not have any releases yet.
+For now, we are not providing any NuGet packages, because we do not have any releases yet.
 
 ### From project sources
 To install stable version of OxyEngine into your .NET Core App:
