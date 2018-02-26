@@ -1,9 +1,11 @@
 ![OxyEngine](https://i.imgur.com/BjjCdjB.png)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n)
-
 
 **OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
+
+| `develop` | `master` |
+|---------|--------|
+| [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master) |
 
 ---
 
