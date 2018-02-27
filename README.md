@@ -1,9 +1,11 @@
 ![OxyEngine](https://i.imgur.com/BjjCdjB.png)
 
-[![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n)
-
 
 **OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
+
+| `develop` | `master` |
+|---------|--------|
+| [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master) |
 
 ---
 
@@ -40,7 +42,7 @@ There are also **list of libraries, that must be installed on your machine**. If
 This section will show you how to install OxyEngine into your .NET Core 2.0 App.
 
 ### From NuGet
-For now, we will not provide any NuGet packages, because we do not have any releases yet.
+For now, we are not providing any NuGet packages, because we do not have any releases yet.
 
 ### From project sources
 To install stable version of OxyEngine into your .NET Core App:
