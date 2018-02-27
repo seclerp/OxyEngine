@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using System;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Oxy.Framework.Objects;
 using Color = OpenTK.Color;
@@ -10,6 +11,9 @@ namespace Oxy.Framework
   /// </summary>
   public class Graphics : LazyModule<Graphics>
   {
+    private const float Deg2Rad = 3.14159f/180f;
+    private const float CircleSegmentK = 2f;
+    
     private const byte DefaultColorR = 255;
     private const byte DefaultColorG = 255;
     private const byte DefaultColorB = 255;
@@ -63,8 +67,13 @@ namespace Oxy.Framework
     /// Set line thickness for drawing primitives
     /// </summary>
     /// <param name="thickness">Thickness (>= 1)</param>
+    /// <exception cref="ArgumentOutOfRangeException">Fires when thickness is lower than 1</exception>
     public static void SetLineThickness(float thickness)
     {
+      if (thickness < 1)
+      {
+        throw new ArgumentOutOfRangeException("Thickness must be greater or equals 1");
+      }
       Instance.Value._lineThickness = thickness;
       GL.LineWidth(thickness);
     }
@@ -161,8 +170,104 @@ namespace Oxy.Framework
 
         GL.End();
       }
+      else
+      {
+        throw new Exception($"Incorrect style for drawing: {style}");
+      }
     }
 
+    /// <summary>
+    /// Draw circle
+    /// </summary>
+    /// <param name="style">"fill" for filled rectangle, "line" for outilne rectangle</param>
+    /// <param name="x">X coordinate of center</param>
+    /// <param name="y">Y coordinate of center</param>
+    /// <param name="radius">Radius of circle</param>
+    public static void DrawCircle(string style, float x, float y, float radius)
+    {
+      if (style == "line")
+      {
+        GL.Begin(PrimitiveType.Lines);
+
+        float segments = (int)Math.Ceiling(radius / 3) * 3;
+        
+        for (float i = 1; i <= 360; i+= 360 / segments)
+        {
+          var rad = i * Deg2Rad;
+          var radPrev = (i - 360 / segments) * Deg2Rad;
+          
+          GL.Vertex3((int)(x + Math.Cos(radPrev) * radius), (int)(y + Math.Sin(radPrev) * radius), 0);
+          GL.Vertex3((int)(x + Math.Cos(rad) * radius), (int)(y + Math.Sin(rad) * radius), 0);
+        }
+  
+        GL.End();
+      } 
+      else if (style == "fill")
+      {
+        GL.Begin(PrimitiveType.Triangles);
+  
+        float segments = (int)Math.Ceiling(radius / 3) * 3;
+        
+        for (float i = 1; i <= 360; i+= 360 / segments)
+        {
+          var rad = i * Deg2Rad;
+          var radPrev = (i - 360 / segments) * Deg2Rad;
+          
+          GL.Vertex3(x, y, 0);
+          GL.Vertex3((int)(x + Math.Cos(radPrev) * radius), (int)(y + Math.Sin(radPrev) * radius), 0);
+          GL.Vertex3((int)(x + Math.Cos(rad) * radius), (int)(y + Math.Sin(rad) * radius), 0);
+        }
+  
+        GL.End();
+      }
+      else
+      {
+        throw new Exception($"Incorrect style for drawing: '{style}'");
+      }
+    }
+    
+    /// <summary>
+    /// Draw polygon
+    /// </summary>
+    /// <param name="style"></param>
+    /// <param name="xy"></param>
+    public static void DrawPolygon(string style, params float[] xy)
+    {
+      if (xy.Length % 2 != 0)
+        throw new Exception("Incorrect count of coordinates: they must be in pairs (x, y)");
+      
+      if (style == "line")
+      {
+        GL.Begin(PrimitiveType.Lines);
+
+        for (int i = 2; i < xy.Length; i+=2)
+        {
+          GL.Vertex3(xy[i - 2], xy[i - 1], 0);
+          GL.Vertex3(xy[i], xy[i + 1], 0);
+        }
+        
+        GL.Vertex3(xy[0], xy[1], 0);
+        GL.Vertex3(xy[xy.Length - 2], xy[xy.Length - 1], 0);
+        
+        GL.End();
+      } 
+      else if (style == "fill")
+      {
+        GL.Begin(PrimitiveType.Polygon);
+
+        for (int i = 0; i < xy.Length; i+=2)
+        {
+          GL.Vertex3(xy[i], xy[i + 1], 0);
+        }
+        
+        GL.End();
+      }
+      else
+      {
+        throw new Exception($"Incorrect style for drawing: '{style}'");
+      }
+    }
+    
     /// <summary>
     /// Draw line
     /// </summary>
@@ -198,8 +303,6 @@ namespace Oxy.Framework
 
       GL.End();
     }
-    
-    //public static void DrawDot
     
     #endregion 
     

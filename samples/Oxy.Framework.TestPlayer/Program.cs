@@ -15,12 +15,18 @@ namespace Oxy.Framework.TestPlayer
 
       
       PrimitivesExample();
+      //PrintingExample();
     }
 
     static void PrimitivesExample()
     {
+
       Window.OnLoad(() =>
       {
+        Window.SetWidth(375);
+        Window.SetHeight(475);
+        Window.SetFullscreen(true);
+        
         Graphics.SetBackgroundColor(100, 100, 100);
         Graphics.SetColor(0, 255, 0);
       });
@@ -51,6 +57,16 @@ namespace Oxy.Framework.TestPlayer
         Graphics.DrawPoint(100, 225);
         Graphics.SetLineThickness(1);
         Graphics.DrawPoint(125, 225);
+        
+        Graphics.SetColor(50, 255, 255);
+        Graphics.SetLineThickness(2);
+        Graphics.DrawCircle("line", 100, 300, 50);
+        Graphics.DrawCircle("fill", 225, 300, 50);
+        
+        Graphics.SetColor(255, 255, 255);
+        Graphics.SetLineThickness(2);
+        Graphics.DrawPolygon("line", 50, 375, 50, 400, 100, 425, 150, 425);
+        Graphics.DrawPolygon("fill", 175, 375, 175, 400, 225, 425, 275, 425);
       });
       
       Window.Show();
@@ -76,7 +92,7 @@ namespace Oxy.Framework.TestPlayer
       // Callback for OnLoad event to load and initialize all things
       Window.OnLoad(() =>
       {
-        var font = Resources.LoadFont("roboto.ttf");
+        var font = Resources.LoadFont("roboto.ttf", 30);
         textObj = Graphics.NewText(font, "Hello, World!");
       });      
       

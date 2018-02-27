@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Audio;
+using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 
 namespace Oxy.Framework
@@ -8,8 +9,10 @@ namespace Oxy.Framework
   /// <summary>
   /// Class that represents OxyEngine game window
   /// </summary>
-  public class Window : Module<GameWindow>, IDisposable
+  public class Window : IDisposable
   {
+    private static GameWindow _instance;
+    
     private static Action _loadEvent;
     private static Action<float> _updateEvent;
     private static Action _drawEvent;
@@ -18,10 +21,15 @@ namespace Oxy.Framework
     
     static Window()
     {
+      _instance = new GameWindow(800, 600,
+        new GraphicsMode(new ColorFormat(8, 8, 8, 0), 
+          depth: 24,     // Depth bits
+          stencil: 8,    // Stencil bits
+          samples: 4    // FSAA samples
+          
+        ), "OxyEngine Game");
+      _instance.WindowBorder = WindowBorder.Fixed;
       // Setup default window properties
-      SetWidth(800);
-      SetHeight(600);
-      SetTitle("OxyEngine Game");
       SetVSyncEnabled(true);
     }
 
@@ -29,8 +37,6 @@ namespace Oxy.Framework
 
     private static void Load(object sender, EventArgs e)
     {
-
-            
       GL.Enable(EnableCap.Texture2D);
       GL.Enable(EnableCap.Blend);
       GL.BlendFunc(BlendingFactorSrc.SrcAlpha, BlendingFactorDest.OneMinusSrcAlpha);
@@ -48,11 +54,11 @@ namespace Oxy.Framework
 
     private static void Resize(object sender, EventArgs e)
     {
-      GL.Viewport(Instance.ClientRectangle);
+      GL.Viewport(_instance.ClientRectangle);
 
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
-      GL.Ortho(0, Instance.ClientRectangle.Width, Instance.ClientRectangle.Height, 0, -1.0, 1.0);
+      GL.Ortho(0, _instance.ClientRectangle.Width, _instance.ClientRectangle.Height, 0, -1.0, 1.0);
     }
 
     private static void Draw(object sender, FrameEventArgs e)
@@ -75,7 +81,7 @@ namespace Oxy.Framework
       
       #endregion
       
-      Instance.SwapBuffers();
+      _instance.SwapBuffers();
     }
 
     #endregion
@@ -86,26 +92,32 @@ namespace Oxy.Framework
     /// Returns window width
     /// </summary>
     public static int GetWidth() =>
-      Instance.Width;
+      _instance.Width;
 
     /// <summary>
     /// Returns window height
     /// </summary>
     public static int GetHeight() =>
-      Instance.Height;
+      _instance.Height;
 
     /// <summary>
     /// Returns window title
     /// </summary>
     public static string GetTitle() =>
-      Instance.Title;
+      _instance.Title;
 
     /// <summary>
     /// Returns true if vertical sync enabled, otherwise false
     /// </summary>
     public static bool GetVSyncEnabled() =>
-      Instance.VSync == VSyncMode.On;
+      _instance.VSync == VSyncMode.On;
 
+    /// <summary>
+    /// Returns fullscreen mode
+    /// </summary>
+    public static bool GetFullscreen() =>
+      _instance.WindowState == WindowState.Fullscreen;
+    
     #endregion
 
     #region Set
@@ -115,30 +127,39 @@ namespace Oxy.Framework
     /// </summary>
     /// <param name="width">New width</param>
     public static void SetWidth(int width) =>
-      Instance.Width = width;
+      _instance.Width = width;
 
     /// <summary>
     /// Sets window height
     /// </summary>
     /// <param name="height">New height</param>
     public static void SetHeight(int height) =>
-      Instance.Height = height;
+      _instance.Height = height;
 
     /// <summary>
     /// Sets window title
     /// </summary>
     /// <param name="title">New title</param>
     public static void SetTitle(string title) =>
-      Instance.Title = title;
+      _instance.Title = title;
 
     /// <summary>
     /// Enables or disables vertical sync
     /// </summary>
     /// <param name="enabled">true to enable VSync, false to disable</param>
     public static void SetVSyncEnabled(bool enabled) =>
-      Instance.VSync = enabled ? VSyncMode.On : VSyncMode.Off;
+      _instance.VSync = enabled ? VSyncMode.On : VSyncMode.Off;
 
+    /// <summary>
+    /// Sets the fullscreen mode
+    /// </summary>
+    /// <param name="fullscreen">true to enable, false to disable</param>
+    public static void SetFullscreen(bool fullscreen) =>
+      _instance.WindowState = fullscreen ? WindowState.Fullscreen : WindowState.Normal;
+    
     #endregion
+
+
 
     /// <summary>
     /// Shows window. Take no effect if window is already shown
@@ -147,16 +168,16 @@ namespace Oxy.Framework
     public static void Show(float maxFps = 60)
     {
       // Register listeners
-      Instance.Load += Load;
-      Instance.UpdateFrame += Update;
-      Instance.RenderFrame += Draw;
-      Instance.Resize += Resize;
+      _instance.Load += Load;
+      _instance.UpdateFrame += Update;
+      _instance.RenderFrame += Draw;
+      _instance.Resize += Resize;
 
       _context = new AudioContext();
       _context.MakeCurrent();
       
-      Instance.Run(maxFps);
-      Instance.Exit();
+      _instance.Run(maxFps);
+      _instance.Exit();
     }
 
     /// <summary>
@@ -164,8 +185,8 @@ namespace Oxy.Framework
     /// </summary>
     public static void Exit()
     {
-      Instance.Exit();
-      Instance.Dispose();
+      _instance.Exit();
+      _instance.Dispose();
     }
     
     /// <summary>
