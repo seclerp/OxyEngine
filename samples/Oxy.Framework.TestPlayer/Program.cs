@@ -13,14 +13,23 @@ namespace Oxy.Framework.TestPlayer
       // Set library root folder. All asset paths will be relative to this folder
       Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
 
-      
-      PrimitivesExample();
+      TextureDrawing();
+      //PrimitivesExample();
       //PrintingExample();
     }
 
+    static void TextureDrawing()
+    {
+      TextureObject texture = null;
+      
+      Window.OnLoad(() => texture = Resources.LoadTexture("test.jpg"));
+      Window.OnDraw(() => Graphics.Draw(texture, 50, 50));
+      
+      Window.Show();
+    }
+    
     static void PrimitivesExample()
     {
-
       Window.OnLoad(() =>
       {
         Window.SetWidth(375);
