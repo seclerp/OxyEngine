@@ -12,6 +12,24 @@ namespace Oxy.Framework
   public class Resources : LazyModule<Resources>
   {
     /// <summary>
+    /// Loads texture from path in library
+    /// </summary>
+    /// <param name="path">Path in library to texture file</param>
+    /// <returns>Texture object</returns>
+    /// <exception cref="FileNotFoundException">Fires when texture cannot be found or file does not exist</exception>
+    public static TextureObject LoadTexture(string path)
+    {
+      var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
+
+      if (!File.Exists(fullPath))
+        throw new FileNotFoundException(path);
+
+      var texture = new Bitmap(Image.FromFile(fullPath));
+
+      return new TextureObject(texture);
+    }
+
+    /// <summary>
     /// Loads font from path in library
     /// </summary>
     /// <param name="path">Path in library to font file</param>
