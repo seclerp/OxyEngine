@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 using OpenTK;
 using OpenTK.Audio;
 using OpenTK.Graphics;
@@ -17,6 +20,8 @@ namespace Oxy.Framework
     private static Action<float> _updateEvent;
     private static Action _drawEvent;
 
+    private static ErrorsDrawHandler _errorsDrawHandler;
+    
     private static AudioContext _context;
     
     static Window()
@@ -29,10 +34,23 @@ namespace Oxy.Framework
           
         ), "OxyEngine Game");
       _instance.WindowBorder = WindowBorder.Fixed;
+      _errorsDrawHandler = new ErrorsDrawHandler();
       // Setup default window properties
       SetVSyncEnabled(true);
+
+      SetupGlobalHandling();
     }
 
+    private static void SetupGlobalHandling()
+    {
+      AppDomain.CurrentDomain.UnhandledException += (s, a) =>
+      {
+        Console.WriteLine("=========================\n Working \n=========================");
+        _errorsDrawHandler.Fire((Exception) a.ExceptionObject);
+        _drawEvent = DrawErrors;
+      };
+    }
+    
     #region Window's event handlers
 
     private static void Load(object sender, EventArgs e)
@@ -43,6 +61,8 @@ namespace Oxy.Framework
       GL.Enable(EnableCap.DepthTest);
       GL.DepthMask(true);
       GL.DepthFunc(DepthFunction.Lequal);
+      
+      _errorsDrawHandler.LoadResources();
       
       _loadEvent?.Invoke();
     }
@@ -61,6 +81,12 @@ namespace Oxy.Framework
       GL.Ortho(0, _instance.ClientRectangle.Width, _instance.ClientRectangle.Height, 0, -1.0, 1.0);
     }
 
+    // Handler that replaces _drawEvent to draw errors
+    private static void DrawErrors()
+    {
+      _errorsDrawHandler.DrawErrors();
+    }
+    
     private static void Draw(object sender, FrameEventArgs e)
     {
       (byte, byte, byte, byte) bgColor = Graphics.GetBackgroundColor();
@@ -158,8 +184,6 @@ namespace Oxy.Framework
       _instance.WindowState = fullscreen ? WindowState.Fullscreen : WindowState.Normal;
     
     #endregion
-
-
 
     /// <summary>
     /// Shows window. Take no effect if window is already shown

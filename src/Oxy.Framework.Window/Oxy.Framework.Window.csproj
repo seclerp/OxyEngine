@@ -13,5 +13,6 @@
     <ProjectReference Include="..\Oxy.Framework.Audio\Oxy.Framework.Audio.csproj" />
     <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
     <ProjectReference Include="..\Oxy.Framework.Graphics\Oxy.Framework.Graphics.csproj" />
+    <ProjectReference Include="..\Oxy.Framework.Resources\Oxy.Framework.Resources.csproj" />
   </ItemGroup>
 </Project>

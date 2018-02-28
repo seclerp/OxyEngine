@@ -5,9 +5,11 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>../../artifacts/Debug/Oxy.Framework.Resources</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>../../artifacts/Release/Oxy.Framework.Resources</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Oxy.Framework.Common\Oxy.Framework.Common.csproj" />
@@ -15,5 +17,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Drawing.Common" Version="4.5.0-preview1-25914-04" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="resources\img\error.png" />
+    <EmbeddedResource Include="resources\font\roboto.ttf" />
   </ItemGroup>
 </Project>

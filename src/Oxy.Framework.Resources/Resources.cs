@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using OpenTK.Graphics.ES20;
 using Oxy.Framework.Objects;
 
 namespace Oxy.Framework
@@ -30,6 +31,22 @@ namespace Oxy.Framework
     }
 
     /// <summary>
+    /// Loads texture from stream
+    /// </summary>
+    /// <param name="stream">Stream to read</param>
+    /// <returns>Texture object</returns>
+    /// <exception cref="NullReferenceException">If stream is null</exception>
+    public static TextureObject LoadTexture(Stream stream)
+    {
+      if (stream == null)
+        throw new NullReferenceException(nameof(stream));
+
+      var texture = new Bitmap(stream);
+
+      return new TextureObject(texture);
+    }
+
+    /// <summary>
     /// Loads font from path in library
     /// </summary>
     /// <param name="path">Path in library to font file</param>
@@ -51,7 +68,44 @@ namespace Oxy.Framework
       
       return new FontObject(font);
     }
+    
+    /// <summary>
+    /// Loads font from stream
+    /// </summary>
+    /// <param name="stream"></param>
+    /// <param name="size"></param>
+    /// <returns>Font object</returns>
+    /// <exception cref="NullReferenceException">If stream is null</exception>
+    public static FontObject LoadFont(Stream stream, float size = 12)
+    {
+      if (stream == null)
+        throw new NullReferenceException(nameof(stream));
+      
+      var tempCollection = new PrivateFontCollection();
+      
+      byte[] fontdata = new byte[stream.Length];
+      stream.Read(fontdata, 0, (int)stream.Length);
+      stream.Close();
+      unsafe
+      {
+        fixed(byte * pFontData = fontdata)
+        {
+          tempCollection.AddMemoryFont((IntPtr)pFontData,fontdata.Length);
+        }
+      }
+      
+      var font = new Font(tempCollection.Families[0], size);
+      
+      return new FontObject(font);
+    }
 
+    /// <summary>
+    /// Loads audio from path in library
+    /// </summary>
+    /// <param name="path"></param>
+    /// <returns></returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    /// <exception cref="NotSupportedException"></exception>
     public static AudioObject LoadAudio(string path)
     {
       var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
