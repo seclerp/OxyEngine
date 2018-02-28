@@ -67,6 +67,7 @@ Audio requires `OpenAL` libraries installed in your system.
 **Known issues:**
 
 * `System.InvalidOperationException: Could not load libopenal.so.1`: install `libopenal1` package
+* `System.DllNotFoundException: Unable to load DLL 'libdl'`: install `libc6-dev` package (or alternative)
 
 **Global fix**: You should install package `libopenal1` (or alternative package for your system) and most of the problems are go away.
 
