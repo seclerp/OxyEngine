@@ -5,12 +5,22 @@ namespace Oxy.Framework.Objects
 {
   public class WaveAudioObject : AudioObject, IDisposable
   {
-    private int _bufferId;
-    private int _sourceId;
-    private int _stateId;
+    private readonly int _bufferId;
 
     private bool _isLooping;
-    
+    private readonly int _sourceId;
+    private int _stateId;
+
+    public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data,
+      channels, bits, rate, audioFormat)
+    {
+      _bufferId = AL.AL.GenBuffer();
+      _sourceId = AL.AL.GenSource();
+
+      AL.AL.BufferData(_bufferId, GetALSoundFormat(_channels, _bits), _data, _data.Length, _rate);
+      AL.AL.Source(_sourceId, ALSourcei.Buffer, _bufferId);
+    }
+
     private static ALFormat GetALSoundFormat(int channels, int bits)
     {
       switch (channels)
@@ -33,24 +43,15 @@ namespace Oxy.Framework.Objects
         case ALSourceState.Paused:
           return AudioState.Paused;
       }
-      
+
       throw new NotSupportedException();
-    }
-    
-    public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data, channels, bits, rate, audioFormat)
-    {
-      _bufferId = AL.AL.GenBuffer();
-      _sourceId = AL.AL.GenSource();
-      
-      AL.AL.BufferData(_bufferId, GetALSoundFormat(_channels, _bits), _data, _data.Length, _rate);
-      AL.AL.Source(_sourceId, ALSourcei.Buffer, _bufferId);
     }
 
     public override void Play()
     {
       if (GetCurrentState() == AudioState.Playing)
         return;
-      
+
       AL.AL.SourcePlay(_sourceId);
     }
 
@@ -58,12 +59,14 @@ namespace Oxy.Framework.Objects
     {
       if (GetCurrentState() != AudioState.Playing)
         return;
-      
+
       AL.AL.SourcePause(_sourceId);
     }
 
-    public override void Stop() =>
+    public override void Stop()
+    {
       AL.AL.SourceStop(_sourceId);
+    }
 
     public override void SetLoop(bool loop = true)
     {
@@ -71,8 +74,10 @@ namespace Oxy.Framework.Objects
       AL.AL.Source(_sourceId, ALSourceb.Looping, _isLooping);
     }
 
-    public override bool GetLoop() =>
-      _isLooping;
+    public override bool GetLoop()
+    {
+      return _isLooping;
+    }
 
     public void Dispose()
     {
