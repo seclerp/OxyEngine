@@ -1,12 +1,12 @@
 ﻿namespace Oxy.Framework.Objects
 {
   /// <summary>
-  /// Interface for any object that can be drawn on screen
+  ///   Interface for any object that can be drawn on screen
   /// </summary>
   public interface IDrawable
   {
     /// <summary>
-    /// Draws this object on screen with given position, rotation and scale
+    ///   Draws this object on screen with given position, rotation and scale
     /// </summary>
     /// <param name="x">X coordinate</param>
     /// <param name="y">Y coordinate</param>

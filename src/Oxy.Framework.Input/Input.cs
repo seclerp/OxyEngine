@@ -3,11 +3,11 @@ using OpenTK.Input;
 namespace Oxy.Framework
 {
   /// <summary>
-  /// Module for managing user input
+  ///   Module for managing user input
   /// </summary>
   public class Input : LazyModule<Input>
   {
-    private InputMap _inputMap;
+    private readonly InputMap _inputMap;
 
     public Input()
     {
@@ -15,19 +15,19 @@ namespace Oxy.Framework
     }
 
     /// <summary>
-    /// Return true if specified keyboard key is pressed, otherwise false
+    ///   Return true if specified keyboard key is pressed, otherwise false
     /// </summary>
     /// <param name="key">Keyboard key to check</param>
-    public static bool IsKeyPressed(string key) 
+    public static bool IsKeyPressed(string key)
     {
       return Keyboard.GetState()[Instance.Value._inputMap.KeyMap[key]];
     }
 
     /// <summary>
-    /// Return true if specified keyboard key is pressed, otherwise false
+    ///   Return true if specified keyboard key is pressed, otherwise false
     /// </summary>
     /// <param name="button">Mouse button to check</param>
-    public static bool IsMousePressed(string button) 
+    public static bool IsMousePressed(string button)
     {
       return Mouse.GetState()[Instance.Value._inputMap.MouseMap[button]];
     }
