@@ -26,29 +26,28 @@ namespace Oxy.Framework
     
     static Window()
     {
+      InitWindow("OxyEngine Game");
+      _errorsDrawHandler = new ErrorsDrawHandler();
+    }
+
+    private static void InitWindow(string title)
+    {
       _instance = new GameWindow(800, 600,
         new GraphicsMode(new ColorFormat(8, 8, 8, 0), 
           depth: 24,     // Depth bits
           stencil: 8,    // Stencil bits
           samples: 4    // FSAA samples
-          
-        ), "OxyEngine Game");
+        ), title);
       _instance.WindowBorder = WindowBorder.Fixed;
-      _errorsDrawHandler = new ErrorsDrawHandler();
       // Setup default window properties
       SetVSyncEnabled(true);
-
-      SetupGlobalHandling();
     }
-
-    private static void SetupGlobalHandling()
+    
+    private static void SwitchToErrorScreen(Exception exception)
     {
-      AppDomain.CurrentDomain.UnhandledException += (s, a) =>
-      {
-        Console.WriteLine("=========================\n Working \n=========================");
-        _errorsDrawHandler.Fire((Exception) a.ExceptionObject);
-        _drawEvent = DrawErrors;
-      };
+      Console.WriteLine("=========================\n Working \n=========================");
+      _errorsDrawHandler.Fire(exception);
+      _drawEvent = DrawErrors;
     }
     
     #region Window's event handlers
@@ -82,10 +81,8 @@ namespace Oxy.Framework
     }
 
     // Handler that replaces _drawEvent to draw errors
-    private static void DrawErrors()
-    {
+    private static void DrawErrors() =>
       _errorsDrawHandler.DrawErrors();
-    }
     
     private static void Draw(object sender, FrameEventArgs e)
     {
@@ -191,17 +188,32 @@ namespace Oxy.Framework
     /// <param name="maxFps">Max update rate</param>
     public static void Show(float maxFps = 60)
     {
-      // Register listeners
-      _instance.Load += Load;
-      _instance.UpdateFrame += Update;
-      _instance.RenderFrame += Draw;
-      _instance.Resize += Resize;
+      try
+      {
+        // Register listeners
+        _instance.Load += Load;
+        _instance.UpdateFrame += Update;
+        _instance.RenderFrame += Draw;
+        _instance.Resize += Resize;
 
-      _context = new AudioContext();
-      _context.MakeCurrent();
-      
-      _instance.Run(maxFps);
-      _instance.Exit();
+        _context = new AudioContext();
+        _context.MakeCurrent();
+
+        _instance.Run(60);
+        
+        _instance.Exit();
+      }
+      catch (Exception e)
+      {
+        InitWindow("Error");
+        SwitchToErrorScreen(e);
+        _loadEvent = null;
+        _instance.Load += Load;
+        _instance.RenderFrame += Draw;
+        _instance.Resize += Resize;
+        _instance.Run(60);
+        _instance.Exit();
+      }
     }
 
     /// <summary>
