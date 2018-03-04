@@ -13,6 +13,6 @@
     <description>$description$</description>
     <releaseNotes>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/CHANGELOG.md</releaseNotes>
     <copyright>Copyright © 2018 OxyTeam</copyright>
-    <tags>game opengl shader mesh material texture opentk engine framework gamedev graphic obj parser blender</tags>
+    <tags>game opengl shader texture opentk engine framework gamedev graphic</tags>
   </metadata>
 </package>

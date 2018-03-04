@@ -12,7 +12,7 @@
     <Company>OxyTeam</Company>
     <Description>2D full-featured open-source crossplatform game engine for .NET Core</Description>
     <PackageLicenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</PackageLicenseUrl>
-    <PackageTags>game opengl shader mesh material texture opentk engine framework gamedev graphic obj parser blender</PackageTags>
+    <PackageTags>game opengl shader texture opentk engine framework gamedev graphic</PackageTags>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <FileVersion>0.1.0.0</FileVersion>
     <Product>Oxy.Framework</Product>
