@@ -11,7 +11,7 @@
 
 using System;
 
-namespace Oxy.Framework.Alc
+namespace Oxy.Framework.OpenAL.Alc
 {
   /// <summary>
   ///   Defines available context attributes.
@@ -67,7 +67,7 @@ namespace Oxy.Framework.Alc
   }
 
   /// <summary>
-  ///   Defines available parameters for <see cref="Alc.GetString(System.IntPtr,Oxy.Framework.Alc.AlcGetString)" />.
+  ///   Defines available parameters for <see cref="Alc.GetString(System.IntPtr,Oxy.Framework.OpenAL.Alc.AlcGetString)" />.
   /// </summary>
   public enum AlcGetString
   {

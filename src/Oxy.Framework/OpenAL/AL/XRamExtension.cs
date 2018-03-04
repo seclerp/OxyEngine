@@ -13,7 +13,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace Oxy.Framework.AL
+namespace Oxy.Framework.OpenAL.AL
 {
   /// <summary>
   ///   The X-Ram Extension is provided on the top-end Sound Blaster X-Fi solutions (Sound Blaster X-Fi Fatal1ty, Sound

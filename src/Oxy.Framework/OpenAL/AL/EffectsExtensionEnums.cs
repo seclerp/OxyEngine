@@ -9,7 +9,7 @@
 
 #endregion
 
-namespace Oxy.Framework.AL
+namespace Oxy.Framework.OpenAL.AL
 {
   #region Effect
 

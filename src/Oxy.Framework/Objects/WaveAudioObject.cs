@@ -1,5 +1,5 @@
 ﻿﻿using System;
-using Oxy.Framework.AL;
+ using Oxy.Framework.OpenAL.AL;
 
 namespace Oxy.Framework.Objects
 {
@@ -14,18 +14,18 @@ namespace Oxy.Framework.Objects
     public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data,
       channels, bits, rate, audioFormat)
     {
-      _bufferId = AL.AL.GenBuffer();
-      _sourceId = AL.AL.GenSource();
+      _bufferId = AL.GenBuffer();
+      _sourceId = AL.GenSource();
 
-      AL.AL.BufferData(_bufferId, GetALSoundFormat(_channels, _bits), _data, _data.Length, _rate);
-      AL.AL.Source(_sourceId, ALSourcei.Buffer, _bufferId);
+      AL.BufferData(_bufferId, GetALSoundFormat(_channels, _bits), _data, _data.Length, _rate);
+      AL.Source(_sourceId, ALSourcei.Buffer, _bufferId);
     }
 
     public void Dispose()
     {
-      AL.AL.SourceStop(_sourceId);
-      AL.AL.DeleteSource(_sourceId);
-      AL.AL.DeleteBuffer(_bufferId);
+      AL.SourceStop(_sourceId);
+      AL.DeleteSource(_sourceId);
+      AL.DeleteBuffer(_bufferId);
     }
 
     private static ALFormat GetALSoundFormat(int channels, int bits)
@@ -40,7 +40,7 @@ namespace Oxy.Framework.Objects
 
     protected override AudioState GetCurrentState()
     {
-      switch (AL.AL.GetSourceState(_sourceId))
+      switch (AL.GetSourceState(_sourceId))
       {
         case ALSourceState.Initial:
         case ALSourceState.Stopped:
@@ -59,7 +59,7 @@ namespace Oxy.Framework.Objects
       if (GetCurrentState() == AudioState.Playing)
         return;
 
-      AL.AL.SourcePlay(_sourceId);
+      AL.SourcePlay(_sourceId);
     }
 
     public override void Pause()
@@ -67,18 +67,18 @@ namespace Oxy.Framework.Objects
       if (GetCurrentState() != AudioState.Playing)
         return;
 
-      AL.AL.SourcePause(_sourceId);
+      AL.SourcePause(_sourceId);
     }
 
     public override void Stop()
     {
-      AL.AL.SourceStop(_sourceId);
+      AL.SourceStop(_sourceId);
     }
 
     public override void SetLoop(bool loop = true)
     {
       _isLooping = loop;
-      AL.AL.Source(_sourceId, ALSourceb.Looping, _isLooping);
+      AL.Source(_sourceId, ALSourceb.Looping, _isLooping);
     }
 
     public override bool GetLoop()

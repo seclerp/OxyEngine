@@ -9,7 +9,7 @@
 
 #endregion
 
-namespace Oxy.Framework.AL
+namespace Oxy.Framework.OpenAL.AL
 {
   ///<summary>A list of valid Enable/Disable/IsEnabled parameters</summary>
   public enum ALCapability

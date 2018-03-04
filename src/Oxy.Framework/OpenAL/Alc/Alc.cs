@@ -15,7 +15,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
 using OpenTK;
-using Oxy.Framework.AL;
+using Oxy.Framework.OpenAL.AL;
 
 /* Type Mapping
 // 8-bit boolean 
@@ -71,7 +71,7 @@ typedef void ALCvoid;
  * IntPtr
 */
 
-namespace Oxy.Framework.Alc
+namespace Oxy.Framework.OpenAL.Alc
 {
   /// <summary>Alc = Audio Library Context</summary>
   public static class Alc

@@ -12,7 +12,7 @@
 using System;
 using OpenTK;
 
-namespace Oxy.Framework.AL
+namespace Oxy.Framework.OpenAL.AL
 {
   public partial class EffectsExtension
   {

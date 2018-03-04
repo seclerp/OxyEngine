@@ -63,7 +63,7 @@ typedef void ALvoid;
  * void
 */
 
-namespace Oxy.Framework.AL
+namespace Oxy.Framework.OpenAL.AL
 {
   /// <summary>
   ///   Provides access to the OpenAL 1.1 flat API.

@@ -15,7 +15,7 @@ using System.Runtime.InteropServices;
 using OpenTK;
 using OpenTK.Audio;
 
-namespace Oxy.Framework.AL
+namespace Oxy.Framework.OpenAL.AL
 {
   /// <summary>
   ///   Provides access to the OpenAL effects extension.
