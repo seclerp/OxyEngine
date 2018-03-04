@@ -15,18 +15,17 @@ namespace Oxy.Framework
 
     public void LoadResources()
     {
-
     }
 
     private static string WordWrap(string text, int width)
     {
       int pos, next;
       var sb = new StringBuilder();
-  
+
       // Lucidity check
       if (width < 1)
-          return text;
-  
+        return text;
+
       // Parse each line of text
       for (pos = 0; pos < text.Length; pos = next)
       {
@@ -36,27 +35,25 @@ namespace Oxy.Framework
           next = eol = text.Length;
         else
           next = eol + Environment.NewLine.Length;
-          
+
         // Copy this line of text, breaking into smaller lines as needed
         if (eol > pos)
-        {
           do
-            {
-              int len = eol - pos;
-              if (len > width)
-                len = BreakLine(text, pos, width);
-              sb.Append(text, pos, len);
-              sb.Append(Environment.NewLine);
+          {
+            int len = eol - pos;
+            if (len > width)
+              len = BreakLine(text, pos, width);
+            sb.Append(text, pos, len);
+            sb.Append(Environment.NewLine);
 
-              // Trim whitespace following break
-              pos += len;
-              while (pos < eol && Char.IsWhiteSpace(text[pos]))
-                pos++;
-            } while (eol > pos);
-        }
+            // Trim whitespace following break
+            pos += len;
+            while (pos < eol && char.IsWhiteSpace(text[pos]))
+              pos++;
+          } while (eol > pos);
         else sb.Append(Environment.NewLine); // Empty line
       }
-  
+
       return sb.ToString();
     }
 
@@ -64,7 +61,7 @@ namespace Oxy.Framework
     {
       // Find last whitespace in line
       int i = max;
-      while (i >= 0 && !Char.IsWhiteSpace(text[pos + i]))
+      while (i >= 0 && !char.IsWhiteSpace(text[pos + i]))
         i--;
 
       // If no whitespace found, break at maximum length
@@ -72,34 +69,35 @@ namespace Oxy.Framework
         return max;
 
       // Find start of whitespace
-      while (i >= 0 && Char.IsWhiteSpace(text[pos + i]))
+      while (i >= 0 && char.IsWhiteSpace(text[pos + i]))
         i--;
 
       // Return length of text before whitespace
       return i + 1;
     }
-    
+
     public void Fire(Exception exception)
     {
       var assembly = typeof(Resources).GetTypeInfo().Assembly;
 
       if (exception is PyException pythonException)
-        FullError = $"[Python]: {exception.GetType().Name}: {pythonException.Message}\n{pythonException.StackTrace}\n\n" +
-                    $"[C#]: \n{exception.InnerException.StackTrace}";
+        FullError =
+          $"[Python]: {exception.GetType().Name}: {pythonException.Message}\n{pythonException.StackTrace}\n\n" +
+          $"[C#]: \n{exception.InnerException.StackTrace}";
       else
         FullError = $"[C#]: {exception.GetType().Name}: {exception.Message}\n\n{exception.StackTrace}";
-      
+
       // assembly.GetManifestResourceNames() - to check
       _errorsBanner = Resources.LoadTexture(assembly.GetManifestResourceStream("Oxy.Framework.builtin.img.error.png"));
       _font = Resources.LoadFont(assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.monospace.ttf"));
-      
+
       FullError = WordWrap(FullError, 50);
       FullError = FullError.Replace("\nat", "\n\n    at");
-      
+
       _text = Graphics.NewText(_font, FullError);
       Graphics.SetBackgroundColor(100, 100, 100);
     }
-    
+
     public void DrawErrors()
     {
       Graphics.Draw(_errorsBanner, 60, 60);

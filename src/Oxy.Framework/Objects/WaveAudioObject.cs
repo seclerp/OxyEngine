@@ -1,14 +1,14 @@
-﻿﻿using System;
- using Oxy.Framework.OpenAL.AL;
+﻿using System;
+using Oxy.Framework.OpenAL.AL;
 
 namespace Oxy.Framework.Objects
 {
   public class WaveAudioObject : AudioObject, IDisposable
   {
     private readonly int _bufferId;
+    private readonly int _sourceId;
 
     private bool _isLooping;
-    private readonly int _sourceId;
     private int _stateId;
 
     public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data,

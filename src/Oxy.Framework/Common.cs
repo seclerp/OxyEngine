@@ -1,17 +1,12 @@
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
-using Oxy.Framework.Exceptions;
 
 namespace Oxy.Framework
 {
   public class Common : Module<Common>
   {
-    private string _libraryRootFolder;
-
     // Those modules cannot be switched off and need to be for correct work of other modules
     private readonly List<string> _mustHaveScriptModules = new List<string>
     {
@@ -27,6 +22,8 @@ namespace Oxy.Framework
       "Oxy.Framework.Window",
       "Oxy.Framework.Resources"
     };
+
+    private string _libraryRootFolder;
 
     private string _scriptsRootFolder;
 

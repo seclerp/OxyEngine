@@ -16,10 +16,10 @@ namespace Oxy.Framework
   public class TextRenderer : IDisposable
   {
     private readonly Bitmap _bitMap;
-    private Rectangle _dirtyRegion;
-    private bool _disposed;
     private readonly System.Drawing.Graphics _graphics;
     private readonly int _texture;
+    private Rectangle _dirtyRegion;
+    private bool _disposed;
 
     #region Constructors
 

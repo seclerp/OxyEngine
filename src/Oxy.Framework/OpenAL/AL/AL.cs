@@ -85,7 +85,7 @@ namespace Oxy.Framework.OpenAL.AL
         return "/System/Library/Frameworks/OpenAL.framework/OpenAL";
       return "openal32.dll";
 #else
-            return "openal32.dll";
+      return "openal32.dll";
 #endif
     }
 

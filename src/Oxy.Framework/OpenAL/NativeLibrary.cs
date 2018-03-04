@@ -55,7 +55,7 @@ namespace Oxy.Framework.OpenAL
       throw new PlatformNotSupportedException("Cannot load native libraries on this platform: " +
                                               RuntimeInformation.OSDescription);
 #else
-            return new WindowsNativeLibrary(libraryName);
+      return new WindowsNativeLibrary(libraryName);
 #endif
     }
 

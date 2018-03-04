@@ -24,18 +24,6 @@ namespace Oxy.Framework.OpenAL.AL
   [CLSCompliant(true)]
   public sealed class XRamExtension
   {
-    #region X-RAM Tokens
-
-    private readonly int AL_EAX_RAM_SIZE;
-
-    private readonly int AL_EAX_RAM_FREE;
-
-    private readonly int AL_STORAGE_AUTOMATIC;
-    private readonly int AL_STORAGE_HARDWARE;
-    private readonly int AL_STORAGE_ACCESSIBLE;
-
-    #endregion X-RAM Tokens
-
     #region Constructor / Extension Loading
 
     /// <summary>
@@ -94,6 +82,18 @@ namespace Oxy.Framework.OpenAL.AL
     public bool IsInitialized { get; }
 
     #endregion Instance state
+
+    #region X-RAM Tokens
+
+    private readonly int AL_EAX_RAM_SIZE;
+
+    private readonly int AL_EAX_RAM_FREE;
+
+    private readonly int AL_STORAGE_AUTOMATIC;
+    private readonly int AL_STORAGE_HARDWARE;
+    private readonly int AL_STORAGE_ACCESSIBLE;
+
+    #endregion X-RAM Tokens
 
     #region X-RAM Function pointer definitions
 
