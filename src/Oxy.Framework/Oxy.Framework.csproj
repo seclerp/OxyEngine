@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Authors>Andrew Rublyov, Andrey Belyaev</Authors>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <PackageProjectUrl>https://github.com/OxyTeam/OxyEngine</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/OxyTeam/OxyEngine</RepositoryUrl>
+    <Version>0.1.0</Version>
+    <Company>OxyTeam</Company>
+    <Description>2D full-featured open-source crossplatform game engine for .NET Core</Description>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</PackageLicenseUrl>
+    <PackageTags>game opengl shader mesh material texture opentk engine framework gamedev graphic obj parser blender</PackageTags>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <FileVersion>0.1.0.0</FileVersion>
+    <Product>Oxy.Framework</Product>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DynamicLanguageRuntime" Version="1.2.1" />
+    <PackageReference Include="IronPython" Version="2.7.8.1" />
+    <PackageReference Include="IronPython.StdLib" Version="2.7.8.1" />
+    <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
+    <PackageReference Include="System.Drawing.Common" Version="4.5.0-preview1-25914-04" />
+    <EmbeddedResource Include="builtin\img\error.png" />
+    <EmbeddedResource Include="builtin\font\roboto.ttf" />
+    <EmbeddedResource Include="builtin\font\monospace.ttf" />
+  </ItemGroup>
+
+</Project>
