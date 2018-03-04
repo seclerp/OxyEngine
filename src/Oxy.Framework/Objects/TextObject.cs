@@ -79,7 +79,7 @@ namespace Oxy.Framework.Objects
       SizeF result;
       using (var image = new Bitmap(1, 1))
       {
-        using (var g = Graphics.FromImage(image))
+        using (var g = System.Drawing.Graphics.FromImage(image))
         {
           result = g.MeasureString(s, font);
         }

@@ -18,7 +18,7 @@ namespace Oxy.Framework
     private readonly Bitmap _bitMap;
     private Rectangle _dirtyRegion;
     private bool _disposed;
-    private readonly Graphics _graphics;
+    private readonly System.Drawing.Graphics _graphics;
     private readonly int _texture;
 
     #region Constructors
@@ -38,7 +38,7 @@ namespace Oxy.Framework
         throw new InvalidOperationException("No GraphicsContext is current on the calling thread.");
 
       _bitMap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-      _graphics = Graphics.FromImage(_bitMap);
+      _graphics = System.Drawing.Graphics.FromImage(_bitMap);
       _graphics.SmoothingMode = SmoothingMode.HighQuality;
       _graphics.TextRenderingHint = TextRenderingHint.AntiAliasGridFit;
 
