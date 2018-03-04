@@ -11,7 +11,7 @@ namespace Oxy.Framework
   /// </summary>
   public class Window : IDisposable
   {
-    private static readonly GameWindow _instance;
+    private static GameWindow _instance;
 
     private static Action _loadEvent;
     private static Action<float> _updateEvent;
@@ -42,10 +42,9 @@ namespace Oxy.Framework
     }
     
     private static void SwitchToErrorScreen(Exception exception)
-
-    public void Dispose()
     {
-      _context.Dispose();
+      _errorsDrawHandler.Fire(exception);
+      _drawEvent = DrawErrors;
     }
 
     #region Window's event handlers
