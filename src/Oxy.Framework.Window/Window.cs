@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
 using OpenTK;
 using OpenTK.Audio;
 using OpenTK.Graphics;
@@ -10,20 +7,20 @@ using OpenTK.Graphics.OpenGL;
 namespace Oxy.Framework
 {
   /// <summary>
-  /// Class that represents OxyEngine game window
+  ///   Class that represents OxyEngine game window
   /// </summary>
   public class Window : IDisposable
   {
-    private static GameWindow _instance;
-    
+    private static readonly GameWindow _instance;
+
     private static Action _loadEvent;
     private static Action<float> _updateEvent;
     private static Action _drawEvent;
 
-    private static ErrorsDrawHandler _errorsDrawHandler;
-    
+    private static readonly ErrorsDrawHandler _errorsDrawHandler;
+
     private static AudioContext _context;
-    
+
     static Window()
     {
       InitWindow("OxyEngine Game");
@@ -34,9 +31,10 @@ namespace Oxy.Framework
     {
       _instance = new GameWindow(800, 600,
         new GraphicsMode(new ColorFormat(8, 8, 8, 0), 
-          depth: 24,     // Depth bits
-          stencil: 8,    // Stencil bits
-          samples: 4    // FSAA samples
+           24,     // Depth bits
+           8,    // Stencil bits
+           4    // FSAA samples
+          
         ), title);
       _instance.WindowBorder = WindowBorder.Fixed;
       // Setup default window properties
@@ -44,12 +42,12 @@ namespace Oxy.Framework
     }
     
     private static void SwitchToErrorScreen(Exception exception)
+
+    public void Dispose()
     {
-      Console.WriteLine("=========================\n Working \n=========================");
-      _errorsDrawHandler.Fire(exception);
-      _drawEvent = DrawErrors;
+      _context.Dispose();
     }
-    
+
     #region Window's event handlers
 
     private static void Load(object sender, EventArgs e)
@@ -83,27 +81,27 @@ namespace Oxy.Framework
     // Handler that replaces _drawEvent to draw errors
     private static void DrawErrors() =>
       _errorsDrawHandler.DrawErrors();
-    
+
     private static void Draw(object sender, FrameEventArgs e)
     {
       (byte, byte, byte, byte) bgColor = Graphics.GetBackgroundColor();
       GL.ClearColor(Color.FromArgb(bgColor.Item4, bgColor.Item1, bgColor.Item2, bgColor.Item3));
-      
+
       GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-            
+
       #region Camera setup
 
       GL.MatrixMode(MatrixMode.Modelview);
       GL.LoadIdentity();
-            
+
       #endregion
-      
+
       #region Rendering
-      
+
       _drawEvent?.Invoke();
-      
+
       #endregion
-      
+
       _instance.SwapBuffers();
     }
 

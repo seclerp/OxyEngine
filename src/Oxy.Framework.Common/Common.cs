@@ -10,24 +10,26 @@ namespace Oxy.Framework
 {
   public class Common : Module<Common>
   {
-    private ScriptEngine _scriptEngine;
-    private string _scriptsRootFolder;
     private string _libraryRootFolder;
 
     // Those modules cannot be switched off and need to be for correct work of other modules
-    private List<string> _mustHaveScriptModules = new List<string>
+    private readonly List<string> _mustHaveScriptModules = new List<string>
     {
-      "Oxy.Framework.Common",
+      "Oxy.Framework.Common"
     };
-    
-    private List<string> _scriptModules = new List<string>
+
+    private readonly ScriptEngine _scriptEngine;
+
+    private readonly List<string> _scriptModules = new List<string>
     {
       "Oxy.Framework.Graphics",
       "Oxy.Framework.Input",
       "Oxy.Framework.Window",
       "Oxy.Framework.Resources"
     };
-    
+
+    private string _scriptsRootFolder;
+
     public Common()
     {
       _scriptEngine = Python.CreateEngine();
@@ -39,10 +41,10 @@ namespace Oxy.Framework
       scope.ImportModule("clr");
 
       _scriptEngine.Execute("import clr", scope);
-      
+
       foreach (var module in _mustHaveScriptModules)
         _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
-      
+
       foreach (var module in _scriptModules)
         _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
 
@@ -50,7 +52,7 @@ namespace Oxy.Framework
     }
 
     /// <summary>
-    /// Add .NET assembly reference to the list of imported libs for executing scripts
+    ///   Add .NET assembly reference to the list of imported libs for executing scripts
     /// </summary>
     /// <param name="reference">Reference name or full name</param>
     public static void AddDefaultNetModule(string reference)
@@ -58,9 +60,9 @@ namespace Oxy.Framework
       if (!Instance._scriptModules.Contains(reference))
         Instance._scriptModules.Add(reference);
     }
-    
+
     /// <summary>
-    /// Remove .NET assembly reference from the list of imported libs for executing scripts
+    ///   Remove .NET assembly reference from the list of imported libs for executing scripts
     /// </summary>
     /// <param name="reference">Reference name or full name</param>
     public static void RemoveDefaultNetModule(string reference)
@@ -68,9 +70,9 @@ namespace Oxy.Framework
       if (Instance._scriptModules.Contains(reference))
         Instance._scriptModules.Remove(reference);
     }
-    
+
     /// <summary>
-    /// Set scripts root folder
+    ///   Set scripts root folder
     /// </summary>
     /// <param name="path">Path to the scripts root folder</param>
     /// <exception cref="DirectoryNotFoundException">If library directory not exists</exception>
@@ -83,7 +85,7 @@ namespace Oxy.Framework
     }
 
     /// <summary>
-    /// Set library root folder
+    ///   Set library root folder
     /// </summary>
     /// <param name="path">Path to the library root folder</param>
     /// <exception cref="DirectoryNotFoundException">If library directory not exists</exception>
@@ -94,27 +96,27 @@ namespace Oxy.Framework
 
       Instance._libraryRootFolder = path;
     }
-    
+
     /// <summary>
-    /// Returns scripts root folder
+    ///   Returns scripts root folder
     /// </summary>
     /// <returns>Scripts root folder</returns>
     public static string GetScriptsRoot()
     {
       return Instance._scriptsRootFolder;
     }
-    
+
     /// <summary>
-    /// Returns library root path
+    ///   Returns library root path
     /// </summary>
     /// <returns>Library root path</returns>
     public static string GetLibraryRoot()
     {
       return Instance._libraryRootFolder;
     }
-    
+
     /// <summary>
-    /// Executes Python scripts with importing .NET modules
+    ///   Executes Python scripts with importing .NET modules
     /// </summary>
     /// <param name="path">Path to the script in scripts folder</param>
     public static void ExecuteScript(string path)
