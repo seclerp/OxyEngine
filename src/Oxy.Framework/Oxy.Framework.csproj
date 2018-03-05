@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>latest</LangVersion>
@@ -17,7 +16,14 @@
     <FileVersion>0.1.0.0</FileVersion>
     <Product>Oxy.Framework</Product>
   </PropertyGroup>
-
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>..\..\artifacts\Debug\Oxy.Framework</OutputPath>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0;NETCORE</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>..\..\artifacts\Release\Oxy.Framework</OutputPath>
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD2_0;NETCORE</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="DynamicLanguageRuntime" Version="1.2.1" />
     <PackageReference Include="IronPython" Version="2.7.8.1" />
@@ -28,5 +34,4 @@
     <EmbeddedResource Include="builtin\font\roboto.ttf" />
     <EmbeddedResource Include="builtin\font\monospace.ttf" />
   </ItemGroup>
-
 </Project>
