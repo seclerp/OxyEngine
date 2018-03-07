@@ -1,45 +1,11 @@
-﻿using System;
-using System.Drawing;
-using Oxy.Framework.Events;
+﻿using System.Drawing;
+using OpenTK;
+using SizeF = System.Drawing.SizeF;
 
 namespace Oxy.Framework.Objects
 {
-  /// <summary>
-  ///   Represents font with given name and size
-  /// </summary>
-  public class FontObject : IDisposable
+  public abstract class FontObject
   {
-    public FontObject(Font font)
-    {
-      Font = font;
-    }
-
-    public void Dispose()
-    {
-      Font?.Dispose();
-    }
-
-    public Font Font { get; private set; }
-    public event EventHandler<FontSizeChangedEventArgs> OnFontSizeChanged;
-
-    /// <summary>
-    ///   Set new size for font
-    /// </summary>
-    /// <param name="newSize">New size in pixels</param>
-    public void SetSize(float newSize)
-    {
-      Font = new Font(Font.FontFamily, newSize);
-
-      OnFontSizeChanged?.Invoke(this, new FontSizeChangedEventArgs {NewSize = newSize});
-    }
-
-    /// <summary>
-    ///   Returns size of the font
-    /// </summary>
-    /// <returns></returns>
-    public float GetSize()
-    {
-      return Font.Size;
-    }
+    internal abstract void Print(SolidBrush Brush, SizeF size, string text, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1);
   }
 }

@@ -1,4 +1,5 @@
 using OpenTK.Input;
+using Oxy.Framework.Mappings;
 
 namespace Oxy.Framework
 {

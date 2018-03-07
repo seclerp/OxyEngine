@@ -3,6 +3,7 @@ using OpenTK;
 using OpenTK.Audio;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using Oxy.Framework.Rendering;
 
 namespace Oxy.Framework
 {

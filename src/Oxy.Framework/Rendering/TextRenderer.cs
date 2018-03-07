@@ -7,7 +7,7 @@ using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
 using PixelFormat = System.Drawing.Imaging.PixelFormat;
 
-namespace Oxy.Framework
+namespace Oxy.Framework.Rendering
 {
   /// <summary>
   ///   Uses System.Drawing for 2d text rendering.

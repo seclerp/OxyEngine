@@ -2,6 +2,9 @@
 using System.Drawing;
 using System.Drawing.Text;
 using System.IO;
+using System.Net;
+using IronPython.Modules;
+using Oxy.Framework.Enums;
 using Oxy.Framework.Objects;
 
 namespace Oxy.Framework
@@ -52,7 +55,7 @@ namespace Oxy.Framework
     /// <param name="size">Size of the font</param>
     /// <returns>Font object</returns>
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
-    public static FontObject LoadFont(string path, float size = 12)
+    public static TtfFontObject LoadFont(string path, float size = 12)
     {
       var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
 
@@ -65,7 +68,7 @@ namespace Oxy.Framework
 
       var font = new Font(tempCollection.Families[0], size);
 
-      return new FontObject(font);
+      return new TtfFontObject(font);
     }
 
     /// <summary>
@@ -75,7 +78,7 @@ namespace Oxy.Framework
     /// <param name="size"></param>
     /// <returns>Font object</returns>
     /// <exception cref="NullReferenceException">If stream is null</exception>
-    public static FontObject LoadFont(Stream stream, float size = 12)
+    public static TtfFontObject LoadFont(Stream stream, float size = 12)
     {
       if (stream == null)
         throw new NullReferenceException(nameof(stream));
@@ -95,7 +98,29 @@ namespace Oxy.Framework
 
       var font = new Font(tempCollection.Families[0], size);
 
-      return new FontObject(font);
+      return new TtfFontObject(font);
+    }
+
+    /// <summary>
+    ///   Loads bitmap font from file
+    /// </summary>
+    /// <param name="path"></param>
+    /// <param name="characters"></param>
+    /// <returns></returns>
+    public static BitmapFontObject LoadBitmapFont(string path, string characters)
+    {
+      return new BitmapFontObject(LoadTexture(path), characters, true);
+    }
+    
+    /// <summary>
+    ///   Loads bitmap font from texture
+    /// </summary>
+    /// <param name="bitmap"></param>
+    /// <param name="characters"></param>
+    /// <returns></returns>
+    public static BitmapFontObject LoadBitmapFont(TextureObject bitmap, string characters)
+    {
+      return new BitmapFontObject(bitmap, characters);
     }
 
     /// <summary>

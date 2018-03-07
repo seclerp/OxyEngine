@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using Oxy.Framework.Interfaces;
 using Bitmap = System.Drawing.Bitmap;
 using PixelFormat = OpenTK.Graphics.OpenGL.PixelFormat;
 using Rectangle = System.Drawing.Rectangle;
@@ -12,10 +13,13 @@ namespace Oxy.Framework.Objects
   /// <summary>
   ///   Object for drawing textures on screen
   /// </summary>
-  /// <seealso cref="Oxy.Framework.Objects.IDrawable" />
+  /// <seealso cref="IDrawable" />
   /// <seealso cref="System.IDisposable" />
   public class TextureObject : IDrawable, IDisposable
   {
+    public int Width => _texture.Width;
+    public int Height => _texture.Width;
+    
     private readonly int _id;
     private readonly Bitmap _texture;
 

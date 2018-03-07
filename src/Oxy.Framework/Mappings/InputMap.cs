@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using OpenTK.Input;
 
-namespace Oxy.Framework
+namespace Oxy.Framework.Mappings
 {
   /// <summary>
   ///   Class for mapping string to OpenTK Key enum

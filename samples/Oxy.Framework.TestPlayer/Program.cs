@@ -13,9 +13,9 @@ namespace Oxy.Framework.TestPlayer
       // Set library root folder. All asset paths will be relative to this folder
       Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
 
-      //Common.ExecuteScript("errors-example.py");
+      Common.ExecuteScript("print-example.py");
       //ErrorsStub();
-      TextureDrawing();
+      //TextureDrawing();
       //PrimitivesExample();
       //PrintingExample();
     }

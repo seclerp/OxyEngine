@@ -4,12 +4,12 @@ using System.Text;
 using Oxy.Framework.Exceptions;
 using Oxy.Framework.Objects;
 
-namespace Oxy.Framework
+namespace Oxy.Framework.Rendering
 {
   public class ErrorsDrawHandler
   {
     private TextureObject _errorsBanner;
-    private FontObject _font;
+    private TtfFontObject _ttfFont;
     private TextObject _text;
     public string FullError { get; private set; }
 
@@ -89,12 +89,12 @@ namespace Oxy.Framework
 
       // assembly.GetManifestResourceNames() - to check
       _errorsBanner = Resources.LoadTexture(assembly.GetManifestResourceStream("Oxy.Framework.builtin.img.error.png"));
-      _font = Resources.LoadFont(assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.monospace.ttf"));
+      _ttfFont = Resources.LoadFont(assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.monospace.ttf"));
 
       FullError = WordWrap(FullError, 50);
       FullError = FullError.Replace("\nat", "\n\n    at");
 
-      _text = Graphics.NewText(_font, FullError);
+      _text = Graphics.NewText(_ttfFont, FullError);
       Graphics.SetBackgroundColor(100, 100, 100);
     }
 

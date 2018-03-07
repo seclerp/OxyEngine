@@ -9,7 +9,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Oxy.Framework\Oxy.Framework.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="library" />
-  </ItemGroup>
 </Project>

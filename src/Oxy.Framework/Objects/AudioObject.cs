@@ -1,4 +1,6 @@
-﻿namespace Oxy.Framework.Objects
+﻿using Oxy.Framework.Enums;
+
+namespace Oxy.Framework.Objects
 {
   /// <summary>
   ///   Object for playing audio

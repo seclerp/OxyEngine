@@ -2,6 +2,8 @@
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using Oxy.Framework.Interfaces;
+using Oxy.Framework.Rendering;
 using Bitmap = System.Drawing.Bitmap;
 using Color = System.Drawing.Color;
 using PointF = System.Drawing.PointF;
@@ -15,21 +17,17 @@ namespace Oxy.Framework.Objects
   public class TextObject : IDrawable, IDisposable
   {
     private SolidBrush _brush;
-    private FontObject _font;
+    private TtfFontObject _ttfFont;
     private SizeF _size;
     private string _text;
     private TextRenderer _textRenderer;
 
-    public TextObject(FontObject font, string text = "")
+    public TextObject(TtfFontObject ttfFont, string text = "")
     {
       _brush = new SolidBrush(Color.White);
-      _font = font;
+      _ttfFont = ttfFont;
       _text = text;
-
-      // Listener for font size change
-      _font.OnFontSizeChanged += (s, e) => RedrawRenderer();
-
-      RedrawRenderer();
+      _size = MeasureString(text, _ttfFont.Font);
     }
 
     public void Dispose()
@@ -47,28 +45,7 @@ namespace Oxy.Framework.Objects
     /// <param name="sy">Y scale factor</param>
     public void Draw(float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
     {
-      GL.PushMatrix();
-
-      GL.Translate(x, y, 0);
-      GL.Rotate(r, Vector3.UnitZ);
-      GL.Scale(sx, sy, 1);
-
-      GL.BindTexture(TextureTarget.Texture2D, _textRenderer.Texture);
-      GL.Begin(PrimitiveType.Quads);
-
-      GL.TexCoord2(1.0f, 1.0f);
-      GL.Vertex3(_size.Width, _size.Height, 0.1);
-      GL.TexCoord2(1.0f, 0.0f);
-      GL.Vertex3(_size.Width, 0, 0.1);
-      GL.TexCoord2(0.0f, 0.0f);
-      GL.Vertex3(0, 0, 0.1);
-      GL.TexCoord2(0.0f, 1.0f);
-      GL.Vertex3(0, _size.Height, 0.1);
-
-      GL.End();
-      GL.BindTexture(TextureTarget.Texture2D, 0);
-
-      GL.PopMatrix();
+      _ttfFont.Print(_brush, _size, _text, x, y, r, sx, sy);
     }
 
     private static SizeF MeasureString(string s, Font font)
@@ -88,24 +65,14 @@ namespace Oxy.Framework.Objects
       return result;
     }
 
-    private void RedrawRenderer()
-    {
-      _textRenderer?.Dispose();
-      _size = MeasureString(_text, _font.Font);
-      _textRenderer = new TextRenderer((int) _size.Width, (int) _size.Height);
-      _textRenderer.Clear(Color.Transparent);
-      _textRenderer.DrawString(_text, _font.Font, _brush, new PointF(0, 0));
-    }
-
-
     /// <summary>
     ///   Set font for text
     /// </summary>
-    /// <param name="newFont">Font object</param>
-    public void SetFont(FontObject newFont)
+    /// <param name="newTtfFont">Font object</param>
+    public void SetFont(TtfFontObject newTtfFont)
     {
-      _font = newFont;
-      RedrawRenderer();
+      _ttfFont = newTtfFont;
+      _size = MeasureString(_text, _ttfFont.Font);
     }
 
     /// <summary>
@@ -118,7 +85,6 @@ namespace Oxy.Framework.Objects
     public void SetColor(byte r, byte g, byte b, byte a)
     {
       _brush = new SolidBrush(Color.FromArgb(a, r, g, b));
-      RedrawRenderer();
     }
 
     /// <summary>
@@ -128,16 +94,16 @@ namespace Oxy.Framework.Objects
     public void SetText(string newText)
     {
       _text = newText;
-      RedrawRenderer();
+      _size = MeasureString(_text, _ttfFont.Font);
     }
 
     /// <summary>
     ///   Returns font used to draw this text
     /// </summary>
     /// <returns></returns>
-    public FontObject GetFont()
+    public TtfFontObject GetFont()
     {
-      return _font;
+      return _ttfFont;
     }
 
     /// <summary>

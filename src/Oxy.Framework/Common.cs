@@ -10,17 +10,14 @@ namespace Oxy.Framework
     // Those modules cannot be switched off and need to be for correct work of other modules
     private readonly List<string> _mustHaveScriptModules = new List<string>
     {
-      "Oxy.Framework.Common"
+      "Oxy.Framework"
     };
 
     private readonly ScriptEngine _scriptEngine;
 
     private readonly List<string> _scriptModules = new List<string>
     {
-      "Oxy.Framework.Graphics",
-      "Oxy.Framework.Input",
-      "Oxy.Framework.Window",
-      "Oxy.Framework.Resources"
+
     };
 
     private string _libraryRootFolder;

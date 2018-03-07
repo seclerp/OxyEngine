@@ -1,4 +1,4 @@
-﻿namespace Oxy.Framework
+﻿namespace Oxy.Framework.Enums
 {
   public enum FillStyle
   {

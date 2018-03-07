@@ -1,6 +1,7 @@
 ﻿using System;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
+using Oxy.Framework.Interfaces;
 using Oxy.Framework.Objects;
 
 namespace Oxy.Framework
@@ -39,12 +40,12 @@ namespace Oxy.Framework
     /// <summary>
     ///   Creates new TextObject
     /// </summary>
-    /// <param name="font">Font to be used</param>
+    /// <param name="ttfFont">Font to be used</param>
     /// <param name="text">Text for printing</param>
     /// <returns></returns>
-    public static TextObject NewText(FontObject font, string text = "")
+    public static TextObject NewText(TtfFontObject ttfFont, string text = "")
     {
-      return new TextObject(font, text);
+      return new TextObject(ttfFont, text);
     }
 
     #endregion
