@@ -1,37 +1,118 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Authors>Andrew Rublyov, Andrey Belyaev</Authors>
-    <AssemblyVersion>0.1.0.0</AssemblyVersion>
-    <PackageProjectUrl>https://github.com/OxyTeam/OxyEngine</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/OxyTeam/OxyEngine</RepositoryUrl>
-    <Version>0.1.0</Version>
-    <Company>OxyTeam</Company>
-    <Description>2D full-featured open-source crossplatform game engine for .NET Core</Description>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</PackageLicenseUrl>
-    <PackageTags>game opengl shader texture opentk engine framework gamedev graphic</PackageTags>
-    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <FileVersion>0.1.0.0</FileVersion>
-    <Product>Oxy.Framework</Product>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{368F72FC-7E9A-47AB-A3CE-4D89CB3EB352}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Oxy.Framework</RootNamespace>
+    <AssemblyName>framework</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
     <OutputPath>..\..\artifacts\Debug\Oxy.Framework</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD2_0;NETCORE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
     <OutputPath>..\..\artifacts\Release\Oxy.Framework</OutputPath>
-    <DefineConstants>TRACE;RELEASE;NETSTANDARD2_0;NETCORE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="DynamicLanguageRuntime" Version="1.2.1" />
-    <PackageReference Include="IronPython" Version="2.7.8.1" />
-    <PackageReference Include="IronPython.StdLib" Version="2.7.8.1" />
-    <PackageReference Include="OpenTK.NETCore" Version="1.1.2749.6433" />
-    <PackageReference Include="System.Drawing.Common" Version="4.5.0-preview1-25914-04" />
-    <EmbeddedResource Include="builtin\img\error.png" />
-    <EmbeddedResource Include="builtin\font\roboto.ttf" />
-    <EmbeddedResource Include="builtin\font\monospace.ttf" />
+    <Reference Include="IronPython, Version=2.7.8.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\IronPython.2.7.8.1\lib\net45\IronPython.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Modules, Version=2.7.8.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\IronPython.2.7.8.1\lib\net45\IronPython.Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.SQLite, Version=2.7.8.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\IronPython.2.7.8.1\lib\net45\IronPython.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="IronPython.Wpf, Version=2.7.8.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\IronPython.2.7.8.1\lib\net45\IronPython.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Dynamic, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\DynamicLanguageRuntime.1.2.1\lib\net45\Microsoft.Dynamic.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\DynamicLanguageRuntime.1.2.1\lib\net45\Microsoft.Scripting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Scripting.Metadata, Version=1.2.0.0, Culture=neutral, PublicKeyToken=7f709c5b713576e1">
+      <HintPath>..\..\packages\DynamicLanguageRuntime.1.2.1\lib\net45\Microsoft.Scripting.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.CodeCoverage.Shim, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\..\packages\DynamicLanguageRuntime.1.2.1\lib\net45\Microsoft.VisualStudio.CodeCoverage.Shim.dll</HintPath>
+    </Reference>
+    <Reference Include="OpenTK, Version=3.0.0.0, Culture=neutral, PublicKeyToken=bad199fe84eb3df4">
+      <HintPath>..\..\packages\OpenTK.3.0.0-pre\lib\net20\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common.cs" />
+    <Compile Include="Enums\AudioFormat.cs" />
+    <Compile Include="Enums\FillStyle.cs" />
+    <Compile Include="Events\FontSizeChangedEventArgs.cs" />
+    <Compile Include="Exceptions\PyException.cs" />
+    <Compile Include="Graphics.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="Interfaces\IDrawable.cs" />
+    <Compile Include="LazyModule.cs" />
+    <Compile Include="Mappings\InputMap.cs" />
+    <Compile Include="Module.cs" />
+    <Compile Include="Objects\AudioObject.cs" />
+    <Compile Include="Objects\AudioState.cs" />
+    <Compile Include="Objects\BitmapFontObject.cs" />
+    <Compile Include="Objects\FontObject.cs" />
+    <Compile Include="Objects\RectObject.cs" />
+    <Compile Include="Objects\TextObject.cs" />
+    <Compile Include="Objects\TextureObject.cs" />
+    <Compile Include="Objects\TtfFontObject.cs" />
+    <Compile Include="Objects\WaveAudioObject.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rendering\ErrorsDrawHandler.cs" />
+    <Compile Include="Rendering\TextRenderer.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="Window.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="builtin\font\monospace.ttf" />
+    <EmbeddedResource Include="builtin\font\roboto.ttf" />
+    <EmbeddedResource Include="builtin\img\error.png" />
+    <Content Include="Oxy.Framework.Old.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="OpenTK.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
 </Project>

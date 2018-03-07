@@ -1,6 +1,6 @@
 ﻿using System;
+using OpenTK.Audio.OpenAL;
 using Oxy.Framework.Enums;
-using Oxy.Framework.OpenAL.AL;
 
 namespace Oxy.Framework.Objects
 {
