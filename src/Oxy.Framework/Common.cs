@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using IronPython.Hosting;
@@ -17,7 +18,7 @@ namespace Oxy.Framework
 
     private readonly List<string> _scriptModules = new List<string>
     {
-
+      "IronPython.StdLib"
     };
 
     private string _libraryRootFolder;
@@ -27,6 +28,7 @@ namespace Oxy.Framework
     public Common()
     {
       _scriptEngine = Python.CreateEngine();
+
     }
 
     private ScriptScope CreateConfiguredScope()
@@ -75,7 +77,13 @@ namespace Oxy.Framework
       if (!Directory.Exists(path))
         throw new DirectoryNotFoundException(path);
 
+      var paths = Instance._scriptEngine.GetSearchPaths();
+
+      if (!string.IsNullOrEmpty(Instance._scriptsRootFolder))
+        paths.Remove(Instance._scriptsRootFolder);
+      
       Instance._scriptsRootFolder = path;
+      paths.Add(Instance._scriptsRootFolder);
     }
 
     /// <summary>
