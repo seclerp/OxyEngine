@@ -1,16 +1,16 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>$id$</id>
-    <version>$version$</version>
-    <title>$title$</title>
-    <authors>$author$</authors>
-    <owners>$author$</owners>
+    <id>oxyframework</id>
+    <version>0.1.0.0</version>
+    <title>Oxy.Framework</title>
+    <authors>OxyTeam</authors>
+    <owners>OxyTeam</owners>
     <licenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</licenseUrl>
     <projectUrl>https://github.com/OxyTeam/OxyEngine</projectUrl>
     <iconUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/logo.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Low level framework library for OxyEngine</description>
     <releaseNotes>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/CHANGELOG.md</releaseNotes>
     <copyright>Copyright © 2018 OxyTeam</copyright>
     <tags>game opengl shader texture opentk engine framework gamedev graphic</tags>
