@@ -18,9 +18,9 @@ namespace Oxy.Framework.Objects
   public class TextureObject : IDrawable, IDisposable
   {
     public int Width => _texture.Width;
-    public int Height => _texture.Width;
-    
-    private readonly int _id;
+    public int Height => _texture.Height;
+
+    public int Id { get; }
     private readonly Bitmap _texture;
 
     /// <summary>
@@ -32,7 +32,7 @@ namespace Oxy.Framework.Objects
     {
       _texture = texture ?? throw new ArgumentNullException(nameof(texture));
 
-      _id = LoadToGpu();
+      Id = LoadToGpu();
     }
 
     /// <summary>
@@ -58,20 +58,20 @@ namespace Oxy.Framework.Objects
       GL.Rotate(r, Vector3.UnitZ);
       GL.Scale(sx, sy, 1);
 
-      GL.BindTexture(TextureTarget.Texture2D, _id);
+      GL.BindTexture(TextureTarget.Texture2D, Id);
       GL.Begin(PrimitiveType.Quads);
 
-      GL.TexCoord2(0, 0);
-      GL.Vertex3(x, y, 0);
-      GL.TexCoord2(0, 1);
-      GL.Vertex3(x, y + _texture.Height, 0);
-      GL.TexCoord2(1, 1);
-      GL.Vertex3(x + _texture.Width, y + _texture.Height, 0);
-      GL.TexCoord2(1, 0);
-      GL.Vertex3(x + _texture.Width, y, 0);
+      GL.TexCoord2(0, 0); GL.Vertex3(0, 0, 0);
+      GL.TexCoord2(0, 1); GL.Vertex3(0, _texture.Height, 0);
+      GL.TexCoord2(1, 1); GL.Vertex3(_texture.Width, _texture.Height, 0);
+      GL.TexCoord2(1, 0); GL.Vertex3(_texture.Width, 0, 0);
 
       GL.End();
       GL.BindTexture(TextureTarget.Texture2D, 0);
+      
+      GL.Scale(1/sx, 1/sy, 1);
+      GL.Rotate(-r, Vector3.UnitZ);
+      GL.Translate(-x, -y, 0);
     }
 
     private int LoadToGpu(int quality = 0, bool repeat = true, bool flip_y = false)

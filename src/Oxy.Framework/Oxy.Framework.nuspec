@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>oxyframework</id>
-    <version>0.1.0.0</version>
+    <version>0.1.0-pre</version>
     <title>Oxy.Framework</title>
     <authors>OxyTeam</authors>
     <owners>OxyTeam</owners>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['auxiliaryeffectslot',['AuxiliaryEffectSlot',['../class_oxy_1_1_framework_1_1_a_l_1_1_effects_extension.html#a54ce085cf110d1aa3a178471638bb207',1,'Oxy.Framework.AL.EffectsExtension.AuxiliaryEffectSlot(uint asid, EfxAuxiliaryi param, int value)'],['../class_oxy_1_1_framework_1_1_a_l_1_1_effects_extension.html#aa69f7494546c51c867c00dbc59d3fb40',1,'Oxy.Framework.AL.EffectsExtension.AuxiliaryEffectSlot(int asid, EfxAuxiliaryi param, int value)'],['../class_oxy_1_1_framework_1_1_a_l_1_1_effects_extension.html#a9689be9f5f6ae7137a2cab56edbfdca9',1,'Oxy.Framework.AL.EffectsExtension.AuxiliaryEffectSlot(uint asid, EfxAuxiliaryf param, float value)'],['../class_oxy_1_1_framework_1_1_a_l_1_1_effects_extension.html#af0deea4d84efec3b7c7aa6e0d3ad544a',1,'Oxy.Framework.AL.EffectsExtension.AuxiliaryEffectSlot(int asid, EfxAuxiliaryf param, float value)']]]
+  ['clear',['Clear',['../class_oxy_1_1_framework_1_1_rendering_1_1_text_renderer.html#ab5467e1d651a9affc35ae0e8e13e72d4',1,'Oxy::Framework::Rendering::TextRenderer']]]
 ];

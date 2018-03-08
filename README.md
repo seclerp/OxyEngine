@@ -24,11 +24,13 @@ In future you will be able to create games using high-level **Oxy.Engine** part 
 
 ## Prerequisites
 
-OxyEngine is a **.NET Core** project. To create .NET Core applications you need to install [.NET Core SDK](https://www.microsoft.com/net/download) on your system.
+OxyEngine is a **.NET Framework** project. 
 
-For now, only Desktop operation systems are supported (**Windows, MacOS X, *Linux***).
+On Windows you can build and run OxyEngine using .NET Framework as usual. On Linux and Mac OS X you need to install Mono and run Mono MSBuild to build, or Mono runtime to execute binaries.
 
-:exclamation:**Note:** Not all Linux distributions are supported by .NET Core. Check **[list of supported OS](https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0-supported-os.md)** for details.
+**There are also prebuilt binaries for most systems.**
+
+For now, only Desktop operation systems are supported (**Windows, MacOS X, Linux**).
 
 Your graphics card must support **OpenGL 3.2+**.
 
@@ -39,30 +41,27 @@ Because of platform-specific reasons, some modules may have trouble working on y
 There are also **list of libraries, that must be installed on your machine**. If you have troubles in running applications that use OxyEngine, please check **[this list](CROSSLIBS.md)**.
 
 ## Installing
-This section will show you how to install OxyEngine into your .NET Core 2.0 App.
+This section will show you how to install OxyEngine into your .NET project.
 
-### From NuGet
-For now, we are not providing any NuGet packages, because we do not have any releases yet.
+### From NuGet (preffered)
+Just install Oxy.Framework **[NuGet package](https://nuget.org)**. This is best choice for beginners.
 
-### From project sources
+### From project sources (advanced)
 To install stable version of OxyEngine into your .NET Core App:
 * Сlone this repository:
  `git clone https://github.com/OxyTeam/OxyEngine.git` 
   Use **master** branch for only stable and production-ready code. 
   You also can use **default** branch, but it may not build or will work not properly.
-* Build **Oxy.Framework.TestPlayer** project (that command will build all needed modules) with
-  `dotnet build`
-  and reference compiled dll's (Oxy.Framework.* assemblies) to your .NET Core App project.
+* For examples you can build also **Oxy.Playground**
+  and reference compiled dll's (Oxy.Framework assembly) to your project.
   **OR** 
-  you can reference Oxy.Framework.* projects directly without using compiled dll's
+  you can reference Oxy.Framework projects directly without using compiled dll's
   
 ## Hello, World! 
 
 "Hello World!" example using low-level Oxy.Framework.
 
-Create folders `scripts` (folder for your Python scripts) and `library`(for game assets) in your app project folder. Make sure they will be copied to build output folder. You can rename folders to any name you want, but better use this for future compatibility
-
-Also this example use custom .ttf font **that must be placed into `library` folder**, you can use any font you want with this example.
+Also this example use custom .ttf font **that must be placed into your project folder**, you can use any font you want with this example.
   
 ### Example using only C#
 
@@ -78,9 +77,9 @@ namespace Oxy.Framework.TestPlayer
     static void Main(string[] args)
     {
       // Set scripts root folder. All script paths will be relative to this folder
-      Common.SetScriptsRoot(Path.Combine(Environment.CurrentDirectory, "scripts"));
+      Common.SetScriptsRoot(Environment.CurrentDirectory);
       // Set library root folder. All asset paths will be relative to this folder
-      Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
+      Common.SetLibraryRoot(Environment.CurrentDirectory);
 
       // Text object for "Hello, World!" text
       TextObject textObj = null;
@@ -107,6 +106,8 @@ namespace Oxy.Framework.TestPlayer
 Thats all. Build and run this example to see result.
 
 ### Example using Python + C#
+
+Create folder for scripts and resources. Make sure they will be copied to build output folder. You can rename folders to any name you want, but better use this for future compatibility
 
 This is more preffered way to use Oxy.Framework.
 
@@ -168,7 +169,6 @@ Result of both implementations:
 OxyEngine uses some third-party libraries and tools:
 
 * [OpenTK](https://github.com/opentk/opentk) - Open Toolkit library is a fast, low-level C# wrapper for OpenGL and OpenAL.
-  (we are using [OpenTK.NETCore](https://www.nuget.org/packages/OpenTK.NETCore/) package for .NET Core compatibility)
 * [IronPython](http://ironpython.net/) - the Python programming language for the .NET Framework
 * [DLR](https://github.com/IronLanguages/dlr) - Open source implementation of Dynamic Language Runtime
 

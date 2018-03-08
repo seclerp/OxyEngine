@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['clear',['Clear',['../class_oxy_1_1_framework_1_1_text_renderer.html#a3549abadc376ea62f13b6462e4a4df0a',1,'Oxy::Framework::TextRenderer']]]
+  ['exit',['Exit',['../class_oxy_1_1_framework_1_1_window.html#a46057de8d39390b27c752e30e0b62d34',1,'Oxy::Framework::Window']]]
 ];

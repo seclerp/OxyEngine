@@ -44,7 +44,7 @@ namespace Oxy.Framework
     /// <param name="ttfFont">Font to be used</param>
     /// <param name="text">Text for printing</param>
     /// <returns></returns>
-    public static TextObject NewText(TtfFontObject ttfFont, string text = "")
+    public static TextObject NewText(FontObject ttfFont, string text = "")
     {
       return new TextObject(ttfFont, text);
     }
