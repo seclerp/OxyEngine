@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['module',['Module',['../class_oxy_1_1_framework_1_1_module.html',1,'Oxy::Framework']]],
-  ['module_3c_20common_20_3e',['Module&lt; Common &gt;',['../class_oxy_1_1_framework_1_1_module.html',1,'Oxy::Framework']]],
-  ['module_3c_20gamewindow_20_3e',['Module&lt; GameWindow &gt;',['../class_oxy_1_1_framework_1_1_module.html',1,'Oxy::Framework']]]
+  ['textobject',['TextObject',['../class_oxy_1_1_framework_1_1_objects_1_1_text_object.html',1,'Oxy::Framework::Objects']]],
+  ['textrenderer',['TextRenderer',['../class_oxy_1_1_framework_1_1_rendering_1_1_text_renderer.html',1,'Oxy::Framework::Rendering']]],
+  ['textureobject',['TextureObject',['../class_oxy_1_1_framework_1_1_objects_1_1_texture_object.html',1,'Oxy::Framework::Objects']]],
+  ['ttffontobject',['TtfFontObject',['../class_oxy_1_1_framework_1_1_objects_1_1_ttf_font_object.html',1,'Oxy::Framework::Objects']]]
 ];
