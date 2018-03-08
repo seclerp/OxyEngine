@@ -20,7 +20,8 @@ namespace Oxy.Framework
     private static Action _drawEvent;
 
     private static readonly ErrorsDrawHandler _errorsDrawHandler;
-
+    private static bool _isDebug;
+    
     private static AudioContext _context;
 
     static Window()
@@ -76,6 +77,9 @@ namespace Oxy.Framework
       }
       catch (Exception e)
       {
+        if (_isDebug)
+          throw e;
+        
         InitWindow("Error");
         SwitchToErrorScreen(e);
         _loadEvent = null;
@@ -225,6 +229,14 @@ namespace Oxy.Framework
     {
       return _instance.WindowState == WindowState.Fullscreen;
     }
+    
+    /// <summary>
+    ///   Returns debug mode
+    /// </summary>
+    public static bool GetDebugMode()
+    {
+      return _isDebug;
+    }
 
     #endregion
 
@@ -241,7 +253,7 @@ namespace Oxy.Framework
 
     /// <summary>
     ///   Sets window height
-    /// </summary>
+    /// </summary>YtpzНе
     /// <param name="height">New height</param>
     public static void SetHeight(int height)
     {
@@ -273,6 +285,15 @@ namespace Oxy.Framework
     public static void SetFullscreen(bool fullscreen)
     {
       _instance.WindowState = fullscreen ? WindowState.Fullscreen : WindowState.Normal;
+    }
+
+    /// <summary>
+    ///   True for pass exceptions without error window
+    /// </summary>
+    /// <param name="debugMode"></param>
+    public static void SetDebugMode(bool debugMode = true)
+    {
+      _isDebug = debugMode;
     }
 
     #endregion

@@ -24,6 +24,7 @@ namespace Oxy.Framework.Objects
     public void Dispose()
     {
       Font?.Dispose();
+      _textRenderer?.Dispose();
     }
 
     public Font Font { get; private set; }
@@ -72,6 +73,28 @@ namespace Oxy.Framework.Objects
       GL.BindTexture(TextureTarget.Texture2D, 0);
 
       GL.PopMatrix();
+    }
+
+    internal override SizeF MeasureSize(string text)
+    {
+      return MeasureString(text, Font);
+    }
+    
+    private static SizeF MeasureString(string s, Font font)
+    {
+      if (s.Length == 0)
+        return new SizeF(1, 1);
+
+      SizeF result;
+      using (var image = new Bitmap(1, 1))
+      {
+        using (var g = System.Drawing.Graphics.FromImage(image))
+        {
+          result = g.MeasureString(s, font);
+        }
+      }
+
+      return result;
     }
     
     private void RedrawRenderer(System.Drawing.SizeF newSize, SolidBrush brush, string text)

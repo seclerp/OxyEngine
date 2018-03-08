@@ -99,7 +99,7 @@
     <EmbeddedResource Include="builtin\font\monospace.ttf" />
     <EmbeddedResource Include="builtin\font\roboto.ttf" />
     <EmbeddedResource Include="builtin\img\error.png" />
-    <Content Include="IronPython.StdLib.dll">
+    <Content Include="pystdlib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Oxy.Framework.nuspec" />

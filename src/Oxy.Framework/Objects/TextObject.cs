@@ -17,17 +17,17 @@ namespace Oxy.Framework.Objects
   public class TextObject : IDrawable, IDisposable
   {
     private SolidBrush _brush;
-    private TtfFontObject _ttfFont;
+    private FontObject _font;
     private SizeF _size;
     private string _text;
     private TextRenderer _textRenderer;
 
-    public TextObject(TtfFontObject ttfFont, string text = "")
+    public TextObject(FontObject font, string text = "")
     {
       _brush = new SolidBrush(Color.White);
-      _ttfFont = ttfFont;
+      _font = font;
       _text = text;
-      _size = MeasureString(text, _ttfFont.Font);
+      _size = _font.MeasureSize(text);
     }
 
     public void Dispose()
@@ -45,34 +45,17 @@ namespace Oxy.Framework.Objects
     /// <param name="sy">Y scale factor</param>
     public void Draw(float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
     {
-      _ttfFont.Print(_brush, _size, _text, x, y, r, sx, sy);
-    }
-
-    private static SizeF MeasureString(string s, Font font)
-    {
-      if (s.Length == 0)
-        return new SizeF(1, 1);
-
-      SizeF result;
-      using (var image = new Bitmap(1, 1))
-      {
-        using (var g = System.Drawing.Graphics.FromImage(image))
-        {
-          result = g.MeasureString(s, font);
-        }
-      }
-
-      return result;
+      _font.Print(_brush, _size, _text, x, y, r, sx, sy);
     }
 
     /// <summary>
     ///   Set font for text
     /// </summary>
     /// <param name="newTtfFont">Font object</param>
-    public void SetFont(TtfFontObject newTtfFont)
+    public void SetFont(FontObject newTtfFont)
     {
-      _ttfFont = newTtfFont;
-      _size = MeasureString(_text, _ttfFont.Font);
+      _font = newTtfFont;
+      _size = _font.MeasureSize(_text);
     }
 
     /// <summary>
@@ -94,16 +77,16 @@ namespace Oxy.Framework.Objects
     public void SetText(string newText)
     {
       _text = newText;
-      _size = MeasureString(_text, _ttfFont.Font);
+      _size = _font.MeasureSize(_text);
     }
 
     /// <summary>
     ///   Returns font used to draw this text
     /// </summary>
     /// <returns></returns>
-    public TtfFontObject GetFont()
+    public FontObject GetFont()
     {
-      return _ttfFont;
+      return _font;
     }
 
     /// <summary>
