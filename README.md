@@ -150,9 +150,9 @@ namespace Oxy.Framework.TestPlayer
     static void Main(string[] args)
     {
       // Set scripts root folder. All script paths will be relative to this folder
-      Common.SetScriptsRoot(Path.Combine(Environment.CurrentDirectory, "scripts"));
+      Common.SetScriptsRoot(Environment.CurrentDirectory);
       // Set library root folder. All asset paths will be relative to this folder
-      Common.SetLibraryRoot(Path.Combine(Environment.CurrentDirectory, "library"));
+      Common.SetLibraryRoot(Environment.CurrentDirectory);
       // Execute script
       Common.ExecuteScript("game.py");
     }
@@ -162,7 +162,7 @@ namespace Oxy.Framework.TestPlayer
 
 Result of both implementations:
 
-![Hello? World!](https://i.imgur.com/7o3VPSQ.png)
+![Hello World!](https://i.imgur.com/7o3VPSQ.png)
 
 
 # Built With
