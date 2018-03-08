@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>oxyframework</id>
+    <version>0.1.0-pre</version>
+    <title>Oxy.Framework</title>
+    <authors>OxyTeam</authors>
+    <owners>OxyTeam</owners>
+    <licenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/OxyTeam/OxyEngine</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/logo.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Low level framework library for OxyEngine</description>
+    <releaseNotes>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/CHANGELOG.md</releaseNotes>
+    <copyright>Copyright © 2018 OxyTeam</copyright>
+    <tags>game opengl shader texture opentk engine framework gamedev graphic</tags>
+  </metadata>
+</package>

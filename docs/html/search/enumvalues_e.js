@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['referencedistance',['ReferenceDistance',['../namespace_oxy_1_1_framework_1_1_a_l.html#aac10b228abc80a4b5c5824c1c85d7383a919d07be1b715d9d5971e1e3960cc4f3',1,'Oxy::Framework::AL']]],
+  ['refresh',['Refresh',['../namespace_oxy_1_1_framework_1_1_alc.html#a3b703a2de3a56c3ea4ee21ab88d16f27a63a6a88c066880c5ac42394a22803ca6',1,'Oxy::Framework::Alc']]],
+  ['renderer',['Renderer',['../namespace_oxy_1_1_framework_1_1_a_l.html#a92efe783868fdce3c181bd19728f296ba07b20ae970048fc2002d756f27acc863',1,'Oxy::Framework::AL']]],
+  ['reverb',['Reverb',['../namespace_oxy_1_1_framework_1_1_a_l.html#acf50135c4c4ea3a9a3dc8836be960136a3e90790c668535d048f76550a04adb64',1,'Oxy::Framework::AL']]],
+  ['reverbairabsorptiongainhf',['ReverbAirAbsorptionGainHF',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522aabfc027c9907cd3f9337519fe1b39fe6',1,'Oxy::Framework::AL']]],
+  ['reverbdecayhflimit',['ReverbDecayHFLimit',['../namespace_oxy_1_1_framework_1_1_a_l.html#a196ffe1830c0fcc3fed708355c651d20a34438d64d0ae5f59d0012931f284f9da',1,'Oxy::Framework::AL']]],
+  ['reverbdecayhfratio',['ReverbDecayHFRatio',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a46ed64e6d4618ef7bc5b0deb3aa7a069',1,'Oxy::Framework::AL']]],
+  ['reverbdecaytime',['ReverbDecayTime',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a648b5b1b867392c46cbaa2ce40e90389',1,'Oxy::Framework::AL']]],
+  ['reverbdensity',['ReverbDensity',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522aa309c309aacff6853b7d850faded3dab',1,'Oxy::Framework::AL']]],
+  ['reverbdiffusion',['ReverbDiffusion',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522afb03c552a725a0362e322f3476fdc419',1,'Oxy::Framework::AL']]],
+  ['reverbgain',['ReverbGain',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522ac7988492860bf468c1be6f7da59d1722',1,'Oxy::Framework::AL']]],
+  ['reverbgainhf',['ReverbGainHF',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a85b4782d7ca3ac56d6f8c211fb98cd92',1,'Oxy::Framework::AL']]],
+  ['reverblatereverbdelay',['ReverbLateReverbDelay',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a5fb80d4fe6f5b590e09cc4268ff6ace8',1,'Oxy::Framework::AL']]],
+  ['reverblatereverbgain',['ReverbLateReverbGain',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522ae05dbd4b077c31eb12b614cdca1e2df1',1,'Oxy::Framework::AL']]],
+  ['reverbreflectionsdelay',['ReverbReflectionsDelay',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a03b4844f8cb77a721e1adeb72c66e64c',1,'Oxy::Framework::AL']]],
+  ['reverbreflectionsgain',['ReverbReflectionsGain',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a3c5c7b5f71e753e7636feafce322c501',1,'Oxy::Framework::AL']]],
+  ['reverbroomrollofffactor',['ReverbRoomRolloffFactor',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522aedf559ddb71c79f8ba9c69c0b48b25d2',1,'Oxy::Framework::AL']]],
+  ['ringmodulator',['RingModulator',['../namespace_oxy_1_1_framework_1_1_a_l.html#acf50135c4c4ea3a9a3dc8836be960136a1a2d8f76f78888ac2614a30b56fb2411',1,'Oxy::Framework::AL']]],
+  ['ringmodulatorfrequency',['RingModulatorFrequency',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a7280f8ab8279f445ff6157a5d7cd17f9',1,'Oxy::Framework::AL']]],
+  ['ringmodulatorhighpasscutoff',['RingModulatorHighpassCutoff',['../namespace_oxy_1_1_framework_1_1_a_l.html#a792efdb674f2f50cde1291990a053522a039487c78768c7898f07fee8621eb819',1,'Oxy::Framework::AL']]],
+  ['ringmodulatorwaveform',['RingModulatorWaveform',['../namespace_oxy_1_1_framework_1_1_a_l.html#a196ffe1830c0fcc3fed708355c651d20ac8549df97c5cf6e58d3ee3ba4bd1b22c',1,'Oxy::Framework::AL']]],
+  ['rollofffactor',['RolloffFactor',['../namespace_oxy_1_1_framework_1_1_a_l.html#aac10b228abc80a4b5c5824c1c85d7383a67346c12ba6a21f4bfd756703f77fbd7',1,'Oxy::Framework::AL']]]
+];
