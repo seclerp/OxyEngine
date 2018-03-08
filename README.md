@@ -44,7 +44,15 @@ There are also **list of libraries, that must be installed on your machine**. If
 This section will show you how to install OxyEngine into your .NET project.
 
 ### From NuGet (preffered)
-Just install Oxy.Framework **[NuGet package](https://nuget.org)**. This is best choice for beginners.
+We are using custom MyGet feed. You need to add this feed to your NuGet PM.
+
+#### NuGet V3:
+`https://www.myget.org/F/oxyteam/api/v3/index.json`
+
+#### NuGet V2:
+`https://www.myget.org/F/oxyteam/api/v2`
+
+After that, install Oxy.Framework **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**. This is best choice for beginners.
 
 ### From project sources (advanced)
 To install stable version of OxyEngine into your .NET Core App:
