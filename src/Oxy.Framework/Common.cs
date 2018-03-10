@@ -84,6 +84,7 @@ namespace Oxy.Framework
       
       Instance._scriptsRootFolder = path;
       paths.Add(Instance._scriptsRootFolder);
+      Instance._scriptEngine.SetSearchPaths(paths);
     }
 
     /// <summary>
