@@ -1,8 +1,16 @@
 ## 0.1 Releases:
 
+### 0.1.1 Early Aurora
+
+**10.03.2018 - `(unstable)`**
+
+- Fix NuGet package (#21, #23)
+- Fix pystdlib error at Playground's startup (#22)
+- Fix Python import from project folder and subfolders (#20)
+
 ### 0.1.0 Early Aurora
 
-**`(unstable)`**
+**08.03.2018 - `(unstable)`**
 
 - Initial release
 - Python 2.x support using IronPython
