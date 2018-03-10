@@ -18,7 +18,7 @@ namespace Oxy.Framework
 
     private readonly List<string> _scriptModules = new List<string>
     {
-      "pystdlib"
+      
     };
 
     private string _libraryRootFolder;
@@ -84,6 +84,7 @@ namespace Oxy.Framework
       
       Instance._scriptsRootFolder = path;
       paths.Add(Instance._scriptsRootFolder);
+      Instance._scriptEngine.SetSearchPaths(paths);
     }
 
     /// <summary>

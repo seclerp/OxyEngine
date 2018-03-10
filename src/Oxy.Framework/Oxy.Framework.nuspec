@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>oxyframework</id>
-    <version>0.1.0-pre</version>
+    <id>Oxy.Framework</id>
+    <version>0.1.1-pre</version>
     <title>Oxy.Framework</title>
     <authors>OxyTeam</authors>
     <owners>OxyTeam</owners>
@@ -14,5 +14,10 @@
     <releaseNotes>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/CHANGELOG.md</releaseNotes>
     <copyright>Copyright © 2018 OxyTeam</copyright>
     <tags>game opengl shader texture opentk engine framework gamedev graphic</tags>
+    <dependencies>
+      <dependency id="OpenTK" version="3.0.0-pre" />
+      <dependency id="IronPython" version="2.7.8.1" />
+      <dependency id="DynamicLanguageRuntime" version="1.2.1" />
+    </dependencies>
   </metadata>
 </package>
