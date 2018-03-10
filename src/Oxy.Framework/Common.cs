@@ -18,7 +18,7 @@ namespace Oxy.Framework
 
     private readonly List<string> _scriptModules = new List<string>
     {
-      "pystdlib"
+      
     };
 
     private string _libraryRootFolder;
