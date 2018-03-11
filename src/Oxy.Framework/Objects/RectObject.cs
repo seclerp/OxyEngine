@@ -7,7 +7,7 @@
     public readonly float Width;
     public readonly float Height;
 
-    public RectObject(float x, float y, float width, float height)
+    internal RectObject(float x, float y, float width, float height)
     {
       X = x;
       Y = y;

@@ -2,7 +2,6 @@
 using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
-using Oxy.Framework.Events;
 using Oxy.Framework.Rendering;
 using Color = System.Drawing.Color;
 using PointF = System.Drawing.PointF;
@@ -47,7 +46,7 @@ namespace Oxy.Framework.Objects
       return Font.Size;
     }
 
-    internal override void Print(SolidBrush brush, System.Drawing.SizeF size, string text, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
+    internal override void Print(SolidBrush brush, SizeF size, string text, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
     {
       RedrawRenderer(size, brush, text);
       

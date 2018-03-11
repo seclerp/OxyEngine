@@ -16,12 +16,10 @@ def run_print_example():
         font2 = Resources.LoadBitmapFont("examples/assets/font_example.png", " ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789")
 
         textObj = Graphics.NewText(font, "Hello World OxyEngine!")
-        fpsCounter = Graphics.NewText(font2)
 
 
     def onUpdate(dt):
         global timer
-        fpsCounter.SetText("FPS {0}".format(int(1//dt)))
         timer += dt
 
     def onDraw():

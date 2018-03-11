@@ -28,7 +28,7 @@ namespace Oxy.Framework.Objects
     /// </summary>
     /// <param name="texture">The texture.</param>
     /// <exception cref="ArgumentNullException">texture</exception>
-    public TextureObject(Bitmap texture)
+    internal TextureObject(Bitmap texture)
     {
       _texture = texture ?? throw new ArgumentNullException(nameof(texture));
 
@@ -46,32 +46,34 @@ namespace Oxy.Framework.Objects
     /// <summary>
     ///   Draws this object on screen with given position, rotation and scale
     /// </summary>
+    /// <param name="sourceRect"></param>
     /// <param name="x">X coordinate</param>
     /// <param name="y">Y coordinate</param>
+    /// <param name="ox">X offset</param>
+    /// <param name="oy">Y offset</param>
     /// <param name="r">Rotation</param>
     /// <param name="sx">X scale factor</param>
     /// <param name="sy">Y scale factor</param>
-    /// <exception cref="NotImplementedException"></exception>
-    public void Draw(float x, float y, float r, float sx, float sy)
+    public void Draw(RectObject sourceRect, float x, float y, float ox, float oy, float r, float sx, float sy)
     {
-      GL.Translate(x, y, 0);
+      GL.Translate(x + ox, y + oy, 0);
       GL.Rotate(r, Vector3.UnitZ);
       GL.Scale(sx, sy, 1);
 
       GL.BindTexture(TextureTarget.Texture2D, Id);
       GL.Begin(PrimitiveType.Quads);
 
-      GL.TexCoord2(0, 0); GL.Vertex3(0, 0, 0);
-      GL.TexCoord2(0, 1); GL.Vertex3(0, _texture.Height, 0);
-      GL.TexCoord2(1, 1); GL.Vertex3(_texture.Width, _texture.Height, 0);
-      GL.TexCoord2(1, 0); GL.Vertex3(_texture.Width, 0, 0);
+      GL.TexCoord2(sourceRect.X, sourceRect.Y);                                        GL.Vertex3(-ox, -oy, 0);
+      GL.TexCoord2(sourceRect.X, sourceRect.Y + sourceRect.Height);                    GL.Vertex3(-ox, _texture.Height - oy, 0);
+      GL.TexCoord2(sourceRect.X + sourceRect.Width, sourceRect.Y);                     GL.Vertex3(_texture.Width - ox, _texture.Height - oy, 0);
+      GL.TexCoord2(sourceRect.X + sourceRect.Width, sourceRect.Y + sourceRect.Height); GL.Vertex3(_texture.Width - ox, -oy, 0);
 
       GL.End();
       GL.BindTexture(TextureTarget.Texture2D, 0);
       
       GL.Scale(1/sx, 1/sy, 1);
       GL.Rotate(-r, Vector3.UnitZ);
-      GL.Translate(-x, -y, 0);
+      GL.Translate(-x - ox, -y - oy, 0);
     }
 
     private int LoadToGpu(int quality = 0, bool repeat = true, bool flip_y = false)

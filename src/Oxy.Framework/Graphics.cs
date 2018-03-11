@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Oxy.Framework.Interfaces;
@@ -15,6 +16,8 @@ namespace Oxy.Framework
     private const float Deg2Rad = 3.14159f / 180f;
     private const float CircleSegmentK = 2f;
 
+    private const string DefaultFont = "builtin.font.roboto.ttf";
+    
     private const byte DefaultColorR = 255;
     private const byte DefaultColorG = 255;
     private const byte DefaultColorB = 255;
@@ -28,12 +31,14 @@ namespace Oxy.Framework
 
     private Color _foregroundColor;
     private float _lineThickness;
+    private TtfFontObject _defaultFont;
 
     public Graphics()
     {
       _backgroundColor = Color.FromArgb(DefaultBgColorA, DefaultBgColorR, DefaultBgColorG, DefaultBgColorB);
       _foregroundColor = Color.FromArgb(DefaultColorA, DefaultColorR, DefaultColorG, DefaultColorB);
       _lineThickness = 1;
+      _defaultFont = Resources.LoadFont(typeof(Graphics).Assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.Roboto.ttf"));
     }
 
     #region Fabrics
@@ -47,6 +52,16 @@ namespace Oxy.Framework
     public static TextObject NewText(FontObject ttfFont, string text = "")
     {
       return new TextObject(ttfFont, text);
+    }
+    
+    /// <summary>
+    ///   Creates new TextObject using default font (Roboto, 12)
+    /// </summary>
+    /// <param name="text">Text for printing</param>
+    /// <returns></returns>
+    public static TextObject NewText(string text = "")
+    {
+      return NewText(Instance.Value._defaultFont, text);
     }
 
     #endregion
@@ -86,10 +101,10 @@ namespace Oxy.Framework
     ///   Set line thickness for drawing primitives
     /// </summary>
     /// <param name="thickness">Thickness (>= 1)</param>
-    /// <exception cref="ArgumentOutOfRangeException">Fires when thickness is lower than 1</exception>
+    /// <exception cref="Exception">Fires when thickness is lower than 1</exception>
     public static void SetLineThickness(float thickness)
     {
-      if (thickness < 1) throw new ArgumentOutOfRangeException("Thickness must be greater or equals 1");
+      if (thickness < 1) throw new Exception("Thickness must be greater or equals 1");
       Instance.Value._lineThickness = thickness;
       GL.LineWidth(thickness);
     }
@@ -145,12 +160,14 @@ namespace Oxy.Framework
     /// <param name="drawable">Object to draw</param>
     /// <param name="x">X coordinate</param>
     /// <param name="y">Y coordinate</param>
+    /// <param name="ox">X offset</param>
+    /// <param name="oy">Y offset</param>
     /// <param name="r">Rotation</param>
     /// <param name="sx">X scale factor</param>
     /// <param name="sy">Y scale factor</param>
-    public static void Draw(IDrawable drawable, float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
+    public static void Draw(IDrawable drawable, float x = 0, float y = 0, float ox = 0, float oy = 0, float r = 0, float sx = 1, float sy = 1)
     {
-      drawable.Draw(x, y, r, sx, sy);
+      drawable.Draw(new RectObject(0, 0, 1, 1), x, y, ox, oy, r, sx, sy);
     }
 
     /// <summary>

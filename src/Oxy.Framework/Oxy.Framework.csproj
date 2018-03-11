@@ -71,8 +71,6 @@
   <ItemGroup>
     <Compile Include="Common.cs" />
     <Compile Include="Enums\AudioFormat.cs" />
-    <Compile Include="Enums\FillStyle.cs" />
-    <Compile Include="Events\FontSizeChangedEventArgs.cs" />
     <Compile Include="Exceptions\PyException.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="Input.cs" />
@@ -106,6 +104,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Events" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

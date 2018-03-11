@@ -22,7 +22,7 @@ namespace Oxy.Framework.Objects
     private string _text;
     private TextRenderer _textRenderer;
 
-    public TextObject(FontObject font, string text = "")
+    internal TextObject(FontObject font, string text = "")
     {
       _brush = new SolidBrush(Color.White);
       _font = font;
@@ -38,12 +38,15 @@ namespace Oxy.Framework.Objects
     /// <summary>
     ///   Draws this TextObject on screen with given position, rotation and scale
     /// </summary>
+    /// <param name="sourceRect"></param>
     /// <param name="x">X coordinate</param>
     /// <param name="y">Y coordinate</param>
+    /// <param name="ox"></param>
+    /// <param name="oy"></param>
     /// <param name="r">Rotation</param>
     /// <param name="sx">X scale factor</param>
     /// <param name="sy">Y scale factor</param>
-    public void Draw(float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
+    public void Draw(RectObject sourceRect, float x, float y, float ox, float oy, float r, float sx, float sy)
     {
       _font.Print(_brush, _size, _text, x, y, r, sx, sy);
     }
