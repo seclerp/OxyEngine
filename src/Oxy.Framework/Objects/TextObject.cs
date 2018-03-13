@@ -4,6 +4,7 @@ using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Oxy.Framework.Interfaces;
 using Oxy.Framework.Rendering;
+using QuickFont;
 using Bitmap = System.Drawing.Bitmap;
 using Color = System.Drawing.Color;
 using PointF = System.Drawing.PointF;
@@ -16,18 +17,25 @@ namespace Oxy.Framework.Objects
   /// </summary>
   public class TextObject : IDrawable, IDisposable
   {
-    private SolidBrush _brush;
+    private QFontDrawing _drawing;
+    private Color _color;
     private FontObject _font;
-    private SizeF _size;
     private string _text;
     private TextRenderer _textRenderer;
 
     internal TextObject(FontObject font, string text = "")
     {
-      _brush = new SolidBrush(Color.White);
+      _color = Color.White;
       _font = font;
       _text = text;
-      _size = _font.MeasureSize(text);
+    }
+
+    private void RedrawDrawing()
+    {
+      _drawing.DrawingPrimitives.Clear();
+      _font.Print(_drawing, _color, _text);
+
+      _drawing.RefreshBuffers();
     }
 
     public void Dispose()
@@ -47,7 +55,15 @@ namespace Oxy.Framework.Objects
     /// <param name="sy">Y scale factor</param>
     public void Draw(float x, float y, float ox, float oy, float r, float sx, float sy)
     {
-      _font.Print(_brush, _size, _text, x, y, r, sx, sy);
+      GL.PushMatrix();
+
+      GL.Translate(x, y, 0);
+      GL.Rotate(r, Vector3.UnitZ);
+      GL.Scale(sx, sy, 1);
+
+      _drawing.Draw();
+
+      GL.PopMatrix();
     }
 
     /// <summary>
@@ -57,7 +73,6 @@ namespace Oxy.Framework.Objects
     public void SetFont(FontObject newTtfFont)
     {
       _font = newTtfFont;
-      _size = _font.MeasureSize(_text);
     }
 
     /// <summary>
@@ -69,7 +84,7 @@ namespace Oxy.Framework.Objects
     /// <param name="a">Alpha color component</param>
     public void SetColor(byte r, byte g, byte b, byte a)
     {
-      _brush = new SolidBrush(Color.FromArgb(a, r, g, b));
+      _color = Color.FromArgb(a, r, g, b);
     }
 
     /// <summary>
@@ -79,7 +94,7 @@ namespace Oxy.Framework.Objects
     public void SetText(string newText)
     {
       _text = newText;
-      _size = _font.MeasureSize(_text);
+      RedrawDrawing();
     }
 
     /// <summary>
