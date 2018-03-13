@@ -87,6 +87,7 @@ namespace Oxy.Framework
         _instance.Load += Load;
         _instance.UpdateFrame += Update;
         _instance.RenderFrame += Draw;
+        _instance.KeyUp += KeyUp;
         _instance.Resize += Resize;
 
         _context = new AudioContext();
@@ -118,7 +119,6 @@ namespace Oxy.Framework
     public static void Exit()
     {
       _instance.Exit();
-      _instance.Dispose();
     }
 
 
@@ -182,6 +182,12 @@ namespace Oxy.Framework
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
       GL.Ortho(0, _instance.ClientRectangle.Width, _instance.ClientRectangle.Height, 0, -1.0, 1.0);
+    }
+
+    private static void KeyUp(object sender, KeyboardKeyEventArgs args)
+    {
+      if (args.Alt && args.Key == Key.F4)
+        Exit();
     }
 
     // Handler that replaces _drawEvent to draw errors
