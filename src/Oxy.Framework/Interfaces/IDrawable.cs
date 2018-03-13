@@ -18,6 +18,6 @@ namespace Oxy.Framework.Interfaces
     /// <param name="r">Rotation</param>
     /// <param name="sx">X scale factor</param>
     /// <param name="sy">Y scale factor</param>
-    void Draw(RectObject sourceRect, float x, float y, float ox, float oy, float r, float sx, float sy);
+    void Draw(float x, float y, float ox, float oy, float r, float sx, float sy);
   }
 }

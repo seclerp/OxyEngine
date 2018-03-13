@@ -38,7 +38,8 @@ namespace Oxy.Framework
       _backgroundColor = Color.FromArgb(DefaultBgColorA, DefaultBgColorR, DefaultBgColorG, DefaultBgColorB);
       _foregroundColor = Color.FromArgb(DefaultColorA, DefaultColorR, DefaultColorG, DefaultColorB);
       _lineThickness = 1;
-      _defaultFont = Resources.LoadFont(typeof(Graphics).Assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.Roboto.ttf"));
+
+      _defaultFont = Resources.LoadFont(typeof(Graphics).Assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.roboto.ttf"));
     }
 
     #region Fabrics
@@ -53,7 +54,7 @@ namespace Oxy.Framework
     {
       return new TextObject(ttfFont, text);
     }
-    
+
     /// <summary>
     ///   Creates new TextObject using default font (Roboto, 12)
     /// </summary>
@@ -62,6 +63,19 @@ namespace Oxy.Framework
     public static TextObject NewText(string text = "")
     {
       return NewText(Instance.Value._defaultFont, text);
+    }
+
+    /// <summary>
+    ///   Creates new RectObject
+    /// </summary>
+    /// <param name="x">X coordinate</param>
+    /// <param name="y">Y coordinate</param>
+    /// <param name="w">Width</param>
+    /// <param name="h">Height</param>
+    /// <returns></returns>
+    public static RectObject NewRect(float x, float y, float w, float h)
+    {
+      return new RectObject(x, y, w, h);
     }
 
     #endregion
@@ -167,7 +181,23 @@ namespace Oxy.Framework
     /// <param name="sy">Y scale factor</param>
     public static void Draw(IDrawable drawable, float x = 0, float y = 0, float ox = 0, float oy = 0, float r = 0, float sx = 1, float sy = 1)
     {
-      drawable.Draw(new RectObject(0, 0, 1, 1), x, y, ox, oy, r, sx, sy);
+      drawable.Draw(x, y, ox, oy, r, sx, sy);
+    }
+
+    /// <summary>
+    ///   Draw texture on the screen with given quad, position, rotation and scale
+    /// </summary>
+    /// <param name="texture">Texture to draw</param>
+    /// <param name="sourceRect">Texture rectangle</param>
+    /// <param name="destRect">Pixel rectangle</param>
+    /// <param name="ox">X offset</param>
+    /// <param name="oy">Y offset</param>
+    /// <param name="r">Rotation</param>
+    /// <param name="sx">X scale factor</param>
+    /// <param name="sy">Y scale factor</param>
+    public static void Draw(TextureObject texture, RectObject sourceRect, RectObject destRect, float ox = 0, float oy = 0, float r = 0, float sx = 1, float sy = 1)
+    {
+      texture.Draw(sourceRect, destRect, ox, oy, r, sx, sy);
     }
 
     /// <summary>
@@ -215,6 +245,16 @@ namespace Oxy.Framework
       {
         throw new Exception($"Incorrect style for drawing: {style}");
       }
+    }
+
+    /// <summary>
+    ///   Draw rectangle
+    /// </summary>
+    /// <param name="style">"fill" for filled rectangle, "line" for outilne rectangle</param>
+    /// <param name="rect">RectObject with X, Y, Width, Height</param>
+    public static void DrawRectangle(string style, RectObject rect)
+    {
+      DrawRectangle(style, rect.X, rect.Y, rect.Width, rect.Height);
     }
 
     /// <summary>

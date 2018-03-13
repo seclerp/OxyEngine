@@ -38,7 +38,6 @@ namespace Oxy.Framework.Objects
     /// <summary>
     ///   Draws this TextObject on screen with given position, rotation and scale
     /// </summary>
-    /// <param name="sourceRect"></param>
     /// <param name="x">X coordinate</param>
     /// <param name="y">Y coordinate</param>
     /// <param name="ox"></param>
@@ -46,7 +45,7 @@ namespace Oxy.Framework.Objects
     /// <param name="r">Rotation</param>
     /// <param name="sx">X scale factor</param>
     /// <param name="sy">Y scale factor</param>
-    public void Draw(RectObject sourceRect, float x, float y, float ox, float oy, float r, float sx, float sy)
+    public void Draw(float x, float y, float ox, float oy, float r, float sx, float sy)
     {
       _font.Print(_brush, _size, _text, x, y, r, sx, sy);
     }

@@ -81,11 +81,9 @@ namespace Oxy.Framework.Rendering
       var assembly = typeof(Resources).GetTypeInfo().Assembly;
 
       if (exception is PyException pythonException)
-        FullError =
-          $"[Python]: {exception.GetType().Name}: {pythonException.Message}\n{pythonException.StackTrace}\n\n" +
-          $"[C#]: \n{exception.InnerException.StackTrace}";
+        FullError = $"[Python]: \n{pythonException.PythonStackTrance}\n\n";
       else
-        FullError = $"[C#]: {exception.GetType().Name}: {exception.Message}\n\n{exception.StackTrace}";
+        FullError = $"[C#]: \n{exception.GetType().Name}: {exception.Message}\n\n{exception.StackTrace}";
 
       // assembly.GetManifestResourceNames() - to check
       _errorsBanner = Resources.LoadTexture(assembly.GetManifestResourceStream("Oxy.Framework.builtin.img.error.png"));

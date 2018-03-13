@@ -22,7 +22,7 @@ namespace Oxy.Framework
     /// <exception cref="FileNotFoundException">Fires when texture cannot be found or file does not exist</exception>
     public static TextureObject LoadTexture(string path)
     {
-      var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
+      var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
 
       if (!File.Exists(fullPath))
         throw new FileNotFoundException(path);
@@ -57,7 +57,7 @@ namespace Oxy.Framework
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
     public static TtfFontObject LoadFont(string path, float size = 12)
     {
-      var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
+      var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
 
       if (!File.Exists(fullPath))
         throw new FileNotFoundException(path);
@@ -132,7 +132,7 @@ namespace Oxy.Framework
     /// <exception cref="NotSupportedException"></exception>
     public static AudioObject LoadAudio(string path)
     {
-      var fullPath = Path.Combine(Common.GetLibraryRoot(), path);
+      var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
 
       if (!File.Exists(fullPath))
         throw new FileNotFoundException(path);

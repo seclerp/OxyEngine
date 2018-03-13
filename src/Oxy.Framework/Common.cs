@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using Oxy.Framework.Exceptions;
 
 namespace Oxy.Framework
 {
@@ -14,35 +15,34 @@ namespace Oxy.Framework
       "framework"
     };
 
-    private readonly ScriptEngine _scriptEngine;
+    internal static readonly ScriptEngine PythonScriptEngine;
 
     private readonly List<string> _scriptModules = new List<string>
     {
       
     };
 
-    private string _libraryRootFolder;
+    private string _assetsRootFolder;
 
     private string _scriptsRootFolder;
 
-    public Common()
+    static Common()
     {
-      _scriptEngine = Python.CreateEngine();
-
+      PythonScriptEngine = Python.CreateEngine();
     }
 
     private ScriptScope CreateConfiguredScope()
     {
-      ScriptScope scope = _scriptEngine.CreateScope();
+      ScriptScope scope = PythonScriptEngine.CreateScope();
       scope.ImportModule("clr");
 
-      _scriptEngine.Execute("import clr", scope);
+      PythonScriptEngine.Execute("import clr", scope);
 
       foreach (var module in _mustHaveScriptModules)
-        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
+        PythonScriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
 
       foreach (var module in _scriptModules)
-        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
+        PythonScriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
 
       return scope;
     }
@@ -77,14 +77,14 @@ namespace Oxy.Framework
       if (!Directory.Exists(path))
         throw new DirectoryNotFoundException(path);
 
-      var paths = Instance._scriptEngine.GetSearchPaths();
+      var paths = PythonScriptEngine.GetSearchPaths();
 
       if (!string.IsNullOrEmpty(Instance._scriptsRootFolder))
         paths.Remove(Instance._scriptsRootFolder);
       
       Instance._scriptsRootFolder = path;
       paths.Add(Instance._scriptsRootFolder);
-      Instance._scriptEngine.SetSearchPaths(paths);
+      PythonScriptEngine.SetSearchPaths(paths);
     }
 
     /// <summary>
@@ -92,12 +92,12 @@ namespace Oxy.Framework
     /// </summary>
     /// <param name="path">Path to the library root folder</param>
     /// <exception cref="DirectoryNotFoundException">If library directory not exists</exception>
-    public static void SetLibraryRoot(string path)
+    public static void SetAssetsRoot(string path)
     {
       if (!Directory.Exists(path))
         throw new DirectoryNotFoundException(path);
 
-      Instance._libraryRootFolder = path;
+      Instance._assetsRootFolder = path;
     }
 
     /// <summary>
@@ -113,9 +113,9 @@ namespace Oxy.Framework
     ///   Returns library root path
     /// </summary>
     /// <returns>Library root path</returns>
-    public static string GetLibraryRoot()
+    public static string GetAssetsRoot()
     {
-      return Instance._libraryRootFolder;
+      return Instance._assetsRootFolder;
     }
 
     /// <summary>
@@ -125,7 +125,17 @@ namespace Oxy.Framework
     public static void ExecuteScript(string path)
     {
       ScriptScope scope = Instance.CreateConfiguredScope();
-      Instance._scriptEngine.ExecuteFile(Path.Combine(Instance._scriptsRootFolder, path), scope);
+
+      try
+      {
+        PythonScriptEngine.ExecuteFile(Path.Combine(Instance._scriptsRootFolder, path), scope);
+      }
+      catch (Exception e)
+      {
+        var stackTrace = PythonScriptEngine.GetService<ExceptionOperations>().FormatException(e);
+
+        Window.Error(new PyException(e.Message, stackTrace));
+      }
     }
   }
 }
