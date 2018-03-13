@@ -6,6 +6,7 @@ using System.Net;
 using IronPython.Modules;
 using Oxy.Framework.Enums;
 using Oxy.Framework.Objects;
+using QuickFont;
 
 namespace Oxy.Framework
 {
@@ -98,7 +99,7 @@ namespace Oxy.Framework
 
       var font = new Font(tempCollection.Families[0], size);
 
-      return new TtfFontObject(font);
+      return new TtfFontObject(new QFont(font));
     }
 
     /// <summary>
@@ -107,10 +108,10 @@ namespace Oxy.Framework
     /// <param name="path"></param>
     /// <param name="characters"></param>
     /// <returns></returns>
-    public static BitmapFontObject LoadBitmapFont(string path, string characters)
-    {
-      return new BitmapFontObject(LoadTexture(path), characters, true);
-    }
+    //public static BitmapFontObject LoadBitmapFont(string path, string characters)
+    //{
+    //  return new BitmapFontObject(LoadTexture(path), characters, true);
+    //}
     
     /// <summary>
     ///   Loads bitmap font from texture
@@ -118,10 +119,10 @@ namespace Oxy.Framework
     /// <param name="bitmap"></param>
     /// <param name="characters"></param>
     /// <returns></returns>
-    public static BitmapFontObject LoadBitmapFont(TextureObject bitmap, string characters)
-    {
-      return new BitmapFontObject(bitmap, characters);
-    }
+    //public static BitmapFontObject LoadBitmapFont(TextureObject bitmap, string characters)
+    //{
+    //  return new BitmapFontObject(bitmap, characters);
+    //}
 
     /// <summary>
     ///   Loads audio from path in library
