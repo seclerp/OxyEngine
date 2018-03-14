@@ -12,7 +12,7 @@ namespace Oxy.Framework.Objects
     private bool _isLooping;
     private int _stateId;
 
-    public WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data,
+    internal WaveAudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat) : base(data,
       channels, bits, rate, audioFormat)
     {
       _bufferId = AL.GenBuffer();

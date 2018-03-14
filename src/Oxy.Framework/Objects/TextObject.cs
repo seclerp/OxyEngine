@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Oxy.Framework.Interfaces;
-using Oxy.Framework.Rendering;
-using Bitmap = System.Drawing.Bitmap;
 using Color = System.Drawing.Color;
-using PointF = System.Drawing.PointF;
-using SizeF = System.Drawing.SizeF;
 
 namespace Oxy.Framework.Objects
 {
@@ -16,23 +11,29 @@ namespace Oxy.Framework.Objects
   /// </summary>
   public class TextObject : IDrawable, IDisposable
   {
-    private SolidBrush _brush;
-    private FontObject _font;
-    private SizeF _size;
+    private TextureObject _texture;
+    private Color _color;
+    private IFontObject _font;
     private string _text;
-    private TextRenderer _textRenderer;
 
-    public TextObject(FontObject font, string text = "")
+    internal TextObject(IFontObject font, string text = "")
     {
-      _brush = new SolidBrush(Color.White);
+      _color = Color.White;
       _font = font;
       _text = text;
-      _size = _font.MeasureSize(text);
+      Redraw();
+    }
+
+    private void Redraw()
+    {
+      _texture?.Dispose();
+      _texture = null;
+      _texture = _font.Render(_text, _color);
     }
 
     public void Dispose()
     {
-      _textRenderer?.Dispose();
+      _texture?.Dispose();
     }
 
     /// <summary>
@@ -40,22 +41,23 @@ namespace Oxy.Framework.Objects
     /// </summary>
     /// <param name="x">X coordinate</param>
     /// <param name="y">Y coordinate</param>
+    /// <param name="ox"></param>
+    /// <param name="oy"></param>
     /// <param name="r">Rotation</param>
     /// <param name="sx">X scale factor</param>
     /// <param name="sy">Y scale factor</param>
-    public void Draw(float x = 0, float y = 0, float r = 0, float sx = 1, float sy = 1)
+    public void Draw(float x, float y, float ox, float oy, float r, float sx, float sy)
     {
-      _font.Print(_brush, _size, _text, x, y, r, sx, sy);
+      _texture.Draw(x, y, ox, oy, r, sx, sy);
     }
 
     /// <summary>
     ///   Set font for text
     /// </summary>
     /// <param name="newTtfFont">Font object</param>
-    public void SetFont(FontObject newTtfFont)
+    public void SetFont(IFontObject newTtfFont)
     {
       _font = newTtfFont;
-      _size = _font.MeasureSize(_text);
     }
 
     /// <summary>
@@ -67,7 +69,7 @@ namespace Oxy.Framework.Objects
     /// <param name="a">Alpha color component</param>
     public void SetColor(byte r, byte g, byte b, byte a)
     {
-      _brush = new SolidBrush(Color.FromArgb(a, r, g, b));
+      _color = Color.FromArgb(a, r, g, b);
     }
 
     /// <summary>
@@ -77,14 +79,14 @@ namespace Oxy.Framework.Objects
     public void SetText(string newText)
     {
       _text = newText;
-      _size = _font.MeasureSize(_text);
+      Redraw();
     }
 
     /// <summary>
     ///   Returns font used to draw this text
     /// </summary>
     /// <returns></returns>
-    public FontObject GetFont()
+    public IFontObject GetFont()
     {
       return _font;
     }
@@ -96,10 +98,10 @@ namespace Oxy.Framework.Objects
     public (byte, byte, byte, byte) GetColor()
     {
       return (
-        _brush.Color.R,
-        _brush.Color.G,
-        _brush.Color.B,
-        _brush.Color.A
+        _color.R,
+        _color.G,
+        _color.B,
+        _color.A
         );
     }
 

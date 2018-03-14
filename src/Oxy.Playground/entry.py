@@ -1,4 +1,7 @@
-# Using already defined modules
-from examples import *
+from examples.font_print import *
 
-run_print_example()
+Window.OnLoad(onLoad)
+Window.OnUpdate(onUpdate)
+Window.OnDraw(onDraw)
+
+Window.Show(60)

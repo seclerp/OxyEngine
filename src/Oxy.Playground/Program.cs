@@ -23,7 +23,7 @@ namespace Oxy.Playground
       if (entryScript.Extension != ".py")
         throw new Exception("Entry file must have .py extension.");
 
-      Common.SetLibraryRoot(projectDirectory);
+      Common.SetAssetsRoot(projectDirectory);
       Common.SetScriptsRoot(projectDirectory);
       
       Common.ExecuteScript(entryScript.FullName);

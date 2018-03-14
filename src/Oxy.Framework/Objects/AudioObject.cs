@@ -15,7 +15,7 @@ namespace Oxy.Framework.Objects
     protected string _format;
     protected int _rate;
 
-    protected AudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat)
+    internal AudioObject(byte[] data, int channels, int bits, int rate, AudioFormat audioFormat)
     {
       _data = data;
       _channels = channels;

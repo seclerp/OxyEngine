@@ -4,7 +4,7 @@ namespace Oxy.Framework.Exceptions
 {
   public class PyException : Exception
   {
-    public PyException(string message, string stackTrace, Exception inner) : base(message, inner)
+    public PyException(string message, string stackTrace) : base(message)
     {
       PythonStackTrance = stackTrace;
     }

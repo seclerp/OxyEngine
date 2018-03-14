@@ -4,6 +4,8 @@ using OpenTK;
 using OpenTK.Audio;
 using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
+using Oxy.Framework.Exceptions;
 using Oxy.Framework.Rendering;
 
 namespace Oxy.Framework
@@ -13,7 +15,7 @@ namespace Oxy.Framework
   /// </summary>
   public class Window : IDisposable
   {
-    private static GameWindow _instance;
+    internal static GameWindow _instance;
 
     private static Action _loadEvent;
     private static Action<float> _updateEvent;
@@ -21,8 +23,14 @@ namespace Oxy.Framework
 
     private static readonly ErrorsDrawHandler _errorsDrawHandler;
     private static bool _isDebug;
+    private static bool _updateCalled = false;
     
     private static AudioContext _context;
+
+    private static float _updateMs;
+    private static float _updateCounter;
+    private static float _updateTimer;
+    private static float _fps;
 
     static Window()
     {
@@ -41,18 +49,39 @@ namespace Oxy.Framework
         new GraphicsMode(new ColorFormat(8, 8, 8, 0),
           24, // Depth bits
           8, // Stencil bits
-          4 // FSAA samples
+          0 // FSAA samples
         ), title);
+
       _instance.WindowBorder = WindowBorder.Fixed;
+
       // Setup default window properties
       SetVSyncEnabled(true);
     }
+
+    #region Error window
 
     private static void SwitchToErrorScreen(Exception exception)
     {
       _errorsDrawHandler.Fire(exception);
       _drawEvent = DrawErrors;
     }
+
+
+    public static void Error(Exception e, bool isPython = false)
+    {
+      Exit();
+      InitWindow("Error");
+      SwitchToErrorScreen(e);
+      _updateCalled = true;
+      _loadEvent = null;
+      _instance.Load += Load;
+      _instance.RenderFrame += Draw;
+      _instance.Resize += Resize;
+      _instance.Run(60);
+      _instance.Exit();
+    }
+
+    #endregion
 
     /// <summary>
     ///   Shows window. Take no effect if window is already shown
@@ -66,28 +95,29 @@ namespace Oxy.Framework
         _instance.Load += Load;
         _instance.UpdateFrame += Update;
         _instance.RenderFrame += Draw;
+        _instance.KeyUp += KeyUp;
         _instance.Resize += Resize;
 
         _context = new AudioContext();
         _context.MakeCurrent();
 
-        _instance.Run(60);
+        _instance.Run(60, 60);
 
         _instance.Exit();
+      }
+      catch (PyException e)
+      {
+        if (_isDebug)
+          throw e;
+
+        Error(e, true);
       }
       catch (Exception e)
       {
         if (_isDebug)
           throw e;
-        
-        InitWindow("Error");
-        SwitchToErrorScreen(e);
-        _loadEvent = null;
-        _instance.Load += Load;
-        _instance.RenderFrame += Draw;
-        _instance.Resize += Resize;
-        _instance.Run(60);
-        _instance.Exit();
+
+        Error(e);
       }
     }
 
@@ -97,8 +127,10 @@ namespace Oxy.Framework
     public static void Exit()
     {
       _instance.Exit();
-      _instance.Dispose();
     }
+
+
+    #region Events
 
     /// <summary>
     ///   Calls 'handler' when window is initialized
@@ -127,6 +159,8 @@ namespace Oxy.Framework
       _drawEvent += handler;
     }
 
+    #endregion
+
     #region Window's event handlers
 
     private static void Load(object sender, EventArgs e)
@@ -138,6 +172,8 @@ namespace Oxy.Framework
       GL.DepthMask(true);
       GL.DepthFunc(DepthFunction.Lequal);
 
+      ResetViewport();
+
       _errorsDrawHandler.LoadResources();
 
       _loadEvent?.Invoke();
@@ -145,16 +181,39 @@ namespace Oxy.Framework
 
     private static void Update(object sender, FrameEventArgs args)
     {
+      _updateTimer += (float)args.Time;
+      _updateCounter++;
+
+      if (_updateTimer >= 1.0)
+      {
+        _updateMs = 1000f / _updateCounter;
+        _fps = _updateCounter;
+        _updateCounter = 0;
+        _updateTimer = 0;
+      }
+
       _updateEvent?.Invoke((float) args.Time);
+      _updateCalled = true;
     }
 
-    private static void Resize(object sender, EventArgs e)
+    internal static void ResetViewport()
     {
       GL.Viewport(_instance.ClientRectangle);
 
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
       GL.Ortho(0, _instance.ClientRectangle.Width, _instance.ClientRectangle.Height, 0, -1.0, 1.0);
+    }
+
+    private static void Resize(object sender, EventArgs e)
+    {
+      ResetViewport();
+    }
+
+    private static void KeyUp(object sender, KeyboardKeyEventArgs args)
+    {
+      if (args.Alt && args.Key == Key.F4)
+        Exit();
     }
 
     // Handler that replaces _drawEvent to draw errors
@@ -179,7 +238,8 @@ namespace Oxy.Framework
 
       #region Rendering
 
-      _drawEvent?.Invoke();
+      if (_updateCalled)
+        _drawEvent?.Invoke();
 
       #endregion
 
@@ -236,6 +296,36 @@ namespace Oxy.Framework
     public static bool GetDebugMode()
     {
       return _isDebug;
+    }
+
+    public static float GetCursorX()
+    {
+      return _instance.Mouse.X;
+    }
+
+    public static float GetCursorY()
+    {
+      return _instance.Mouse.Y;
+    }
+
+    public static int GetMouseWheel()
+    {
+      return _instance.Mouse.Wheel;
+    }
+
+    public static float GetRenderTime()
+    {
+      return _updateMs;
+    }
+
+    public static float GetFPS()
+    {
+      return _fps;
+    }
+
+    public static float GetMouseWheelPrecised()
+    {
+      return _instance.Mouse.WheelPrecise;
     }
 
     #endregion

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Reflection;
 using System.Text;
+using Microsoft.Scripting.Hosting;
 using Oxy.Framework.Exceptions;
 using Oxy.Framework.Objects;
 
@@ -9,7 +10,7 @@ namespace Oxy.Framework.Rendering
   public class ErrorsDrawHandler
   {
     private TextureObject _errorsBanner;
-    private TtfFontObject _ttfFont;
+    private FreeTypeFontObject _freeTypeFont;
     private TextObject _text;
     public string FullError { get; private set; }
 
@@ -80,21 +81,21 @@ namespace Oxy.Framework.Rendering
     {
       var assembly = typeof(Resources).GetTypeInfo().Assembly;
 
-      if (exception is PyException pythonException)
-        FullError =
-          $"[Python]: {exception.GetType().Name}: {pythonException.Message}\n{pythonException.StackTrace}\n\n" +
-          $"[C#]: \n{exception.InnerException.StackTrace}";
+      var pythonException = Common.PythonScriptEngine.GetService<ExceptionOperations>().FormatException(exception);
+
+      if (Common.ScriptExecuting)
+        FullError = $"[Python]: {exception.Message}\n\n{pythonException}";
       else
         FullError = $"[C#]: {exception.GetType().Name}: {exception.Message}\n\n{exception.StackTrace}";
 
       // assembly.GetManifestResourceNames() - to check
       _errorsBanner = Resources.LoadTexture(assembly.GetManifestResourceStream("Oxy.Framework.builtin.img.error.png"));
-      _ttfFont = Resources.LoadFont(assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.monospace.ttf"));
+      _freeTypeFont = Resources.LoadFont(assembly.GetManifestResourceStream("Oxy.Framework.builtin.font.roboto-mono.ttf"), 14);
 
-      FullError = WordWrap(FullError, 50);
+      FullError = WordWrap(FullError, 80);
       FullError = FullError.Replace("\nat", "\n\n    at");
 
-      _text = Graphics.NewText(_ttfFont, FullError);
+      _text = Graphics.NewText(_freeTypeFont, FullError);
       Graphics.SetBackgroundColor(100, 100, 100);
     }
 
