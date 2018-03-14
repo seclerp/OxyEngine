@@ -15,7 +15,7 @@ namespace Oxy.Framework
   /// </summary>
   public class Window : IDisposable
   {
-    private static GameWindow _instance;
+    internal static GameWindow _instance;
 
     private static Action _loadEvent;
     private static Action<float> _updateEvent;
@@ -26,6 +26,11 @@ namespace Oxy.Framework
     private static bool _updateCalled = false;
     
     private static AudioContext _context;
+
+    private static float _updateMs;
+    private static float _updateCounter;
+    private static float _updateTimer;
+    private static float _fps;
 
     static Window()
     {
@@ -44,9 +49,11 @@ namespace Oxy.Framework
         new GraphicsMode(new ColorFormat(8, 8, 8, 0),
           24, // Depth bits
           8, // Stencil bits
-          4 // FSAA samples
+          0 // FSAA samples
         ), title);
+
       _instance.WindowBorder = WindowBorder.Fixed;
+
       // Setup default window properties
       SetVSyncEnabled(true);
     }
@@ -65,6 +72,7 @@ namespace Oxy.Framework
       Exit();
       InitWindow("Error");
       SwitchToErrorScreen(e);
+      _updateCalled = true;
       _loadEvent = null;
       _instance.Load += Load;
       _instance.RenderFrame += Draw;
@@ -93,7 +101,7 @@ namespace Oxy.Framework
         _context = new AudioContext();
         _context.MakeCurrent();
 
-        _instance.Run(60);
+        _instance.Run(60, 60);
 
         _instance.Exit();
       }
@@ -164,6 +172,8 @@ namespace Oxy.Framework
       GL.DepthMask(true);
       GL.DepthFunc(DepthFunction.Lequal);
 
+      ResetViewport();
+
       _errorsDrawHandler.LoadResources();
 
       _loadEvent?.Invoke();
@@ -171,17 +181,33 @@ namespace Oxy.Framework
 
     private static void Update(object sender, FrameEventArgs args)
     {
+      _updateTimer += (float)args.Time;
+      _updateCounter++;
+
+      if (_updateTimer >= 1.0)
+      {
+        _updateMs = 1000f / _updateCounter;
+        _fps = _updateCounter;
+        _updateCounter = 0;
+        _updateTimer = 0;
+      }
+
       _updateEvent?.Invoke((float) args.Time);
       _updateCalled = true;
     }
 
-    private static void Resize(object sender, EventArgs e)
+    internal static void ResetViewport()
     {
       GL.Viewport(_instance.ClientRectangle);
 
       GL.MatrixMode(MatrixMode.Projection);
       GL.LoadIdentity();
       GL.Ortho(0, _instance.ClientRectangle.Width, _instance.ClientRectangle.Height, 0, -1.0, 1.0);
+    }
+
+    private static void Resize(object sender, EventArgs e)
+    {
+      ResetViewport();
     }
 
     private static void KeyUp(object sender, KeyboardKeyEventArgs args)
@@ -287,6 +313,15 @@ namespace Oxy.Framework
       return _instance.Mouse.Wheel;
     }
 
+    public static float GetRenderTime()
+    {
+      return _updateMs;
+    }
+
+    public static float GetFPS()
+    {
+      return _fps;
+    }
 
     public static float GetMouseWheelPrecised()
     {

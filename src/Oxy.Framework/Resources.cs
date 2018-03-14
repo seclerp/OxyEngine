@@ -6,7 +6,7 @@ using System.Net;
 using IronPython.Modules;
 using Oxy.Framework.Enums;
 using Oxy.Framework.Objects;
-using QuickFont;
+using SharpFont;
 
 namespace Oxy.Framework
 {
@@ -56,20 +56,14 @@ namespace Oxy.Framework
     /// <param name="size">Size of the font</param>
     /// <returns>Font object</returns>
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
-    public static TtfFontObject LoadFont(string path, float size = 12)
+    public static FreeTypeFontObject LoadFont(string path, float size = 12)
     {
       var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
 
       if (!File.Exists(fullPath))
         throw new FileNotFoundException(path);
 
-      var tempCollection = new PrivateFontCollection();
-
-      tempCollection.AddFontFile(fullPath);
-
-      var font = new Font(tempCollection.Families[0], size);
-
-      return new TtfFontObject(font);
+      return new FreeTypeFontObject(path, size);
     }
 
     /// <summary>
@@ -79,7 +73,7 @@ namespace Oxy.Framework
     /// <param name="size"></param>
     /// <returns>Font object</returns>
     /// <exception cref="NullReferenceException">If stream is null</exception>
-    public static TtfFontObject LoadFont(Stream stream, float size = 12)
+    public static FreeTypeFontObject LoadFont(Stream stream, float size = 12)
     {
       if (stream == null)
         throw new NullReferenceException(nameof(stream));
@@ -89,17 +83,8 @@ namespace Oxy.Framework
       byte[] fontdata = new byte[stream.Length];
       stream.Read(fontdata, 0, (int) stream.Length);
       stream.Close();
-      unsafe
-      {
-        fixed (byte* pFontData = fontdata)
-        {
-          tempCollection.AddMemoryFont((IntPtr) pFontData, fontdata.Length);
-        }
-      }
 
-      var font = new Font(tempCollection.Families[0], size);
-
-      return new TtfFontObject(new QFont(font));
+      return new FreeTypeFontObject(fontdata, size);
     }
 
     /// <summary>
@@ -108,21 +93,21 @@ namespace Oxy.Framework
     /// <param name="path"></param>
     /// <param name="characters"></param>
     /// <returns></returns>
-    //public static BitmapFontObject LoadBitmapFont(string path, string characters)
-    //{
-    //  return new BitmapFontObject(LoadTexture(path), characters, true);
-    //}
-    
+    public static BitmapFontObject LoadBitmapFont(string path, string characters)
+    {
+      return new BitmapFontObject(LoadTexture(path), characters, true);
+    }
+
     /// <summary>
     ///   Loads bitmap font from texture
     /// </summary>
     /// <param name="bitmap"></param>
     /// <param name="characters"></param>
     /// <returns></returns>
-    //public static BitmapFontObject LoadBitmapFont(TextureObject bitmap, string characters)
-    //{
-    //  return new BitmapFontObject(bitmap, characters);
-    //}
+    public static BitmapFontObject LoadBitmapFont(TextureObject bitmap, string characters)
+    {
+      return new BitmapFontObject(bitmap, characters);
+    }
 
     /// <summary>
     ///   Loads audio from path in library

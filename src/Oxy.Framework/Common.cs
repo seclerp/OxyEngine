@@ -26,6 +26,8 @@ namespace Oxy.Framework
 
     private string _scriptsRootFolder;
 
+    internal static bool ScriptExecuting = false;
+
     static Common()
     {
       PythonScriptEngine = Python.CreateEngine();
@@ -128,6 +130,7 @@ namespace Oxy.Framework
 
       try
       {
+        ScriptExecuting = true;
         PythonScriptEngine.ExecuteFile(Path.Combine(Instance._scriptsRootFolder, path), scope);
       }
       catch (Exception e)
@@ -135,6 +138,10 @@ namespace Oxy.Framework
         var stackTrace = PythonScriptEngine.GetService<ExceptionOperations>().FormatException(e);
 
         Window.Error(new PyException(e.Message, stackTrace));
+      }
+      finally
+      {
+        ScriptExecuting = false;
       }
     }
   }

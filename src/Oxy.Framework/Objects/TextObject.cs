@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Drawing;
 using OpenTK;
 using OpenTK.Graphics.OpenGL;
 using Oxy.Framework.Interfaces;
-using Oxy.Framework.Rendering;
-using QuickFont;
-using Bitmap = System.Drawing.Bitmap;
 using Color = System.Drawing.Color;
-using PointF = System.Drawing.PointF;
-using SizeF = System.Drawing.SizeF;
 
 namespace Oxy.Framework.Objects
 {
@@ -17,30 +11,29 @@ namespace Oxy.Framework.Objects
   /// </summary>
   public class TextObject : IDrawable, IDisposable
   {
-    private QFontDrawing _drawing;
+    private TextureObject _texture;
     private Color _color;
-    private FontObject _font;
+    private IFontObject _font;
     private string _text;
-    private TextRenderer _textRenderer;
 
-    internal TextObject(FontObject font, string text = "")
+    internal TextObject(IFontObject font, string text = "")
     {
       _color = Color.White;
       _font = font;
       _text = text;
+      Redraw();
     }
 
-    private void RedrawDrawing()
+    private void Redraw()
     {
-      _drawing.DrawingPrimitives.Clear();
-      _font.Print(_drawing, _color, _text);
-
-      _drawing.RefreshBuffers();
+      _texture?.Dispose();
+      _texture = null;
+      _texture = _font.Render(_text, _color);
     }
 
     public void Dispose()
     {
-      _textRenderer?.Dispose();
+      _texture?.Dispose();
     }
 
     /// <summary>
@@ -55,22 +48,14 @@ namespace Oxy.Framework.Objects
     /// <param name="sy">Y scale factor</param>
     public void Draw(float x, float y, float ox, float oy, float r, float sx, float sy)
     {
-      GL.PushMatrix();
-
-      GL.Translate(x, y, 0);
-      GL.Rotate(r, Vector3.UnitZ);
-      GL.Scale(sx, sy, 1);
-
-      _drawing.Draw();
-
-      GL.PopMatrix();
+      _texture.Draw(x, y, ox, oy, r, sx, sy);
     }
 
     /// <summary>
     ///   Set font for text
     /// </summary>
     /// <param name="newTtfFont">Font object</param>
-    public void SetFont(FontObject newTtfFont)
+    public void SetFont(IFontObject newTtfFont)
     {
       _font = newTtfFont;
     }
@@ -94,14 +79,14 @@ namespace Oxy.Framework.Objects
     public void SetText(string newText)
     {
       _text = newText;
-      RedrawDrawing();
+      Redraw();
     }
 
     /// <summary>
     ///   Returns font used to draw this text
     /// </summary>
     /// <returns></returns>
-    public FontObject GetFont()
+    public IFontObject GetFont()
     {
       return _font;
     }
@@ -113,10 +98,10 @@ namespace Oxy.Framework.Objects
     public (byte, byte, byte, byte) GetColor()
     {
       return (
-        _brush.Color.R,
-        _brush.Color.G,
-        _brush.Color.B,
-        _brush.Color.A
+        _color.R,
+        _color.G,
+        _color.B,
+        _color.A
         );
     }
 

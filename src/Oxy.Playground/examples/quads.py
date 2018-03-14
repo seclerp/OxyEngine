@@ -22,7 +22,6 @@ def updateViewRect(mouseX, mouseY):
 def onUpdate(dt):
     updateViewRect(Window.GetCursorX(), Window.GetCursorY())
 
-
 def onDraw():
     Graphics.Draw(properties['pony'], properties['ponySource'], properties['ponyDest'])
     Graphics.DrawRectangle('line', viewRect['pixelRect'])
