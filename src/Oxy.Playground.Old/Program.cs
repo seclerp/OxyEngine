@@ -84,8 +84,6 @@ namespace Oxy.Playground
         return arg;
       
       throw new Exception($"File or directory not found: '{arg}'");
-      
-     
     }
   }
 }

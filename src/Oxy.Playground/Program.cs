@@ -5,9 +5,12 @@ namespace Oxy.Playground
   public static class Program
   {
     [STAThread]
-    static void Main()
+    static void Main(string[] args)
     {
-      using (var playground = new PlaygroundInstance())
+      var projectLoader = new PlaygroundProjectLoader();
+      var project = projectLoader.LoadFromArguments(args);
+      
+      using (var playground = new PlaygroundInstance(project))
       {
         playground.Run();
       }

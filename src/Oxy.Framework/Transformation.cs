@@ -5,14 +5,18 @@ namespace Oxy.Framework
 {
   internal class Transformation : ICloneable
   {
-    public Vector2 Position { get; private set; } = Vector2.Zero;
-    public Vector2 Scale { get; private set; } = Vector2.One;
-    public float Rotation { get; private set; } = 0;
+    public Vector2 Position { get; private set; }
+    public Vector2 Scale { get; private set; }
+    public float Rotation { get; private set; }
 
     private Matrix _matrix;
 
     public Transformation(Vector2 position, float rotation, Vector2 scale)
     {
+      Position = Vector2.Zero;
+      Rotation = 0;
+      Scale = Vector2.One;
+      
       TranslateMatrix(position);
       RotateMatrix(rotation);
       ScaleMatrix(scale);

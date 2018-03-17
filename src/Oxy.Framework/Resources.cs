@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Oxy.Framework.Settings;
 
 namespace Oxy.Framework
 {
@@ -19,7 +20,7 @@ namespace Oxy.Framework
     ///   Initialize Resources module
     /// </summary>
     /// <param name="manager">MonoGame ContentManager to use</param>
-    public Resources(ContentManager manager)
+    public Resources(ContentManager manager, ResourcesSettings settings)
     {
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
     }

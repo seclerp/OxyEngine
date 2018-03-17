@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Oxy.Framework.Settings;
 
 namespace Oxy.Framework
 {
@@ -36,7 +37,8 @@ namespace Oxy.Framework
 
     #region Initialization
 
-    public Graphics(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, Resources resourcesModule)
+    public Graphics(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, Resources resourcesModule, 
+      GraphicsSettings settings)
     {
       _graphicsDeviceManager = graphicsDeviceManager;
       _defaultSpriteBatch = defaultSpriteBatch;
