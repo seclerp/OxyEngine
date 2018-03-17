@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Oxy.Playground")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("TestMonoGameDestkop")]
+[assembly: AssemblyProduct("TestMonoGameDestkop")]
 [assembly: AssemblyConfiguration("")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Oxy.Playground")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("2024D047-E198-4E42-8F16-E9F5FA637853")]
+[assembly: Guid("401f8d35-43da-4297-a816-8aa37216fec2")]
 
 // Version information for an assembly consists of the following four values:
 //

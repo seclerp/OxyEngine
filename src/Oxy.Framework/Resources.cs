@@ -1,195 +1,85 @@
 ﻿using System;
-using System.Drawing;
-using System.Drawing.Text;
 using System.IO;
-using System.Net;
-using IronPython.Modules;
-using Oxy.Framework.Enums;
-using Oxy.Framework.Objects;
-using SharpFont;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Oxy.Framework
 {
   /// <summary>
-  ///   Class for managing game assets
+  ///   Module for managing game assets. Wrapper around using ContentManager
   /// </summary>
-  public class Resources : LazyModule<Resources>
+  public class Resources : IModule
   {
+    private ContentManager _manager;
+
+    #region Initialization
+
+    /// <summary>
+    ///   Initialize Resources module
+    /// </summary>
+    /// <param name="manager">MonoGame ContentManager to use</param>
+    public Resources(ContentManager manager)
+    {
+      _manager = manager ?? throw new NullReferenceException(nameof(manager));
+    }
+
+    #endregion
+
+    #region Public API
+
     /// <summary>
     ///   Loads texture from path in library
     /// </summary>
     /// <param name="path">Path in library to texture file</param>
     /// <returns>Texture object</returns>
     /// <exception cref="FileNotFoundException">Fires when texture cannot be found or file does not exist</exception>
-    public static TextureObject LoadTexture(string path)
+    public Texture2D LoadTexture(string path)
     {
-      var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
-
-      if (!File.Exists(fullPath))
-        throw new FileNotFoundException(path);
-
-      var texture = new Bitmap(Image.FromFile(fullPath));
-
-      return new TextureObject(texture);
+      return LoadValidate<Texture2D>(path);
     }
 
     /// <summary>
-    ///   Loads texture from stream
-    /// </summary>
-    /// <param name="stream">Stream to read</param>
-    /// <returns>Texture object</returns>
-    /// <exception cref="NullReferenceException">If stream is null</exception>
-    public static TextureObject LoadTexture(Stream stream)
-    {
-      if (stream == null)
-        throw new NullReferenceException(nameof(stream));
-
-      var texture = new Bitmap(stream);
-
-      return new TextureObject(texture);
-    }
-
-    /// <summary>
-    ///   Loads font from path in library
+    ///   Loads TrueType or Bitmap font from path in library
     /// </summary>
     /// <param name="path">Path in library to font file</param>
     /// <param name="size">Size of the font</param>
     /// <returns>Font object</returns>
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
-    public static FreeTypeFontObject LoadFont(string path, float size = 12)
+    public SpriteFont LoadFont(string path)
     {
-      var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
-
-      if (!File.Exists(fullPath))
-        throw new FileNotFoundException(path);
-
-      return new FreeTypeFontObject(path, size);
+      return LoadValidate<SpriteFont>(path);
     }
 
     /// <summary>
-    ///   Loads font from stream
-    /// </summary>
-    /// <param name="stream"></param>
-    /// <param name="size"></param>
-    /// <returns>Font object</returns>
-    /// <exception cref="NullReferenceException">If stream is null</exception>
-    public static FreeTypeFontObject LoadFont(Stream stream, float size = 12)
-    {
-      if (stream == null)
-        throw new NullReferenceException(nameof(stream));
-
-      var tempCollection = new PrivateFontCollection();
-
-      byte[] fontdata = new byte[stream.Length];
-      stream.Read(fontdata, 0, (int) stream.Length);
-      stream.Close();
-
-      return new FreeTypeFontObject(fontdata, size);
-    }
-
-    /// <summary>
-    ///   Loads bitmap font from file
-    /// </summary>
-    /// <param name="path"></param>
-    /// <param name="characters"></param>
-    /// <returns></returns>
-    public static BitmapFontObject LoadBitmapFont(string path, string characters)
-    {
-      return new BitmapFontObject(LoadTexture(path), characters, true);
-    }
-
-    /// <summary>
-    ///   Loads bitmap font from texture
-    /// </summary>
-    /// <param name="bitmap"></param>
-    /// <param name="characters"></param>
-    /// <returns></returns>
-    public static BitmapFontObject LoadBitmapFont(TextureObject bitmap, string characters)
-    {
-      return new BitmapFontObject(bitmap, characters);
-    }
-
-    /// <summary>
-    ///   Loads audio from path in library
+    ///   Loads sound from path in library
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
     /// <exception cref="NotSupportedException"></exception>
-    public static AudioObject LoadAudio(string path)
+    public SoundEffect LoadSound(string path)
     {
-      var fullPath = Path.Combine(Common.GetAssetsRoot(), path);
-
-      if (!File.Exists(fullPath))
-        throw new FileNotFoundException(path);
-
-      Func<BinaryReader, AudioObject> importer = null;
-      AudioObject result;
-
-      using (var stream = File.Open(fullPath, FileMode.Open))
-      using (var reader = new BinaryReader(stream))
-      {
-        // Header
-        var signature = new string(reader.ReadChars(4));
-
-        // Signature shows that this is file with riff header
-        // trying to read it as a wave
-        if (signature == "RIFF") importer = LoadWave;
-        // else if ... - there will be other formats strategy
-
-        if (importer == null)
-          throw new NotSupportedException($"Unknown or unsupported audio file: '{path}'");
-
-        AudioObject audioObject = importer.Invoke(reader);
-
-        if (audioObject == null)
-          throw new NotSupportedException($"Unable to load audio file: '{path}'");
-
-        return audioObject;
-      }
+      return LoadValidate<SoundEffect>(path);
     }
 
-    private static WaveAudioObject LoadWave(BinaryReader reader)
+    #endregion
+
+    #region Private members
+
+    private T LoadValidate<T>(string path)
     {
-      var riffChunckSize = reader.ReadInt32();
+      if (path == null)
+        throw new NullReferenceException(nameof(path));
 
-      var format = new string(reader.ReadChars(4));
-      if (format != "WAVE")
-        return null;
+      var result = _manager.Load<T>(path);
+      
+      if (result == null)
+        throw new Exception($"Asset '{path}' not found or can't be loaded");
 
-      var formatSignature = new string(reader.ReadChars(4));
-      if (formatSignature != "fmt ")
-        return null;
-
-      int formatChunkSize = reader.ReadInt32();
-      int audioFormat = reader.ReadInt16();
-      int numChannels = reader.ReadInt16();
-      int sampleRate = reader.ReadInt32();
-      int byteRate = reader.ReadInt32();
-      int blockAlign = reader.ReadInt16();
-      int bitsPerSample = reader.ReadInt16();
-
-      var dataSignature = new string(reader.ReadChars(4));
-      if (dataSignature != "data")
-        return null;
-
-      int dataChunkSize = reader.ReadInt32();
-
-      byte[] data = reader.ReadBytes((int) reader.BaseStream.Length);
-
-      AudioFormat aFormat = GetSoundFormat(numChannels, bitsPerSample);
-
-      return new WaveAudioObject(data, numChannels, bitsPerSample, sampleRate, aFormat);
+      return result;
     }
 
-    private static AudioFormat GetSoundFormat(int channels, int bits)
-    {
-      switch (channels)
-      {
-        case 1: return bits == 8 ? AudioFormat.Mono8 : AudioFormat.Mono16;
-        case 2: return bits == 8 ? AudioFormat.Stereo8 : AudioFormat.Stereo16;
-        default: throw new NotSupportedException("The specified sound format is not supported.");
-      }
-    }
+    #endregion
   }
 }
