@@ -2,9 +2,10 @@
 <Settings>
     <Window>
         <Title>OxyPlayground - Examples</Title>
-        <Width>800</Width>
-        <Height>600</Height>
+        <Width>1000</Width>
+        <Height>800</Height>
         <Resizable>false</Resizable>
-        <AllowBorders>false</AllowBorders>
+        <AllowBorders>true</AllowBorders>
+        <CursorVisible>true</CursorVisible>
     </Window>
 </Settings>

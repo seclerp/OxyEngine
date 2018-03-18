@@ -8,5 +8,6 @@
     public int Height { get; set; } = 600;
     public bool IsFullscreen { get; set; } = false;
     public bool AllowBorders { get; set; } = true;
+    public bool CursorVisible { get; set; } = true;
   }
 }

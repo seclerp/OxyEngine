@@ -76,11 +76,9 @@ namespace OxyPlayground
 
     protected override void Draw(GameTime gameTime)
     {
-      GraphicsDevice.Clear(_graphics.GetBackgroundColor());
-
-      _defaultSpriteBatch.Begin();
+      _graphics.BeginDraw();
       _lifetimeManager.Draw();
-      _defaultSpriteBatch.End();
+      _graphics.EndDraw();
 
       base.Draw(gameTime);
     }
@@ -115,10 +113,14 @@ namespace OxyPlayground
       Window.Title = settings.Title;
       Window.AllowUserResizing = settings.Resizable;
       Window.AllowAltF4 = true;
-      
+      Window.IsBorderless = !settings.AllowBorders;
+      IsMouseVisible = settings.CursorVisible;
+
       _graphicsDeviceManager.PreferredBackBufferWidth = settings.Width;
       _graphicsDeviceManager.PreferredBackBufferHeight = settings.Height;
       _graphicsDeviceManager.IsFullScreen = settings.IsFullscreen;
+
+      _graphicsDeviceManager.ApplyChanges();
     }
   }
 }

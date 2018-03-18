@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Oxy.cs" />
+    <Compile Include="Primitives2D.cs" />
     <Compile Include="Scripts.cs" />
     <Compile Include="EventManagers\GameLifetimeEventManager.cs" />
     <Compile Include="Graphics.cs" />

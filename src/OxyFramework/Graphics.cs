@@ -13,11 +13,6 @@ namespace OxyFramework
   {
     #region Constants
 
-    private const float Deg2Rad = 3.14159f / 180f;
-    private const float CircleSegmentK = 2f;
-    
-    private const string DefaultFont = "Fonts/Roboto";
-    
     private const byte DefaultColorR = 255;
     private const byte DefaultColorG = 255;
     private const byte DefaultColorB = 255;
@@ -50,11 +45,31 @@ namespace OxyFramework
         LineWidth = 1,
         TransformationStack = new Stack<Transformation>()
       };
-      
+
+      ClearTransformationStack();
+    }
+
+    public void ClearTransformationStack()
+    {
+      _currentState.TransformationStack.Clear();
+
       // Default transformation
       _currentState.TransformationStack.Push(
         new Transformation(new Vector2(0, 0), 0, new Vector2(1, 1))
       );
+    }
+
+    public void BeginDraw()
+    {
+      ClearTransformationStack();
+      _graphicsDeviceManager.GraphicsDevice.Clear(GetBackgroundColor());
+
+      _defaultSpriteBatch.Begin();
+    }
+
+    public void EndDraw()
+    {
+      _defaultSpriteBatch.End();
     }
 
     #endregion
@@ -205,7 +220,8 @@ namespace OxyFramework
     public void Draw(Texture2D texture, float x = 0, float y = 0, float ox = 0, float oy = 0, float r = 0, float sx = 1,
       float sy = 1)
     {
-      _defaultSpriteBatch.Draw(texture, new Vector2(x, y), null, _currentState.ForegroundColor, r, new Vector2(ox, oy), new Vector2(sx, sy), SpriteEffects.None, 0);
+      var currentTransformation = _currentState.TransformationStack.Peek();
+      _defaultSpriteBatch.Draw(texture, currentTransformation.TransformVector(new Vector2(x, y)), null, _currentState.ForegroundColor, currentTransformation.Rotation + r, new Vector2(ox, oy), currentTransformation.Scale * new Vector2(sx, sy), SpriteEffects.None, 0);
     }
 
     /// <summary>
@@ -219,6 +235,9 @@ namespace OxyFramework
     /// <param name="r">Rotation</param>
     public void Draw(Texture2D texture, Rectangle sourceRect, Rectangle destRect, float ox = 0, float oy = 0, float r = 0)
     {
+      var currentTransformation = _currentState.TransformationStack.Peek();
+      var finalPos = currentTransformation.TransformVector(new Vector2(destRect.X, destRect.Y));
+      var finalDest = new Rectangle((int)finalPos.X, (int)finalPos.Y, (int)(destRect.Width * currentTransformation.Scale.X), (int)(destRect.Height * currentTransformation.Scale.Y));
       _defaultSpriteBatch.Draw(texture, destRect, sourceRect, _currentState.ForegroundColor, r, new Vector2(ox, oy), SpriteEffects.None, 0);
     }
 
