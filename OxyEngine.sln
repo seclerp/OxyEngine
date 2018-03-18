@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.Old", "src\Ox
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Playground.Old", "src\Oxy.Playground.Old\Oxy.Playground.Old.csproj", "{2024D047-E198-4E42-8F16-E9F5FA637853}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Playground", "src\Oxy.Playground\Oxy.Playground.csproj", "{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyPlayground", "src\OxyPlayground\OxyPlayground.csproj", "{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework", "src\Oxy.Framework\Oxy.Framework.csproj", "{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyFramework", "src\OxyFramework\OxyFramework.csproj", "{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

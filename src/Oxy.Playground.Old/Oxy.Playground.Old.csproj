@@ -47,7 +47,7 @@
       <Project>{368f72fc-7e9a-47ab-a3ce-4d89cb3eb352}</Project>
       <Name>Oxy.Framework.Old</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Oxy.Framework\Oxy.Framework.csproj">
+    <ProjectReference Include="..\Oxy.Framework.Old\Oxy.Framework.Old.csproj">
       <Project>{368f72fc-7e9a-47ab-a3ce-4d89cb3eb352}</Project>
       <Name>Oxy.Framework</Name>
     </ProjectReference>
