@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework", "src\Oxy.Framework\Oxy.Framework.csproj", "{368F72FC-7E9A-47AB-A3CE-4D89CB3EB352}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Framework.Old", "src\Oxy.Framework.Old\Oxy.Framework.Old.csproj", "{368F72FC-7E9A-47AB-A3CE-4D89CB3EB352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Playground", "src\Oxy.Playground\Oxy.Playground.csproj", "{2024D047-E198-4E42-8F16-E9F5FA637853}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Oxy.Playground.Old", "src\Oxy.Playground.Old\Oxy.Playground.Old.csproj", "{2024D047-E198-4E42-8F16-E9F5FA637853}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyPlayground", "src\OxyPlayground\OxyPlayground.csproj", "{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyFramework", "src\OxyFramework\OxyFramework.csproj", "{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,5 +48,29 @@ Global
 		{2024D047-E198-4E42-8F16-E9F5FA637853}.Release|x64.Build.0 = Release|Any CPU
 		{2024D047-E198-4E42-8F16-E9F5FA637853}.Release|x86.ActiveCfg = Release|Any CPU
 		{2024D047-E198-4E42-8F16-E9F5FA637853}.Release|x86.Build.0 = Release|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|x64.Build.0 = Debug|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|x86.Build.0 = Debug|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Release|x64.ActiveCfg = Release|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Release|x64.Build.0 = Release|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Release|x86.ActiveCfg = Release|Any CPU
+		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Release|x86.Build.0 = Release|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Debug|x64.Build.0 = Debug|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Debug|x86.Build.0 = Debug|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x64.ActiveCfg = Release|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x64.Build.0 = Release|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x86.ActiveCfg = Release|Any CPU
+		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

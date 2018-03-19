@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Settings>
+    <Window>
+        <Title>OxyPlayground - Examples</Title>
+        <Width>1000</Width>
+        <Height>800</Height>
+        <Resizable>false</Resizable>
+        <AllowBorders>true</AllowBorders>
+        <CursorVisible>true</CursorVisible>
+    </Window>
+</Settings>
