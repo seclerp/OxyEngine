@@ -3,53 +3,53 @@ using Microsoft.Xna.Framework;
 
 namespace OxyFramework
 {
-  internal class Transformation : ICloneable
+  public class Transformation : ICloneable
   {
     public Vector2 Position { get; private set; }
-    public Vector2 Scale { get; private set; }
     public float Rotation { get; private set; }
+    public Vector2 Scale { get; private set; }
 
-    private Matrix _matrix;
+    public Matrix Matrix { get; private set; }
+
+    public Transformation()
+    {
+      Matrix = Matrix.Identity;
+    }
 
     public Transformation(Vector2 position, float rotation, Vector2 scale)
     {
-      Position = Vector2.Zero;
-      Rotation = 0;
-      Scale = Vector2.One;
-      
-      TranslateMatrix(position);
-      RotateMatrix(rotation);
-      ScaleMatrix(scale);
-    }
-    
-    public void TranslateMatrix(Vector2 position)
-    {
-      _matrix *= Matrix.CreateTranslation(new Vector3(position, 0));
-      Position += position;
+      Position = position;
+      Rotation = rotation;
+      Scale = scale;
+
+      Matrix = Matrix.CreateTranslation(new Vector3(position, 0))
+                * Matrix.CreateRotationZ(rotation)
+                * Matrix.CreateScale(new Vector3(scale, 0));
     }
 
-    public void RotateMatrix(float rotation)
+    public void Translate(Vector2 value)
     {
-      _matrix *= Matrix.CreateRotationZ(rotation);
-      Rotation += rotation;
-    }
-    
-    public void ScaleMatrix(Vector2 scale)
-    {
-      _matrix *= Matrix.CreateScale(new Vector3(scale, 0));
-      Position += scale;
-    }
-    
-    public Vector2 TransformVector(Vector2 point)
-    {
-      return Vector2.Transform(point, _matrix);
-    }
-    
-    public static Matrix Compose(Matrix a, Matrix b)
-    {
-      return Matrix.Add(a, b);
+      Matrix *= Matrix.CreateTranslation(new Vector3(value, 0));
+      Position += value;
     }
 
+    public void Rotate(float value)
+    {
+      Matrix *= Matrix.CreateRotationZ(value);
+      Rotation += value;
+    }
+
+    public void Zoom(Vector2 value)
+    {
+      Matrix *= Matrix.CreateScale(new Vector3(value, 0));
+      Scale += value;
+    }
+
+    public Vector2 TransformVector(Vector2 vector)
+    {
+      return Vector2.Transform(vector, Matrix);
+    }
+    
     public object Clone()
     {
       return new Transformation(Position, Rotation, Scale);

@@ -1,4 +1,5 @@
 from OxyFramework import *
+from System import Math
 
 def onLoad():
   global image
@@ -8,6 +9,5 @@ def onUpdate(dt):
   pass
 
 def onDraw():
-  Oxy.Graphics.Draw(image, 50, 50)
-  Oxy.Graphics.Translate(100, 100)
-  Oxy.Graphics.Draw(image, 50, 50)
+  Oxy.Graphics.Translate(500, 400)
+  Oxy.Graphics.Draw(image, 0, 0)

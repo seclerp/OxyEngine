@@ -49,14 +49,12 @@ namespace OxyFramework
       ClearTransformationStack();
     }
 
-    public void ClearTransformationStack()
+    private void ClearTransformationStack()
     {
       _currentState.TransformationStack.Clear();
 
       // Default transformation
-      _currentState.TransformationStack.Push(
-        new Transformation(new Vector2(0, 0), 0, new Vector2(1, 1))
-      );
+      _currentState.TransformationStack.Push(new Transformation(new Vector2(0, 0), 0, new Vector2(1, 1)));
     }
 
     public void BeginDraw()
@@ -220,8 +218,9 @@ namespace OxyFramework
     public void Draw(Texture2D texture, float x = 0, float y = 0, float ox = 0, float oy = 0, float r = 0, float sx = 1,
       float sy = 1)
     {
-      var currentTransformation = _currentState.TransformationStack.Peek();
-      _defaultSpriteBatch.Draw(texture, currentTransformation.TransformVector(new Vector2(x, y)), null, _currentState.ForegroundColor, currentTransformation.Rotation + r, new Vector2(ox, oy), currentTransformation.Scale * new Vector2(sx, sy), SpriteEffects.None, 0);
+      _defaultSpriteBatch.Draw(texture, new Vector2(x, y), null, 
+        _currentState.ForegroundColor, r, new Vector2(ox, oy), 
+        new Vector2(sx, sy), SpriteEffects.None, 0);
     }
 
     /// <summary>
@@ -235,10 +234,8 @@ namespace OxyFramework
     /// <param name="r">Rotation</param>
     public void Draw(Texture2D texture, Rectangle sourceRect, Rectangle destRect, float ox = 0, float oy = 0, float r = 0)
     {
-      var currentTransformation = _currentState.TransformationStack.Peek();
-      var finalPos = currentTransformation.TransformVector(new Vector2(destRect.X, destRect.Y));
-      var finalDest = new Rectangle((int)finalPos.X, (int)finalPos.Y, (int)(destRect.Width * currentTransformation.Scale.X), (int)(destRect.Height * currentTransformation.Scale.Y));
-      _defaultSpriteBatch.Draw(texture, destRect, sourceRect, _currentState.ForegroundColor, r, new Vector2(ox, oy), SpriteEffects.None, 0);
+      _defaultSpriteBatch.Draw(texture, destRect, sourceRect, _currentState.ForegroundColor, r, new Vector2(ox, oy), 
+        SpriteEffects.None, 0);
     }
 
     #endregion
@@ -273,7 +270,9 @@ namespace OxyFramework
     /// <param name="y">Y coordinate</param>
     public void Translate(float x, float y)
     {
-      _currentState.TransformationStack.Peek().TranslateMatrix(new Vector2(x, y));
+      _defaultSpriteBatch.End();
+      _currentState.TransformationStack.Peek().Translate(new Vector2(x, y));
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix);
     }
 
     /// <summary>
@@ -282,7 +281,9 @@ namespace OxyFramework
     /// <param name="r">Angle to rotate</param>
     public void Rotate(float r)
     {
-      _currentState.TransformationStack.Peek().RotateMatrix(r);
+      _defaultSpriteBatch.End();
+      _currentState.TransformationStack.Peek().Rotate(r);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix);
     }
 
     /// <summary>
@@ -292,7 +293,9 @@ namespace OxyFramework
     /// <param name="sy">Y scale factor</param>
     public void Scale(float sx, float sy)
     {
-      _currentState.TransformationStack.Peek().ScaleMatrix(new Vector2(sx, sy));
+      _defaultSpriteBatch.End();
+      _currentState.TransformationStack.Peek().Zoom(new Vector2(sx, sy));
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix);
     }
 
     /// <summary>
@@ -301,7 +304,7 @@ namespace OxyFramework
     /// <param name="s">X and Y scale factor</param>
     public void Scale(float s)
     {
-      _currentState.TransformationStack.Peek().ScaleMatrix(new Vector2(s, s));
+      Scale(s, s);
     }
 
     #endregion
