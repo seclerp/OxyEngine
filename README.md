@@ -1,5 +1,8 @@
 ![OxyEngine](https://i.imgur.com/BjjCdjB.png)
 
+_README.md is quite outdated and will be updated soon_
+
+---
 
 **OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
 
@@ -191,7 +194,7 @@ We use [Semantic Versioning](http://semver.org/) for versioning. For the version
 # Authors
 
 * **Andrey Rublyov** - *Programmer* - [AndrewRublyov](https://github.com/AndrewRublyov)
-* **Andrey Belyaev** - *Programmer* - [Svetomech](https://github.com/Svetomech)
+* **Andrey Belyaev** - *Programmer* - [Svetomech](https://github.com/Svetomech)J
 
 See also the list of [contributors](https://github.com/OxyTeam/OxyEngine/contributors) who participated in this project.
 

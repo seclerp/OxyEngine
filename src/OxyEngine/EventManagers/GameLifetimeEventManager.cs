@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OxyFramework.EventManagers
+namespace OxyEngine.EventManagers
 {
   public class GameLifetimeEventManager
   {

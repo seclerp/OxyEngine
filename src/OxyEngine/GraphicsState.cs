@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OxyFramework
+namespace OxyEngine
 {
   public class GraphicsState
   {

@@ -1,4 +1,4 @@
-﻿namespace OxyFramework.Settings
+﻿namespace OxyEngine.Settings
 {
   public class ResourcesSettings
   {

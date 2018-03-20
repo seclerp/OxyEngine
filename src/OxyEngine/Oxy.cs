@@ -1,6 +1,6 @@
-﻿using OxyFramework.EventManagers;
+﻿using OxyEngine.EventManagers;
 
-namespace OxyFramework
+namespace OxyEngine
 {
   // Abother part of this class will be in Engine project
   public partial class Oxy

@@ -2,9 +2,9 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OxyFramework;
-using OxyFramework.EventManagers;
-using OxyFramework.Settings;
+using OxyEngine;
+using OxyEngine.EventManagers;
+using OxyEngine.Settings;
 
 namespace OxyPlayground
 {

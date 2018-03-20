@@ -1,6 +1,6 @@
 ﻿using System.Xml.Serialization;
 
-namespace OxyFramework.Settings
+namespace OxyEngine.Settings
 {
   [XmlRoot(ElementName="Settings")]
   public class SettingsRoot
