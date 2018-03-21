@@ -3,7 +3,7 @@
 namespace OxyEngine.Settings
 {
   [XmlRoot(ElementName="Settings")]
-  public class SettingsRoot
+  public class GameSettingsRoot
   {
     public string ContentFolder { get; set; } = "Content";
     public string ScriptsFolder { get; set; } = "";

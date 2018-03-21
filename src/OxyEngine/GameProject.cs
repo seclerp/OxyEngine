@@ -1,10 +1,19 @@
 ﻿using OxyEngine.Settings;
 
-namespace OxyPlayground
+namespace OxyEngine
 {
-  public class PlaygroundProject
+  public class GameProject
   {
-    public SettingsRoot Settings { get; set; }
+    public GameProject()
+    {
+    }
+
+    public GameProject(GameSettingsRoot gameSettings)
+    {
+      GameSettings = gameSettings;
+    }
+    
+    public GameSettingsRoot GameSettings { get; set; }
     public string RootFolderPath { get; set; }
     public string EntryScriptPath { get; set; }
     public string EntryScriptName { get; set; }

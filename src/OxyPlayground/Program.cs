@@ -1,4 +1,5 @@
 ﻿using System;
+using OxyEngine;
 
 namespace OxyPlayground
 {
@@ -7,10 +8,10 @@ namespace OxyPlayground
     [STAThread]
     static void Main(string[] args)
     {
-      var projectLoader = new PlaygroundProjectLoader();
+      var projectLoader = new GameProjectLoader();
       var project = projectLoader.LoadFromArguments(args);
       
-      using (var playground = new PlaygroundInstance(project))
+      using (var playground = new GameInstance(project))
       {
         playground.Run();
       }
