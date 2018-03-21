@@ -7,8 +7,8 @@
     <ProjectGuid>{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OxyFramework</RootNamespace>
-    <AssemblyName>OxyFramework</AssemblyName>
+    <RootNamespace>OxyEngine</RootNamespace>
+    <AssemblyName>OxyEngine</AssemblyName>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <LangVersion>7.2</LangVersion>
@@ -66,13 +66,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Input.cs" />
+    <Compile Include="Interfaces\IModule.cs" />
+    <Compile Include="Mapping\InputMap.cs" />
     <Compile Include="Oxy.cs" />
     <Compile Include="Primitives2D.cs" />
     <Compile Include="Scripts.cs" />
     <Compile Include="EventManagers\GameLifetimeEventManager.cs" />
     <Compile Include="Graphics.cs" />
     <Compile Include="GraphicsState.cs" />
-    <Compile Include="IModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="Settings\GraphicsSettings.cs" />

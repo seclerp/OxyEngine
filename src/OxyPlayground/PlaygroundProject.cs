@@ -1,4 +1,4 @@
-﻿using OxyFramework.Settings;
+﻿using OxyEngine.Settings;
 
 namespace OxyPlayground
 {

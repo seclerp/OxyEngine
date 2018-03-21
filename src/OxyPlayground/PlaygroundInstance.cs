@@ -1,10 +1,11 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OxyFramework;
-using OxyFramework.EventManagers;
-using OxyFramework.Settings;
+using OxyEngine;
+using OxyEngine.EventManagers;
+using OxyEngine.Settings;
 
 namespace OxyPlayground
 {
@@ -18,6 +19,7 @@ namespace OxyPlayground
     private Resources _resources;
     private Graphics _graphics;
     private Scripts _scripts;
+    private Input _input;
 
     #endregion
 
@@ -27,7 +29,8 @@ namespace OxyPlayground
     
     private GraphicsDeviceManager _graphicsDeviceManager;
     private SpriteBatch _defaultSpriteBatch;
-
+    private GamePadState[] _gamePadStates;
+    
     public PlaygroundInstance(PlaygroundProject project)
     {
       _project = project;
@@ -69,11 +72,29 @@ namespace OxyPlayground
         Exit();
       }
 
+      UpdateInput();
+      
       _lifetimeManager.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
       base.Update(gameTime);
     }
 
+    private void UpdateInput()
+    {
+      UpdateAllGamepadStates();
+      _input.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
+    }
+
+    private void UpdateAllGamepadStates()
+    {
+      var count = GamePad.MaximumGamePadCount;
+
+      for (int i = 0; i < count; i++)
+      {
+        _gamePadStates[i] = GamePad.GetState(i);
+      }
+    }
+    
     protected override void Draw(GameTime gameTime)
     {
       _graphics.BeginDraw();
@@ -93,6 +114,9 @@ namespace OxyPlayground
       // Graphics
       _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
       _graphics = new Graphics(_graphicsDeviceManager, _defaultSpriteBatch, _project.Settings.GraphicsSettings);
+      
+      // Input
+      _input = new Input();
       
       // Scripts
       _scripts = new Scripts(_project.ScriptsFolderPath);

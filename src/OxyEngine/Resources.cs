@@ -3,9 +3,10 @@ using System.IO;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using OxyFramework.Settings;
+using OxyEngine.Interfaces;
+using OxyEngine.Settings;
 
-namespace OxyFramework
+namespace OxyEngine
 {
   /// <summary>
   ///   Module for managing game assets. Wrapper around using ContentManager

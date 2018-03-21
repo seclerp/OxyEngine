@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.IO;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using OxyEngine.Interfaces;
 
-namespace OxyFramework
+namespace OxyEngine
 {
   public class Scripts : IModule
   {
@@ -12,7 +13,7 @@ namespace OxyFramework
     private static readonly List<string> ImportantScriptAssemblies = new List<string>
     {
       "MonoGame.Framework",
-      "OxyFramework",
+      "OxyEngine",
     };
     
     private static readonly List<string> ScriptAssemblies = new List<string>();

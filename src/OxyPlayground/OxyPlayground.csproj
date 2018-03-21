@@ -37,7 +37,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>OxyIcon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -57,8 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Icon.ico" />
-    <EmbeddedResource Include="Icon.bmp" />
+    <EmbeddedResource Include="OxyIcon.ico" />
+    <Content Include="Icon.bmp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MonoGameInstallDirectory)\MonoGame\v3.0\Assemblies\DesktopGL\x86\SDL2.dll">
@@ -113,7 +113,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OxyFramework\OxyFramework.csproj">
+    <ProjectReference Include="..\OxyEngine\OxyEngine.csproj">
+      <Project>{401fa561-fb1a-4a6b-999d-3729d1dc3c4d}</Project>
+      <Name>OxyEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\OxyEngine\OxyEngine.csproj">
       <Project>{401fa561-fb1a-4a6b-999d-3729d1dc3c4d}</Project>
       <Name>Oxy.Framework</Name>
     </ProjectReference>

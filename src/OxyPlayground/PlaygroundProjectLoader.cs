@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
-using OxyFramework.Settings;
+using OxyEngine.Settings;
 
 namespace OxyPlayground
 {

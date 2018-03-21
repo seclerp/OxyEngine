@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OxyFramework.Settings;
+using OxyEngine.Interfaces;
+using OxyEngine.Settings;
 
-namespace OxyFramework
+namespace OxyEngine
 {
   /// <summary>
   ///   Module that used for rendering all things in engine
