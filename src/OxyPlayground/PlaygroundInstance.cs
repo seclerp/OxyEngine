@@ -89,6 +89,9 @@ namespace OxyPlayground
     {
       var count = GamePad.MaximumGamePadCount;
 
+      if (_gamePadStates == null)
+        _gamePadStates = new GamePadState[count];
+      
       for (int i = 0; i < count; i++)
       {
         _gamePadStates[i] = GamePad.GetState(i);
