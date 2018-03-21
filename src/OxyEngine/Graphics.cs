@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Interfaces;
 using OxyEngine.Settings;
 
 namespace OxyEngine

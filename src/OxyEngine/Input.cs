@@ -1,30 +1,35 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Oxy.Framework.Mappings;
+using OxyEngine.Mapping;
 
-namespace Oxy.Framework
+namespace OxyEngine
 {
   /// <summary>
   ///   Module for managing user input
   /// </summary>
   public class Input
   {
+    private readonly InputMap _map;
+    
     private KeyboardState _keyboardState;
     private MouseState _mouseState;
-    private GamePadState _gamePadState;
-    private InputMap _map;
+    private GamePadState[] _gamePadStates;
+    
+    private bool _anyGamePadConnected;
 
     public Input()
     {
       _map = new InputMap();
+      _anyGamePadConnected = false;
     }
     
-    public void UpdateInputState(KeyboardState keyboardState, MouseState mouseState, GamePadState gamePadState)
+    public void UpdateInputState(KeyboardState keyboardState, MouseState mouseState, GamePadState[] gamePadStates)
     {
       _keyboardState = keyboardState;
       _mouseState = mouseState;
-      _gamePadState = gamePadState;
+      _gamePadStates = gamePadStates;
+      _anyGamePadConnected = gamePadStates != null && gamePadStates.Length > 0;
     }
     
     /// <summary>
@@ -42,19 +47,34 @@ namespace Oxy.Framework
     /// <summary>
     ///   Return true if specified gamepad button is pressed, otherwise false
     /// </summary>
+    /// <param name="gamePad">Gamepad ID</param>
     /// <param name="button">Gamepad button to check</param>
-    public bool IsGamePadButtonPressed(string button)
+    public bool IsGamePadButtonPressed(int gamePad, string button)
     {
-      return _map.CheckGamePadButton(_gamePadState, button);
+      CheckGamepadConnected(gamePad);
+      return _map.CheckGamePadButton(_gamePadStates[gamePad], button);
     }
-    
+
     /// <summary>
     ///   Return value of specified gamepad trigger
     /// </summary>
+    /// <param name="gamePad">Gamepad ID</param>
     /// <param name="trigger">Gamepad trigger to check</param>
-    public float GetGamePadTrigger(string trigger)
+    public float GetGamePadTrigger(int gamePad, string trigger)
     {
-      return _map.CheckGamePadTrigger(_gamePadState, trigger);
+      CheckGamepadConnected(gamePad);
+      return _map.CheckGamePadTrigger(_gamePadStates[gamePad], trigger);
+    }
+    
+    /// <summary>
+    ///   Return value of specified gamepad stick
+    /// </summary>
+    /// <param name="gamePad">Gamepad ID</param>
+    /// <param name="stick">Gamepad stick to check</param>
+    public Vector2 GetGamePadStick(int gamePad, string stick)
+    {
+      CheckGamepadConnected(gamePad);
+      return _map.CheckGamePadStick(_gamePadStates[gamePad], stick);
     }
 
     /// <summary>
@@ -82,6 +102,19 @@ namespace Oxy.Framework
     public int GetMouseWheel()
     {
       return _mouseState.ScrollWheelValue;
+    }
+
+    private void CheckGamepadConnected(int gamePad)
+    {
+      if (!_anyGamePadConnected)
+      {
+        throw new Exception("Attempt to get input from gamepad, but no gamepads connected");
+      }
+
+      if (gamePad >= _gamePadStates.Length)
+      {
+        throw new Exception($"Attempt to get input from gamepad #{gamePad}, but there are only {_gamePadStates.Length} connected");
+      }
     }
   }
 }

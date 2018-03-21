@@ -1,23 +1,23 @@
 ![OxyEngine](https://i.imgur.com/BjjCdjB.png)
 
-_README.md is quite outdated and will be updated soon_
+**README.md** _is quite outdated and will be updated soon_
 
 ---
 
 **OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
 
-| :speech_balloon: | `develop` | `master` |
-|---------|---------|--------|
-| [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/OxyEngine/Lobby) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master) |
+| :speech_balloon: | :white_check_mark: | `develop` | `master` |
+|---------|---------|---------|--------|
+| [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/OxyEngine/Lobby) | [![BCH compliance](https://bettercodehub.com/edge/badge/OxyTeam/OxyEngine?branch=develop)](https://bettercodehub.com/) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master) |
 
 ---
-
 
 :exclamation::exclamation::exclamation:
 ***Please note: 
 This project in very early stage of development at that moment. Do not use it for any production projects before first public release will be published. For now, OxyEngine does not guarantee backward compatibility of API and stability of your code.***
 
 ---
+
 # Getting Started
 
 These instructions will get you information for getting started with engine.

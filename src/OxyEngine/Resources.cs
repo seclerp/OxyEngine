@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Interfaces;
 using OxyEngine.Settings;
 
 namespace OxyEngine

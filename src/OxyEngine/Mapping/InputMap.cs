@@ -1,8 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
-namespace Oxy.Framework.Mappings
+namespace OxyEngine.Mapping
 {
   /// <summary>
   ///   Class for mapping string to OpenTK Key enum
@@ -168,6 +169,12 @@ namespace Oxy.Framework.Mappings
           return gamePadState.DPad.Right == ButtonState.Pressed;
         case "dpaddown":
           return gamePadState.DPad.Down == ButtonState.Pressed;
+        case "back":
+          return gamePadState.Buttons.Back == ButtonState.Pressed;
+        case "start":
+          return gamePadState.Buttons.Start == ButtonState.Pressed;
+        case "big":
+          return gamePadState.Buttons.BigButton == ButtonState.Pressed;
         default:
           throw new Exception($"Unknown gamepad button: '{gamePadButton}'");
       }
@@ -183,6 +190,19 @@ namespace Oxy.Framework.Mappings
           return gamePadState.Triggers.Right;
         default:
           throw new Exception($"Unknown gamepad trigger: '{trigger}'");
+      }
+    }
+    
+    public Vector2 CheckGamePadStick(GamePadState gamePadState, string stick)
+    {
+      switch (stick)
+      {
+        case "left":
+          return gamePadState.ThumbSticks.Left;
+        case "right":
+          return gamePadState.ThumbSticks.Right;
+        default:
+          throw new Exception($"Unknown gamepad stick: '{stick}'");
       }
     }
   }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
+using OxyEngine.Interfaces;
 
 namespace OxyEngine
 {

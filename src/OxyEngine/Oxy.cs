@@ -7,6 +7,7 @@ namespace OxyEngine
   {
     public static Graphics Graphics { get; set; }
     public static Resources Resources { get; set; }
+    public static Input Input { get; set; }
     public static GameLifetimeEventManager Events { get; set; }
   }
 }
