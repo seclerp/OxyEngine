@@ -239,6 +239,47 @@ namespace OxyEngine
         SpriteEffects.None, 0);
     }
 
+    public void Rectangle(string style, int x, int y, int w, int h)
+    {
+      Rectangle(style, new Rectangle(x, y, w, h));
+    }
+    
+    public void Rectangle(string style, Rectangle rect)
+    {
+      switch (style)
+      {
+        case "fill":
+          _defaultSpriteBatch.FillRectangle(rect, _currentState.ForegroundColor, _currentState.LineWidth);
+          break;
+        case "line":
+          _defaultSpriteBatch.DrawRectangle(rect, _currentState.ForegroundColor, _currentState.LineWidth);
+          break;
+        default:
+          throw new Exception($"Unknown rectangle style: {style}");
+      }
+    }
+    
+    public void Line(float x1, float y1, float x2, float y2)
+    {
+      Line(new Vector2(x1, y1), new Vector2(x2, y2));
+    }
+    
+    public void Line(Vector2 a, Vector2 b)
+    {
+      _defaultSpriteBatch.DrawLine(a, b, _currentState.ForegroundColor, _currentState.LineWidth);
+    }
+    
+    public void Circle(float x, float y, float radius)
+    {
+      Circle(new Vector2(x, y), radius);
+    }
+    
+    public void Circle(Vector2 center, float radius)
+    {
+      var sides = (int) Math.Ceiling(radius / 3) * 3;
+      _defaultSpriteBatch.DrawCircle(center, radius, sides, _currentState.ForegroundColor, _currentState.LineWidth);
+    }
+
     #endregion
 
     #region Matrix transformations
