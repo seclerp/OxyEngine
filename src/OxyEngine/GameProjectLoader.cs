@@ -3,31 +3,46 @@ using System.Diagnostics;
 using System.IO;
 using OxyEngine.Settings;
 
-namespace OxyPlayground
+namespace OxyEngine
 {
-  internal class PlaygroundProjectLoader
+  public class GameProjectLoader
   {
     private const string EntryFileName = "entry.py";
+    private const string SettingsFileName = "settings.xml";
     
-    internal PlaygroundProject LoadFromArguments(string[] args)
+    /// <summary>
+    ///   Loads project using given command-line arguments
+    /// </summary>
+    /// <param name="args"></param>
+    /// <returns></returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    public GameProject LoadFromArguments(string[] args)
     {
       string projectDirectory = ParseCommands(args);
       string scriptToExecute = Path.Combine(projectDirectory, EntryFileName);
       
       if (!File.Exists(scriptToExecute))
         throw new FileNotFoundException(scriptToExecute);
-      
-      var project = new PlaygroundProject();
-      project.RootFolderPath = Path.IsPathRooted(projectDirectory) 
+
+      return LoadFromFolder(projectDirectory);
+    }
+
+    public GameProject LoadFromFolder(string projectDirectory)
+    {
+      var fullProjectPath =  Path.IsPathRooted(projectDirectory) 
         ? projectDirectory 
         : Path.Combine(Environment.CurrentDirectory, projectDirectory);
       
-      project.Settings = LoadSettings(project.RootFolderPath);   
+      if (!Directory.Exists(fullProjectPath))
+        throw new DirectoryNotFoundException(fullProjectPath);
 
-      project.ScriptsFolderPath = Path.Combine(project.RootFolderPath, project.Settings.ScriptsFolder);
+      var project = new GameProject { RootFolderPath = fullProjectPath };
+
+      project.GameSettings = LoadSettings(project.RootFolderPath);   
+      project.ScriptsFolderPath = Path.Combine(project.RootFolderPath, project.GameSettings.ScriptsFolder);
       project.EntryScriptPath = Path.Combine(project.ScriptsFolderPath, EntryFileName);
       project.EntryScriptName = EntryFileName;
-      project.ContentFolderPath = Path.Combine(project.RootFolderPath, project.Settings.ContentFolder);
+      project.ContentFolderPath = Path.Combine(project.RootFolderPath, project.GameSettings.ContentFolder);
 
       return project;
     }
@@ -38,14 +53,13 @@ namespace OxyPlayground
     /// <param name="args"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    internal string ParseCommands(string[] args)
+    private string ParseCommands(string[] args)
     {
       var entryDirectory = Environment.CurrentDirectory;
       var entryDirFound = false;
       
-      for (int i = 0; i < args.Length; i++)
+      foreach (var arg in args)
       {
-        var arg = args[i];
         switch (arg)
         {
           case "-d":
@@ -83,18 +97,18 @@ namespace OxyPlayground
       throw new Exception($"File or directory not found: '{arg}'");
     }
     
-    private SettingsRoot LoadSettings(string projectRoot)
+    private GameSettingsRoot LoadSettings(string projectRoot)
     {
       var settingsManager = new SettingsManager();
       try
       {
-        var loadedSettings = settingsManager.LoadSettings(Path.Combine(projectRoot, "settings.xml"));
+        var loadedSettings = settingsManager.LoadSettings(Path.Combine(projectRoot, SettingsFileName));
         return loadedSettings;
       }
       catch (Exception e)
       {
         Debug.Print(e.ToString());
-        return new SettingsRoot();
+        return new GameSettingsRoot();
       }
     }
   }

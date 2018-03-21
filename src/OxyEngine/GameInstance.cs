@@ -1,18 +1,15 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OxyEngine;
 using OxyEngine.EventManagers;
 using OxyEngine.Settings;
 
-namespace OxyPlayground
+namespace OxyEngine
 {
   /// <summary>
   /// This is the main type for your game.
   /// </summary>
-  public class PlaygroundInstance : Game
+  public class GameInstance : Game
   {
     #region Modules
 
@@ -23,7 +20,7 @@ namespace OxyPlayground
 
     #endregion
 
-    private PlaygroundProject _project;
+    private GameProject _project;
     
     private GameLifetimeEventManager _lifetimeManager;
     
@@ -31,7 +28,7 @@ namespace OxyPlayground
     private SpriteBatch _defaultSpriteBatch;
     private GamePadState[] _gamePadStates;
     
-    public PlaygroundInstance(PlaygroundProject project)
+    public GameInstance(GameProject project)
     {
       _project = project;
       _graphicsDeviceManager = new GraphicsDeviceManager(this);
@@ -112,11 +109,11 @@ namespace OxyPlayground
     private void InitializeModules()
     {
       // Resources
-      _resources = new Resources(Content, _project.Settings.ResourcesSettings);
+      _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
       
       // Graphics
       _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphics = new Graphics(_graphicsDeviceManager, _defaultSpriteBatch, _project.Settings.GraphicsSettings);
+      _graphics = new Graphics(_graphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
       
       // Input
       _input = new Input();
@@ -125,7 +122,7 @@ namespace OxyPlayground
       _scripts = new Scripts(_project.ScriptsFolderPath);
       
       // Window
-      ApplyWindowSettings(_project.Settings.WindowSettings);
+      ApplyWindowSettings(_project.GameSettings.WindowSettings);
     }
 
     private void InitializeOxyState()

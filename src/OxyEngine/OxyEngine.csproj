@@ -70,6 +70,9 @@
     <Compile Include="Interfaces\IModule.cs" />
     <Compile Include="Mapping\InputMap.cs" />
     <Compile Include="Oxy.cs" />
+    <Compile Include="GameInstance.cs" />
+    <Compile Include="GameProject.cs" />
+    <Compile Include="GameProjectLoader.cs" />
     <Compile Include="Primitives2D.cs" />
     <Compile Include="Scripts.cs" />
     <Compile Include="EventManagers\GameLifetimeEventManager.cs" />
@@ -80,7 +83,7 @@
     <Compile Include="Settings\GraphicsSettings.cs" />
     <Compile Include="Settings\ResourcesSettings.cs" />
     <Compile Include="Settings\SettingsManager.cs" />
-    <Compile Include="Settings\SettingsRoot.cs" />
+    <Compile Include="Settings\GameSettingsRoot.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
     <Compile Include="Transformation.cs" />
   </ItemGroup>
