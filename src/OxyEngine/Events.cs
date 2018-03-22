@@ -1,8 +1,9 @@
 ﻿using OxyEngine.EventHandlers;
+using OxyEngine.Interfaces;
 
 namespace OxyEngine
 {
-  public class Events
+  public class Events : IModule
   {
     #region Global game events
 
@@ -14,30 +15,43 @@ namespace OxyEngine
     {
       Global = new EventSystem();
     }
-    
-    #region Invokers
 
-    public void Load()
+    #region Fabrics
+
+    /// <summary>
+    ///   Return new event system
+    /// </summary>
+    /// <returns>New event system</returns>
+    public EventSystem NewEventSystem()
+    {
+      return new EventSystem();
+    }
+
+    #endregion
+    
+    #region Global invokers
+
+    internal void Load()
     {
       Global.Invoke("load", null);
     }
     
-    public void Unload()
+    internal void Unload()
     {
       Global.Invoke("unload", null);
     }
     
-    public void Update(double dt)
+    internal void Update(double dt)
     {
       Global.Invoke("update", new EngineUpdateEventArgs { DeltaTime = dt });
     }
     
-    public void Draw()
+    internal void Draw()
     {
       Global.Invoke("draw", null);
     }
     
-    public void Resize()
+    internal void Resize()
     {
       Global.Invoke("resize", null);
     }

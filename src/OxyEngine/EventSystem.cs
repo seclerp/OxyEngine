@@ -11,6 +11,11 @@ namespace OxyEngine
   {
     private Dictionary<string, EngineEventHandler> _registry;
 
+    public EventSystem()
+    {
+      _registry = new Dictionary<string, EngineEventHandler>();
+    }
+    
     public void StartListening(string eventName, EngineEventHandler handler)
     {
       if (!_registry.ContainsKey(eventName))

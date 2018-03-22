@@ -134,6 +134,7 @@ namespace OxyEngine
     public void InitializeScripting(IScripting scriptingFrontend)
     {
       _scripting = scriptingFrontend;
+      _scripting.Initialize(_project.ScriptsFolderPath);
       Oxy.Scripting = _scripting;
     }
 

@@ -1,5 +1,5 @@
 from Examples.draw_image import *
 
-Oxy.Events.OnLoad += onLoad
-Oxy.Events.OnUpdate += onUpdate
-Oxy.Events.OnDraw += onDraw
+Oxy.Events.Global.StartListening("load", onLoad)
+Oxy.Events.Global.StartListening("update", onUpdate)
+Oxy.Events.Global.StartListening("draw", onDraw)

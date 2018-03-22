@@ -21,10 +21,10 @@ namespace OxyEngine
     private ScriptEngine _scriptEngine;
     private static string _scriptsRootFolder;
 
-    public void Initialize(string projectRootFolder)
+    public void Initialize(string scriptsRootFolder)
     {
       _scriptEngine = Python.CreateEngine();
-      SetScriptsRoot(projectRootFolder);
+      SetScriptsRoot(scriptsRootFolder);
     }
 
     /// <summary>
