@@ -14,6 +14,8 @@ namespace OxyEngine
   {
     #region Constants
 
+    #region Default color bytes
+    
     private const byte DefaultColorR = 255;
     private const byte DefaultColorG = 255;
     private const byte DefaultColorB = 255;
@@ -25,6 +27,8 @@ namespace OxyEngine
     private const byte DefaultBgColorA = 255;
 
     #endregion
+    
+    #endregion
 
     private readonly GraphicsDeviceManager _graphicsDeviceManager;
     private readonly SpriteBatch _defaultSpriteBatch;
@@ -33,7 +37,7 @@ namespace OxyEngine
 
     #region Initialization
 
-    public Graphics(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
+    internal Graphics(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
       GraphicsSettings settings)
     {
       _graphicsDeviceManager = graphicsDeviceManager;
@@ -58,7 +62,7 @@ namespace OxyEngine
       _currentState.TransformationStack.Push(new Transformation(new Vector2(0, 0), 0, new Vector2(1, 1)));
     }
 
-    public void BeginDraw()
+    internal void BeginDraw()
     {
       ClearTransformationStack();
       _graphicsDeviceManager.GraphicsDevice.Clear(GetBackgroundColor());
@@ -66,7 +70,7 @@ namespace OxyEngine
       _defaultSpriteBatch.Begin();
     }
 
-    public void EndDraw()
+    internal void EndDraw()
     {
       _defaultSpriteBatch.End();
     }
@@ -239,11 +243,26 @@ namespace OxyEngine
         SpriteEffects.None, 0);
     }
 
+    /// <summary>
+    ///   Draw rectangle with given style, position of top left corner and size
+    /// </summary>
+    /// <param name="style">"fill" or "line" draw style</param>
+    /// <param name="x">X coodrinate of top left corner</param>
+    /// <param name="y">Y coodrinate of top left corner</param>
+    /// <param name="w">Width of rectangle</param>
+    /// <param name="h">Height of rectangle</param>
+    /// <exception cref="Exception">If given style is not supported</exception>
     public void Rectangle(string style, int x, int y, int w, int h)
     {
       Rectangle(style, new Rectangle(x, y, w, h));
     }
     
+    /// <summary>
+    ///   Draw rectangle with given style, position of top left corner and size
+    /// </summary>
+    /// <param name="style">"fill" or "line" draw style</param>
+    /// <param name="rect">X coodrinate of top left corner</param>
+    /// <exception cref="Exception">If given style is not supported</exception>
     public void Rectangle(string style, Rectangle rect)
     {
       switch (style)
@@ -259,27 +278,78 @@ namespace OxyEngine
       }
     }
     
+    /// <summary>
+    ///   Draw lines between 2 points
+    /// </summary>
+    /// <param name="x1">X coodrinate of first point</param>
+    /// <param name="y1">Y coodrinate of second point</param>
+    /// <param name="x2">X coodrinate of first point</param>
+    /// <param name="y2">Y coodrinate of second point</param>
     public void Line(float x1, float y1, float x2, float y2)
     {
       Line(new Vector2(x1, y1), new Vector2(x2, y2));
     }
     
+    /// <summary>
+    ///   Draw lines between 2 points
+    /// </summary>
+    /// <param name="a">First point</param>
+    /// <param name="b">Second point</param>
     public void Line(Vector2 a, Vector2 b)
     {
       _defaultSpriteBatch.DrawLine(a, b, _currentState.ForegroundColor, _currentState.LineWidth);
     }
     
+    /// <summary>
+    ///   Draw circle
+    /// </summary>
+    /// <param name="x">X coordinate of center</param>
+    /// <param name="y">Y coordinate of center</param>
+    /// <param name="radius">Radius</param>
     public void Circle(float x, float y, float radius)
     {
       Circle(new Vector2(x, y), radius);
     }
     
+    /// <summary>
+    ///   Draw circle
+    /// </summary>
+    /// <param name="center">Center point</param>
+    /// <param name="radius">Radius</param>
     public void Circle(Vector2 center, float radius)
     {
       var sides = (int) Math.Ceiling(radius / 3) * 3;
       _defaultSpriteBatch.DrawCircle(center, radius, sides, _currentState.ForegroundColor, _currentState.LineWidth);
     }
 
+    /// <summary>
+    ///   Draw polygon 
+    /// </summary>
+    /// <param name="points">List of points</param>
+    public void Polygon(List<Vector2> points)
+    {
+      _defaultSpriteBatch.DrawPolygon(Vector2.Zero, points, _currentState.ForegroundColor, _currentState.LineWidth);
+    }
+    
+    /// <summary>
+    ///   Draw polygon
+    /// </summary>
+    /// <param name="offset">Offset for point coodrinates</param>
+    /// <param name="points">List of points</param>
+    public void Polygon(Vector2 offset, List<Vector2> points)
+    {
+      _defaultSpriteBatch.DrawPolygon(offset, points, _currentState.ForegroundColor, _currentState.LineWidth);
+    }
+
+    /// <summary>
+    ///   Draw point
+    /// </summary>
+    /// <param name="position">Position of a point</param>
+    public void Point(Vector2 position)
+    {
+      _defaultSpriteBatch.PutPixel(position, _currentState.ForegroundColor);
+    }
+    
     #endregion
 
     #region Matrix transformations

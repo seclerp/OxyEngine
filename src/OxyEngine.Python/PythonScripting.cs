@@ -7,7 +7,7 @@ using OxyEngine.Interfaces;
 
 namespace OxyEngine
 {
-  public class Scripts : IModule
+  public class PythonScripting : IModule, IScripting
   {
     // Those modules cannot be switched off and need to be for correct work of other modules
     private static readonly List<string> ImportantScriptAssemblies = new List<string>
@@ -18,36 +18,20 @@ namespace OxyEngine
     
     private static readonly List<string> ScriptAssemblies = new List<string>();
 
-    private readonly ScriptEngine _scriptEngine;
+    private ScriptEngine _scriptEngine;
     private static string _scriptsRootFolder;
 
-    public Scripts(string scriptsRootFolder)
+    public void Initialize(string projectRootFolder)
     {
       _scriptEngine = Python.CreateEngine();
-      SetScriptsRoot(scriptsRootFolder);
-    }
-
-    private ScriptScope CreateConfiguredScope()
-    {
-      ScriptScope scope = _scriptEngine.CreateScope();
-      scope.ImportModule("clr");
-
-      _scriptEngine.Execute("import clr", scope);
-
-      foreach (var module in ImportantScriptAssemblies)
-        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
-
-      foreach (var module in ScriptAssemblies)
-        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
-
-      return scope;
+      SetScriptsRoot(projectRootFolder);
     }
 
     /// <summary>
     ///   Add .NET assembly reference to the list of imported libs for executing scripts
     /// </summary>
     /// <param name="reference">Reference name or full name</param>
-    public void AddDefaultNetModule(string reference)
+    public void AddNetModule(string reference)
     {
       if (!ScriptAssemblies.Contains(reference))
         ScriptAssemblies.Add(reference);
@@ -57,7 +41,7 @@ namespace OxyEngine
     ///   Remove .NET assembly reference from the list of imported libs for executing scripts
     /// </summary>
     /// <param name="reference">Reference name or full name</param>
-    public void RemoveDefaultNetModule(string reference)
+    public void RemoveNetModule(string reference)
     {
       if (ScriptAssemblies.Contains(reference))
         ScriptAssemblies.Remove(reference);
@@ -91,6 +75,22 @@ namespace OxyEngine
         var stackTrace = _scriptEngine.GetService<ExceptionOperations>().FormatException(e);
         throw new Exception(stackTrace, e);
       }
+    }
+    
+    private ScriptScope CreateConfiguredScope()
+    {
+      ScriptScope scope = _scriptEngine.CreateScope();
+      scope.ImportModule("clr");
+
+      _scriptEngine.Execute("import clr", scope);
+
+      foreach (var module in ImportantScriptAssemblies)
+        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
+
+      foreach (var module in ScriptAssemblies)
+        _scriptEngine.Execute($"clr.AddReference(\"{module}\")", scope);
+
+      return scope;
     }
   }
 }

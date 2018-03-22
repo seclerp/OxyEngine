@@ -1,13 +1,13 @@
-﻿using OxyEngine.EventManagers;
+﻿using OxyEngine.Interfaces;
 
 namespace OxyEngine
 {
-  // Abother part of this class will be in Engine project
-  public partial class Oxy
+  public class Oxy
   {
-    public static Graphics Graphics { get; set; }
-    public static Resources Resources { get; set; }
-    public static Input Input { get; set; }
-    public static GameLifetimeEventManager Events { get; set; }
+    public static Resources Resources { get; internal set; }
+    public static Graphics Graphics { get; internal set; }
+    public static IScripting Scripting { get; internal set; }
+    public static Events Events { get; internal set; }
+    public static Input Input { get; internal set; }
   }
 }

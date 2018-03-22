@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyPlayground", "src\OxyPla
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyEngine", "src\OxyEngine\OxyEngine.csproj", "{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyEngine.Python", "src\OxyEngine.Python\OxyEngine.Python.csproj", "{3F3B971A-D5FA-4303-8106-BC6644DF13F5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x64.Build.0 = Release|Any CPU
 		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x86.ActiveCfg = Release|Any CPU
 		{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}.Release|x86.Build.0 = Release|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Debug|x64.Build.0 = Debug|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Debug|x86.Build.0 = Debug|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Release|x64.ActiveCfg = Release|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Release|x64.Build.0 = Release|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Release|x86.ActiveCfg = Release|Any CPU
+		{3F3B971A-D5FA-4303-8106-BC6644DF13F5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

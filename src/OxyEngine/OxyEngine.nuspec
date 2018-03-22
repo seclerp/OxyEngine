@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>OxyEngine</id>
+        <version>0.2.0</version>
+        <title>OxyEngine</title>
+        <authors>OxyTeam</authors>
+        <owners>OxyTeam</owners>
+        <licenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/OxyTeam/OxyEngine</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/logo.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Full-featured cross-platform 2D game engine that allows you to develop games using C# and Python</description>
+        <releaseNotes>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/CHANGELOG.md</releaseNotes>
+        <copyright>Copyright © 2018 OxyTeam</copyright>
+        <tags>game opengl shader texture monogame engine framework gamedev graphic</tags>
+        <dependencies>
+            <dependency id="System.ValueTuple" version="4.4.0" />
+            <dependency id="OpenTK" version="3.0.0-pre" />
+            <dependency id="IronPython" version="2.7.8.1" />
+            <dependency id="DynamicLanguageRuntime" version="1.2.1" />
+            <dependency id="MonoGame.Framework.Portable" version="3.6.0" />
+        </dependencies>
+    </metadata>
+</package>
