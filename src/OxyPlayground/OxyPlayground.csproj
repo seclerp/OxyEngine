@@ -13,7 +13,7 @@
     <AssemblyName>OxyPlayground</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <LangVersion>7.2</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
@@ -54,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OxyPlayground.sh" />
+    <Content Include="OxyPlayground.sh">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <EmbeddedResource Include="OxyIcon.ico" />
     <Content Include="Icon.bmp" />
   </ItemGroup>
@@ -100,13 +102,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
-    <None Include="ExamplesProject\Content\test.xnb">
+    <None Include="PythonProject\Content\test.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ExamplesProject\Examples\quads.py">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="ExamplesProject\Examples\render_texture.py">
+    <None Include="PythonProject\Examples\quads.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="MonoGame.Framework.dll.config">
@@ -115,6 +114,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\OxyEngine.Python\OxyEngine.Python.csproj">
+      <Project>{3f3b971a-d5fa-4303-8106-bc6644df13f5}</Project>
+      <Name>OxyEngine.Python</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OxyEngine\OxyEngine.csproj">
       <Project>{401fa561-fb1a-4a6b-999d-3729d1dc3c4d}</Project>
       <Name>OxyEngine</Name>
@@ -125,29 +128,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExamplesProject\Content\audio.mp3" />
-    <None Include="ExamplesProject\Content\Content.mgcb" />
-    <Content Include="ExamplesProject\Content\font_example.png" />
-    <Content Include="ExamplesProject\Content\roboto.ttf">
+    <Content Include="PythonProject\Content\audio.mp3" />
+    <None Include="PythonProject\Content\Content.mgcb" />
+    <Content Include="PythonProject\Content\font_example.png" />
+    <Content Include="PythonProject\Content\roboto.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Content\test.jpg" />
-    <Content Include="ExamplesProject\entry.py">
+    <Content Include="PythonProject\Content\test.jpg" />
+    <Content Include="PythonProject\entry.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Examples\draw_image.py">
+    <Content Include="PythonProject\Examples\draw_image.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Examples\errors.py">
+    <Content Include="PythonProject\Examples\__init__.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Examples\font_print.py">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExamplesProject\Examples\__init__.py">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="ExamplesProject\settings.xml">
+    <Content Include="PythonProject\settings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

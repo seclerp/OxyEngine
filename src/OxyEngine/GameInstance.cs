@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using OxyEngine.EventManagers;
+using OxyEngine.Interfaces;
 using OxyEngine.Settings;
 
 namespace OxyEngine
@@ -15,14 +15,13 @@ namespace OxyEngine
 
     private Resources _resources;
     private Graphics _graphics;
-    private Scripts _scripts;
+    private IScripting _scripting;
+    private Events _events;
     private Input _input;
 
     #endregion
 
     private GameProject _project;
-    
-    private GameLifetimeEventManager _lifetimeManager;
     
     private GraphicsDeviceManager _graphicsDeviceManager;
     private SpriteBatch _defaultSpriteBatch;
@@ -37,7 +36,6 @@ namespace OxyEngine
 
     protected override void Initialize()
     {
-      _lifetimeManager = new GameLifetimeEventManager();
       
       InitializeModules();
       InitializeOxyState();
@@ -51,14 +49,14 @@ namespace OxyEngine
     protected override void LoadContent()
     {
       // Execute entry script
-      _scripts.ExecuteScript(_project.EntryScriptName);
+      _scripting.ExecuteScript(_project.EntryScriptName);
       
-      _lifetimeManager.Load();
+      _events.Load();
     }
 
     protected override void UnloadContent()
     {
-      _lifetimeManager.Unload();
+      _events.Unload();
     }
 
     protected override void Update(GameTime gameTime)
@@ -71,7 +69,7 @@ namespace OxyEngine
 
       UpdateInput();
       
-      _lifetimeManager.Update(gameTime.ElapsedGameTime.TotalSeconds);
+      _events.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
       base.Update(gameTime);
     }
@@ -98,7 +96,7 @@ namespace OxyEngine
     protected override void Draw(GameTime gameTime)
     {
       _graphics.BeginDraw();
-      _lifetimeManager.Draw();
+      _events.Draw();
       _graphics.EndDraw();
 
       base.Draw(gameTime);
@@ -108,6 +106,9 @@ namespace OxyEngine
 
     private void InitializeModules()
     {
+      // Events
+      _events = new Events();
+      
       // Resources
       _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
       
@@ -118,18 +119,23 @@ namespace OxyEngine
       // Input
       _input = new Input();
       
-      // Scripts
-      _scripts = new Scripts(_project.ScriptsFolderPath);
-      
       // Window
       ApplyWindowSettings(_project.GameSettings.WindowSettings);
     }
 
     private void InitializeOxyState()
     {
-      Oxy.Graphics = _graphics;
       Oxy.Resources = _resources;
-      Oxy.Events = _lifetimeManager;
+      Oxy.Graphics = _graphics;
+      Oxy.Events = _events;
+      Oxy.Input = _input;
+    }
+
+    public void InitializeScripting(IScripting scriptingFrontend)
+    {
+      _scripting = scriptingFrontend;
+      _scripting.Initialize(_project.ScriptsFolderPath);
+      Oxy.Scripting = _scripting;
     }
 
     private void ApplyWindowSettings(WindowSettings settings)

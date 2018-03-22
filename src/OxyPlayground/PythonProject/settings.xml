@@ -3,7 +3,7 @@
     <Window>
         <Title>OxyPlayground - Examples</Title>
         <Width>1000</Width>
-        <Height>800</Height>
+        <Height>700</Height>
         <Resizable>false</Resizable>
         <AllowBorders>true</AllowBorders>
         <CursorVisible>true</CursorVisible>

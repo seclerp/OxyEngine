@@ -1,5 +1,5 @@
 ﻿/*
- * From https://bitbucket.org/C3/2d-xna-primitives/src
+ * Based on  https://bitbucket.org/C3/2d-xna-primitives/src
  */
 
 using System;
@@ -21,26 +21,6 @@ namespace OxyEngine
 		{
 			pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
 			pixel.SetData(new[]{ Color.White });
-		}
-
-
-		/// <summary>
-		/// Draws a list of connecting points
-		/// </summary>
-		/// <param name="spriteBatch">The destination drawing surface</param>
-		/// /// <param name="position">Where to position the points</param>
-		/// <param name="points">The points to connect with lines</param>
-		/// <param name="color">The color to use</param>
-		/// <param name="thickness">The thickness of the lines</param>
-		private static void DrawPoints(SpriteBatch spriteBatch, Vector2 position, List<Vector2> points, Color color, float thickness)
-		{
-			if (points.Count < 2)
-				return;
-
-			for (int i = 1; i < points.Count; i++)
-			{
-				DrawLine(spriteBatch, points[i - 1] + position, points[i] + position, color, thickness);
-			}
 		}
 
 
@@ -119,7 +99,30 @@ namespace OxyEngine
 
 		#endregion
 
+		#region DrawPolygon
 
+		/// <summary>
+		/// Draws a list of connecting points
+		/// </summary>
+		/// <param name="spriteBatch">The destination drawing surface</param>
+		/// <param name="position">Where to position the points</param>
+		/// <param name="points">The points to connect with lines</param>
+		/// <param name="color">The color to use</param>
+		/// <param name="thickness">The thickness of the lines</param>
+		public static void DrawPolygon(this SpriteBatch spriteBatch, Vector2 position, List<Vector2> points, Color color, float thickness)
+		{
+			if (points.Count < 2)
+				return;
+
+			for (int i = 1; i < points.Count; i++)
+			{
+				DrawLine(spriteBatch, points[i - 1] + position, points[i] + position, color, thickness);
+			}
+		}
+		
+		#endregion
+		
+		
 		#region FillRectangle
 
 		/// <summary>
@@ -435,7 +438,7 @@ namespace OxyEngine
 		/// <param name="color">The color of the circle</param>
 		public static void DrawCircle(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, Color color)
 		{
-			DrawPoints(spriteBatch, center, CreateCircle(radius, sides), color, 1.0f);
+			DrawPolygon(spriteBatch, center, CreateCircle(radius, sides), color, 1.0f);
 		}
 
 
@@ -450,7 +453,7 @@ namespace OxyEngine
 		/// <param name="thickness">The thickness of the lines used</param>
 		public static void DrawCircle(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, Color color, float thickness)
 		{
-			DrawPoints(spriteBatch, center, CreateCircle(radius, sides), color, thickness);
+			DrawPolygon(spriteBatch, center, CreateCircle(radius, sides), color, thickness);
 		}
 
 
@@ -465,7 +468,7 @@ namespace OxyEngine
 		/// <param name="color">The color of the circle</param>
 		public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color)
 		{
-			DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, 1.0f);
+			DrawPolygon(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, 1.0f);
 		}
 
 
@@ -481,7 +484,7 @@ namespace OxyEngine
 		/// <param name="thickness">The thickness of the lines used</param>
 		public static void DrawCircle(this SpriteBatch spriteBatch, float x, float y, float radius, int sides, Color color, float thickness)
 		{
-			DrawPoints(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, thickness);
+			DrawPolygon(spriteBatch, new Vector2(x, y), CreateCircle(radius, sides), color, thickness);
 		}
 
 		#endregion
@@ -519,7 +522,7 @@ namespace OxyEngine
 		{
 			List<Vector2> arc = CreateArc(radius, sides, startingAngle, radians);
 			//List<Vector2> arc = CreateArc2(radius, sides, startingAngle, degrees);
-			DrawPoints(spriteBatch, center, arc, color, thickness);
+			DrawPolygon(spriteBatch, center, arc, color, thickness);
 		}
 
 		#endregion

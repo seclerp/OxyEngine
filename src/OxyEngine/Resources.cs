@@ -3,6 +3,7 @@ using System.IO;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Media;
 using OxyEngine.Interfaces;
 using OxyEngine.Settings;
 
@@ -33,7 +34,7 @@ namespace OxyEngine
     /// <summary>
     ///   Loads texture from path in library
     /// </summary>
-    /// <param name="path">Path in library to texture file</param>
+    /// <param name="path">Path in library to texture</param>
     /// <returns>Texture object</returns>
     /// <exception cref="FileNotFoundException">Fires when texture cannot be found or file does not exist</exception>
     public Texture2D LoadTexture(string path)
@@ -44,8 +45,7 @@ namespace OxyEngine
     /// <summary>
     ///   Loads TrueType or Bitmap font from path in library
     /// </summary>
-    /// <param name="path">Path in library to font file</param>
-    /// <param name="size">Size of the font</param>
+    /// <param name="path">Path in library to font</param>
     /// <returns>Font object</returns>
     /// <exception cref="FileNotFoundException">Fires when font cannot be found or file do not exists</exception>
     public SpriteFont LoadFont(string path)
@@ -56,13 +56,25 @@ namespace OxyEngine
     /// <summary>
     ///   Loads sound from path in library
     /// </summary>
-    /// <param name="path"></param>
+    /// <param name="path">Path in library to sound effect</param>
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
     /// <exception cref="NotSupportedException"></exception>
-    public SoundEffect LoadSound(string path)
+    public SoundEffect LoadSoundEffect(string path)
     {
       return LoadValidate<SoundEffect>(path);
+    }
+    
+    /// <summary>
+    ///   Loads song from path in library
+    /// </summary>
+    /// <param name="path">Path in library to song</param>
+    /// <returns></returns>
+    /// <exception cref="FileNotFoundException"></exception>
+    /// <exception cref="NotSupportedException"></exception>
+    public Song LoadSong(string path)
+    {
+      return LoadValidate<Song>(path);
     }
 
     #endregion
