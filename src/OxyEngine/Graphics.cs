@@ -67,7 +67,7 @@ namespace OxyEngine
       ClearTransformationStack();
       _graphicsDeviceManager.GraphicsDevice.Clear(GetBackgroundColor());
 
-      _defaultSpriteBatch.Begin();
+      _defaultSpriteBatch.Begin(samplerState: SamplerState.LinearWrap);
     }
 
     internal void EndDraw()
@@ -384,7 +384,7 @@ namespace OxyEngine
     {
       _defaultSpriteBatch.End();
       _currentState.TransformationStack.Peek().Translate(new Vector2(x, y));
-      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, samplerState: SamplerState.LinearWrap);
     }
 
     /// <summary>
@@ -395,7 +395,7 @@ namespace OxyEngine
     {
       _defaultSpriteBatch.End();
       _currentState.TransformationStack.Peek().Rotate(r);
-      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, samplerState: SamplerState.LinearWrap);
     }
 
     /// <summary>
@@ -407,7 +407,7 @@ namespace OxyEngine
     {
       _defaultSpriteBatch.End();
       _currentState.TransformationStack.Peek().Zoom(new Vector2(sx, sy));
-      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, samplerState: SamplerState.LinearWrap);
     }
 
     /// <summary>

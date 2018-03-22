@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Audio.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="EventSystem.cs" />
     <Compile Include="EventHandlers\EngineEventArgs.cs" />

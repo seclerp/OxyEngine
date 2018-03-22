@@ -1,4 +1,4 @@
-from Examples.draw_image import *
+from Examples.quads import *
 
 Oxy.Events.Global.StartListening("load", onLoad)
 Oxy.Events.Global.StartListening("update", onUpdate)

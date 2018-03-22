@@ -102,10 +102,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="app.manifest" />
-    <None Include="ExamplesProject\Content\test.xnb">
+    <None Include="PythonProject\Content\test.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="ExamplesProject\Examples\quads.py">
+    <None Include="PythonProject\Examples\quads.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="MonoGame.Framework.dll.config">
@@ -128,23 +128,23 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ExamplesProject\Content\audio.mp3" />
-    <None Include="ExamplesProject\Content\Content.mgcb" />
-    <Content Include="ExamplesProject\Content\font_example.png" />
-    <Content Include="ExamplesProject\Content\roboto.ttf">
+    <Content Include="PythonProject\Content\audio.mp3" />
+    <None Include="PythonProject\Content\Content.mgcb" />
+    <Content Include="PythonProject\Content\font_example.png" />
+    <Content Include="PythonProject\Content\roboto.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Content\test.jpg" />
-    <Content Include="ExamplesProject\entry.py">
+    <Content Include="PythonProject\Content\test.jpg" />
+    <Content Include="PythonProject\entry.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Examples\draw_image.py">
+    <Content Include="PythonProject\Examples\draw_image.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\Examples\__init__.py">
+    <Content Include="PythonProject\Examples\__init__.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="ExamplesProject\settings.xml">
+    <Content Include="PythonProject\settings.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
