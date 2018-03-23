@@ -21,6 +21,8 @@ namespace OxyEngine
     private ScriptEngine _scriptEngine;
     private static string _scriptsRootFolder;
 
+    public bool GenerateScriptStacktrace { get; set; }
+
     public void Initialize(string scriptsRootFolder)
     {
       _scriptEngine = Python.CreateEngine();
@@ -72,6 +74,9 @@ namespace OxyEngine
       }
       catch (Exception e)
       {
+        if (!GenerateScriptStacktrace)
+          return;
+        
         var stackTrace = _scriptEngine.GetService<ExceptionOperations>().FormatException(e);
         throw new Exception(stackTrace, e);
       }
