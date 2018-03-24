@@ -37,23 +37,14 @@ Latest MonoGame SDK can be found **[here](http://www.monogame.net/downloads/)**.
 
 ## Tutorials
 
-**OxyPlaygroundz**
-
-* **[OxyPlayground: Quick start for building prototypes](#)** will help you understand basic API and help to realize how build simple prototypes using Python.
-* **[OxyPlayground: Drawing things into screen](#)** will show you how to draw anything on screen.
-* **[OxyPlayground: Handling user input](#)** will show how to handle input from user.
-
-**OxyEngine**
-
-* **[OxyEngine: Getting Started from scratch](#)** will help you getting started with .NET project using OxyEngine package.
-* **[OxyEngine: Entities and Components](#)** will help you understand Entity-Component Oriented design of the engine.
+You can found tutorials on the **[wiki page](wiki)**.
 
 ## Compatibility
 
 ### Desktop
 OxyEngine has only 2 native dependencies for Desktop from MonoGame: **OpenAL** and **SDL2**. Both of them are shipped with OxyPlayground and you also need to provide these libs to get OxyEngine project to launch.
 
-TODO: Add references to download
+More info in first tutorial.
 
 ## Installing TODO: Move to tutorials
 This section will show you how to install OxyEngine into your .NET project.
