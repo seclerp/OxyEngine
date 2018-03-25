@@ -1,7 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OxyEngine.Interfaces;
+using OxyEngine.Loggers;
 using OxyEngine.Settings;
 
 namespace OxyEngine
@@ -21,42 +26,97 @@ namespace OxyEngine
 
     #endregion
 
-    private GameProject _project;
+    internal readonly GraphicsDeviceManager GraphicsDeviceManager;
     
-    private GraphicsDeviceManager _graphicsDeviceManager;
+    private GameProject _project;
     private SpriteBatch _defaultSpriteBatch;
     private GamePadState[] _gamePadStates;
+
+    private OxyApi _api;
     
     public GameInstance(GameProject project)
     {
+      LogManager.Log("Creating GameInstance...");
       _project = project;
-      _graphicsDeviceManager = new GraphicsDeviceManager(this);
+      GraphicsDeviceManager = new GraphicsDeviceManager(this);
       Content.RootDirectory = project.ContentFolderPath;
+      _api = new OxyApi();
+      
+      // Events must be initialized before Initialize
+      InitializeEvents();
     }
 
+    public new void Run()
+    {
+      try
+      {
+        LogManager.Log("Game loop starting...");
+        base.Run();
+      }
+      catch (Exception e)
+      {
+        LogManager.Error(e.ToString());
+        throw new Exception(e.Message, e);
+      }
+    }
+    
     protected override void Initialize()
     {
-      
+      LogManager.Log("Initializing modules...");
       InitializeModules();
-      InitializeOxyState();
+      LogManager.Log("Applying project settings...");
+      ApplySettings(_project.GameSettings);
+      
+      _events.BeforeLoad();
       
       // Do not remove
       base.Initialize();
     }
 
+    #region Public API
+
+    /// <summary>
+    ///   Set scripting frontend
+    ///   Call this before Run()
+    /// </summary>
+    /// <param name="scriptingFrontend"></param>
+    public void SetScripting(IScripting scriptingFrontend)
+    {
+      if (_scripting != null)
+        throw new Exception($"Scripting has already set to {_scripting.GetType().Name}");
+      
+      // We not actually initialize scripting here, because Initialize() not called yet
+      // see SetScripting
+      _scripting = scriptingFrontend;
+      LogManager.Log($"Using scripting frontend: {scriptingFrontend.GetType().Name}");
+    }
+
+    /// <summary>
+    ///   Returns API object that contain engine modules
+    /// </summary>
+    /// <returns></returns>
+    public OxyApi GetApi()
+    {
+      return _api;
+    }
+    
+    #endregion
+    
     #region Life time
 
     protected override void LoadContent()
     {
-      // Execute entry script
-      _scripting.ExecuteScript(_project.EntryScriptName);
-      
+      LogManager.Log("Load content started");
       _events.Load();
     }
 
     protected override void UnloadContent()
     {
       _events.Unload();
+      
+      // Free resources
+      _resources.Dispose();
+      _resources = null;
     }
 
     protected override void Update(GameTime gameTime)
@@ -105,52 +165,65 @@ namespace OxyEngine
     #endregion
 
     private void InitializeModules()
-    {
-      // Events
-      _events = new Events();
-      
+    {    
       // Resources
-      _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
+      InitializeResources();
       
       // Graphics
-      _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphics = new Graphics(_graphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
-      
+      InitializeGraphics();
+
       // Input
-      _input = new Input();
-      
+      InitializeInput();
+
       // Window
-      ApplyWindowSettings(_project.GameSettings.WindowSettings);
+      // ...
+      
+      //  Scripting
+      InitializeScripting();
+
     }
 
-    private void InitializeOxyState()
+    private void InitializeEvents()
     {
-      Oxy.Resources = _resources;
-      Oxy.Graphics = _graphics;
-      Oxy.Events = _events;
-      Oxy.Input = _input;
+      _events = new Events();
+      _api.Events = _events;
     }
 
-    public void InitializeScripting(IScripting scriptingFrontend)
+    private void InitializeResources()
     {
-      _scripting = scriptingFrontend;
+      _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
+      _api.Resources = _resources;
+    }
+
+    private void InitializeGraphics()
+    {
+      _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
+      _graphics = new Graphics(GraphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
+      _api.Graphics = _graphics;
+    }
+
+    private void InitializeInput()
+    {
+      _input = new Input();
+      _api.Input = _input;
+    }
+    
+    private void InitializeScripting()
+    {
+      // No scripting frontend provided
+      if (_scripting == null)
+        return;
+      
       _scripting.Initialize(_project.ScriptsFolderPath);
-      Oxy.Scripting = _scripting;
+      
+      // Add API to scripts
+      _scripting.SetGlobal("Oxy", _api);
+      _api.Scripting = _scripting;
     }
 
-    private void ApplyWindowSettings(WindowSettings settings)
+    private void ApplySettings(GameSettingsRoot settings)
     {
-      Window.Title = settings.Title;
-      Window.AllowUserResizing = settings.Resizable;
-      Window.AllowAltF4 = true;
-      Window.IsBorderless = !settings.AllowBorders;
-      IsMouseVisible = settings.CursorVisible;
-
-      _graphicsDeviceManager.PreferredBackBufferWidth = settings.Width;
-      _graphicsDeviceManager.PreferredBackBufferHeight = settings.Height;
-      _graphicsDeviceManager.IsFullScreen = settings.IsFullscreen;
-
-      _graphicsDeviceManager.ApplyChanges();
+      settings.Apply(this);
     }
   }
 }

@@ -21,6 +21,8 @@ namespace OxyEngine
     private ScriptEngine _scriptEngine;
     private static string _scriptsRootFolder;
 
+    public bool GenerateScriptStacktrace { get; set; }
+
     public void Initialize(string scriptsRootFolder)
     {
       _scriptEngine = Python.CreateEngine();
@@ -72,11 +74,24 @@ namespace OxyEngine
       }
       catch (Exception e)
       {
+        if (!GenerateScriptStacktrace)
+          return;
+        
         var stackTrace = _scriptEngine.GetService<ExceptionOperations>().FormatException(e);
         throw new Exception(stackTrace, e);
       }
     }
-    
+
+    public void SetGlobal(string name, object value)
+    {
+      _scriptEngine.GetBuiltinModule().SetVariable(name, value);
+    }
+
+    public void GetGlobal<T>(string name)
+    {
+      _scriptEngine.GetBuiltinModule().GetVariable<T>(name);
+    }
+
     private ScriptScope CreateConfiguredScope()
     {
       ScriptScope scope = _scriptEngine.CreateScope();

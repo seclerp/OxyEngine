@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Settings>
+    <ContentFolder>Content</ContentFolder>
     <Window>
         <Title>OxyPlayground - Examples</Title>
         <Width>1000</Width>

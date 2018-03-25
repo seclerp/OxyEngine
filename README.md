@@ -1,9 +1,5 @@
 ![OxyEngine](https://i.imgur.com/BjjCdjB.png)
 
-**README.md** _is quite outdated and will be updated soon_
-
----
-
 **OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
 
 | :speech_balloon: | :white_check_mark: | `develop` | `master` |
@@ -14,37 +10,43 @@
 
 :exclamation::exclamation::exclamation:
 ***Please note: 
-This project in very early stage of development at that moment. Do not use it for any production projects before first public release will be published. For now, OxyEngine does not guarantee backward compatibility of API and stability of your code.***
+This project in alpha stage of development at that moment. Do not use it for any production projects before first public release will be published. For now, OxyEngine does not guarantee backward compatibility of API and stability of your code.***
 
 ---
 
+
 # Getting Started
 
-These instructions will get you information for getting started with engine.
+These instructions will get you information to get started with engine.
 
-For now, only  low-level API for graphics, input, window and resources modules are implemented. This part of engine is called **Oxy.Framework**.
-
-In future you will be able to create games using high-level **Oxy.Engine** part of the project, such as powerfull visual editor called **Oxy.Editor**.
 
 ## Prerequisites
 
-OxyEngine is a **.NET Framework** project. 
+### Mono
 
-On Windows you can build and run OxyEngine using .NET Framework as usual. On Linux and Mac OS X you need to install Mono and run Mono MSBuild to build, or Mono runtime to execute binaries.
+If you are on Linux or MacOS, you need to install Mono SDK for debugging and running .NET executables.
 
-**There are also prebuilt binaries for most systems.**
+Latest Mono SDK can be found **[here](https://www.mono-project.com/download/stable/)**.
 
-For now, only Desktop operation systems are supported (**Windows, MacOS X, Linux**).
+### MonoGame
 
-Your graphics card must support **OpenGL 3.2+**.
+You need to install MonoGame SDK to compile assets and using ready-to-use remplates.
+
+Latest MonoGame SDK can be found **[here](http://www.monogame.net/downloads/)**.
+
+
+## Tutorials
+
+You can found tutorials on the **[wiki page](wiki)**.
 
 ## Compatibility
 
-Because of platform-specific reasons, some modules may have trouble working on your operation system setup. Please read **[compatibility notes](COMPATIBILITY.md)** for details.
+### Desktop
+OxyEngine has only 2 native dependencies for Desktop from MonoGame: **OpenAL** and **SDL2**. Both of them are shipped with OxyPlayground and you also need to provide these libs to get OxyEngine project to launch.
 
-There are also **list of libraries, that must be installed on your machine**. If you have troubles in running applications that use OxyEngine, please check **[this list](CROSSLIBS.md)**.
+More info in first tutorial.
 
-## Installing
+## Installing TODO: Move to tutorials
 This section will show you how to install OxyEngine into your .NET project.
 
 ### From NuGet (preffered)
@@ -58,155 +60,61 @@ We are using custom MyGet feed. You need to add this feed to your NuGet PM.
 
 After that, install Oxy.Framework **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**. This is best choice for beginners.
 
-### From project sources (advanced)
+### Building from sources (advanced)
 To install stable version of OxyEngine into your .NET Core App:
-* Сlone this repository:
+1. Сlone this repository:
  `git clone https://github.com/OxyTeam/OxyEngine.git` 
   Use **master** branch for only stable and production-ready code. 
-  You also can use **default** branch, but it may not build or will work not properly.
-* For examples you can build also **Oxy.Playground**
-  and reference compiled dll's (Oxy.Framework assembly) to your project.
-  **OR** 
-  you can reference Oxy.Framework projects directly without using compiled dll's
+  You also can use **default** branch, but it may be unstable.
+2. Select preffered configuration and Build solution.
+3. Reference OxyEngine.dll and other dependencies to you project.
   
-## Hello, World! 
-
-"Hello World!" example using low-level Oxy.Framework.
-
-Also this example use custom .ttf font **that must be placed into your project folder**, you can use any font you want with this example.
   
-### Example using only C#
+# Examples
 
-**Program.cs:**
-```csharp
-using System;
-using System.IO;
+OxyPlayground: **[All examples](#)**
 
-namespace Oxy.Framework.TestPlayer
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
-      // Set scripts root folder. All script paths will be relative to this folder
-      Common.SetScriptsRoot(Environment.CurrentDirectory);
-      // Set library root folder. All asset paths will be relative to this folder
-      Common.SetLibraryRoot(Environment.CurrentDirectory);
+OxyEngine: **[All examples](#)**
 
-      // Text object for "Hello, World!" text
-      TextObject textObj = null;
-      
-      // Callback for OnLoad event to load and initialize all things
-      Window.OnLoad(() =>
-      {
-        // Load our custom font
-        var font = Resources.LoadFont("roboto.ttf");
-        // Create text object
-        textObj = Graphics.NewText(font, "Hello, World!");
-      });      
-      
-      // OnDraw is called every frame to draw graphics on screen
-      // Graphics.Draw will draw text object on screen
-      Window.OnDraw(() => Graphics.Draw(textObj, 50, 50));
-      
-      // Start gameloop (at 60 FPS by default)
-      Window.Show();
-    }
-  }
-}
-```
-Thats all. Build and run this example to see result.
 
-### Example using Python + C#
+# Changelog
 
-Create folder for scripts and resources. Make sure they will be copied to build output folder. You can rename folders to any name you want, but better use this for future compatibility
-
-This is more preffered way to use Oxy.Framework.
-
-**scripts/game.py:**
-```python
-# Import all Oxy.Framework modules
-from Oxy.Framework import *
-
-# This function will be called after window is get ready
-def onLoad():
-    global textObj
-    # Load our custom font
-    font = Resources.LoadFont("roboto.ttf", 48)
-    # Create text object
-    textObj = Graphics.NewText(font, "Hello World OxyEngine!")
-    
-# This function Will be called every frame to draw graphics on screen
-def onDraw():
-    # Graphics.Draw will draw text object on screen
-    Graphics.Draw(textObj, 50, 50)
-
-# Setup event listeners for Load and Draw
-Window.OnLoad(onLoad)
-Window.OnDraw(onDraw)
-
-# Start gameloop (at 60 FPS by default)
-Window.Show()
-```
-
-**Program.cs:**
-
-```csharp
-using System;
-using System.IO;
-
-namespace Oxy.Framework.TestPlayer
-{
-  class Program
-  {
-    static void Main(string[] args)
-    {
-      // Set scripts root folder. All script paths will be relative to this folder
-      Common.SetScriptsRoot(Environment.CurrentDirectory);
-      // Set library root folder. All asset paths will be relative to this folder
-      Common.SetLibraryRoot(Environment.CurrentDirectory);
-      // Execute script
-      Common.ExecuteScript("game.py");
-    }
-  }
-}
-```
-
-Result of both implementations:
-
-![Hello World!](https://i.imgur.com/7o3VPSQ.png)
-
+See **[CHANGELOG.md](CHANGELOG.md)** for changes.
 
 # Built With
 OxyEngine uses some third-party libraries and tools:
 
-* [OpenTK](https://github.com/opentk/opentk) - Open Toolkit library is a fast, low-level C# wrapper for OpenGL and OpenAL.
-* [IronPython](http://ironpython.net/) - the Python programming language for the .NET Framework
-* [DLR](https://github.com/IronLanguages/dlr) - Open source implementation of Dynamic Language Runtime
+* **[MonoGame](http://www.monogame.net/)** - One framework for creating powerful cross-platform games.
+* **[IronPython](http://ironpython.net/)** - the Python programming language implementations for the .NET platform.
+
 
 # Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read **[CONTRIBUTING.md](CONTRIBUTING.md)** for details on our code of conduct, and the process for submitting pull requests to us.
+
 
 # Versioning
 
-We use [Semantic Versioning](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/OxyTeam/OxyEngine/tags). 
+We use **[Semantic Versioning](http://semver.org/)** for versioning. For the versions available, see the **[tags on this repository](https://github.com/OxyTeam/OxyEngine/tags)**. 
+
 
 # Authors
 
-* **Andrey Rublyov** - *Programmer* - [AndrewRublyov](https://github.com/AndrewRublyov)
-* **Andrey Belyaev** - *Programmer* - [Svetomech](https://github.com/Svetomech)J
+* **Andrey Rublyov** - *Programmer* - **[AndrewRublyov](https://github.com/AndrewRublyov)**
+* **Andrey Belyaev** - *Programmer* - **[Svetomech](https://github.com/Svetomech)**
 
-See also the list of [contributors](https://github.com/OxyTeam/OxyEngine/contributors) who participated in this project.
+See also the list of **[contributors](https://github.com/OxyTeam/OxyEngine/contributors)** who participated in this project.
+
 
 # License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details
+This project is licensed under the **MIT License** - see the **[LICENSE](LICENSE)** file for details
+
 
 # Acknowledgments
 
 Big thanks to:
-* **Love2d** team for inspiration for Oxy.Framework API 
-* **Guys from OpenTK team** for great low-level OpenGL + OpenAL framework.
-* **IronLaungages developers** for supporting and development of IronPython and other Iron languages
+* **Love2d** team for inspiration for OxyEngine low-level API.
+* **Guys from MonoGame team** for great cross-platform game framework.
+* **IronLaungages developers** for supporting and development of IronPython and other Iron languages.
 
