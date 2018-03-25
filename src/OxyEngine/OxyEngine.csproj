@@ -52,10 +52,11 @@
     <Compile Include="EventHandlers\EngineEventHandler.cs" />
     <Compile Include="EventHandlers\EngineUpdateEventArgs.cs" />
     <Compile Include="Input.cs" />
+    <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />
     <Compile Include="Interfaces\IScripting.cs" />
     <Compile Include="Mapping\InputMap.cs" />
-    <Compile Include="Oxy.cs" />
+    <Compile Include="OxyApi.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="GameProject.cs" />
     <Compile Include="GameProjectLoader.cs" />

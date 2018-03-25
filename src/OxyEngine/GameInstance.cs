@@ -1,4 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using OxyEngine.Interfaces;
@@ -13,19 +15,21 @@ namespace OxyEngine
   {
     #region Modules
 
-    private Resources _resources;
-    private Graphics _graphics;
-    private IScripting _scripting;
-    private Events _events;
-    private Input _input;
+    internal Resources Resources;
+    internal Graphics Graphics;
+    internal IScripting Scripting;
+    internal Events Events;
+    internal Input Input;
 
     #endregion
 
-    private GameProject _project;
+    internal GraphicsDeviceManager _graphicsDeviceManager;
     
-    private GraphicsDeviceManager _graphicsDeviceManager;
+    private GameProject _project;
     private SpriteBatch _defaultSpriteBatch;
     private GamePadState[] _gamePadStates;
+
+    private OxyApi _api;
     
     public GameInstance(GameProject project)
     {
@@ -36,27 +40,58 @@ namespace OxyEngine
 
     protected override void Initialize()
     {
-      
       InitializeModules();
-      InitializeOxyState();
+      ApplySettings(_project.GameSettings);
       
       // Do not remove
       base.Initialize();
     }
 
+    #region Public API
+
+    /// <summary>
+    ///   Set scripting frontend
+    ///   Call this before Run()
+    /// </summary>
+    /// <param name="scriptingFrontend"></param>
+    public void SetScripting(IScripting scriptingFrontend)
+    {
+      if (Scripting != null)
+        throw new Exception($"Scripting has already set to {Scripting.GetType().Name}");
+      
+      // We not actually initialize scripting here, because Initialize() not called yet
+      // see SetScripting
+      Scripting = scriptingFrontend;
+    }
+
+    /// <summary>
+    ///   Returns API object that contain engine modules
+    /// </summary>
+    /// <returns></returns>
+    public OxyApi GetApi()
+    {
+      return _api;
+    }
+    
+    #endregion
+    
     #region Life time
 
     protected override void LoadContent()
     {
       // Execute entry script
-      _scripting.ExecuteScript(_project.EntryScriptName);
+      Scripting.ExecuteScript(_project.EntryScriptName);
       
-      _events.Load();
+      Events.Load();
     }
 
     protected override void UnloadContent()
     {
-      _events.Unload();
+      Events.Unload();
+      
+      // Free resources
+      Resources.Dispose();
+      Resources = null;
     }
 
     protected override void Update(GameTime gameTime)
@@ -69,7 +104,7 @@ namespace OxyEngine
 
       UpdateInput();
       
-      _events.Update(gameTime.ElapsedGameTime.TotalSeconds);
+      Events.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
       base.Update(gameTime);
     }
@@ -77,7 +112,7 @@ namespace OxyEngine
     private void UpdateInput()
     {
       UpdateAllGamepadStates();
-      _input.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
+      Input.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
     }
 
     private void UpdateAllGamepadStates()
@@ -95,9 +130,9 @@ namespace OxyEngine
     
     protected override void Draw(GameTime gameTime)
     {
-      _graphics.BeginDraw();
-      _events.Draw();
-      _graphics.EndDraw();
+      Graphics.BeginDraw();
+      Events.Draw();
+      Graphics.EndDraw();
 
       base.Draw(gameTime);
     }
@@ -107,50 +142,53 @@ namespace OxyEngine
     private void InitializeModules()
     {
       // Events
-      _events = new Events();
+      Events = new Events();
       
       // Resources
-      _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
+      Resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
       
       // Graphics
       _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphics = new Graphics(_graphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
+      Graphics = new Graphics(_graphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
       
       // Input
-      _input = new Input();
+      Input = new Input();
       
       // Window
-      ApplyWindowSettings(_project.GameSettings.WindowSettings);
+      // ...
+      
+      // API
+      InitializeOxyApi();
+
+      //  Scripting
+      InitializeScripting();
     }
 
-    private void InitializeOxyState()
+    private void InitializeOxyApi()
     {
-      Oxy.Resources = _resources;
-      Oxy.Graphics = _graphics;
-      Oxy.Events = _events;
-      Oxy.Input = _input;
+      _api = new OxyApi();
+      _api.Resources = Resources;
+      _api.Graphics = Graphics;
+      _api.Events = Events;
+      _api.Input = Input;
     }
 
-    public void InitializeScripting(IScripting scriptingFrontend)
+    private void InitializeScripting()
     {
-      _scripting = scriptingFrontend;
-      _scripting.Initialize(_project.ScriptsFolderPath);
-      Oxy.Scripting = _scripting;
+      // No scripting frontend provided
+      if (Scripting == null)
+        return;
+      
+      Scripting.Initialize(_project.ScriptsFolderPath);
+      _api.Scripting = Scripting;
+      
+      // Add API to scripts
+      Scripting.SetGlobal("Oxy", _api);
     }
 
-    private void ApplyWindowSettings(WindowSettings settings)
+    private void ApplySettings(GameSettingsRoot settings)
     {
-      Window.Title = settings.Title;
-      Window.AllowUserResizing = settings.Resizable;
-      Window.AllowAltF4 = true;
-      Window.IsBorderless = !settings.AllowBorders;
-      IsMouseVisible = settings.CursorVisible;
-
-      _graphicsDeviceManager.PreferredBackBufferWidth = settings.Width;
-      _graphicsDeviceManager.PreferredBackBufferHeight = settings.Height;
-      _graphicsDeviceManager.IsFullScreen = settings.IsFullscreen;
-
-      _graphicsDeviceManager.ApplyChanges();
+      settings.Apply(this);
     }
   }
 }

@@ -13,7 +13,7 @@ namespace OxyPlayground
       
       using (var playground = new GameInstance(project))
       {
-        playground.InitializeScripting(new PythonScripting());
+        playground.SetScripting(new PythonScripting());
         playground.Run();
       }
     }

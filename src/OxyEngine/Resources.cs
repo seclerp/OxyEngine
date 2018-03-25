@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,10 +14,11 @@ namespace OxyEngine
   /// <summary>
   ///   Module for managing game assets. Wrapper around using ContentManager
   /// </summary>
-  public class Resources : IModule
+  public class Resources : IModule, IDisposable
   {
     private ContentManager _manager;
-
+    private IEnumerable<IDisposable> _loadedResources;
+    
     #region Initialization
 
     /// <summary>
@@ -25,10 +28,27 @@ namespace OxyEngine
     public Resources(ContentManager manager, ResourcesSettings settings)
     {
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
+      _loadedResources = new List<IDisposable>();
     }
 
     #endregion
-
+    
+    /// <summary>
+    ///   Free memory used by resources
+    ///   Call this OnUnload
+    /// </summary>
+    public void Dispose()
+    {
+      foreach (var resource in _loadedResources)
+      {
+        // Because we can't assign to null iterator, we are using temp variable
+        var t = resource;
+        // resource can be null already, so check it before call to not catch NullReferenceException
+        t?.Dispose();
+        t = null;
+      }
+    }
+    
     #region Public API
 
     /// <summary>

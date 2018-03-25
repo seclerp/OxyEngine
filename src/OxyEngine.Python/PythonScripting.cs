@@ -81,7 +81,17 @@ namespace OxyEngine
         throw new Exception(stackTrace, e);
       }
     }
-    
+
+    public void SetGlobal(string name, object value)
+    {
+      _scriptEngine.GetBuiltinModule().SetVariable(name, value);
+    }
+
+    public void GetGlobal<T>(string name)
+    {
+      _scriptEngine.GetBuiltinModule().GetVariable<T>(name);
+    }
+
     private ScriptScope CreateConfiguredScope()
     {
       ScriptScope scope = _scriptEngine.CreateScope();
