@@ -14,6 +14,12 @@ namespace OxyPlayground
       using (var playground = new GameInstance(project))
       {
         playground.SetScripting(new PythonScripting());
+        var api = playground.GetApi();
+        
+        api.Events.Global.StartListening("before-load", 
+          (sender, eventArgs) => api.Scripting.ExecuteScript(project.EntryScriptName)
+        );
+        
         playground.Run();
       }
     }

@@ -20,11 +20,11 @@ namespace OxyEngine.Settings
       instance.Window.IsBorderless = !AllowBorders;
       instance.IsMouseVisible = CursorVisible;
 
-      instance._graphicsDeviceManager.PreferredBackBufferWidth = Width;
-      instance._graphicsDeviceManager.PreferredBackBufferHeight = Height;
-      instance._graphicsDeviceManager.IsFullScreen = IsFullscreen;
+      instance.GraphicsDeviceManager.PreferredBackBufferWidth = Width;
+      instance.GraphicsDeviceManager.PreferredBackBufferHeight = Height;
+      instance.GraphicsDeviceManager.IsFullScreen = IsFullscreen;
 
-      instance._graphicsDeviceManager.ApplyChanges();
+      instance.GraphicsDeviceManager.ApplyChanges();
     }
   }
 }
