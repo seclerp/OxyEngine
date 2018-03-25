@@ -1,5 +1,6 @@
 ﻿using System;
 using OxyEngine;
+using OxyEngine.Loggers;
 
 namespace OxyPlayground
 {
@@ -8,6 +9,8 @@ namespace OxyPlayground
     [STAThread]
     static void Main(string[] args)
     {
+      LogManager.AddLogger(new ConsoleLogger());
+
       var projectLoader = new GameProjectLoader();
       var project = projectLoader.LoadFromArguments(args);
       

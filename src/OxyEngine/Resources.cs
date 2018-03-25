@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using OxyEngine.Interfaces;
+using OxyEngine.Loggers;
 using OxyEngine.Settings;
 
 namespace OxyEngine
@@ -111,6 +112,8 @@ namespace OxyEngine
       if (result == null)
         throw new Exception($"Asset '{path}' not found or can't be loaded");
 
+      LogManager.Log($"Resource loaded: '{path}'");
+      
       return result;
     }
 

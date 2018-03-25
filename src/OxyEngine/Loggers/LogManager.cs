@@ -11,6 +11,16 @@ namespace OxyEngine.Loggers
     {
       _loggers = new List<ILogger>();
     }
+
+    public static void AddLogger(ILogger logger)
+    {
+      _loggers.Add(logger);
+    }
+    
+    public static void RemoveLogger(ILogger logger)
+    {
+      _loggers.Remove(logger);
+    }
     
     public static void Log(string message)
     {
