@@ -27,9 +27,9 @@ namespace OxyEngine
     #endregion
 
     internal readonly GraphicsDeviceManager GraphicsDeviceManager;
+    protected GameProject Project;
     
-    private GameProject _project;
-    private SpriteBatch _defaultSpriteBatch;
+    protected SpriteBatch DefaultSpriteBatch;
     private GamePadState[] _gamePadStates;
 
     private OxyApi _api;
@@ -37,7 +37,7 @@ namespace OxyEngine
     public GameInstance(GameProject project)
     {
       LogManager.Log("Creating GameInstance...");
-      _project = project;
+      Project = project;
       GraphicsDeviceManager = new GraphicsDeviceManager(this);
       Content.RootDirectory = project.ContentFolderPath;
       _api = new OxyApi();
@@ -65,9 +65,7 @@ namespace OxyEngine
       LogManager.Log("Initializing modules...");
       InitializeModules();
       LogManager.Log("Applying project settings...");
-      ApplySettings(_project.GameSettings);
-      
-      _events.BeforeLoad();
+      ApplySettings(Project.GameSettings);
       
       // Do not remove
       base.Initialize();
@@ -191,14 +189,14 @@ namespace OxyEngine
 
     private void InitializeResources()
     {
-      _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
+      _resources = new Resources(Content, Project.GameSettings.ResourcesSettings);
       _api.Resources = _resources;
     }
 
     private void InitializeGraphics()
     {
-      _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphics = new Graphics(GraphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
+      DefaultSpriteBatch = new SpriteBatch(GraphicsDevice);
+      _graphics = new Graphics(GraphicsDeviceManager, DefaultSpriteBatch, Project.GameSettings.GraphicsSettings);
       _api.Graphics = _graphics;
     }
 
@@ -214,7 +212,7 @@ namespace OxyEngine
       if (_scripting == null)
         return;
       
-      _scripting.Initialize(_project.ScriptsFolderPath);
+      _scripting.Initialize(Project.ScriptsFolderPath);
       
       // Add API to scripts
       _scripting.SetGlobal("Oxy", _api);

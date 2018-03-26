@@ -31,11 +31,6 @@ namespace OxyEngine
     
     #region Global invokers
 
-    internal void BeforeLoad()
-    {
-      Global.Invoke("before-load", null);
-    }
-    
     internal void Load()
     {
       Global.Invoke("load", null);
