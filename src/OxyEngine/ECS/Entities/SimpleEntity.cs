@@ -30,9 +30,12 @@ namespace OxyEngine.ECS.Entities
     ///   Adds component to the entity
     /// </summary>
     /// <typeparam name="T">Component type</typeparam>
-    public void AddComponent<T>() where T : GameComponent
+    public T AddComponent<T>() where T : GameComponent
     {
-      _components.Add((T) Activator.CreateInstance(typeof(T), this));
+      var component = (T) Activator.CreateInstance(typeof(T), this);
+      _components.Add(component);
+      
+      return component;
     }
 
     /// <summary>
@@ -68,6 +71,15 @@ namespace OxyEngine.ECS.Entities
       }
 
       return result;
+    }
+
+    /// <summary>
+    ///   Return all components
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<GameComponent> GetComponents()
+    {
+      return _components;
     }
 
     /// <summary>
