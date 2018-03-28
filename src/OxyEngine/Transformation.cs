@@ -44,11 +44,6 @@ namespace OxyEngine
       Matrix *= Matrix.CreateScale(new Vector3(value, 0));
       Scale += value;
     }
-
-    public Vector2 TransformVector(Vector2 vector)
-    {
-      return Vector2.Transform(vector, Matrix);
-    }
     
     public object Clone()
     {

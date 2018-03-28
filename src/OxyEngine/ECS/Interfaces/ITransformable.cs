@@ -1,13 +1,19 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace OxyEngine.ECS.Iterfaces
+namespace OxyEngine.ECS.Interfaces
 {
   public interface ITransformable
   {
-    Vector2 Position { get; }
-    float Rotation { get; }
-    Vector2 Scale { get; }
-
+    Vector2 Position { get; set; }
+    float Rotation { get; set; }
+    Vector2 Scale { get; set; }
+    Matrix Matrix { get; }
+    
+    Vector2 GlobalPosition { get; set; }
+    float GlobalRotation { get; set; }
+    Vector2 GlobalScale { get; set; }
+    Matrix GlobalMatrix { get; }
+    
     void Translate(float x, float y);
     void Translate(Vector2 vector);
     

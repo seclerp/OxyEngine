@@ -47,11 +47,10 @@
   <ItemGroup>
     <Compile Include="Audio.cs" />
     <Compile Include="CollectionsHelper.cs" />
-    <Compile Include="ECS\Entities\SimpleEntity.cs" />
+    <Compile Include="ECS\Components\TransformComponent.cs" />
     <Compile Include="ECS\GameComponent.cs" />
     <Compile Include="ECS\GameEntity.cs" />
     <Compile Include="ECS\Interfaces\IConstructable.cs" />
-    <Compile Include="ECS\Interfaces\IParent.cs" />
     <Compile Include="ECS\Interfaces\ITransformable.cs" />
     <Compile Include="Events.cs" />
     <Compile Include="EventSystem.cs" />
@@ -63,6 +62,7 @@
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />
     <Compile Include="Interfaces\IScripting.cs" />
+    <Compile Include="IUniqueObject.cs" />
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Loggers\LogManager.cs" />
     <Compile Include="Mapping\InputMap.cs" />
@@ -87,9 +87,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OxyEngine.nuspec" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ECS\Components" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

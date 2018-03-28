@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace OxyEngine.ECS.Iterfaces
+namespace OxyEngine.ECS.Interfaces
 {
   /// <summary>
   ///   Interface for entities that may have components
@@ -11,7 +11,6 @@ namespace OxyEngine.ECS.Iterfaces
     T AddComponent<T>() where T : GameComponent;
     T GetComponent<T>() where T : GameComponent;
     IEnumerable<T> GetComponents<T>() where T : GameComponent;
-    IEnumerable<GameComponent> GetComponents();
     bool RemoveComponent(GameComponent component);
     bool RemoveComponent<T>() where T : GameComponent;
     bool RemoveComponents<T>() where T : GameComponent;
