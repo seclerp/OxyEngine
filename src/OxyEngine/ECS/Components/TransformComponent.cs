@@ -1,11 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
+using OxyEngine.ECS.Entities;
 using OxyEngine.ECS.Interfaces;
 
 namespace OxyEngine.ECS.Components
 {
-  public class TransformComponent : GameComponent, ITransformable
+  public class TransformComponent : BaseGameComponent, ITransformable
   {
-    public TransformComponent(GameEntity entity) : base(entity)
+    public TransformComponent(BaseGameEntity entity) : base(entity)
     {
       _transformation = new Transformation();
     }
@@ -40,7 +41,7 @@ namespace OxyEngine.ECS.Components
     public Vector2 GlobalPosition
     {
       get => Entity.Parent != null
-        ? Vector2.Transform(Position, Entity.Parent.Transform.Matrix)
+        ? Vector2.Transform(Position, Entity.Parent.GetComponent<TransformComponent>().Matrix)
         : Position;
       set => Position = Entity.Parent != null
         ? value - GlobalPosition
@@ -50,7 +51,7 @@ namespace OxyEngine.ECS.Components
     public float GlobalRotation     
     {
       get => Entity.Parent != null
-        ? Entity.Parent.Transform.Rotation + Rotation
+        ? Entity.Parent.GetComponent<TransformComponent>().Rotation + Rotation
         : Rotation;
       set => Rotation = Entity.Parent != null
         ? value - GlobalRotation
@@ -60,7 +61,7 @@ namespace OxyEngine.ECS.Components
     public Vector2 GlobalScale
     {
       get => Entity.Parent != null
-        ? Entity.Parent.Transform.Scale * Scale
+        ? Entity.Parent.GetComponent<TransformComponent>().Scale * Scale
         : Scale;
       set => Scale = Entity.Parent != null
         ? value / GlobalScale
@@ -68,7 +69,7 @@ namespace OxyEngine.ECS.Components
     }
 
     public Matrix GlobalMatrix => Entity.Parent != null
-      ? Entity.Parent.Transform.Matrix * Matrix
+      ? Entity.Parent.GetComponent<TransformComponent>().Matrix * Matrix
       : Matrix;
 
     #endregion

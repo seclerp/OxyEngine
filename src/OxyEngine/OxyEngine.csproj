@@ -47,8 +47,9 @@
   <ItemGroup>
     <Compile Include="Audio.cs" />
     <Compile Include="CollectionsHelper.cs" />
+    <Compile Include="ECS\Components\BaseGameComponent.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
-    <Compile Include="ECS\GameComponent.cs" />
+    <Compile Include="ECS\Entities\BaseGameEntity.cs" />
     <Compile Include="ECS\GameEntity.cs" />
     <Compile Include="ECS\Interfaces\IConstructable.cs" />
     <Compile Include="ECS\Interfaces\ITransformable.cs" />
