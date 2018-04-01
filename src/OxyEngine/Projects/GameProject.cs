@@ -1,6 +1,6 @@
 ﻿using OxyEngine.Settings;
 
-namespace OxyEngine
+namespace OxyEngine.Projects
 {
   public class GameProject
   {

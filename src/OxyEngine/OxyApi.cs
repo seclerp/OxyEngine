@@ -1,13 +1,17 @@
-﻿using OxyEngine.Interfaces;
+﻿using OxyEngine.Events;
+using OxyEngine.Graphics;
+using OxyEngine.Input;
+using OxyEngine.Interfaces;
+using OxyEngine.Resources;
 
 namespace OxyEngine
 {
   public class OxyApi
   {
-    public Resources Resources { get; internal set; }
-    public Graphics Graphics { get; internal set; }
+    public ResourceManager Resources { get; internal set; }
+    public GraphicsManager Graphics { get; internal set; }
     public IScripting Scripting { get; internal set; }
-    public Events Events { get; internal set; }
-    public Input Input { get; internal set; }
+    public GlobalEventsManager Events { get; internal set; }
+    public InputManager Input { get; internal set; }
   }
 }

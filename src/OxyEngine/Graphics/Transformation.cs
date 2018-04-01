@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 
-namespace OxyEngine
+namespace OxyEngine.Graphics
 {
   public class Transformation : ICloneable
   {

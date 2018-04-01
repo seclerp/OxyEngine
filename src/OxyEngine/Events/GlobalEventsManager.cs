@@ -1,9 +1,9 @@
-﻿using OxyEngine.EventHandlers;
+﻿using OxyEngine.Events.Args;
 using OxyEngine.Interfaces;
 
-namespace OxyEngine
+namespace OxyEngine.Events
 {
-  public class Events : IModule
+  public class GlobalEventsManager : IModule
   {
     #region Global game events
 
@@ -11,7 +11,7 @@ namespace OxyEngine
     
     #endregion
 
-    public Events()
+    public GlobalEventsManager()
     {
       Global = new EventSystem();
     }

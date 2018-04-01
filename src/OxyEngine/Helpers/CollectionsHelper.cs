@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace OxyEngine
+namespace OxyEngine.Helpers
 {
   public static class CollectionsHelper
   {

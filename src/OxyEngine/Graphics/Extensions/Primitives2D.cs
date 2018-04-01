@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace OxyEngine
+namespace OxyEngine.Graphics.Extensions
 {
 	public static class Primitives2D
 	{

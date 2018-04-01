@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OxyEngine.EventHandlers
+namespace OxyEngine.Events.Args
 {
   public class EngineEventArgs : EventArgs
   {

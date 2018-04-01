@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OxyEngine.ECS.Entities;
 using OxyEngine.ECS.Interfaces;
+using OxyEngine.Graphics;
 
 namespace OxyEngine.ECS.Components
 {

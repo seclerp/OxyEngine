@@ -3,6 +3,7 @@ using System.Linq;
 using NUnit.Framework;
 using OxyEngine.ECS;
 using OxyEngine.ECS.Components;
+using OxyEngine.ECS.Entities;
 
 namespace OxyEngine.Test.ECS
 {

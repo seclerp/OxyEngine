@@ -1,4 +1,6 @@
 ﻿using OxyEngine;
+using OxyEngine.Projects;
+using OxyEngine.Python;
 
 namespace OxyPlayground
 {

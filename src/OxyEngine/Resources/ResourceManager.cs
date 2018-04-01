@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -10,12 +9,12 @@ using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
 using OxyEngine.Settings;
 
-namespace OxyEngine
+namespace OxyEngine.Resources
 {
   /// <summary>
   ///   Module for managing game assets. Wrapper around using ContentManager
   /// </summary>
-  public class Resources : IModule, IDisposable
+  public class ResourceManager : IModule, IDisposable
   {
     private ContentManager _manager;
     private IEnumerable<IDisposable> _loadedResources;
@@ -26,7 +25,7 @@ namespace OxyEngine
     ///   Initialize Resources module
     /// </summary>
     /// <param name="manager">MonoGame ContentManager to use</param>
-    public Resources(ContentManager manager, ResourcesSettings settings)
+    public ResourceManager(ContentManager manager, ResourcesSettings settings)
     {
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
       _loadedResources = new List<IDisposable>();

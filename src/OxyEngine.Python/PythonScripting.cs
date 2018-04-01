@@ -5,7 +5,7 @@ using IronPython.Hosting;
 using Microsoft.Scripting.Hosting;
 using OxyEngine.Interfaces;
 
-namespace OxyEngine
+namespace OxyEngine.Python
 {
   public class PythonScripting : IModule, IScripting
   {
@@ -25,7 +25,7 @@ namespace OxyEngine
 
     public void Initialize(string scriptsRootFolder)
     {
-      _scriptEngine = Python.CreateEngine();
+      _scriptEngine = IronPython.Hosting.Python.CreateEngine();
       SetScriptsRoot(scriptsRootFolder);
     }
 

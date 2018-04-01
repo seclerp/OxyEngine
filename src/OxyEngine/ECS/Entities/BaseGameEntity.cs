@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using OxyEngine.ECS.Components;
 using OxyEngine.ECS.Interfaces;
+using OxyEngine.Interfaces;
 
 namespace OxyEngine.ECS.Entities
 {

@@ -5,8 +5,13 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OxyEngine.Events;
+using OxyEngine.Graphics;
+using OxyEngine.Input;
 using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
+using OxyEngine.Projects;
+using OxyEngine.Resources;
 using OxyEngine.Settings;
 
 namespace OxyEngine
@@ -18,11 +23,11 @@ namespace OxyEngine
   {
     #region Modules
 
-    private Resources _resources;
-    private Graphics _graphics;
+    private ResourceManager _resourceManager;
+    private GraphicsManager _graphicsManager;
     private IScripting _scripting;
-    private Events _events;
-    private Input _input;
+    private GlobalEventsManager _eventsManager;
+    private InputManager _inputManager;
 
     #endregion
 
@@ -105,16 +110,16 @@ namespace OxyEngine
     protected override void LoadContent()
     {
       LogManager.Log("Load content started");
-      _events.Load();
+      _eventsManager.Load();
     }
 
     protected override void UnloadContent()
     {
-      _events.Unload();
+      _eventsManager.Unload();
       
       // Free resources
-      _resources.Dispose();
-      _resources = null;
+      _resourceManager.Dispose();
+      _resourceManager = null;
     }
 
     protected override void Update(GameTime gameTime)
@@ -127,7 +132,7 @@ namespace OxyEngine
 
       UpdateInput();
       
-      _events.Update(gameTime.ElapsedGameTime.TotalSeconds);
+      _eventsManager.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
       base.Update(gameTime);
     }
@@ -135,7 +140,7 @@ namespace OxyEngine
     private void UpdateInput()
     {
       UpdateAllGamepadStates();
-      _input.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
+      _inputManager.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
     }
 
     private void UpdateAllGamepadStates()
@@ -153,9 +158,9 @@ namespace OxyEngine
     
     protected override void Draw(GameTime gameTime)
     {
-      _graphics.BeginDraw();
-      _events.Draw();
-      _graphics.EndDraw();
+      _graphicsManager.BeginDraw();
+      _eventsManager.Draw();
+      _graphicsManager.EndDraw();
 
       base.Draw(gameTime);
     }
@@ -183,27 +188,27 @@ namespace OxyEngine
 
     private void InitializeEvents()
     {
-      _events = new Events();
-      _api.Events = _events;
+      _eventsManager = new GlobalEventsManager();
+      _api.Events = _eventsManager;
     }
 
     private void InitializeResources()
     {
-      _resources = new Resources(Content, Project.GameSettings.ResourcesSettings);
-      _api.Resources = _resources;
+      _resourceManager = new ResourceManager(Content, Project.GameSettings.ResourcesSettings);
+      _api.Resources = _resourceManager;
     }
 
     private void InitializeGraphics()
     {
       DefaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphics = new Graphics(GraphicsDeviceManager, DefaultSpriteBatch, Project.GameSettings.GraphicsSettings);
-      _api.Graphics = _graphics;
+      _graphicsManager = new GraphicsManager(GraphicsDeviceManager, DefaultSpriteBatch, Project.GameSettings.GraphicsSettings);
+      _api.Graphics = _graphicsManager;
     }
 
     private void InitializeInput()
     {
-      _input = new Input();
-      _api.Input = _input;
+      _inputManager = new InputManager();
+      _api.Input = _inputManager;
     }
     
     private void InitializeScripting()
