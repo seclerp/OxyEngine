@@ -1,14 +1,15 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using OxyEngine.Interfaces;
 using OxyEngine.Mapping;
 
-namespace OxyEngine
+namespace OxyEngine.Input
 {
   /// <summary>
   ///   Module for managing user input
   /// </summary>
-  public class Input
+  public class InputManager : IModule
   {
     private readonly InputMap _map;
     
@@ -18,7 +19,7 @@ namespace OxyEngine
     
     private bool _anyGamePadConnected;
 
-    public Input()
+    public InputManager()
     {
       _map = new InputMap();
       _anyGamePadConnected = false;

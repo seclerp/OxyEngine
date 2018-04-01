@@ -1,9 +1,10 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using OxyEngine.Interfaces;
 
-namespace OxyEngine
+namespace OxyEngine.Audio
 {
-  public class Audio
+  public class AudioManager : IModule
   {
     public SoundEffectInstance NewEffectInstance(SoundEffect effect)
     {

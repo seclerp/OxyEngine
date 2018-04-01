@@ -5,8 +5,13 @@ using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OxyEngine.Events;
+using OxyEngine.Graphics;
+using OxyEngine.Input;
 using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
+using OxyEngine.Projects;
+using OxyEngine.Resources;
 using OxyEngine.Settings;
 
 namespace OxyEngine
@@ -18,18 +23,18 @@ namespace OxyEngine
   {
     #region Modules
 
-    private Resources _resources;
-    private Graphics _graphics;
+    private ResourceManager _resourceManager;
+    private GraphicsManager _graphicsManager;
     private IScripting _scripting;
-    private Events _events;
-    private Input _input;
+    private GlobalEventsManager _eventsManager;
+    private InputManager _inputManager;
 
     #endregion
 
     internal readonly GraphicsDeviceManager GraphicsDeviceManager;
+    protected GameProject Project;
     
-    private GameProject _project;
-    private SpriteBatch _defaultSpriteBatch;
+    protected SpriteBatch DefaultSpriteBatch;
     private GamePadState[] _gamePadStates;
 
     private OxyApi _api;
@@ -37,7 +42,7 @@ namespace OxyEngine
     public GameInstance(GameProject project)
     {
       LogManager.Log("Creating GameInstance...");
-      _project = project;
+      Project = project;
       GraphicsDeviceManager = new GraphicsDeviceManager(this);
       Content.RootDirectory = project.ContentFolderPath;
       _api = new OxyApi();
@@ -65,9 +70,7 @@ namespace OxyEngine
       LogManager.Log("Initializing modules...");
       InitializeModules();
       LogManager.Log("Applying project settings...");
-      ApplySettings(_project.GameSettings);
-      
-      _events.BeforeLoad();
+      ApplySettings(Project.GameSettings);
       
       // Do not remove
       base.Initialize();
@@ -107,16 +110,16 @@ namespace OxyEngine
     protected override void LoadContent()
     {
       LogManager.Log("Load content started");
-      _events.Load();
+      _eventsManager.Load();
     }
 
     protected override void UnloadContent()
     {
-      _events.Unload();
+      _eventsManager.Unload();
       
       // Free resources
-      _resources.Dispose();
-      _resources = null;
+      _resourceManager.Dispose();
+      _resourceManager = null;
     }
 
     protected override void Update(GameTime gameTime)
@@ -129,7 +132,7 @@ namespace OxyEngine
 
       UpdateInput();
       
-      _events.Update(gameTime.ElapsedGameTime.TotalSeconds);
+      _eventsManager.Update(gameTime.ElapsedGameTime.TotalSeconds);
 
       base.Update(gameTime);
     }
@@ -137,7 +140,7 @@ namespace OxyEngine
     private void UpdateInput()
     {
       UpdateAllGamepadStates();
-      _input.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
+      _inputManager.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
     }
 
     private void UpdateAllGamepadStates()
@@ -155,9 +158,9 @@ namespace OxyEngine
     
     protected override void Draw(GameTime gameTime)
     {
-      _graphics.BeginDraw();
-      _events.Draw();
-      _graphics.EndDraw();
+      _graphicsManager.BeginDraw();
+      _eventsManager.Draw();
+      _graphicsManager.EndDraw();
 
       base.Draw(gameTime);
     }
@@ -185,27 +188,27 @@ namespace OxyEngine
 
     private void InitializeEvents()
     {
-      _events = new Events();
-      _api.Events = _events;
+      _eventsManager = new GlobalEventsManager();
+      _api.Events = _eventsManager;
     }
 
     private void InitializeResources()
     {
-      _resources = new Resources(Content, _project.GameSettings.ResourcesSettings);
-      _api.Resources = _resources;
+      _resourceManager = new ResourceManager(Content, Project.GameSettings.ResourcesSettings);
+      _api.Resources = _resourceManager;
     }
 
     private void InitializeGraphics()
     {
-      _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphics = new Graphics(GraphicsDeviceManager, _defaultSpriteBatch, _project.GameSettings.GraphicsSettings);
-      _api.Graphics = _graphics;
+      DefaultSpriteBatch = new SpriteBatch(GraphicsDevice);
+      _graphicsManager = new GraphicsManager(GraphicsDeviceManager, DefaultSpriteBatch, Project.GameSettings.GraphicsSettings);
+      _api.Graphics = _graphicsManager;
     }
 
     private void InitializeInput()
     {
-      _input = new Input();
-      _api.Input = _input;
+      _inputManager = new InputManager();
+      _api.Input = _inputManager;
     }
     
     private void InitializeScripting()
@@ -214,7 +217,7 @@ namespace OxyEngine
       if (_scripting == null)
         return;
       
-      _scripting.Initialize(_project.ScriptsFolderPath);
+      _scripting.Initialize(Project.ScriptsFolderPath);
       
       // Add API to scripts
       _scripting.SetGlobal("Oxy", _api);

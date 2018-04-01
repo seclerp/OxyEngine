@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.EventHandlers
+﻿namespace OxyEngine.Events.Args
 {
   public class EngineUpdateEventArgs : EngineEventArgs
   {

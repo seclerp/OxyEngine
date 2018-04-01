@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using OxyEngine.EventHandlers;
+using OxyEngine.Events.Args;
+using OxyEngine.Events.Handlers;
 
-namespace OxyEngine
+namespace OxyEngine.Events
 {
   /// <summary>
   ///   Represents simple event system for games

@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Graphics.Extensions;
 using OxyEngine.Interfaces;
 using OxyEngine.Settings;
 
-namespace OxyEngine
+namespace OxyEngine.Graphics
 {
   /// <summary>
   ///   Module that used for rendering all things in engine
   /// </summary>
-  public class Graphics : IModule
+  public class GraphicsManager : IModule
   {
     #region Constants
 
@@ -37,7 +38,7 @@ namespace OxyEngine
 
     #region Initialization
 
-    internal Graphics(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
+    internal GraphicsManager(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
       GraphicsSettings settings)
     {
       _graphicsDeviceManager = graphicsDeviceManager;
