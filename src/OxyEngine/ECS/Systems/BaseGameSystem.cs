@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using OxyEngine.ECS.Components;
 using OxyEngine.Events;
+using OxyEngine.Loggers;
 
 namespace OxyEngine.ECS.Systems
 {
@@ -14,6 +15,8 @@ namespace OxyEngine.ECS.Systems
     {
       Name = name;
       _eventSystem = new EventSystem();
+      
+      LogManager.Log($"'{name}' system initialized");
     }
 
     public void AddComponent(BaseGameComponent component)

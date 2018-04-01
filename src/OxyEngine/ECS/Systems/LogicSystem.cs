@@ -1,4 +1,6 @@
-﻿namespace OxyEngine.ECS.Systems
+﻿using OxyEngine.Loggers;
+
+namespace OxyEngine.ECS.Systems
 {
   public class LogicSystem : BaseGameSystem
   {

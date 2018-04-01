@@ -1,21 +1,24 @@
 ﻿using System;
 using OxyEngine.ECS.Entities;
 using OxyEngine.ECS.Systems;
+using OxyEngine.Events;
 using OxyEngine.Interfaces;
 
 namespace OxyEngine.ECS.Components
 {
-  [UseGameSystem(GameSystems.LogicSystemName)]
   public abstract class BaseGameComponent : IUniqueObject
   {
     public Guid Id { get; }
     public BaseGameEntity Entity { get; private set; }
     public string SystemName { get; }
+
+    private EventSystem _eventSystem;
     
     protected BaseGameComponent(BaseGameEntity entity)
     {
       Id = Guid.NewGuid();
-      SystemName = GetSystemName();
+      _eventSystem = new EventSystem();
+      _eventSystem.AddListenersFromAttributes(this);
       
       SetEntity(entity);
     }
@@ -24,9 +27,9 @@ namespace OxyEngine.ECS.Components
     {
     }
 
+    [ListenEvent(EventNames.Initialization.OnInit)]
     public virtual void OnInit()
     {
-      
     }
     
     public bool IsDetached()
@@ -37,18 +40,6 @@ namespace OxyEngine.ECS.Components
     internal void SetEntity(BaseGameEntity entity)
     {
       Entity = entity;
-    }
-    
-    private string GetSystemName()
-    {
-      var name = "";
-      var attrs = GetType().GetCustomAttributes(false);
-      foreach(UseGameSystemAttribute attr in attrs)
-      {
-        name = attr.SystemName;
-      }
-
-      return name;
     }
   }
 }

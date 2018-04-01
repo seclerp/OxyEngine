@@ -8,7 +8,7 @@ namespace OxyPlayground
   {
     public PlaygroundInstance(GameProject project) : base(project)
     {
-      SetScripting(new PythonScripting());
+      SetScripting(new PythonScriptingManager());
     }
 
     protected override void LoadContent()

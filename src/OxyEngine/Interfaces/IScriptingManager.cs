@@ -1,6 +1,6 @@
 namespace OxyEngine.Interfaces
 {
-  public interface IScripting
+  public interface IScriptingManager
   {
     bool GenerateScriptStacktrace { get; set; }
     

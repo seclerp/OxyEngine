@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using OxyEngine.ECS.Components;
+using OxyEngine.Loggers;
 
 namespace OxyEngine.ECS.Systems
 {
@@ -11,28 +12,9 @@ namespace OxyEngine.ECS.Systems
     {
       _systems = new Dictionary<string, BaseGameSystem>();
       
-      // TODO
-      //_systems[GameSystems.LogicSystemName] = new LogicSystem();
-    }
-
-    public void AttachComponent(BaseGameComponent component)
-    {
-      if (!_systems.ContainsKey(component.SystemName))
-      {
-        throw new KeyNotFoundException(component.SystemName);
-      }
-      
-      _systems[component.SystemName].AddComponent(component);
+      _systems[GameSystems.LogicSystemName] = new LogicSystem(GameSystems.LogicSystemName);
     }
     
-    public void DetachComponent(BaseGameComponent component)
-    {
-      if (!_systems.ContainsKey(component.SystemName))
-      {
-        throw new KeyNotFoundException(component.SystemName);
-      }
-      
-      _systems[component.SystemName].RemoveComponent(component);
-    }
+    public 
   }
 }
