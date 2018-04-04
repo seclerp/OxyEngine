@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="ECS\Behaviours\IRenderable.cs" />
+    <Compile Include="ECS\Behaviours\IUpdateable.cs" />
     <Compile Include="ECS\Components\BaseGameComponent.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
     <Compile Include="ECS\Entities\BaseGameEntity.cs" />

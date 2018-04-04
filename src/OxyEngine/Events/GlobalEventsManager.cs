@@ -7,13 +7,14 @@ namespace OxyEngine.Events
   {
     #region Global game events
 
-    private readonly EventSystem _global;
+    // Public because used by scripting
+    public readonly EventSystem Global;
     
     #endregion
 
     public GlobalEventsManager()
     {
-      _global = new EventSystem();
+      Global = new EventSystem();
     }
 
     #region Fabrics
@@ -33,27 +34,27 @@ namespace OxyEngine.Events
 
     internal void Load()
     {
-      _global.Invoke(EventNames.Initialization.OnLoad, null);
+      Global.Invoke(EventNames.Initialization.OnLoad, null);
     }
     
     internal void Unload()
     {
-      _global.Invoke(EventNames.Initialization.OnUnload, null);
+      Global.Invoke(EventNames.Initialization.OnUnload, null);
     }
     
     internal void Update(double dt)
     {
-      _global.Invoke(EventNames.Gameloop.OnUpdate, new EngineUpdateEventArgs { DeltaTime = dt });
+      Global.Invoke(EventNames.Gameloop.OnUpdate, new EngineUpdateEventArgs { DeltaTime = dt });
     }
     
     internal void Draw()
     {
-      _global.Invoke(EventNames.Graphics.OnDraw, null);
+      Global.Invoke(EventNames.Graphics.OnDraw, null);
     }
     
     internal void Resize()
     {
-      _global.Invoke(EventNames.Window.OnResize, null);
+      Global.Invoke(EventNames.Window.OnResize, null);
     }
 
     #endregion
