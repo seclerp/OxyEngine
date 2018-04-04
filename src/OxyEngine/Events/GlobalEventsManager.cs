@@ -7,7 +7,8 @@ namespace OxyEngine.Events
   {
     #region Global game events
 
-    public EventSystem Global { get; }
+    // Public because used by scripting
+    public readonly EventSystem Global;
     
     #endregion
 
@@ -33,27 +34,27 @@ namespace OxyEngine.Events
 
     internal void Load()
     {
-      Global.Invoke("load", null);
+      Global.Invoke(EventNames.Initialization.OnLoad, null);
     }
     
     internal void Unload()
     {
-      Global.Invoke("unload", null);
+      Global.Invoke(EventNames.Initialization.OnUnload, null);
     }
     
     internal void Update(double dt)
     {
-      Global.Invoke("update", new EngineUpdateEventArgs { DeltaTime = dt });
+      Global.Invoke(EventNames.Gameloop.OnUpdate, new EngineUpdateEventArgs { DeltaTime = dt });
     }
     
     internal void Draw()
     {
-      Global.Invoke("draw", null);
+      Global.Invoke(EventNames.Graphics.OnDraw, null);
     }
     
     internal void Resize()
     {
-      Global.Invoke("resize", null);
+      Global.Invoke(EventNames.Window.OnResize, null);
     }
 
     #endregion

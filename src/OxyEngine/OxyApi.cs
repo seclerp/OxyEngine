@@ -10,7 +10,7 @@ namespace OxyEngine
   {
     public ResourceManager Resources { get; internal set; }
     public GraphicsManager Graphics { get; internal set; }
-    public IScripting Scripting { get; internal set; }
+    public IScriptingManager Scripting { get; internal set; }
     public GlobalEventsManager Events { get; internal set; }
     public InputManager Input { get; internal set; }
   }

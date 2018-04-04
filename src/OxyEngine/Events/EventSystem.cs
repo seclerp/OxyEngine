@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using OxyEngine.Events.Args;
 using OxyEngine.Events.Handlers;
 
@@ -26,6 +27,20 @@ namespace OxyEngine.Events
       else
       {
         _registry[eventName] += handler;
+      }
+    }
+
+    public void AddListenersFromAttributes(object obj)
+    {
+      var type = obj.GetType();
+      var attributes = type.GetCustomAttributes(typeof(ListenEventAttribute), true);
+
+      foreach (ListenEventAttribute attribute in attributes)
+      {
+        var method = type.GetMethod(attribute.MethodName);
+        _registry.Add(attribute.EventName, 
+          (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler),
+          method ?? throw new NullReferenceException(nameof(attribute.MethodName))));
       }
     }
     

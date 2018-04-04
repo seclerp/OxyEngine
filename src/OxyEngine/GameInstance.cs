@@ -25,7 +25,7 @@ namespace OxyEngine
 
     private ResourceManager _resourceManager;
     private GraphicsManager _graphicsManager;
-    private IScripting _scripting;
+    private IScriptingManager _scriptingManager;
     private GlobalEventsManager _eventsManager;
     private InputManager _inputManager;
 
@@ -33,8 +33,8 @@ namespace OxyEngine
 
     internal readonly GraphicsDeviceManager GraphicsDeviceManager;
     protected GameProject Project;
-    
-    protected SpriteBatch DefaultSpriteBatch;
+
+    private SpriteBatch _defaultSpriteBatch;
     private GamePadState[] _gamePadStates;
 
     private OxyApi _api;
@@ -83,14 +83,14 @@ namespace OxyEngine
     ///   Call this before Run()
     /// </summary>
     /// <param name="scriptingFrontend"></param>
-    public void SetScripting(IScripting scriptingFrontend)
+    public void SetScripting(IScriptingManager scriptingFrontend)
     {
-      if (_scripting != null)
-        throw new Exception($"Scripting has already set to {_scripting.GetType().Name}");
+      if (_scriptingManager != null)
+        throw new Exception($"Scripting has already set to {_scriptingManager.GetType().Name}");
       
       // We not actually initialize scripting here, because Initialize() not called yet
       // see SetScripting
-      _scripting = scriptingFrontend;
+      _scriptingManager = scriptingFrontend;
       LogManager.Log($"Using scripting frontend: {scriptingFrontend.GetType().Name}");
     }
 
@@ -200,8 +200,8 @@ namespace OxyEngine
 
     private void InitializeGraphics()
     {
-      DefaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphicsManager = new GraphicsManager(GraphicsDeviceManager, DefaultSpriteBatch, Project.GameSettings.GraphicsSettings);
+      _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
+      _graphicsManager = new GraphicsManager(GraphicsDeviceManager, _defaultSpriteBatch, Project.GameSettings.GraphicsSettings);
       _api.Graphics = _graphicsManager;
     }
 
@@ -214,14 +214,14 @@ namespace OxyEngine
     private void InitializeScripting()
     {
       // No scripting frontend provided
-      if (_scripting == null)
+      if (_scriptingManager == null)
         return;
       
-      _scripting.Initialize(Project.ScriptsFolderPath);
+      _scriptingManager.Initialize(Project.ScriptsFolderPath);
       
       // Add API to scripts
-      _scripting.SetGlobal("Oxy", _api);
-      _api.Scripting = _scripting;
+      _scriptingManager.SetGlobal("Oxy", _api);
+      _api.Scripting = _scriptingManager;
     }
 
     private void ApplySettings(GameSettingsRoot settings)

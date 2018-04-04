@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="ECS\Behaviours\IRenderable.cs" />
+    <Compile Include="ECS\Behaviours\IUpdateable.cs" />
     <Compile Include="ECS\Components\BaseGameComponent.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
     <Compile Include="ECS\Entities\BaseGameEntity.cs" />
@@ -59,9 +61,10 @@
     <Compile Include="ECS\Systems\GameSystems.cs" />
     <Compile Include="ECS\Systems\LogicSystem.cs" />
     <Compile Include="ECS\Systems\GameSystemActionAttribute.cs" />
-    <Compile Include="ECS\Systems\UseGameSystemAttribute.cs" />
     <Compile Include="Events\Args\EngineEventArgs.cs" />
     <Compile Include="Events\Args\EngineUpdateEventArgs.cs" />
+    <Compile Include="Events\ListenEventAttribute.cs" />
+    <Compile Include="Events\EventNames.cs" />
     <Compile Include="Events\EventSystem.cs" />
     <Compile Include="Events\GlobalEventsManager.cs" />
     <Compile Include="Events\Handlers\EngineEventHandler.cs" />
@@ -71,7 +74,7 @@
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />
-    <Compile Include="Interfaces\IScripting.cs" />
+    <Compile Include="Interfaces\IScriptingManager.cs" />
     <Compile Include="Interfaces\IUniqueObject.cs" />
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Loggers\LogManager.cs" />

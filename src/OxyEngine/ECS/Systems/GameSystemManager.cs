@@ -1,38 +1,32 @@
 ﻿using System.Collections.Generic;
+using OxyEngine.ECS.Behaviours;
 using OxyEngine.ECS.Components;
+using OxyEngine.ECS.Entities;
+using OxyEngine.Events;
+using OxyEngine.Events.Args;
+using OxyEngine.Loggers;
 
 namespace OxyEngine.ECS.Systems
 {
-  public class GameSystemManager
+  public class GameSystemManager : IUpdateable, IRenderable
   {
-    private Dictionary<string, BaseGameSystem> _systems;
+    public LogicSystem LogicSystem { get; private set; }
 
-    public GameSystemManager()
-    {
-      _systems = new Dictionary<string, BaseGameSystem>();
-      
-      // TODO
-      //_systems[GameSystems.LogicSystemName] = new LogicSystem();
-    }
-
-    public void AttachComponent(BaseGameComponent component)
-    {
-      if (!_systems.ContainsKey(component.SystemName))
-      {
-        throw new KeyNotFoundException(component.SystemName);
-      }
-      
-      _systems[component.SystemName].AddComponent(component);
-    }
+    private GlobalEventsManager _events;
     
-    public void DetachComponent(BaseGameComponent component)
+    public GameSystemManager(GameInstance gameInstance, BaseGameEntity rootEntity)
     {
-      if (!_systems.ContainsKey(component.SystemName))
-      {
-        throw new KeyNotFoundException(component.SystemName);
-      }
-      
-      _systems[component.SystemName].RemoveComponent(component);
+      LogicSystem = new LogicSystem(rootEntity);
+
+      _events = gameInstance.GetApi().Events;
+      _events.Global.StartListening(EventNames.Gameloop.OnUpdate, 
+        (sender, args) => Update((float)((EngineUpdateEventArgs)args).DeltaTime)
+      );
+    }
+
+    public void Update(float dt)
+    {
+      LogicSystem.Update(dt);
     }
   }
 }

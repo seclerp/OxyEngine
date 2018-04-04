@@ -7,7 +7,7 @@ using OxyEngine.Interfaces;
 
 namespace OxyEngine.Python
 {
-  public class PythonScripting : IModule, IScripting
+  public class PythonScriptingManager : IModule, IScriptingManager
   {
     // Those modules cannot be switched off and need to be for correct work of other modules
     private static readonly List<string> ImportantScriptAssemblies = new List<string>

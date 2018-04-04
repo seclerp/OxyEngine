@@ -1,9 +1,17 @@
-﻿namespace OxyEngine.ECS.Systems
+﻿using OxyEngine.ECS.Behaviours;
+using OxyEngine.ECS.Entities;
+
+namespace OxyEngine.ECS.Systems
 {
-  public class LogicSystem : BaseGameSystem
+  public class LogicSystem : BaseGameSystem, IUpdateable
   {
-    public LogicSystem(string name) : base(name)
+    public LogicSystem(BaseGameEntity rootEntity) : base(rootEntity)
     {
+    }
+    
+    public void Update(float dt)
+    {
+      
     }
   }
 }
