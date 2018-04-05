@@ -46,9 +46,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
-    <Compile Include="ECS\Behaviours\IRenderable.cs" />
+    <Compile Include="ECS\Behaviours\IDrawable.cs" />
+    <Compile Include="ECS\Behaviours\ILoadable.cs" />
     <Compile Include="ECS\Behaviours\IUpdateable.cs" />
     <Compile Include="ECS\Components\BaseGameComponent.cs" />
+    <Compile Include="ECS\Components\SpriteComponent.cs" />
     <Compile Include="ECS\Components\TransformComponent.cs" />
     <Compile Include="ECS\Entities\BaseGameEntity.cs" />
     <Compile Include="ECS\Entities\GameEntity.cs" />
@@ -57,6 +59,7 @@
     <Compile Include="ECS\Interfaces\ITransformable.cs" />
     <Compile Include="ECS\Interfaces\IUpdateCallable.cs" />
     <Compile Include="ECS\Systems\BaseGameSystem.cs" />
+    <Compile Include="ECS\Systems\DrawSystem.cs" />
     <Compile Include="ECS\Systems\GameSystemManager.cs" />
     <Compile Include="ECS\Systems\GameSystems.cs" />
     <Compile Include="ECS\Systems\LogicSystem.cs" />
@@ -70,6 +73,7 @@
     <Compile Include="Events\Handlers\EngineEventHandler.cs" />
     <Compile Include="Graphics\Transformation.cs" />
     <Compile Include="Helpers\CollectionsHelper.cs" />
+    <Compile Include="Helpers\DelegatesHelper.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ISettings.cs" />

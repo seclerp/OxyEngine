@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using OxyEngine.Interfaces;
 
 namespace OxyEngine.Loggers
@@ -26,11 +27,11 @@ namespace OxyEngine.Loggers
     }
 
     private void LogWithColor(string message, ConsoleColor color)
-    {
+    {    
       var now = DateTime.Now;
       var currentColor = Console.ForegroundColor;
       Console.ForegroundColor = color;
-      Console.WriteLine($"[{now:G}]: {message}");
+      Console.WriteLine($"[{now:G}] {message}");
       Console.ForegroundColor = currentColor;
     }
   }

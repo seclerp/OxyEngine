@@ -12,6 +12,7 @@ namespace OxyEngine.ECS.Entities
     public string Name { get; set; }
     
     public BaseGameEntity Parent { get; private set; }
+    public GameInstance Game { get; private set; }
     
     public IEnumerable<BaseGameEntity> Children =>  _children;
     public IEnumerable<BaseGameComponent> Components =>  _components;
@@ -19,14 +20,14 @@ namespace OxyEngine.ECS.Entities
     private readonly List<BaseGameComponent> _components;
     private readonly List<BaseGameEntity> _children;
 
-    protected BaseGameEntity() 
+    protected BaseGameEntity(GameInstance game) 
     {
       Id = Guid.NewGuid();
       _components = new List<BaseGameComponent>();
       _children = new List<BaseGameEntity>();
     }
 
-    protected BaseGameEntity(BaseGameEntity parent) : this()
+    protected BaseGameEntity(GameInstance game, BaseGameEntity parent) : this(game)
     {
       if (parent != null)
       {

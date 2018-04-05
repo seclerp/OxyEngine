@@ -1,4 +1,6 @@
-﻿using OxyEngine;
+﻿using System.Text;
+using OxyEngine;
+using OxyEngine.Loggers;
 using OxyEngine.Projects;
 using OxyEngine.Python;
 
@@ -14,6 +16,8 @@ namespace OxyPlayground
     protected override void LoadContent()
     {
       var api = GetApi();
+      // TODO Remove
+      api.Events.Global.LogListenerRegistration = true;
       api.Scripting.ExecuteScript(Project.EntryScriptName);
       
       base.LoadContent();

@@ -1,20 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using OxyEngine.Events.Args;
 using OxyEngine.Events.Handlers;
+using OxyEngine.Interfaces;
+using OxyEngine.Loggers;
 
 namespace OxyEngine.Events
 {
   /// <summary>
   ///   Represents simple event system for games
   /// </summary>
-  public class EventSystem
+  public class EventSystem : IUniqueObject
   {
+    public Guid Id { get; }
+    
     private Dictionary<string, EngineEventHandler> _registry;
 
+    public bool LogEventCalls { get; set; }
+    public bool LogListenerRegistration { get; set; }
+    
     public EventSystem()
     {
+      Id = Guid.NewGuid();
       _registry = new Dictionary<string, EngineEventHandler>();
     }
     
@@ -27,6 +34,11 @@ namespace OxyEngine.Events
       else
       {
         _registry[eventName] += handler;
+      }
+
+      if (LogListenerRegistration)
+      {
+        LogManager.Log($"Start listening event '{eventName}'',\n\t  event system '{Id}'");
       }
     }
 
@@ -47,7 +59,7 @@ namespace OxyEngine.Events
     public void StopListening(string eventName, EngineEventHandler handler)
     {
       if (!_registry.ContainsKey(eventName))
-        throw new Exception($"No handlers for event with name '{eventName}'");
+        throw new Exception($"No handlers for event with name '{eventName}'',\n\t  event system '{Id}'");
       
       _registry[eventName] -= handler;
     }
@@ -57,12 +69,14 @@ namespace OxyEngine.Events
       if (!_registry.ContainsKey(eventName))
       {
         if (checkEventExists)
-          throw new Exception($"No handlers for event with name '{eventName}'");
+          throw new Exception($"No handlers for event with name '{eventName}'',\n\t  event system '{Id}'");
         
-        // If no listeners and checkEventExists == false, then ignore call
+        // If no listeners and checkEventExists == false, then log and ignore call
+        LogManager.Warning($"No listeners for event with name '{eventName}'',\n\t  event system '{Id}'");
         return;
       }
 
+      // If handler == null, remove it
       if (_registry[eventName] == null)
       {
         _registry.Remove(eventName);

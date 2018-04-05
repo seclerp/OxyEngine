@@ -1,7 +1,7 @@
 ﻿namespace OxyEngine.ECS.Behaviours
 {
-  public interface IRenderable
+  public interface IDrawable
   {
-    
+    void Draw();
   }
 }

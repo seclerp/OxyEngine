@@ -10,6 +10,7 @@ namespace OxyPlayground
     [STAThread]
     static void Main(string[] args)
     {
+      LogManager.LogCallerType = true;
       LogManager.AddLogger(new ConsoleLogger());
 
       var projectLoader = new GameProjectLoader();

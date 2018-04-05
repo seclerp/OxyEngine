@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using OxyEngine.Interfaces;
 
 namespace OxyEngine.Loggers
@@ -7,6 +8,8 @@ namespace OxyEngine.Loggers
   {
     private static ICollection<ILogger> _loggers;
 
+    public static bool LogCallerType { get; set; }
+    
     static LogManager()
     {
       _loggers = new List<ILogger>();
@@ -24,6 +27,11 @@ namespace OxyEngine.Loggers
     
     public static void Log(string message)
     {
+      if (LogCallerType)
+      {
+        message = $"[{GetCallerInfo(2)}] {message}";
+      }
+      
       foreach (var logger in _loggers)
       {
         logger.Log(message);
@@ -32,6 +40,11 @@ namespace OxyEngine.Loggers
 
     public static void Warning(string message)
     {
+      if (LogCallerType)
+      {
+        message = $"[{GetCallerInfo(2)}] {message}";
+      }
+      
       foreach (var logger in _loggers)
       {
         logger.Warning(message);
@@ -40,18 +53,33 @@ namespace OxyEngine.Loggers
     
     public static void Error(string message)
     {
+      if (LogCallerType)
+      {
+        message = $"[{GetCallerInfo(2)}] {message}";
+      }
+      
       foreach (var logger in _loggers)
       {
         logger.Error(message);
       }
     }
 
-    public static void Save(string message)
+    public static void Save()
     {
       foreach (var logger in _loggers)
       {
-        logger.Error(message);
+        logger.Save();
       }
+    }
+
+    private static string GetCallerInfo(int stacktraceDepth = 1)
+    {
+      var methodInfo = new StackTrace()
+        .GetFrame(stacktraceDepth)
+        .GetMethod();
+      
+      return 
+        $"{methodInfo.ReflectedType?.Name}.{methodInfo.Name}";
     }
   }
 }
