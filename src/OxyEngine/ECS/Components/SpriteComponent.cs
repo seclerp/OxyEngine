@@ -20,18 +20,11 @@ namespace OxyEngine.ECS.Components
       _graphicsManager = Entity.Game.GetApi().Graphics;
       _transform = Entity.GetComponent<TransformComponent>();
     }
-    
+
     public void Draw()
     {
-      var position = _transform.GlobalPosition;
-      var scale = _transform.GlobalScale;
-      
-      _graphicsManager.PushMatrix();
-      _graphicsManager.Translate(position.X, position.Y);
-      _graphicsManager.Rotate(_transform.GlobalRotation);
-      _graphicsManager.Scale(scale.X, scale.Y);
-      _graphicsManager.Draw(Texture, SourceRectangle, new Rectangle(0, 0, SourceRectangle.Width, SourceRectangle.Height));
-      _graphicsManager.PopMatrix();
+      // Entity matrix is already applied
+      _graphicsManager.Draw(Texture, SourceRectangle, new Rectangle(0, 0, SourceRectangle.Width, SourceRectangle.Height), Offset.X, Offset.Y);
     }
   }
 }

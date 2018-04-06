@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using OxyEngine.ECS.Behaviours;
+using OxyEngine.ECS.Components;
 using OxyEngine.ECS.Entities;
 
 namespace OxyEngine.ECS.Systems
@@ -17,6 +18,9 @@ namespace OxyEngine.ECS.Systems
 
     private void DrawRecursive(BaseGameEntity entity)
     {
+      var transform =  entity.GetComponent<TransformComponent>();
+      transform?.AttachTransformation();
+      
       if (entity is IDrawable rootEntityDrawable)
         rootEntityDrawable.Draw();
 
@@ -24,6 +28,8 @@ namespace OxyEngine.ECS.Systems
       {
         DrawRecursive(drawableChildren);
       }
+      
+      transform?.DetachTransformation();
     }
   }
 }
