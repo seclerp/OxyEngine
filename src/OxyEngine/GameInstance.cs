@@ -167,6 +167,8 @@ namespace OxyEngine
 
     #endregion
 
+    #region Initialization
+
     private void InitializeModules()
     {    
       // Resources
@@ -223,6 +225,8 @@ namespace OxyEngine
       _scriptingManager.SetGlobal("Oxy", _api);
       _api.Scripting = _scriptingManager;
     }
+
+    #endregion
 
     private void ApplySettings(GameSettingsRoot settings)
     {

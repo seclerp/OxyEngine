@@ -6,7 +6,7 @@ namespace OxyEngine.ECS.Entities
   {
     public TransformComponent Transform { get; }
 
-    public GameEntity()
+    public GameEntity(GameInstance game) : base(game)
     {
       Transform = AddComponent<TransformComponent>();
     }

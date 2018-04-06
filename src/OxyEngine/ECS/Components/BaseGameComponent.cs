@@ -1,6 +1,5 @@
 ﻿using System;
 using OxyEngine.ECS.Entities;
-using OxyEngine.ECS.Systems;
 using OxyEngine.Events;
 using OxyEngine.Interfaces;
 

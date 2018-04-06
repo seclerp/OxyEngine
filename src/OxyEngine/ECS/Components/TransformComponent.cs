@@ -7,9 +7,12 @@ namespace OxyEngine.ECS.Components
 {
   public class TransformComponent : BaseGameComponent, ITransformable
   {
+    private GraphicsManager _graphicsManager;
+    
     public TransformComponent(BaseGameEntity entity) : base(entity)
     {
       _transformation = new Transformation();
+      _graphicsManager = Entity?.Game.GetApi().Graphics;
     }
 
     #region Local transformation
@@ -100,6 +103,19 @@ namespace OxyEngine.ECS.Components
     public void Zoom(Vector2 vector)
     {
       _transformation.Zoom(vector);
+    }
+
+    public void AttachTransformation()
+    {
+      _graphicsManager.PushMatrix();
+      _graphicsManager.Translate(Position.X, Position.Y);
+      _graphicsManager.Rotate(Rotation);
+      _graphicsManager.Scale(Scale.X, Scale.Y);
+    }
+    
+    public void DetachTransformation()
+    {
+      _graphicsManager.PopMatrix();
     }
   }
 }
