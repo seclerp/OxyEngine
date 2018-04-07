@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +16,7 @@ namespace OxyEngine
   /// <summary>
   /// This is the main type for your game.
   /// </summary>
-  public class GameInstance : Game
+  public class GameInstance : Game, IApiUser
   {
     #region Modules
 

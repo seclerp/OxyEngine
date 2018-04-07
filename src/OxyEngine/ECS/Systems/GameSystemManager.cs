@@ -1,26 +1,24 @@
-﻿using System.Collections.Generic;
-using OxyEngine.ECS.Behaviours;
-using OxyEngine.ECS.Components;
-using OxyEngine.ECS.Entities;
+﻿using OxyEngine.Ecs.Behaviours;
+using OxyEngine.Ecs.Entities;
 using OxyEngine.Events;
 using OxyEngine.Events.Args;
-using OxyEngine.Loggers;
 
-namespace OxyEngine.ECS.Systems
+namespace OxyEngine.Ecs.Systems
 {
   public class GameSystemManager : IUpdateable, IDrawable
   {
-    public LogicSystem LogicSystem { get; }
-    public DrawSystem DrawSystem { get; }
+    public LogicSystem LogicSystem { get; private set; }
+    public DrawSystem DrawSystem { get; private set; }
 
     private GlobalEventsManager _events;
-    
-    public GameSystemManager(GameInstance gameInstance, BaseGameEntity rootEntity)
-    {
-      LogicSystem = new LogicSystem(rootEntity);
-      DrawSystem = new DrawSystem(rootEntity);
+    private GameInstance _gameInstance;
 
-      _events = gameInstance.GetApi().Events;
+    public GameSystemManager(GameInstance gameGameInstance, BaseGameEntity rootEntity)
+    {
+      _gameInstance = gameGameInstance;
+      InitializeSystems(rootEntity);
+
+      _events = _gameInstance.GetApi().Events;
       _events.Global.StartListening(EventNames.Initialization.OnLoad, 
         (sender, args) => Load()
       );
@@ -30,6 +28,12 @@ namespace OxyEngine.ECS.Systems
       _events.Global.StartListening(EventNames.Graphics.OnDraw, 
         (sender, args) => Draw()
       );
+    }
+
+    public void InitializeSystems(BaseGameEntity rootEntity)
+    {
+      LogicSystem = new LogicSystem(_gameInstance, rootEntity);
+      DrawSystem = new DrawSystem(rootEntity);
     }
 
     public void Load()

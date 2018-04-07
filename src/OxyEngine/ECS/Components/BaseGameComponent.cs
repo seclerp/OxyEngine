@@ -1,9 +1,9 @@
 ﻿using System;
-using OxyEngine.ECS.Entities;
+using OxyEngine.Ecs.Entities;
 using OxyEngine.Events;
 using OxyEngine.Interfaces;
 
-namespace OxyEngine.ECS.Components
+namespace OxyEngine.Ecs.Components
 {
   public abstract class BaseGameComponent : IUniqueObject
   {

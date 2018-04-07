@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyEngine.Python", "src\Oxy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyEngine.Test", "src\OxyEngine.Test\OxyEngine.Test.csproj", "{088B24C6-3345-4712-92EB-D9B48949160A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OxyEngine.Game", "src\OxyEngine.Game\OxyEngine.Game.csproj", "{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,9 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0FC321A6-56BA-41FF-A015-E99AA9EEE1C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -72,5 +71,23 @@ Global
 		{088B24C6-3345-4712-92EB-D9B48949160A}.Release|x64.Build.0 = Release|Any CPU
 		{088B24C6-3345-4712-92EB-D9B48949160A}.Release|x86.ActiveCfg = Release|Any CPU
 		{088B24C6-3345-4712-92EB-D9B48949160A}.Release|x86.Build.0 = Release|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Debug|x64.Build.0 = Debug|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Debug|x86.Build.0 = Debug|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Release|x64.ActiveCfg = Release|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Release|x64.Build.0 = Release|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Release|x86.ActiveCfg = Release|Any CPU
+		{0D991B6E-548F-4CDD-BF76-1EF38BE85D58}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9CEA31AF-BF4F-4C6B-8374-865B5B5EB8CF}
 	EndGlobalSection
 EndGlobal

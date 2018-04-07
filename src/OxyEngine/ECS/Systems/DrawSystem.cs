@@ -1,14 +1,17 @@
-﻿using System.Linq;
-using OxyEngine.ECS.Behaviours;
-using OxyEngine.ECS.Components;
-using OxyEngine.ECS.Entities;
+﻿using OxyEngine.Ecs.Behaviours;
+using OxyEngine.Ecs.Components;
+using OxyEngine.Ecs.Entities;
+using OxyEngine.Interfaces;
 
-namespace OxyEngine.ECS.Systems
+namespace OxyEngine.Ecs.Systems
 {
-  public class DrawSystem : BaseGameSystem, IDrawable
+  public class DrawSystem : BaseGameSystem, IDrawable, IApiUser
   {
-    public DrawSystem(BaseGameEntity rootEntity) : base(rootEntity)
+    private readonly GameInstance _instance;
+
+    public DrawSystem(GameInstance instance, BaseGameEntity rootEntity) : base(rootEntity)
     {
+      _instance = instance;
     }
     
     public void Draw()
@@ -30,6 +33,11 @@ namespace OxyEngine.ECS.Systems
       }
       
       transform?.DetachTransformation();
+    }
+
+    public OxyApi GetApi()
+    {
+      return _instance.GetApi();
     }
   }
 }

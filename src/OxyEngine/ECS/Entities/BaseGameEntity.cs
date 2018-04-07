@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using OxyEngine.ECS.Components;
-using OxyEngine.ECS.Interfaces;
+using OxyEngine.Ecs.Components;
+using OxyEngine.Ecs.Interfaces;
+using OxyEngine.Ecs.Systems;
 using OxyEngine.Interfaces;
 
-namespace OxyEngine.ECS.Entities
+namespace OxyEngine.Ecs.Entities
 {
-  public class BaseGameEntity : IUniqueObject, IConstructable
+  public class BaseGameEntity : IUniqueObject, IConstructable, IApiUser
   {
     public Guid Id { get; }
     public string Name { get; set; }
@@ -16,25 +17,27 @@ namespace OxyEngine.ECS.Entities
     
     public IEnumerable<BaseGameEntity> Children =>  _children;
     public IEnumerable<BaseGameComponent> Components =>  _components;
-    
+
+    internal GameSystemManager GameSystemManager { get; set; }
+
     private readonly List<BaseGameComponent> _components;
     private readonly List<BaseGameEntity> _children;
 
-    protected BaseGameEntity(GameInstance game) 
+    protected BaseGameEntity() 
     {
       Id = Guid.NewGuid();
       _components = new List<BaseGameComponent>();
       _children = new List<BaseGameEntity>();
     }
 
-    protected BaseGameEntity(GameInstance game, BaseGameEntity parent) : this(game)
+    protected BaseGameEntity(BaseGameEntity parent) : this()
     {
       if (parent != null)
       {
         SetParent(parent);
       }
     }
-    
+
     #region Components actions
     
     /// <summary>
@@ -300,5 +303,10 @@ namespace OxyEngine.ECS.Entities
     }
 
     #endregion
+
+    public OxyApi GetApi()
+    {
+      return GameSystemManager.GetApi();
+    }
   }
 } 

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using OxyEngine.ECS.Components;
+using OxyEngine.Ecs.Components;
 
-namespace OxyEngine.ECS.Interfaces
+namespace OxyEngine.Ecs.Interfaces
 {
   /// <summary>
   ///   Interface for entities that may have components

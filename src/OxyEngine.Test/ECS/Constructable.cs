@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
-using OxyEngine.ECS.Components;
-using OxyEngine.ECS.Entities;
+using OxyEngine.Ecs.Components;
+using OxyEngine.Ecs.Entities;
 
 namespace OxyEngine.Test.ECS
 {

@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.ECS.Systems
+﻿namespace OxyEngine.Ecs.Systems
 {
   public static class GameSystems
   {

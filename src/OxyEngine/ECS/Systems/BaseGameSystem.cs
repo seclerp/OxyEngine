@@ -1,6 +1,6 @@
-﻿using OxyEngine.ECS.Entities;
+﻿using OxyEngine.Ecs.Entities;
 
-namespace OxyEngine.ECS.Systems
+namespace OxyEngine.Ecs.Systems
 {
   public class BaseGameSystem
   {

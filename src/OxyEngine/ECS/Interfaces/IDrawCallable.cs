@@ -1,6 +1,6 @@
-﻿using OxyEngine.ECS.Systems;
+﻿using OxyEngine.Ecs.Systems;
 
-namespace OxyEngine.ECS.Interfaces
+namespace OxyEngine.Ecs.Interfaces
 {
   public interface IDrawCallable
   {

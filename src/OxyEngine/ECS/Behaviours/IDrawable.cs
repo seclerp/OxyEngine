@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.ECS.Behaviours
+﻿namespace OxyEngine.Ecs.Behaviours
 {
   public interface IDrawable
   {

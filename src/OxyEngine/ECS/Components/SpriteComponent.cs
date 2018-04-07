@@ -1,12 +1,11 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OxyEngine.ECS.Behaviours;
+using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
-using IDrawable = OxyEngine.ECS.Behaviours.IDrawable;
 
-namespace OxyEngine.ECS.Components
+namespace OxyEngine.Ecs.Components
 {
-  public class SpriteComponent : BaseGameComponent, ILoadable, IDrawable
+  public class SpriteComponent : BaseGameComponent, ILoadable, Behaviours.IDrawable
   {
     public Rectangle SourceRectangle { get; set; }
     public Vector2 Offset { get; set; }
