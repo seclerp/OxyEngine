@@ -1,4 +1,6 @@
-﻿using OxyEngine.Ecs.Systems;
+﻿using OxyEngine.Dependency;
+using OxyEngine.Ecs.Entities;
+using OxyEngine.Ecs.Systems;
 using OxyEngine.Projects;
 
 namespace OxyEngine.Ecs
@@ -9,9 +11,12 @@ namespace OxyEngine.Ecs
 
     public EcsInstance(GameProject project) : base(project)
     {
-      _gameSystemManager = new GameSystemManager(this, null);
+      _gameSystemManager = new GameSystemManager(this);
     }
 
-
+    public void SetRootEntity(BaseGameEntity rootEntity)
+    {
+      _gameSystemManager.InitializeSystems(rootEntity);
+    }
   }
 }

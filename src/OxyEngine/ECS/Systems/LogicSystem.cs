@@ -1,16 +1,12 @@
 ﻿using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Entities;
-using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Systems
 {
-  public class LogicSystem : BaseGameSystem, IUpdateable, IApiUser
+  public class LogicSystem : BaseGameSystem, IUpdateable
   {
-    private GameInstance _gameInstance;
-
-    public LogicSystem(GameInstance gameInstance, BaseGameEntity rootEntity) : base(rootEntity)
+    public LogicSystem(BaseGameEntity rootEntity) : base(rootEntity)
     {
-      _gameInstance = gameInstance;
     }
         
     public void Load()
@@ -43,11 +39,6 @@ namespace OxyEngine.Ecs.Systems
       {
         UpdateRecursive(updatableChildren, dt);
       }
-    }
-
-    public OxyApi GetApi()
-    {
-      return _gameInstance.GetApi();
     }
   }
 }

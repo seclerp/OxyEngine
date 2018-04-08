@@ -1,4 +1,5 @@
-﻿using OxyEngine.Ecs.Behaviours;
+﻿using OxyEngine.Dependency;
+using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Entities;
 using OxyEngine.Events;
 using OxyEngine.Events.Args;
@@ -13,10 +14,10 @@ namespace OxyEngine.Ecs.Systems
     private GlobalEventsManager _events;
     private GameInstance _gameInstance;
 
-    public GameSystemManager(GameInstance gameGameInstance, BaseGameEntity rootEntity)
+    public GameSystemManager(GameInstance gameInstance)
     {
-      _gameInstance = gameGameInstance;
-      InitializeSystems(rootEntity);
+      _gameInstance = gameInstance;
+      Container.Instance.RegisterByName("Api", _gameInstance.GetApi());
 
       _events = _gameInstance.GetApi().Events;
       _events.Global.StartListening(EventNames.Initialization.OnLoad, 
@@ -32,23 +33,23 @@ namespace OxyEngine.Ecs.Systems
 
     public void InitializeSystems(BaseGameEntity rootEntity)
     {
-      LogicSystem = new LogicSystem(_gameInstance, rootEntity);
+      LogicSystem = new LogicSystem(rootEntity);
       DrawSystem = new DrawSystem(rootEntity);
     }
 
     public void Load()
     {
-      LogicSystem.Load();
+      LogicSystem?.Load();
     }
     
     public void Update(float dt)
     {
-      LogicSystem.Update(dt);
+      LogicSystem?.Update(dt);
     }
 
     public void Draw()
     {
-      DrawSystem.Draw();
+      DrawSystem?.Draw();
     }
   }
 }

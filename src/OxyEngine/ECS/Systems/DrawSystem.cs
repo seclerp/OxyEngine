@@ -1,17 +1,13 @@
 ﻿using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Components;
 using OxyEngine.Ecs.Entities;
-using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Systems
 {
-  public class DrawSystem : BaseGameSystem, IDrawable, IApiUser
+  public class DrawSystem : BaseGameSystem, IDrawable
   {
-    private readonly GameInstance _instance;
-
-    public DrawSystem(GameInstance instance, BaseGameEntity rootEntity) : base(rootEntity)
+    public DrawSystem(BaseGameEntity rootEntity) : base(rootEntity)
     {
-      _instance = instance;
     }
     
     public void Draw()
@@ -33,11 +29,6 @@ namespace OxyEngine.Ecs.Systems
       }
       
       transform?.DetachTransformation();
-    }
-
-    public OxyApi GetApi()
-    {
-      return _instance.GetApi();
     }
   }
 }

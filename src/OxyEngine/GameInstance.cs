@@ -216,7 +216,7 @@ namespace OxyEngine
       if (_scriptingManager == null)
         return;
       
-      _scriptingManager.Initialize(Project.ScriptsFolderPath);
+      _scriptingManager.Initialize(Project.ContentFolderPath);
       
       // Add API to scripts
       _scriptingManager.SetGlobal("Oxy", _api);

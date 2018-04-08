@@ -12,12 +12,13 @@ namespace OxyEngine.Ecs.Components
     public Texture2D Texture { get; set; }
 
     private GraphicsManager _graphicsManager;
-    private TransformComponent _transform;
     
     public void Load()
     {
-      _graphicsManager = Entity.Game.GetApi().Graphics;
-      _transform = Entity.GetComponent<TransformComponent>();
+      // This is for DrawSystem, to not fail when using GetComponent with NullReferenceExcepion
+      RequireComponent<TransformComponent>();
+
+      _graphicsManager = GetApi().Graphics;
     }
 
     public void Draw()

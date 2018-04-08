@@ -46,6 +46,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="Dependency\Container.cs" />
+    <Compile Include="Dependency\InstanceName.cs" />
     <Compile Include="Ecs\Behaviours\IDrawable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
     <Compile Include="Ecs\Behaviours\IUpdateable.cs" />

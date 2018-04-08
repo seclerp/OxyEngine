@@ -12,7 +12,7 @@ namespace OxyEngine.Ecs.Components
     public TransformComponent(BaseGameEntity entity) : base(entity)
     {
       _transformation = new Transformation();
-      _graphicsManager = Entity?.Game.GetApi().Graphics;
+      _graphicsManager = GetApi().Graphics;
     }
 
     #region Local transformation

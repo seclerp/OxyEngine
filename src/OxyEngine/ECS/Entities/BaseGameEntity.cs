@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Components;
 using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Ecs.Systems;
@@ -13,7 +14,6 @@ namespace OxyEngine.Ecs.Entities
     public string Name { get; set; }
     
     public BaseGameEntity Parent { get; private set; }
-    public GameInstance Game { get; private set; }
     
     public IEnumerable<BaseGameEntity> Children =>  _children;
     public IEnumerable<BaseGameComponent> Components =>  _components;
@@ -306,7 +306,7 @@ namespace OxyEngine.Ecs.Entities
 
     public OxyApi GetApi()
     {
-      return GameSystemManager.GetApi();
+      return Container.Instance.ResolveByName<OxyApi>(InstanceName.Api);
     }
   }
 } 
