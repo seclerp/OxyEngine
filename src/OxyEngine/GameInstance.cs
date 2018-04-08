@@ -50,16 +50,8 @@ namespace OxyEngine
 
     public new void Run()
     {
-      try
-      {
-        LogManager.Log("Game loop starting...");
-        base.Run();
-      }
-      catch (Exception e)
-      {
-        LogManager.Error(e.ToString());
-        throw new Exception(e.Message, e);
-      }
+      LogManager.Log("Game loop starting...");
+      base.Run();
     }
     
     protected override void Initialize()
@@ -68,6 +60,9 @@ namespace OxyEngine
       InitializeModules();
       LogManager.Log("Applying project settings...");
       ApplySettings(Project.GameSettings);
+      LogManager.Log("Init event started..");
+      
+      _eventsManager.Init();
       
       // Do not remove
       base.Initialize();
@@ -106,12 +101,13 @@ namespace OxyEngine
 
     protected override void LoadContent()
     {
-      LogManager.Log("Load content started");
+      LogManager.Log("Load event starting...");
       _eventsManager.Load();
     }
 
     protected override void UnloadContent()
     {
+      LogManager.Log("UnLoad event starting...");
       _eventsManager.Unload();
       
       // Free resources
@@ -182,7 +178,6 @@ namespace OxyEngine
       
       //  Scripting
       InitializeScripting();
-
     }
 
     private void InitializeEvents()

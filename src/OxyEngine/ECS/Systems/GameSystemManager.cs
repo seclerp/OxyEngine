@@ -18,8 +18,14 @@ namespace OxyEngine.Ecs.Systems
     {
       _gameInstance = gameInstance;
       Container.Instance.RegisterByName("Api", _gameInstance.GetApi());
+    }
 
+    public void InitializeEventListeners()
+    {
       _events = _gameInstance.GetApi().Events;
+      _events.Global.StartListening(EventNames.Initialization.OnInit, 
+        (sender, args) => Init()
+      );
       _events.Global.StartListening(EventNames.Initialization.OnLoad, 
         (sender, args) => Load()
       );
@@ -32,11 +38,16 @@ namespace OxyEngine.Ecs.Systems
     }
 
     public void InitializeSystems(BaseGameEntity rootEntity)
-    {
+    {     
       LogicSystem = new LogicSystem(rootEntity);
       DrawSystem = new DrawSystem(rootEntity);
     }
 
+    public void Init()
+    {
+      LogicSystem?.Init();
+    }
+    
     public void Load()
     {
       LogicSystem?.Load();

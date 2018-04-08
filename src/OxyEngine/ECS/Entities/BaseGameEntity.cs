@@ -60,8 +60,9 @@ namespace OxyEngine.Ecs.Entities
     /// <typeparam name="T">Component type</typeparam>
     public T AddComponent<T>() where T : BaseGameComponent
     {
-      var component = (T) Activator.CreateInstance(typeof(T), this);
-      _components.Add(component);
+      var component = Activator.CreateInstance<T>();
+
+      AddComponent(component);
       
       return component;
     }

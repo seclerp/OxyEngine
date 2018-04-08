@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Graphics.Extensions;
 using OxyEngine.Interfaces;
+using OxyEngine.Loggers;
 using OxyEngine.Settings;
 
 namespace OxyEngine.Graphics
@@ -373,7 +374,7 @@ namespace OxyEngine.Graphics
       if (_currentState.TransformationStack.Count == 1)
         throw new Exception("Can't pop last matrix state");
       
-      _currentState.TransformationStack.Pop();
+      var poped = _currentState.TransformationStack.Pop();
     }
 
     /// <summary>

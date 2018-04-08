@@ -9,6 +9,11 @@ namespace OxyEngine.Ecs.Systems
     {
     }
         
+    public void Init()
+    {
+      InitRecursive(RootEntity);
+    }
+    
     public void Load()
     {
       LoadRecursive(RootEntity);
@@ -19,25 +24,54 @@ namespace OxyEngine.Ecs.Systems
       UpdateRecursive(RootEntity, dt);
     }
 
+    private void InitRecursive(BaseGameEntity entity)
+    {
+      if (entity is IInitializable entityInitializable)
+        entityInitializable.Init();
+      
+      foreach (var component in entity.Components)
+      {
+        if (component is IInitializable componentInitializable)
+          componentInitializable.Init();
+      }
+      
+      foreach (var child in entity.Children)
+      {
+        InitRecursive(child);
+      }
+    }
+    
     private void LoadRecursive(BaseGameEntity entity)
     {
-      if (entity is ILoadable rootEntityUpdatable)
-        rootEntityUpdatable.Load();
+      if (entity is ILoadable entityLoadable)
+        entityLoadable.Load();
 
-      foreach (var updatableChildren in RootEntity.Children)
+      foreach (var component in entity.Components)
       {
-        LoadRecursive(updatableChildren);
+        if (component is ILoadable componentLoadable)
+          componentLoadable.Load();
+      }
+      
+      foreach (var child in entity.Children)
+      {
+        LoadRecursive(child);
       }
     }
 
     private void UpdateRecursive(BaseGameEntity entity, float dt)
     {
-      if (entity is IUpdateable rootEntityUpdatable)
-        rootEntityUpdatable.Update(dt);
+      if (entity is IUpdateable entityUpdatable)
+        entityUpdatable.Update(dt);
 
-      foreach (var updatableChildren in RootEntity.Children)
+      foreach (var component in entity.Components)
       {
-        UpdateRecursive(updatableChildren, dt);
+        if (component is IUpdateable componentUpdatable)
+          componentUpdatable.Update(dt);
+      }
+      
+      foreach (var child in entity.Children)
+      {
+        UpdateRecursive(child, dt);
       }
     }
   }

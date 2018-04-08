@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using OxyEngine.Ecs;
 using OxyEngine.Ecs.Components;
 using OxyEngine.Ecs.Entities;
+using OxyEngine.Events;
 using OxyEngine.Loggers;
 using OxyEngine.Projects;
 
@@ -21,14 +22,16 @@ namespace OxyEngine.Game
 
       using (var ecsInstance = new EcsInstance(project))
       {
-        var entity = new GameEntity();
-        var sprite = entity.AddComponent<SpriteComponent>();
-
-        sprite.Texture = ecsInstance.GetApi().Resources.LoadTexture("example");
-        sprite.SourceRectangle = new Rectangle(0, 0, sprite.Texture.Width, sprite.Texture.Height);
-        sprite.Offset = new Vector2(0, 0);
-
-        ecsInstance.SetRootEntity(entity);
+        ecsInstance.GetApi().Events.Global.LogListenerRegistration = true;
+        ecsInstance.GetApi().Events.Global.StartListening(
+          EventNames.Initialization.OnInit, 
+          (sender, eventArgs) =>
+          {
+            var gameScene = new GameScene();
+            ecsInstance.SetRootEntity(gameScene);
+          }
+        );
+        ecsInstance.InitializeEventListeners();
 
         ecsInstance.Run();
       }

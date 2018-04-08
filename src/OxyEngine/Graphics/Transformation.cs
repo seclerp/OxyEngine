@@ -11,9 +11,8 @@ namespace OxyEngine.Graphics
 
     public Matrix Matrix { get; private set; }
 
-    public Transformation()
+    public Transformation() : this(Vector2.Zero, 0, Vector2.One)
     {
-      Matrix = Matrix.Identity;
     }
 
     public Transformation(Vector2 position, float rotation, Vector2 scale)
@@ -22,27 +21,33 @@ namespace OxyEngine.Graphics
       Rotation = rotation;
       Scale = scale;
 
-      Matrix = Matrix.CreateTranslation(new Vector3(position, 0))
-                * Matrix.CreateRotationZ(rotation)
-                * Matrix.CreateScale(new Vector3(scale, 0));
+      RecreateMatrix();
     }
 
+    private void RecreateMatrix()
+    {
+      Matrix =
+        Matrix.CreateScale(new Vector3(Scale, 0))
+        * Matrix.CreateRotationZ(Rotation)
+        * Matrix.CreateTranslation(new Vector3(Position, 0));
+    }
+    
     public void Translate(Vector2 value)
     {
-      Matrix *= Matrix.CreateTranslation(new Vector3(value, 0));
       Position += value;
+      RecreateMatrix();
     }
 
     public void Rotate(float value)
     {
-      Matrix *= Matrix.CreateRotationZ(value);
       Rotation += value;
+      RecreateMatrix();
     }
 
     public void Zoom(Vector2 value)
     {
-      Matrix *= Matrix.CreateScale(new Vector3(value, 0));
-      Scale += value;
+      Scale *= value;
+      RecreateMatrix();
     }
     
     public object Clone()

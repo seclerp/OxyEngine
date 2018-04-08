@@ -14,6 +14,11 @@ namespace OxyEngine.Ecs
       _gameSystemManager = new GameSystemManager(this);
     }
 
+    public void InitializeEventListeners()
+    {
+      _gameSystemManager.InitializeEventListeners();
+    }
+
     public void SetRootEntity(BaseGameEntity rootEntity)
     {
       _gameSystemManager.InitializeSystems(rootEntity);

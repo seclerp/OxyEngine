@@ -49,6 +49,7 @@
     <Compile Include="Dependency\Container.cs" />
     <Compile Include="Dependency\InstanceName.cs" />
     <Compile Include="Ecs\Behaviours\IDrawable.cs" />
+    <Compile Include="Ecs\Behaviours\IInitializable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
     <Compile Include="Ecs\Behaviours\IUpdateable.cs" />
     <Compile Include="Ecs\Components\BaseGameComponent.cs" />

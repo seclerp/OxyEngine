@@ -26,7 +26,7 @@ namespace OxyEngine.Test.ECS
     public void Entity_AddGetComponent()
     {
       var entity = new GameEntity();
-      var component = new TransformComponent(null);
+      var component = new TransformComponent();
       
       entity.AddComponent(component);
       var componentFromGet = entity.GetComponent<TransformComponent>();
@@ -60,7 +60,7 @@ namespace OxyEngine.Test.ECS
     {
       var entity = new GameEntity();
       
-      var component = new TransformComponent(null);
+      var component = new TransformComponent();
       entity.AddComponent(component);
       var componentEntity = component.Entity;
       
@@ -80,7 +80,7 @@ namespace OxyEngine.Test.ECS
     public void Entity_GetComponents()
     {
       var entity = new GameEntity();
-      var listOfComponents = new List<BaseGameComponent> { new TransformComponent(null), new TransformComponent(null) };
+      var listOfComponents = new List<BaseGameComponent> { new TransformComponent(), new TransformComponent() };
       
       entity.AddComponent(listOfComponents[0]);
       entity.AddComponent(listOfComponents[1]);

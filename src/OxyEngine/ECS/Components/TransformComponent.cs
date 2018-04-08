@@ -9,7 +9,7 @@ namespace OxyEngine.Ecs.Components
   {
     private GraphicsManager _graphicsManager;
     
-    public TransformComponent(BaseGameEntity entity) : base(entity)
+    public TransformComponent()
     {
       _transformation = new Transformation();
       _graphicsManager = GetApi().Graphics;

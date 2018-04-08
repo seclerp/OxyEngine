@@ -20,12 +20,18 @@ namespace OxyEngine.Ecs.Systems
       var transform =  entity.GetComponent<TransformComponent>();
       transform?.AttachTransformation();
       
-      if (entity is IDrawable rootEntityDrawable)
-        rootEntityDrawable.Draw();
+      if (entity is IDrawable entityDrawable)
+        entityDrawable.Draw();
 
-      foreach (var drawableChildren in RootEntity.Children)
+      foreach (var component in entity.Components)
       {
-        DrawRecursive(drawableChildren);
+        if (component is IDrawable componentDrawable)
+          componentDrawable.Draw();
+      }
+      
+      foreach (var child in entity.Children)
+      {
+        DrawRecursive(child);
       }
       
       transform?.DetachTransformation();

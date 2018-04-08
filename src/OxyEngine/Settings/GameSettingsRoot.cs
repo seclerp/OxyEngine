@@ -6,7 +6,7 @@ namespace OxyEngine.Settings
   [XmlRoot(ElementName="Settings")]
   public class GameSettingsRoot : ISettings
   {
-    public string ContentFolder { get; set; } = "";
+    public string ContentFolder { get; set; } = "Content";
 
     [XmlElement(ElementName = "Window")]
     public WindowSettings WindowSettings { get; set; } = new WindowSettings();
