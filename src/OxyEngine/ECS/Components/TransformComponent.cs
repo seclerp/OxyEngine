@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using OxyEngine.Ecs.Entities;
 using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Graphics;
 
