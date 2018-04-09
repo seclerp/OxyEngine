@@ -32,6 +32,11 @@ namespace OxyEngine.Events
     
     #region Global invokers
 
+    internal void Init()
+    {
+      Global.Invoke(EventNames.Initialization.OnInit, null);
+    }
+    
     internal void Load()
     {
       Global.Invoke(EventNames.Initialization.OnLoad, null);

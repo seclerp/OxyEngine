@@ -1,18 +1,17 @@
 ﻿using Microsoft.Xna.Framework;
-using OxyEngine.ECS.Entities;
-using OxyEngine.ECS.Interfaces;
+using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Graphics;
 
-namespace OxyEngine.ECS.Components
+namespace OxyEngine.Ecs.Components
 {
-  public class TransformComponent : BaseGameComponent, ITransformable
+  public class TransformComponent : GameComponent, ITransformable
   {
     private GraphicsManager _graphicsManager;
     
-    public TransformComponent(BaseGameEntity entity) : base(entity)
+    public TransformComponent()
     {
       _transformation = new Transformation();
-      _graphicsManager = Entity?.Game.GetApi().Graphics;
+      _graphicsManager = GetApi().Graphics;
     }
 
     #region Local transformation

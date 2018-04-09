@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace OxyEngine.ECS.Interfaces
+namespace OxyEngine.Ecs.Interfaces
 {
   public interface ITransformable
   {

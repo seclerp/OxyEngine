@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -19,7 +16,7 @@ namespace OxyEngine
   /// <summary>
   /// This is the main type for your game.
   /// </summary>
-  public class GameInstance : Game
+  public class GameInstance : Game, IApiUser
   {
     #region Modules
 
@@ -53,16 +50,8 @@ namespace OxyEngine
 
     public new void Run()
     {
-      try
-      {
-        LogManager.Log("Game loop starting...");
-        base.Run();
-      }
-      catch (Exception e)
-      {
-        LogManager.Error(e.ToString());
-        throw new Exception(e.Message, e);
-      }
+      LogManager.Log("Game loop starting...");
+      base.Run();
     }
     
     protected override void Initialize()
@@ -71,6 +60,9 @@ namespace OxyEngine
       InitializeModules();
       LogManager.Log("Applying project settings...");
       ApplySettings(Project.GameSettings);
+      LogManager.Log("Init event started..");
+      
+      _eventsManager.Init();
       
       // Do not remove
       base.Initialize();
@@ -109,12 +101,13 @@ namespace OxyEngine
 
     protected override void LoadContent()
     {
-      LogManager.Log("Load content started");
+      LogManager.Log("Load event starting...");
       _eventsManager.Load();
     }
 
     protected override void UnloadContent()
     {
+      LogManager.Log("UnLoad event starting...");
       _eventsManager.Unload();
       
       // Free resources
@@ -185,7 +178,6 @@ namespace OxyEngine
       
       //  Scripting
       InitializeScripting();
-
     }
 
     private void InitializeEvents()
@@ -219,7 +211,7 @@ namespace OxyEngine
       if (_scriptingManager == null)
         return;
       
-      _scriptingManager.Initialize(Project.ScriptsFolderPath);
+      _scriptingManager.Initialize(Project.ContentFolderPath);
       
       // Add API to scripts
       _scriptingManager.SetGlobal("Oxy", _api);

@@ -10,10 +10,8 @@ namespace OxyEngine.Events
   /// <summary>
   ///   Represents simple event system for games
   /// </summary>
-  public class EventSystem : IUniqueObject
+  public class EventSystem : UniqueObject
   {
-    public Guid Id { get; }
-    
     private Dictionary<string, EngineEventHandler> _registry;
 
     public bool LogEventCalls { get; set; }
@@ -21,7 +19,6 @@ namespace OxyEngine.Events
     
     public EventSystem()
     {
-      Id = Guid.NewGuid();
       _registry = new Dictionary<string, EngineEventHandler>();
     }
     

@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Graphics.Extensions;
 using OxyEngine.Interfaces;
+using OxyEngine.Loggers;
 using OxyEngine.Settings;
 
 namespace OxyEngine.Graphics
@@ -345,10 +346,11 @@ namespace OxyEngine.Graphics
     /// <summary>
     ///   Draw point
     /// </summary>
-    /// <param name="position">Position of a point</param>
-    public void Point(Vector2 position)
+    /// <param name="x">X coodrinate of a point</param>
+    /// <param name="y">Y coodrinate of a point</param>
+    public void Point(float x, float y)
     {
-      _defaultSpriteBatch.PutPixel(position, _currentState.ForegroundColor);
+      _defaultSpriteBatch.PutPixel(new Vector2(x, y), _currentState.ForegroundColor);
     }
     
     #endregion
@@ -373,7 +375,7 @@ namespace OxyEngine.Graphics
       if (_currentState.TransformationStack.Count == 1)
         throw new Exception("Can't pop last matrix state");
       
-      _currentState.TransformationStack.Pop();
+      var poped = _currentState.TransformationStack.Pop();
     }
 
     /// <summary>

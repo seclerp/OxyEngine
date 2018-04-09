@@ -16,15 +16,9 @@ namespace OxyEngine.Projects
     /// <param name="args"></param>
     /// <returns></returns>
     /// <exception cref="FileNotFoundException"></exception>
-    public GameProject LoadFromArguments(string[] args)
+    public virtual GameProject LoadFromArguments(string[] args)
     {
-      string projectDirectory = ParseCommands(args);
-      string scriptToExecute = Path.Combine(projectDirectory, EntryFileName);
-      
-      if (!File.Exists(scriptToExecute))
-        throw new FileNotFoundException(scriptToExecute);
-
-      return LoadFromFolder(projectDirectory);
+      return LoadFromFolder(ParseCommands(args));
     }
 
     public GameProject LoadFromFolder(string projectDirectory)
@@ -39,9 +33,6 @@ namespace OxyEngine.Projects
       var project = new GameProject { RootFolderPath = fullProjectPath };
 
       project.GameSettings = LoadSettings(project.RootFolderPath);   
-      project.ScriptsFolderPath = Path.Combine(project.RootFolderPath, project.GameSettings.ScriptsFolder);
-      project.EntryScriptPath = Path.Combine(project.ScriptsFolderPath, EntryFileName);
-      project.EntryScriptName = EntryFileName;
       project.ContentFolderPath = Path.Combine(project.RootFolderPath, project.GameSettings.ContentFolder);
 
       return project;

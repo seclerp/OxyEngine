@@ -1,26 +1,31 @@
-﻿using System.Collections.Generic;
-using OxyEngine.ECS.Behaviours;
-using OxyEngine.ECS.Components;
-using OxyEngine.ECS.Entities;
+﻿using OxyEngine.Dependency;
+using OxyEngine.Ecs.Behaviours;
+using OxyEngine.Ecs.Entities;
 using OxyEngine.Events;
 using OxyEngine.Events.Args;
-using OxyEngine.Loggers;
 
-namespace OxyEngine.ECS.Systems
+namespace OxyEngine.Ecs.Systems
 {
   public class GameSystemManager : IUpdateable, IDrawable
   {
-    public LogicSystem LogicSystem { get; }
-    public DrawSystem DrawSystem { get; }
+    public GenericSystem GenericSystem { get; private set; }
+    public DrawSystem DrawSystem { get; private set; }
 
     private GlobalEventsManager _events;
-    
-    public GameSystemManager(GameInstance gameInstance, BaseGameEntity rootEntity)
-    {
-      LogicSystem = new LogicSystem(rootEntity);
-      DrawSystem = new DrawSystem(rootEntity);
+    private GameInstance _gameInstance;
 
-      _events = gameInstance.GetApi().Events;
+    public GameSystemManager(GameInstance gameInstance)
+    {
+      _gameInstance = gameInstance;
+      Container.Instance.RegisterByName("Api", _gameInstance.GetApi());
+    }
+
+    public void InitializeEventListeners()
+    {
+      _events = _gameInstance.GetApi().Events;
+      _events.Global.StartListening(EventNames.Initialization.OnInit, 
+        (sender, args) => Init()
+      );
       _events.Global.StartListening(EventNames.Initialization.OnLoad, 
         (sender, args) => Load()
       );
@@ -32,19 +37,30 @@ namespace OxyEngine.ECS.Systems
       );
     }
 
+    public void InitializeSystems(GameEntity rootEntity)
+    {     
+      GenericSystem = new GenericSystem(rootEntity);
+      DrawSystem = new DrawSystem(rootEntity);
+    }
+
+    public void Init()
+    {
+      GenericSystem?.Init();
+    }
+    
     public void Load()
     {
-      LogicSystem.Load();
+      GenericSystem?.Load();
     }
     
     public void Update(float dt)
     {
-      LogicSystem.Update(dt);
+      GenericSystem?.Update(dt);
     }
 
     public void Draw()
     {
-      DrawSystem.Draw();
+      DrawSystem?.Draw();
     }
   }
 }

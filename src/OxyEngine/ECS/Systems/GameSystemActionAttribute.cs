@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace OxyEngine.ECS.Systems
+namespace OxyEngine.Ecs.Systems
 {
   [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
   public class GameSystemActionAttribute : Attribute

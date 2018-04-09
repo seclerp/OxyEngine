@@ -1,24 +1,24 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OxyEngine.ECS.Behaviours;
+using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
-using IDrawable = OxyEngine.ECS.Behaviours.IDrawable;
 
-namespace OxyEngine.ECS.Components
+namespace OxyEngine.Ecs.Components
 {
-  public class SpriteComponent : BaseGameComponent, ILoadable, IDrawable
+  public class SpriteComponent : GameComponent, ILoadable, Behaviours.IDrawable
   {
     public Rectangle SourceRectangle { get; set; }
     public Vector2 Offset { get; set; }
     public Texture2D Texture { get; set; }
 
     private GraphicsManager _graphicsManager;
-    private TransformComponent _transform;
     
     public void Load()
     {
-      _graphicsManager = Entity.Game.GetApi().Graphics;
-      _transform = Entity.GetComponent<TransformComponent>();
+      // This is for DrawSystem, to not fail when using GetComponent with NullReferenceExcepion
+      RequireComponent<TransformComponent>();
+
+      _graphicsManager = GetApi().Graphics;
     }
 
     public void Draw()

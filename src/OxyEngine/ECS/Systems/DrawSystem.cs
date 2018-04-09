@@ -1,13 +1,12 @@
-﻿using System.Linq;
-using OxyEngine.ECS.Behaviours;
-using OxyEngine.ECS.Components;
-using OxyEngine.ECS.Entities;
+﻿using OxyEngine.Ecs.Behaviours;
+using OxyEngine.Ecs.Components;
+using OxyEngine.Ecs.Entities;
 
-namespace OxyEngine.ECS.Systems
+namespace OxyEngine.Ecs.Systems
 {
-  public class DrawSystem : BaseGameSystem, IDrawable
+  public class DrawSystem : GameSystem, IDrawable
   {
-    public DrawSystem(BaseGameEntity rootEntity) : base(rootEntity)
+    public DrawSystem(GameEntity rootEntity) : base(rootEntity)
     {
     }
     
@@ -16,17 +15,23 @@ namespace OxyEngine.ECS.Systems
       DrawRecursive(RootEntity);
     }
 
-    private void DrawRecursive(BaseGameEntity entity)
+    private void DrawRecursive(GameEntity entity)
     {
       var transform =  entity.GetComponent<TransformComponent>();
       transform?.AttachTransformation();
       
-      if (entity is IDrawable rootEntityDrawable)
-        rootEntityDrawable.Draw();
+      if (entity is IDrawable entityDrawable)
+        entityDrawable.Draw();
 
-      foreach (var drawableChildren in RootEntity.Children)
+      foreach (var component in entity.Components)
       {
-        DrawRecursive(drawableChildren);
+        if (component is IDrawable componentDrawable)
+          componentDrawable.Draw();
+      }
+      
+      foreach (var child in entity.Children)
+      {
+        DrawRecursive(child);
       }
       
       transform?.DetachTransformation();

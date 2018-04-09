@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
-using OxyEngine.ECS.Components;
+using OxyEngine.Ecs.Components;
 
-namespace OxyEngine.ECS.Interfaces
+namespace OxyEngine.Ecs.Interfaces
 {
   /// <summary>
   ///   Interface for entities that may have components
   /// </summary>
   public interface IConstructable
   {
-    void AddComponent(BaseGameComponent component);
-    T AddComponent<T>() where T : BaseGameComponent;
-    T GetComponent<T>() where T : BaseGameComponent;
-    IEnumerable<T> GetComponents<T>() where T : BaseGameComponent;
-    bool RemoveComponent(BaseGameComponent component);
-    bool RemoveComponent<T>() where T : BaseGameComponent;
-    bool RemoveComponents<T>() where T : BaseGameComponent;
+    void AddComponent(GameComponent component);
+    T AddComponent<T>() where T : GameComponent;
+    T GetComponent<T>() where T : GameComponent;
+    IEnumerable<T> GetComponents<T>() where T : GameComponent;
+    bool RemoveComponent(GameComponent component);
+    bool RemoveComponent<T>() where T : GameComponent;
+    bool RemoveComponents<T>() where T : GameComponent;
   }
 }
