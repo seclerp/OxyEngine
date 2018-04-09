@@ -3,9 +3,9 @@ using OxyEngine.Ecs.Entities;
 
 namespace OxyEngine.Ecs.Systems
 {
-  public class LogicSystem : GameSystem, IUpdateable
+  public class GenericSystem : GameSystem, IUpdateable
   {
-    public LogicSystem(GameEntity rootEntity) : base(rootEntity)
+    public GenericSystem(GameEntity rootEntity) : base(rootEntity)
     {
     }
         

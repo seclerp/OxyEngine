@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace OxyEngine
 {
@@ -7,6 +8,7 @@ namespace OxyEngine
     /// <summary>
     ///   Unique ID used by internal engine logic
     /// </summary>
+    [JsonIgnore]
     public Guid Id
     {
       get
@@ -20,6 +22,7 @@ namespace OxyEngine
       }
     }
 
+    [JsonProperty]
     private Guid _id;
   }
 }

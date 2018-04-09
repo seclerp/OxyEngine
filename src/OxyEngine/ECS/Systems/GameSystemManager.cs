@@ -8,7 +8,7 @@ namespace OxyEngine.Ecs.Systems
 {
   public class GameSystemManager : IUpdateable, IDrawable
   {
-    public LogicSystem LogicSystem { get; private set; }
+    public GenericSystem GenericSystem { get; private set; }
     public DrawSystem DrawSystem { get; private set; }
 
     private GlobalEventsManager _events;
@@ -39,23 +39,23 @@ namespace OxyEngine.Ecs.Systems
 
     public void InitializeSystems(GameEntity rootEntity)
     {     
-      LogicSystem = new LogicSystem(rootEntity);
+      GenericSystem = new GenericSystem(rootEntity);
       DrawSystem = new DrawSystem(rootEntity);
     }
 
     public void Init()
     {
-      LogicSystem?.Init();
+      GenericSystem?.Init();
     }
     
     public void Load()
     {
-      LogicSystem?.Load();
+      GenericSystem?.Load();
     }
     
     public void Update(float dt)
     {
-      LogicSystem?.Update(dt);
+      GenericSystem?.Update(dt);
     }
 
     public void Draw()
