@@ -14,9 +14,9 @@ namespace OxyEngine.Test.ECS
     public void Entity_AddGenericGetComponent()
     {
       var entity = new TransformEntity();
-      var component = entity.AddComponent<TransformComponent>();
+      var component = entity.AddComponent<SpriteComponent>();
       
-      var componentFromGet = entity.GetComponent<TransformComponent>();
+      var componentFromGet = entity.GetComponent<SpriteComponent>();
       
       Assert.AreEqual(component, componentFromGet);
     }
@@ -26,10 +26,10 @@ namespace OxyEngine.Test.ECS
     public void Entity_AddGetComponent()
     {
       var entity = new TransformEntity();
-      var component = new TransformComponent();
+      var component = new SpriteComponent();
       
       entity.AddComponent(component);
-      var componentFromGet = entity.GetComponent<TransformComponent>();
+      var componentFromGet = entity.GetComponent<SpriteComponent>();
       
       Assert.AreEqual(component, componentFromGet);
     }
@@ -40,16 +40,16 @@ namespace OxyEngine.Test.ECS
     {
       var entity = new TransformEntity();
       
-      var component = entity.AddComponent<TransformComponent>();
+      var component = entity.AddComponent<SpriteComponent>();
       var componentEntity = component.Entity;
       
       var oldCount = entity.Components.Count();
-      var removeSuccess = entity.RemoveComponent<TransformComponent>();
+      var removeSuccess = entity.RemoveComponent<SpriteComponent>();
       var newCount = entity.Components.Count();
       
       Assert.That(removeSuccess);
-      Assert.That(oldCount == 1);
-      Assert.That(newCount == 0);
+      Assert.That(oldCount == 2);
+      Assert.That(newCount == 1);
       Assert.AreEqual(componentEntity, entity);
       Assert.IsNull(component.Entity);
     }
@@ -60,17 +60,17 @@ namespace OxyEngine.Test.ECS
     {
       var entity = new TransformEntity();
       
-      var component = new TransformComponent();
+      var component = new SpriteComponent();
       entity.AddComponent(component);
       var componentEntity = component.Entity;
       
       var oldCount = entity.Components.Count();
-      var removeSuccess = entity.RemoveComponent<TransformComponent>();
+      var removeSuccess = entity.RemoveComponent<SpriteComponent>();
       var newCount = entity.Components.Count();
       
       Assert.That(removeSuccess);
-      Assert.That(oldCount == 1);
-      Assert.That(newCount == 0);
+      Assert.That(oldCount == 2);
+      Assert.That(newCount == 1);
       Assert.AreEqual(componentEntity, entity);
       Assert.IsNull(component.Entity);
     }
@@ -80,12 +80,12 @@ namespace OxyEngine.Test.ECS
     public void Entity_GetComponents()
     {
       var entity = new TransformEntity();
-      var listOfComponents = new List<GameComponent> { new TransformComponent(), new TransformComponent() };
+      var listOfComponents = new List<GameComponent> { new SpriteComponent(), new SpriteComponent() };
       
       entity.AddComponent(listOfComponents[0]);
       entity.AddComponent(listOfComponents[1]);
 
-      var getListOfComponents = entity.GetComponents<TransformComponent>();
+      var getListOfComponents = entity.GetComponents<SpriteComponent>();
       
       CollectionAssert.AreEqual(listOfComponents, getListOfComponents);
     }
