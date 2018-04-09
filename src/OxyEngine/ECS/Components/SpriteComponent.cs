@@ -5,7 +5,7 @@ using OxyEngine.Graphics;
 
 namespace OxyEngine.Ecs.Components
 {
-  public class SpriteComponent : BaseGameComponent, ILoadable, Behaviours.IDrawable
+  public class SpriteComponent : GameComponent, ILoadable, Behaviours.IDrawable
   {
     public Rectangle SourceRectangle { get; set; }
     public Vector2 Offset { get; set; }

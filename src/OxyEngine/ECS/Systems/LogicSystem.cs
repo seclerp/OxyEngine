@@ -3,9 +3,9 @@ using OxyEngine.Ecs.Entities;
 
 namespace OxyEngine.Ecs.Systems
 {
-  public class LogicSystem : BaseGameSystem, IUpdateable
+  public class LogicSystem : GameSystem, IUpdateable
   {
-    public LogicSystem(BaseGameEntity rootEntity) : base(rootEntity)
+    public LogicSystem(GameEntity rootEntity) : base(rootEntity)
     {
     }
         
@@ -24,7 +24,7 @@ namespace OxyEngine.Ecs.Systems
       UpdateRecursive(RootEntity, dt);
     }
 
-    private void InitRecursive(BaseGameEntity entity)
+    private void InitRecursive(GameEntity entity)
     {
       if (entity is IInitializable entityInitializable)
         entityInitializable.Init();
@@ -41,7 +41,7 @@ namespace OxyEngine.Ecs.Systems
       }
     }
     
-    private void LoadRecursive(BaseGameEntity entity)
+    private void LoadRecursive(GameEntity entity)
     {
       if (entity is ILoadable entityLoadable)
         entityLoadable.Load();
@@ -58,7 +58,7 @@ namespace OxyEngine.Ecs.Systems
       }
     }
 
-    private void UpdateRecursive(BaseGameEntity entity, float dt)
+    private void UpdateRecursive(GameEntity entity, float dt)
     {
       if (entity is IUpdateable entityUpdatable)
         entityUpdatable.Update(dt);

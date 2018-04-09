@@ -37,7 +37,7 @@ namespace OxyEngine.Ecs.Systems
       );
     }
 
-    public void InitializeSystems(BaseGameEntity rootEntity)
+    public void InitializeSystems(GameEntity rootEntity)
     {     
       LogicSystem = new LogicSystem(rootEntity);
       DrawSystem = new DrawSystem(rootEntity);

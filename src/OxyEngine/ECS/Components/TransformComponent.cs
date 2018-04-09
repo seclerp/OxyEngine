@@ -4,7 +4,7 @@ using OxyEngine.Graphics;
 
 namespace OxyEngine.Ecs.Components
 {
-  public class TransformComponent : BaseGameComponent, ITransformable
+  public class TransformComponent : GameComponent, ITransformable
   {
     private GraphicsManager _graphicsManager;
     

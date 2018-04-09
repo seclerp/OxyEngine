@@ -36,6 +36,9 @@
     <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\..\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -52,7 +55,7 @@
     <Compile Include="Ecs\Behaviours\IInitializable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
     <Compile Include="Ecs\Behaviours\IUpdateable.cs" />
-    <Compile Include="Ecs\Components\BaseGameComponent.cs" />
+    <Compile Include="Ecs\Components\GameComponent.cs" />
     <Compile Include="Ecs\Components\CircleComponent.cs" />
     <Compile Include="Ecs\Components\FigureComponent.cs" />
     <Compile Include="Ecs\Components\LineComponent.cs" />
@@ -61,14 +64,14 @@
     <Compile Include="Ecs\Components\SpriteComponent.cs" />
     <Compile Include="Ecs\Components\TransformComponent.cs" />
     <Compile Include="Ecs\EcsInstance.cs" />
-    <Compile Include="Ecs\Entities\BaseGameEntity.cs" />
     <Compile Include="Ecs\Entities\GameEntity.cs" />
+    <Compile Include="Ecs\Entities\TransformEntity.cs" />
     <Compile Include="Ecs\Enums\FigureFillStyle.cs" />
     <Compile Include="Ecs\Interfaces\IConstructable.cs" />
     <Compile Include="Ecs\Interfaces\IDrawCallable.cs" />
     <Compile Include="Ecs\Interfaces\ITransformable.cs" />
     <Compile Include="Ecs\Interfaces\IUpdateCallable.cs" />
-    <Compile Include="Ecs\Systems\BaseGameSystem.cs" />
+    <Compile Include="Ecs\Systems\GameSystem.cs" />
     <Compile Include="Ecs\Systems\DrawSystem.cs" />
     <Compile Include="Ecs\Systems\GameSystemManager.cs" />
     <Compile Include="Ecs\Systems\GameSystems.cs" />
@@ -90,7 +93,6 @@
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />
     <Compile Include="Interfaces\IScriptingManager.cs" />
-    <Compile Include="Interfaces\IUniqueObject.cs" />
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Loggers\LogManager.cs" />
     <Compile Include="Mapping\InputMap.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Settings\GameSettingsRoot.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
+    <Compile Include="UniqueObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

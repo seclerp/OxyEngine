@@ -13,7 +13,7 @@ namespace OxyEngine.Test.ECS
     [Ignore("Need to be fixed explicitly")]
     public void Entity_AddGenericGetComponent()
     {
-      var entity = new GameEntity();
+      var entity = new TransformEntity();
       var component = entity.AddComponent<TransformComponent>();
       
       var componentFromGet = entity.GetComponent<TransformComponent>();
@@ -25,7 +25,7 @@ namespace OxyEngine.Test.ECS
     [Ignore("Need to be fixed explicitly")]
     public void Entity_AddGetComponent()
     {
-      var entity = new GameEntity();
+      var entity = new TransformEntity();
       var component = new TransformComponent();
       
       entity.AddComponent(component);
@@ -38,7 +38,7 @@ namespace OxyEngine.Test.ECS
     [Ignore("Need to be fixed explicitly")]
     public void Entity_AddGenericRemoveCompoent()
     {
-      var entity = new GameEntity();
+      var entity = new TransformEntity();
       
       var component = entity.AddComponent<TransformComponent>();
       var componentEntity = component.Entity;
@@ -58,7 +58,7 @@ namespace OxyEngine.Test.ECS
     [Ignore("Need to be fixed explicitly")]
     public void Entity_AddRemoveComponent()
     {
-      var entity = new GameEntity();
+      var entity = new TransformEntity();
       
       var component = new TransformComponent();
       entity.AddComponent(component);
@@ -79,8 +79,8 @@ namespace OxyEngine.Test.ECS
     [Ignore("Need to be fixed explicitly")]
     public void Entity_GetComponents()
     {
-      var entity = new GameEntity();
-      var listOfComponents = new List<BaseGameComponent> { new TransformComponent(), new TransformComponent() };
+      var entity = new TransformEntity();
+      var listOfComponents = new List<GameComponent> { new TransformComponent(), new TransformComponent() };
       
       entity.AddComponent(listOfComponents[0]);
       entity.AddComponent(listOfComponents[1]);

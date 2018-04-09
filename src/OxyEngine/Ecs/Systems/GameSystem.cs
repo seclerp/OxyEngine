@@ -2,11 +2,11 @@
 
 namespace OxyEngine.Ecs.Systems
 {
-  public class BaseGameSystem
+  public class GameSystem
   {
-    protected BaseGameEntity RootEntity;
+    protected GameEntity RootEntity;
     
-    public BaseGameSystem(BaseGameEntity rootEntity)
+    public GameSystem(GameEntity rootEntity)
     {
       RootEntity = rootEntity;
     }

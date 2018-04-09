@@ -7,16 +7,16 @@ using IUpdateable = OxyEngine.Ecs.Behaviours.IUpdateable;
 
 namespace OxyEngine.Game
 {
-  public class GameScene : GameEntity, IInitializable, IUpdateable
+  public class TransformScene : TransformEntity, IInitializable, IUpdateable
   {
     private Vector2 _scale;
     private float Timer;
-    private GameEntity _child;
+    private TransformEntity _child;
     
     public void Init()
     {
       Transform.Position = new Vector2(200, 200);
-      _child = new GameEntity();
+      _child = new TransformEntity();
       _child.Transform.Position = new Vector2(400, 300);
       _child.Transform.Scale = new Vector2(0.5f, 0.5f);
       

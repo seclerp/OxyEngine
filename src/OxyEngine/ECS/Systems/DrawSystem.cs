@@ -4,9 +4,9 @@ using OxyEngine.Ecs.Entities;
 
 namespace OxyEngine.Ecs.Systems
 {
-  public class DrawSystem : BaseGameSystem, IDrawable
+  public class DrawSystem : GameSystem, IDrawable
   {
-    public DrawSystem(BaseGameEntity rootEntity) : base(rootEntity)
+    public DrawSystem(GameEntity rootEntity) : base(rootEntity)
     {
     }
     
@@ -15,7 +15,7 @@ namespace OxyEngine.Ecs.Systems
       DrawRecursive(RootEntity);
     }
 
-    private void DrawRecursive(BaseGameEntity entity)
+    private void DrawRecursive(GameEntity entity)
     {
       var transform =  entity.GetComponent<TransformComponent>();
       transform?.AttachTransformation();

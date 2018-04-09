@@ -7,24 +7,22 @@ using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Components
 {
-  public abstract class BaseGameComponent : IUniqueObject, IApiUser
+  public abstract class GameComponent : UniqueObject, IApiUser
   {
-    public Guid Id { get; }
-    public BaseGameEntity Entity { get; private set; }
+    public GameEntity Entity { get; private set; }
     public string SystemName { get; }
 
     private EventSystem _eventSystem;
     
-    protected BaseGameComponent(BaseGameEntity entity)
+    protected GameComponent(GameEntity entity)
     {
-      Id = Guid.NewGuid();
       _eventSystem = new EventSystem();
       _eventSystem.AddListenersFromAttributes(this);
       
       SetEntity(entity);
     }
 
-    protected BaseGameComponent() : this(null)
+    protected GameComponent() : this(null)
     {
     }
 
@@ -38,12 +36,12 @@ namespace OxyEngine.Ecs.Components
       return Entity == null;
     }
 
-    internal void SetEntity(BaseGameEntity entity)
+    internal void SetEntity(GameEntity entity)
     {
       Entity = entity;
     }
 
-    protected T RequireComponent<T>() where T : BaseGameComponent
+    protected T RequireComponent<T>() where T : GameComponent
     {
       var component = Entity.GetComponent<T>();
       if (component == null)

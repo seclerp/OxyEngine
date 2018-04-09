@@ -5,7 +5,7 @@ using IDrawable = OxyEngine.Ecs.Behaviours.IDrawable;
 
 namespace OxyEngine.Ecs.Components
 {
-  public abstract class FigureComponent : BaseGameComponent, ILoadable, IDrawable
+  public abstract class FigureComponent : GameComponent, ILoadable, IDrawable
   {
     public Color Color;
     
