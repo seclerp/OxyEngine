@@ -55,6 +55,7 @@
     <Compile Include="Ecs\Behaviours\IInitializable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
     <Compile Include="Ecs\Behaviours\IUpdateable.cs" />
+    <Compile Include="Ecs\Components\AudioEffectComponent.cs" />
     <Compile Include="Ecs\Components\GameComponent.cs" />
     <Compile Include="Ecs\Components\CircleComponent.cs" />
     <Compile Include="Ecs\Components\FigureComponent.cs" />
