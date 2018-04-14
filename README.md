@@ -46,7 +46,7 @@ OxyEngine has only 2 native dependencies for Desktop from MonoGame: **OpenAL** a
 
 More info in first tutorial.
 
-## Installing TODO: Move to tutorials
+## Installing
 This section will show you how to install OxyEngine into your .NET project.
 
 ### From NuGet (preffered)
@@ -58,7 +58,7 @@ We are using custom MyGet feed. You need to add this feed to your NuGet PM.
 #### NuGet V2:
 `https://www.myget.org/F/oxyteam/api/v2`
 
-After that, install Oxy.Framework **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**. This is best choice for beginners.
+After that, install Oxy.Engine **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**. This is best choice for beginners.
 
 ### Building from sources (advanced)
 To install stable version of OxyEngine into your .NET Core App:
@@ -72,9 +72,7 @@ To install stable version of OxyEngine into your .NET Core App:
   
 # Examples
 
-OxyPlayground: **[All examples](#)**
-
-OxyEngine: **[All examples](#)**
+**[All examples](#)**
 
 
 # Changelog
@@ -114,7 +112,7 @@ This project is licensed under the **MIT License** - see the **[LICENSE](LICENSE
 # Acknowledgments
 
 Big thanks to:
-* **Love2d** team for inspiration for OxyEngine low-level API.
+* **Love2d** team for inspiration for OxyEngine API.
 * **Guys from MonoGame team** for great cross-platform game framework.
 * **IronLaungages developers** for supporting and development of IronPython and other Iron languages.
 
