@@ -1,10 +1,11 @@
-﻿using OxyEngine.Interfaces;
+﻿using System.Security.Principal;
+using OxyEngine.Interfaces;
 
 namespace OxyEngine.Settings
 {
   public class WindowSettings : ISettings
   {
-    public string Title { get; set; } = "OxyFramework Game";
+    public string Title { get; set; } = "OxyEngine Game";
     public bool Resizable { get; set; } = false;
     public int Width { get; set; } = 800;
     public int Height { get; set; } = 600;
@@ -14,17 +15,20 @@ namespace OxyEngine.Settings
     
     public void Apply(GameInstance instance)
     {
-      instance.Window.Title = Title;
-      instance.Window.AllowUserResizing = Resizable;
       instance.Window.AllowAltF4 = true;
-      instance.Window.IsBorderless = !AllowBorders;
-      instance.IsMouseVisible = CursorVisible;
 
-      instance.GraphicsDeviceManager.PreferredBackBufferWidth = Width;
-      instance.GraphicsDeviceManager.PreferredBackBufferHeight = Height;
-      instance.GraphicsDeviceManager.IsFullScreen = IsFullscreen;
+      var window = instance.GetApi().Window;
+      
+      window.SetTitle(Title);
+      window.SetResizable(Resizable);
+      window.SetBorders(AllowBorders);
+      window.SetCursorVisible(CursorVisible);
 
-      instance.GraphicsDeviceManager.ApplyChanges();
+      window.SetWidth(Width);
+      window.SetHeight(Height);
+      window.SetFullscreen(IsFullscreen);
+      
+      window.ApplyChanges();
     }
   }
 }

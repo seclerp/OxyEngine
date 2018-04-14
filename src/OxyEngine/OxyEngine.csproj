@@ -55,6 +55,8 @@
     <Compile Include="Ecs\Behaviours\IInitializable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
     <Compile Include="Ecs\Behaviours\IUpdateable.cs" />
+    <Compile Include="Ecs\Components\AudioEffectComponent.cs" />
+    <Compile Include="Ecs\Components\AudioEffectPlayMode.cs" />
     <Compile Include="Ecs\Components\GameComponent.cs" />
     <Compile Include="Ecs\Components\CircleComponent.cs" />
     <Compile Include="Ecs\Components\FigureComponent.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="Ecs\Components\PointComponent.cs" />
     <Compile Include="Ecs\Components\PolygonComponent.cs" />
     <Compile Include="Ecs\Components\RectangleComponent.cs" />
+    <Compile Include="Ecs\Components\SongComponent.cs" />
     <Compile Include="Ecs\Components\SpriteComponent.cs" />
     <Compile Include="Ecs\Components\TransformComponent.cs" />
     <Compile Include="Ecs\EcsInstance.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Settings\GameSettingsRoot.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
     <Compile Include="UniqueObject.cs" />
+    <Compile Include="Window\WindowManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
