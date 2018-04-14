@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using OxyEngine.Audio;
 using OxyEngine.Events;
 using OxyEngine.Graphics;
 using OxyEngine.Input;
@@ -10,6 +11,7 @@ using OxyEngine.Loggers;
 using OxyEngine.Projects;
 using OxyEngine.Resources;
 using OxyEngine.Settings;
+using OxyEngine.Window;
 
 namespace OxyEngine
 {
@@ -22,9 +24,11 @@ namespace OxyEngine
 
     private ResourceManager _resourceManager;
     private GraphicsManager _graphicsManager;
+    private AudioManager _audioManager;
     private IScriptingManager _scriptingManager;
     private GlobalEventsManager _eventsManager;
     private InputManager _inputManager;
+    private WindowManager _windowManager;
 
     #endregion
 
@@ -170,11 +174,14 @@ namespace OxyEngine
       // Graphics
       InitializeGraphics();
 
+      // Audio
+      InitializeGraphics();
+      
       // Input
       InitializeInput();
 
       // Window
-      // ...
+      InitializeWindow();
       
       //  Scripting
       InitializeScripting();
@@ -198,11 +205,23 @@ namespace OxyEngine
       _graphicsManager = new GraphicsManager(GraphicsDeviceManager, _defaultSpriteBatch, Project.GameSettings.GraphicsSettings);
       _api.Graphics = _graphicsManager;
     }
+    
+    private void InitializeAudio()
+    {
+      _audioManager = new AudioManager();
+      _api.Audio = _audioManager;
+    }
 
     private void InitializeInput()
     {
       _inputManager = new InputManager();
       _api.Input = _inputManager;
+    }
+    
+    private void InitializeWindow()
+    {
+      _windowManager = new WindowManager(this);
+      _api.Window = _windowManager;
     }
     
     private void InitializeScripting()
