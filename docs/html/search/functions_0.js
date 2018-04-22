@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['clear',['Clear',['../class_oxy_1_1_framework_1_1_rendering_1_1_text_renderer.html#ab5467e1d651a9affc35ae0e8e13e72d4',1,'Oxy::Framework::Rendering::TextRenderer']]]
+  ['circle',['Circle',['../class_oxy_engine_1_1_graphics_1_1_graphics_manager.html#a48f0e55177245038e5eca3df64cc5ddc',1,'OxyEngine.Graphics.GraphicsManager.Circle(float x, float y, float radius)'],['../class_oxy_engine_1_1_graphics_1_1_graphics_manager.html#a873d24f08b33b92579cfd85c078126ab',1,'OxyEngine.Graphics.GraphicsManager.Circle(Vector2 center, float radius)']]]
 ];

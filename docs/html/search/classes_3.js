@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['resources',['Resources',['../class_oxy_1_1_framework_1_1_resources.html',1,'Oxy::Framework']]]
+  ['resourcemanager',['ResourceManager',['../class_oxy_engine_1_1_resources_1_1_resource_manager.html',1,'OxyEngine::Resources']]]
 ];

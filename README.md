@@ -42,7 +42,7 @@ You can found tutorials on the **[wiki page](wiki)**.
 ## Compatibility
 
 ### Desktop
-OxyEngine has only 2 native dependencies for Desktop from MonoGame: **OpenAL** and **SDL2**. Both of them are shipped with OxyPlayground and you also need to provide these libs to get OxyEngine project to launch.
+OxyEngine has only 2 native dependencies for Desktop from MonoGame: **OpenAL** and **SDL2**. Both of them are shipped with MonoGame.
 
 More info in first tutorial.
 
@@ -50,15 +50,19 @@ More info in first tutorial.
 This section will show you how to install OxyEngine into your .NET project.
 
 ### From NuGet (preffered)
-We are using custom MyGet feed. You need to add this feed to your NuGet PM.
 
-#### NuGet V3:
-`https://www.myget.org/F/oxyteam/api/v3/index.json`
+#### Latest stable release
 
-#### NuGet V2:
-`https://www.myget.org/F/oxyteam/api/v2`
+Latest release you can find on **[NuGet.org](#)**.
 
-After that, install Oxy.Engine **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**. This is best choice for beginners.
+#### Developer build
+
+Every successful builded commit to `develop` branch push new nuget package to our custom NuGet feed:
+
+**MyGet feed (v3):** `https://www.myget.org/F/oxyteam/api/v3/index.json`
+**MyGet feed (v2):** `https://www.myget.org/F/oxyteam/api/v2`
+
+After adding feeds, install Oxy.Engine **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**.
 
 ### Building from sources (advanced)
 To install stable version of OxyEngine into your .NET Core App:

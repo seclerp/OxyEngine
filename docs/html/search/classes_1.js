@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['graphics',['Graphics',['../class_oxy_1_1_framework_1_1_graphics.html',1,'Oxy::Framework']]]
+  ['gameinstance',['GameInstance',['../class_oxy_engine_1_1_game_instance.html',1,'OxyEngine']]],
+  ['graphicsmanager',['GraphicsManager',['../class_oxy_engine_1_1_graphics_1_1_graphics_manager.html',1,'OxyEngine::Graphics']]]
 ];
