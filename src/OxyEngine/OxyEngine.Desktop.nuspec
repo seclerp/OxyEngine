@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>OxyEngine.Desktop</id>
+        <version>0.2.0</version>
+        <title>OxyEngine.Desktop</title>
+        <authors>OxyTeam</authors>
+        <owners>OxyTeam</owners>
+        <licenseUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/OxyTeam/OxyEngine</projectUrl>
+        <iconUrl>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/logo.png</iconUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Full-featured cross-platform 2D game engine that allows you to develop games using C# and Python</description>
+        <releaseNotes>https://raw.githubusercontent.com/OxyTeam/OxyEngine/develop/CHANGELOG.md</releaseNotes>
+        <copyright>Copyright © 2018 OxyTeam</copyright>
+        <tags>game opengl shader texture monogame engine framework gamedev graphic</tags>
+        <dependencies>
+            <dependency id="System.ValueTuple" version="4.4.0" />
+            <dependency id="MonoGame.Framework.DesktopGL" version="3.6.0" />
+            <dependency id="Newtonsoft.Json" version="11.0.2" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\..\artifacts\Release\OxyEngine\OxyEngine.dll" target="lib\net461" />
+    </files>
+</package>

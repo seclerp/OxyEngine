@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{401FA561-FB1A-4A6B-999D-3729D1DC3C4D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OxyEngine</RootNamespace>
+    <AssemblyName>OxyEngine</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <LangVersion>7.2</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\artifacts\Debug\OxyEngine</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\artifacts\Release\OxyEngine</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework, Version=3.6.0.1625, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.ValueTuple, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51">
+      <HintPath>..\..\packages\System.ValueTuple.4.4.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Audio\AudioManager.cs" />
+    <Compile Include="Dependency\Container.cs" />
+    <Compile Include="Dependency\InstanceName.cs" />
+    <Compile Include="Ecs\Behaviours\IDrawable.cs" />
+    <Compile Include="Ecs\Behaviours\IInitializable.cs" />
+    <Compile Include="Ecs\Behaviours\ILoadable.cs" />
+    <Compile Include="Ecs\Behaviours\IUpdateable.cs" />
+    <Compile Include="Ecs\Components\AudioEffectComponent.cs" />
+    <Compile Include="Ecs\Components\AudioEffectPlayMode.cs" />
+    <Compile Include="Ecs\Components\GameComponent.cs" />
+    <Compile Include="Ecs\Components\CircleComponent.cs" />
+    <Compile Include="Ecs\Components\FigureComponent.cs" />
+    <Compile Include="Ecs\Components\LineComponent.cs" />
+    <Compile Include="Ecs\Components\PointComponent.cs" />
+    <Compile Include="Ecs\Components\PolygonComponent.cs" />
+    <Compile Include="Ecs\Components\RectangleComponent.cs" />
+    <Compile Include="Ecs\Components\SongComponent.cs" />
+    <Compile Include="Ecs\Components\SpriteComponent.cs" />
+    <Compile Include="Ecs\Components\TransformComponent.cs" />
+    <Compile Include="Ecs\EcsInstance.cs" />
+    <Compile Include="Ecs\Entities\GameEntity.cs" />
+    <Compile Include="Ecs\Entities\TransformEntity.cs" />
+    <Compile Include="Ecs\Enums\FigureFillStyle.cs" />
+    <Compile Include="Ecs\Interfaces\IConstructable.cs" />
+    <Compile Include="Ecs\Interfaces\ITransformable.cs" />
+    <Compile Include="Ecs\Systems\GameSystem.cs" />
+    <Compile Include="Ecs\Systems\DrawSystem.cs" />
+    <Compile Include="Ecs\Systems\GameSystemManager.cs" />
+    <Compile Include="Ecs\Systems\GameSystems.cs" />
+    <Compile Include="Ecs\Systems\GenericSystem.cs" />
+    <Compile Include="Ecs\Systems\GameSystemActionAttribute.cs" />
+    <Compile Include="Events\Args\EngineEventArgs.cs" />
+    <Compile Include="Events\Args\EngineUpdateEventArgs.cs" />
+    <Compile Include="Events\ListenEventAttribute.cs" />
+    <Compile Include="Events\EventNames.cs" />
+    <Compile Include="Events\EventSystem.cs" />
+    <Compile Include="Events\GlobalEventsManager.cs" />
+    <Compile Include="Events\Handlers\EngineEventHandler.cs" />
+    <Compile Include="Graphics\Transformation.cs" />
+    <Compile Include="Helpers\CollectionsHelper.cs" />
+    <Compile Include="Helpers\DelegatesHelper.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Interfaces\IApiUser.cs" />
+    <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\ISettings.cs" />
+    <Compile Include="Interfaces\IModule.cs" />
+    <Compile Include="Interfaces\IScriptingManager.cs" />
+    <Compile Include="Loggers\ConsoleLogger.cs" />
+    <Compile Include="Loggers\LogManager.cs" />
+    <Compile Include="Mapping\InputMap.cs" />
+    <Compile Include="OxyApi.cs" />
+    <Compile Include="GameInstance.cs" />
+    <Compile Include="Projects\GameProject.cs" />
+    <Compile Include="Projects\GameProjectLoader.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Graphics\Extensions\Primitives2D.cs" />
+    <Compile Include="Graphics\GraphicsManager.cs" />
+    <Compile Include="Graphics\GraphicsState.cs" />
+    <Compile Include="Resources\ResourceManager.cs" />
+    <Compile Include="Settings\GraphicsSettings.cs" />
+    <Compile Include="Settings\ResourcesSettings.cs" />
+    <Compile Include="Settings\SettingsManager.cs" />
+    <Compile Include="Settings\GameSettingsRoot.cs" />
+    <Compile Include="Settings\WindowSettings.cs" />
+    <Compile Include="UniqueObject.cs" />
+    <Compile Include="Window\WindowManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OxyEngine.Desktop.nuspec" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+         Other similar extension points exist, see Microsoft.Common.targets.
+    <Target Name="BeforeBuild">
+    </Target>
+    <Target Name="AfterBuild">
+    </Target>
+    -->
+</Project>

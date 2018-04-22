@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rotate',['Rotate',['../class_oxy_1_1_framework_1_1_graphics.html#a564b60e6e119dd2fc0ae7fe2aa4bbc51',1,'Oxy::Framework::Graphics']]]
+  ['translate',['Translate',['../class_oxy_engine_1_1_graphics_1_1_graphics_manager.html#a8945c21c560ecfe1bbfb7ec96ce55cbe',1,'OxyEngine::Graphics::GraphicsManager']]]
 ];
