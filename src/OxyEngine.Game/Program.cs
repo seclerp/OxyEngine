@@ -1,8 +1,5 @@
 ﻿using System;
-using Microsoft.Xna.Framework;
 using OxyEngine.Ecs;
-using OxyEngine.Ecs.Components;
-using OxyEngine.Ecs.Entities;
 using OxyEngine.Events;
 using OxyEngine.Loggers;
 using OxyEngine.Projects;
