@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['idrawable',['IDrawable',['../interface_oxy_1_1_framework_1_1_interfaces_1_1_i_drawable.html',1,'Oxy::Framework::Interfaces']]],
-  ['input',['Input',['../class_oxy_1_1_framework_1_1_input.html',1,'Oxy::Framework']]],
-  ['inputmap',['InputMap',['../class_oxy_1_1_framework_1_1_mappings_1_1_input_map.html',1,'Oxy::Framework::Mappings']]]
+  ['iconstructable',['IConstructable',['../interface_oxy_engine_1_1_ecs_1_1_interfaces_1_1_i_constructable.html',1,'OxyEngine::Ecs::Interfaces']]],
+  ['imodule',['IModule',['../interface_oxy_engine_1_1_interfaces_1_1_i_module.html',1,'OxyEngine::Interfaces']]],
+  ['inputmanager',['InputManager',['../class_oxy_engine_1_1_input_1_1_input_manager.html',1,'OxyEngine::Input']]],
+  ['inputmap',['InputMap',['../class_oxy_engine_1_1_mapping_1_1_input_map.html',1,'OxyEngine::Mapping']]]
 ];
