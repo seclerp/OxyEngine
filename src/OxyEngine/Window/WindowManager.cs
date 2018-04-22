@@ -1,5 +1,4 @@
-﻿using Microsoft.Xna.Framework;
-using OxyEngine.Interfaces;
+﻿using OxyEngine.Interfaces;
 
 namespace OxyEngine.Window
 {
