@@ -53,13 +53,14 @@ This section will show you how to install OxyEngine into your .NET project.
 
 #### Latest stable release
 
-Latest release you can find on **[NuGet.org](#)**.
+Latest release you can find on **[NuGet.org](https://www.nuget.org/packages?q=OxyEngine)**.
 
 #### Developer build
 
 Every successful builded commit to `develop` branch push new nuget package to our custom NuGet feed:
 
 **MyGet feed (v3):** `https://www.myget.org/F/oxyteam/api/v3/index.json`
+
 **MyGet feed (v2):** `https://www.myget.org/F/oxyteam/api/v2`
 
 After adding feeds, install Oxy.Engine **[NuGet package](https://www.myget.org/feed/oxyteam/package/nuget/Oxy.Framework)**.
@@ -76,7 +77,7 @@ To install stable version of OxyEngine into your .NET Core App:
   
 # Examples
 
-**[All examples](#)**
+**[Quick start](https://github.com/OxyTeam/WIki/tree/master/Tutorials/quick-start-for-building-prototypes/QuickStart)**
 
 
 # Changelog
