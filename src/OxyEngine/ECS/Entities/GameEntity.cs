@@ -58,7 +58,7 @@ namespace OxyEngine.Ecs.Entities
     /// <typeparam name="T">Component type</typeparam>
     public T AddComponent<T>() where T : GameComponent
     {
-      var component = DynamicFactory.NewInstance<T>();
+      var component = Activator.CreateInstance<T>();
 
       AddComponent(component);
       

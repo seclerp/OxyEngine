@@ -52,9 +52,9 @@ namespace OxyEngine.Ecs.Components
       return component;
     }
 
-    public OxyApi GetApi()
+    public IOxyApi GetApi()
     {
-      return Container.Instance.ResolveByName<OxyApi>(InstanceName.Api);
+      return Container.Instance.ResolveByName<IOxyApi>(InstanceName.Api);
     }
   }
 }

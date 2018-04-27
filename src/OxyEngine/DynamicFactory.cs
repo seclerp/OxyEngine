@@ -9,8 +9,9 @@ namespace OxyEngine
 {
   public static class DynamicFactory
   {
-    private static Dictionary<Type, object> _objectActivatorCache = new Dictionary<Type, object>();
-    private delegate T ObjectActivator<T>(params object[] args);
+    private static readonly Dictionary<Type, object> _objectActivatorCache = new Dictionary<Type, object>();
+    
+    private delegate T ObjectActivator<out T>(params object[] args);
 
     /// <summary>
     ///   Returns dynamically created instance of type T with given args in constructor
@@ -50,11 +51,9 @@ namespace OxyEngine
       ParameterInfo[] paramsInfo = ctor.GetParameters();
 
       // Create a single param of type object[]
-      ParameterExpression param =
-        Expression.Parameter(typeof(object[]), "args");
+      ParameterExpression param = Expression.Parameter(typeof(object[]), "args");
 
-      Expression[] argsExp =
-        new Expression[paramsInfo.Length];
+      Expression[] argsExp = new Expression[paramsInfo.Length];
 
       // Pick each arg from the params array 
       // and create a typed expression of them
