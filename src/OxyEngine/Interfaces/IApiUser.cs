@@ -2,6 +2,6 @@
 {
   public interface IApiUser
   {
-    OxyApi GetApi();
+    IOxyApi GetApi();
   }
 }

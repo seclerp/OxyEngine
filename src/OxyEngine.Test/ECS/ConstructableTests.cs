@@ -1,16 +1,24 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using FakeItEasy;
 using NUnit.Framework;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Components;
 using OxyEngine.Ecs.Entities;
+using OxyEngine.Interfaces;
 
 namespace OxyEngine.Test.ECS
 {
   [TestFixture]
-  public class Constructable
+  public class ConstructableTests
   {
+    [SetUp]
+    public void Setup()
+    {
+    }
+    
     [Test]
-    [Ignore("Need to be fixed explicitly")]
+//    [Ignore("Need to be fixed explicitly")]
     public void Entity_AddGenericGetComponent()
     {
       var entity = new TransformEntity();
@@ -22,7 +30,7 @@ namespace OxyEngine.Test.ECS
     }
     
     [Test]
-    [Ignore("Need to be fixed explicitly")]
+//    [Ignore("Need to be fixed explicitly")]
     public void Entity_AddGetComponent()
     {
       var entity = new TransformEntity();
@@ -35,7 +43,7 @@ namespace OxyEngine.Test.ECS
     }
     
     [Test]
-    [Ignore("Need to be fixed explicitly")]
+//    [Ignore("Need to be fixed explicitly")]
     public void Entity_AddGenericRemoveCompoent()
     {
       var entity = new TransformEntity();
@@ -55,7 +63,7 @@ namespace OxyEngine.Test.ECS
     }
     
     [Test]
-    [Ignore("Need to be fixed explicitly")]
+//    [Ignore("Need to be fixed explicitly")]
     public void Entity_AddRemoveComponent()
     {
       var entity = new TransformEntity();
@@ -76,7 +84,7 @@ namespace OxyEngine.Test.ECS
     }
     
     [Test]
-    [Ignore("Need to be fixed explicitly")]
+//    [Ignore("Need to be fixed explicitly")]
     public void Entity_GetComponents()
     {
       var entity = new TransformEntity();

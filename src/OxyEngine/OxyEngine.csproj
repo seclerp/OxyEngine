@@ -51,6 +51,7 @@
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Dependency\Container.cs" />
     <Compile Include="Dependency\InstanceName.cs" />
+    <Compile Include="DynamicFactory.cs" />
     <Compile Include="Ecs\Behaviours\IDrawable.cs" />
     <Compile Include="Ecs\Behaviours\IInitializable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Interfaces\IApiUser.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
+    <Compile Include="Interfaces\IOxyApi.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />
     <Compile Include="Interfaces\IScriptingManager.cs" />

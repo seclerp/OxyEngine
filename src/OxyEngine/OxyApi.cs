@@ -8,7 +8,7 @@ using OxyEngine.Window;
 
 namespace OxyEngine
 {
-  public class OxyApi
+  public class OxyApi : IOxyApi
   {
     public ResourceManager Resources { get; internal set; }
     public GraphicsManager Graphics { get; internal set; }

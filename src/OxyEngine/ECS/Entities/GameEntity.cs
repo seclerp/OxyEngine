@@ -58,7 +58,7 @@ namespace OxyEngine.Ecs.Entities
     /// <typeparam name="T">Component type</typeparam>
     public T AddComponent<T>() where T : GameComponent
     {
-      var component = Activator.CreateInstance<T>();
+      var component = DynamicFactory.NewInstance<T>();
 
       AddComponent(component);
       
@@ -194,7 +194,7 @@ namespace OxyEngine.Ecs.Entities
     /// <returns>Newly created Entity</returns>
     public T AddChild<T>() where T : GameEntity
     {
-      return (T) Activator.CreateInstance(typeof(T), this);
+      return DynamicFactory.NewInstance<T>(this);
     }
 
     /// <summary>
@@ -303,9 +303,9 @@ namespace OxyEngine.Ecs.Entities
 
     #endregion
 
-    public OxyApi GetApi()
+    public IOxyApi GetApi()
     {
-      return Container.Instance.ResolveByName<OxyApi>(InstanceName.Api);
+      return Container.Instance.ResolveByName<IOxyApi>(InstanceName.Api);
     }
   }
 } 

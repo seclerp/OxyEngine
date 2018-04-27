@@ -94,7 +94,7 @@ namespace OxyEngine
     ///   Returns API object that contain engine modules
     /// </summary>
     /// <returns></returns>
-    public OxyApi GetApi()
+    public IOxyApi GetApi()
     {
       return _api;
     }
