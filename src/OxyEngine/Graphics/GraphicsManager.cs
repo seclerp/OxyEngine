@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.ComTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Graphics.Extensions;
@@ -170,12 +171,21 @@ namespace OxyEngine.Graphics
     /// <summary>
     ///   Sets target for drawing anything to a RenderTarget2D (also known as render texture) 
     /// </summary>
-    /// <param name="texture"></param>
+    /// <param name="texture">Render texture to draw on</param>
     public void SetRenderTexture(RenderTarget2D texture = null)
     {
       _graphicsDeviceManager.GraphicsDevice.SetRenderTarget(texture);
     }
 
+    /// <summary>
+    ///   Set current font for printing text
+    /// </summary>
+    /// <param name="font">Font to use for printing</param>
+    public void SetFont(SpriteFont font)
+    {
+      _currentState.Font = font;
+    }
+    
     #endregion
 
     #region Get
@@ -207,10 +217,54 @@ namespace OxyEngine.Graphics
       return _currentState.LineWidth;
     }
 
+    /// <summary>
+    ///   Returns render target or null if it is not set
+    /// </summary>
+    /// <returns>render target or null if it is not set</returns>
+    public RenderTarget2D GetRenderTexture()
+    {
+      if (_graphicsDeviceManager.GraphicsDevice.RenderTargetCount == 0)
+      {
+        return null;
+      }
+
+      var targets = new RenderTargetBinding[_graphicsDeviceManager.GraphicsDevice.RenderTargetCount];
+      _graphicsDeviceManager.GraphicsDevice.GetRenderTargets(targets);
+      
+      return targets[0].RenderTarget as RenderTarget2D;
+    }
+
+    /// <summary>
+    ///   Returns current font used by printing
+    /// </summary>
+    /// <returns>current font used by printing</returns>
+    public SpriteFont GetFont()
+    {
+      return _currentState.Font;
+    }
+
     #endregion
 
     #region Drawing
 
+    /// <summary>
+    ///   Prints text on screen
+    /// </summary>
+    /// <param name="text">Text to print</param>
+    /// <param name="x">X coordinate</param>
+    /// <param name="y">Y coordinate</param>
+    /// <param name="ox">X offset</param>
+    /// <param name="oy">Y offset</param>
+    /// <param name="r">Rotation</param>
+    /// <param name="sx">X scale factor</param>
+    /// <param name="sy">Y scale factor</param>
+    public void Print(string text, float x = 0, float y = 0, float ox = 0, float oy = 0, float r = 0, float sx = 1,
+      float sy = 1)
+    {
+      _defaultSpriteBatch.DrawString(_currentState.Font, text, new Vector2(x, y), _currentState.ForegroundColor, r, new Vector2(ox, oy), 
+        new Vector2(sx, sy), SpriteEffects.None, 0);
+    }
+    
     /// <summary>
     ///   Draw texture on the screen with given position, rotation and scale
     /// </summary>
@@ -225,8 +279,7 @@ namespace OxyEngine.Graphics
     public void Draw(Texture2D texture, float x = 0, float y = 0, float ox = 0, float oy = 0, float r = 0, float sx = 1,
       float sy = 1)
     {
-      _defaultSpriteBatch.Draw(texture, new Vector2(x, y), null, 
-        _currentState.ForegroundColor, r, new Vector2(ox, oy), 
+      _defaultSpriteBatch.Draw(texture, new Vector2(x, y), null, _currentState.ForegroundColor, r, new Vector2(ox, oy), 
         new Vector2(sx, sy), SpriteEffects.None, 0);
     }
 
