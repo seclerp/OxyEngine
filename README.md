@@ -1,14 +1,18 @@
-![OxyEngine](https://i.imgur.com/BjjCdjB.png)
+<p align="center">
+  <img src="https://i.imgur.com/BjjCdjB.png" alt="OxyEngine">
+</p>
 
-**OxyEngine** is a full-featured cross-platform 2D game engine that allows you to develop games using **C#** and **Python**.
+<p align="center">
+  <b>OxyEngine</b> is a full-featured cross-platform 2D game engine that allows you to develop games using <b>C#</b> and <b>Python</b>.
+</p>
 
-| :speech_balloon: | :white_check_mark: | `develop` | `master` |
-|---------|---------|---------|--------|
-| [![Gitter chat](https://badges.gitter.im/gitterHQ/gitter.png)](https://gitter.im/OxyEngine/Lobby) | [![BCH compliance](https://bettercodehub.com/edge/badge/OxyTeam/OxyEngine?branch=develop)](https://bettercodehub.com/) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop) | [![Build status](https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true)](https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master) |
-
+<p align="center">
+  :speech_balloon: <a href="https://gitter.im/OxyEngine/Lobby">Gitter</a> <b>|</b> 
+  `develop` <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true"></a> <b>|</b> 
+  `master` <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true"></a>
+</p>
 
 ---
-
 
 # Getting Started
 
