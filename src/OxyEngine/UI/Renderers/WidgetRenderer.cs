@@ -13,7 +13,7 @@ namespace OxyEngine.UI.Renderers
     {
       GraphicsApi = Container.Instance.ResolveByName<OxyApi>(InstanceName.Api).Graphics;
     }
-    
+
     public abstract void Render();
   }
 }

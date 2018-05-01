@@ -14,6 +14,8 @@ namespace OxyEngine.UI.Widgets
 
     public Vector2 Position { get; set; }
     public Vector2 Size { get; set; }
+    // Size + Margin
+    public Vector2 FullSize => new Vector2(Size.X + MarginLeft + MarginRight, Size.Y + MarginTop + MarginBottom);
 
     public float X => Position.X;
     public float Y => Position.Y;
@@ -36,10 +38,18 @@ namespace OxyEngine.UI.Widgets
     public float PaddingTop { get; set; } = 0;
     public float PaddingBottom { get; set; } = 0;
 
+    // Padding is inclided in Width and Height
     public float Padding
     {
       set => PaddingLeft = PaddingRight = PaddingTop = PaddingBottom = value;
     }
+
+    public Rectangle ClientRectangle => new Rectangle(
+      (int)(X + PaddingLeft + MarginLeft), 
+      (int)(Y + PaddingTop + MarginTop), 
+      (int)(X + Width - PaddingRight - MarginRight), 
+      (int)(X + Height - PaddingBottom - MarginBottom)
+    );
 
     public bool IsVisible { get; set; } = true;
 
@@ -51,7 +61,10 @@ namespace OxyEngine.UI.Widgets
 
     public void Render()
     {
-      _renderer.Render();
+      if (IsVisible)
+      {
+        _renderer.Render();
+      }
     }
     
     public void BindRead()

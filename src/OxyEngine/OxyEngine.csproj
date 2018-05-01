@@ -116,11 +116,16 @@
     <Compile Include="Settings\GameSettingsRoot.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
     <Compile Include="UI\DataBinders\WidgetDataBinder.cs" />
+    <Compile Include="UI\Enums\HorizontalAlignment.cs" />
+    <Compile Include="UI\Enums\VerticalAlignment.cs" />
+    <Compile Include="UI\Renderers\HorizontalLayoutRenderer.cs" />
     <Compile Include="UI\Renderers\TextRenderer.cs" />
     <Compile Include="UI\Renderers\WidgetRenderer.cs" />
     <Compile Include="UI\Widgets\ContainerWidget.cs" />
     <Compile Include="UI\Widgets\GraphicsWidget.cs" />
+    <Compile Include="UI\Widgets\HorizontalLayout.cs" />
     <Compile Include="UI\Widgets\Image.cs" />
+    <Compile Include="UI\Widgets\LayoutWidget.cs" />
     <Compile Include="UI\Widgets\Text.cs" />
     <Compile Include="UI\Widgets\Widget.cs" />
     <Compile Include="UniqueObject.cs" />

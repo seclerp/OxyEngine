@@ -1,25 +1,60 @@
-﻿using OxyEngine.UI.Widgets;
+﻿using System.Runtime.Serialization.Formatters;
+using OxyEngine.UI.Enums;
+using OxyEngine.UI.Widgets;
 
 namespace OxyEngine.UI.Renderers
 {
   public class TextRenderer : WidgetRenderer
   {
-    private Text _text;
+    private Text _widget;
     
-    public TextRenderer(Text text)
+    public TextRenderer(Text widget)
     {
-      _text = text;
+      _widget = widget;
     }
 
     public override void Render()
     {
       var beforeColor = GraphicsApi.GetColor();
-      GraphicsApi.SetColor(_text.BackgroundColor.R, _text.BackgroundColor.G, _text.BackgroundColor.B, _text.BackgroundColor.A);
-      GraphicsApi.Rectangle("fill", (int) _text.X, (int) _text.Y, (int) _text.Width, (int) _text.Height);
+      GraphicsApi.SetColor(_widget.BackgroundColor.R, _widget.BackgroundColor.G, _widget.BackgroundColor.B, _widget.BackgroundColor.A);
+      GraphicsApi.Rectangle("fill", (int) _widget.X, (int) _widget.Y, (int) _widget.Width, (int) _widget.Height);
+      
       var beforeFont = GraphicsApi.GetFont();
-      GraphicsApi.SetFont(_text.Font);
-      GraphicsApi.SetColor(_text.ForegroundColor.R, _text.ForegroundColor.G, _text.ForegroundColor.B, _text.ForegroundColor.A);
-      GraphicsApi.Print(_text.Value);
+      GraphicsApi.SetFont(_widget.Font);
+      GraphicsApi.SetColor(_widget.ForegroundColor.R, _widget.ForegroundColor.G, _widget.ForegroundColor.B, _widget.ForegroundColor.A);
+
+      var textSize = _widget.Font.MeasureString(_widget.Value);
+      var finalX = 0f;
+      var finalY = 0f;
+      
+      switch (_widget.HTextAlign)
+      {
+        case HorizontalAlignment.Left:
+          finalX = _widget.PaddingLeft;
+          break;
+        case HorizontalAlignment.Center:
+          finalX = (_widget.Size.X - _widget.PaddingLeft - _widget.PaddingRight - textSize.X) / 2;
+          break;
+        case HorizontalAlignment.Right:
+          finalX = _widget.Size.X - _widget.PaddingRight - textSize.X;
+          break;
+      }
+      
+      switch (_widget.VTextAlign)
+      {
+        case VerticalAlignment.Top:
+          finalY = _widget.PaddingTop;
+          break;
+        case VerticalAlignment.Middle:
+          finalY = (_widget.Size.Y - _widget.PaddingTop - _widget.PaddingBottom - textSize.Y) / 2;
+          break;
+        case VerticalAlignment.Bottom:
+          finalY = _widget.Size.Y - _widget.PaddingBottom - textSize.Y;
+          break;
+      }
+      
+      GraphicsApi.Print(_widget.Value, finalX, finalY);
+
       GraphicsApi.SetFont(beforeFont);
       GraphicsApi.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
     }
