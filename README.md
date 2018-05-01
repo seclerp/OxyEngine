@@ -8,7 +8,7 @@
 
 <p align="center">
   :speech_balloon: <b><a href="https://gitter.im/OxyEngine/Lobby">Gitter</a></b> <b>|</b> 
-  <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails"></a> <b>|</b> 
+  <a style="vertical-align: middle;" href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails"></a> <b>|</b> 
   <!-- https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails -->
   <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true"></a>
 </p>
