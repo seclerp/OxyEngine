@@ -7,10 +7,10 @@
 </p>
 
 <p align="center">
+  :book: <b><a href="https://oxyteam.github.io/docs/">Documentation</a></b><br><br>
   :speech_balloon: <b><a href="https://gitter.im/OxyEngine/Lobby">Gitter</a></b><br><br>
-  <a style="vertical-align: middle;" href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails"></a> 
-  <!-- https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails -->
-  <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true"></a>
+  <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails"></a> 
+  <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true&passingText=master%20-%20OK&failingText=master%20-%20Fails"></a>
 </p>
 
 ---
