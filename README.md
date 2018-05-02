@@ -6,9 +6,12 @@
   <b>OxyEngine</b> is a full-featured cross-platform 2D game engine that allows you to develop games using <b>C#</b> and <b>Python</b>.
 </p>
 
+---
+
 <p align="center">
-  :book: <b><a href="https://oxyteam.github.io/docs/">Documentation</a></b><br><br>
+  :book: <b><a href="https://oxyteam.github.io/docs/">Documentation</a></b>
   :speech_balloon: <b><a href="https://gitter.im/OxyEngine/Lobby">Gitter</a></b><br><br>
+  <b>Build status:</b><br><br>
   <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails"></a> 
   <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/master"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/master?svg=true&passingText=master%20-%20OK&failingText=master%20-%20Fails"></a>
 </p>
