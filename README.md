@@ -9,7 +9,7 @@
 ---
 
 <p align="center">
-  :book: <b><a href="https://oxyteam.github.io/docs/">Documentation</a></b>
+  :book: <b><a href="https://oxyteam.github.io/docs/">Documentation</a></b> | 
   :speech_balloon: <b><a href="https://gitter.im/OxyEngine/Lobby">Gitter</a></b><br><br>
   <b>Build status:</b><br><br>
   <a href="https://ci.appveyor.com/project/AndrewRublyov/oxyengine-y2q1n/branch/develop"><img src="https://ci.appveyor.com/api/projects/status/tyg13hjkm01vb3yd/branch/develop?svg=true&passingText=develop%20-%20OK&failingText=develop%20-%20Fails"></a> 
