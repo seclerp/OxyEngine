@@ -62,7 +62,7 @@
       }
     ],
     "filter": "filterConfig.yml",
-    "dest": "_site",
+    "dest": "../../artifacts/Docs",
     "template": ["default", "templates/mathew"]
   }
 }
