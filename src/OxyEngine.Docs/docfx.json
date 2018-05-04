@@ -30,6 +30,7 @@
         "files": [
           "api/*.md",
           "articles/**.md",
+          "articles/toc.yml",
           "toc.yml",
           "*.md"
         ],
@@ -63,6 +64,6 @@
     ],
     "filter": "filterConfig.yml",
     "dest": "../../artifacts/Docs",
-    "template": ["default", "templates/mathew"]
+    "template": ["templates/default", "templates/mathew", "templates/lightbox-featherlight"]
   }
 }
