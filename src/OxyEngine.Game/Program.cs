@@ -19,8 +19,9 @@ namespace OxyEngine.Game
 
       using (var ecsInstance = new EcsInstance(project))
       {
-        ecsInstance.GetApi().Events.Global.LogListenerRegistration = true;
-        ecsInstance.GetApi().Events.Global.StartListening(
+        ecsInstance.Events.Global.LogListenerRegistration = true;
+        
+        ecsInstance.Events.Global.StartListening(
           EventNames.Initialization.OnInit, 
           (sender, eventArgs) =>
           {
@@ -28,8 +29,8 @@ namespace OxyEngine.Game
             ecsInstance.SetRootEntity(gameScene);
           }
         );
+        
         ecsInstance.InitializeEventListeners();
-
         ecsInstance.Run();
       }
     }

@@ -11,12 +11,19 @@
     
     public static class Gameloop
     {
-      public const string OnUpdate = "update";
-    }
-    
-    public static class Graphics
-    {
-      public const string OnDraw = "draw";
+      public static class Update
+      {
+        public const string OnBeginUpdate = "beginupdate";
+        public const string OnUpdate = "update";
+        public const string OnEndUpdate = "endupdate";
+      }
+      
+      public static class Draw
+      {
+        public const string OnBeginDraw = "begindraw";
+        public const string OnDraw = "draw";
+        public const string OnEndDraw = "enddraw";
+      }
     }
     
     public static class Window

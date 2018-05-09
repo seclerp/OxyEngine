@@ -8,7 +8,7 @@ using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Entities
 {
-  public class GameEntity : UniqueObject, IConstructable, IApiUser
+  public class GameEntity : UniqueObject, IConstructable, IApiProvider
   {
     public string Name { get; set; }
     

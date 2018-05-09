@@ -19,10 +19,31 @@ namespace OxyEngine.Input
     
     private bool _anyGamePadConnected;
 
-    public InputManager()
+    public InputManager(GameInstance gameInstance)
     {
       _map = new InputMap();
       _anyGamePadConnected = false;
+      
+      
+    }
+    
+    private void UpdateInput()
+    {
+      UpdateAllGamepadStates();
+      UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
+    }
+
+    private void UpdateAllGamepadStates()
+    {
+      var count = GamePad.MaximumGamePadCount;
+
+      if (_gamePadStates == null)
+        _gamePadStates = new GamePadState[count];
+      
+      for (int i = 0; i < count; i++)
+      {
+        _gamePadStates[i] = GamePad.GetState(i);
+      }
     }
     
     public void UpdateInputState(KeyboardState keyboardState, MouseState mouseState, GamePadState[] gamePadStates)

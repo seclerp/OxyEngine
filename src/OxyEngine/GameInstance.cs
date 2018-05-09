@@ -18,25 +18,14 @@ namespace OxyEngine
   /// <summary>
   /// This is the main type for your game.
   /// </summary>
-  public class GameInstance : Game, IApiUser
+  public class GameInstance : Game, IApiProvider
   {
-    #region Modules
-
-    private ResourceManager _resourceManager;
-    private GraphicsManager _graphicsManager;
-    private AudioManager _audioManager;
-    private IScriptingManager _scriptingManager;
-    private GlobalEventsManager _eventsManager;
-    private InputManager _inputManager;
-    private WindowManager _windowManager;
-
-    #endregion
-
+    public GlobalEventsManager Events { get; private set; }
+    
     internal readonly GraphicsDeviceManager GraphicsDeviceManager;
+    
+    // Must be protected, because inherit members may use it
     protected GameProject Project;
-
-    private SpriteBatch _defaultSpriteBatch;
-    private GamePadState[] _gamePadStates;
 
     private OxyApi _api;
     
@@ -48,7 +37,7 @@ namespace OxyEngine
       Content.RootDirectory = project.ContentFolderPath;
       _api = new OxyApi();
       
-      // Events must be initialized before Initialize
+      // Events must be initialized before Initialize (because other modules depends on it)
       InitializeEvents();
     }
 
@@ -58,7 +47,7 @@ namespace OxyEngine
       base.Run();
     }
     
-    protected override void Initialize()
+    protected sealed override void Initialize()
     {
       LogManager.Log("Initializing modules...");
       InitializeModules();
@@ -66,7 +55,7 @@ namespace OxyEngine
       ApplySettings(Project.GameSettings);
       LogManager.Log("Init event started..");
       
-      _eventsManager.Init();
+      Events.Init();
       
       // Do not remove
       base.Initialize();
@@ -81,12 +70,12 @@ namespace OxyEngine
     /// <param name="scriptingFrontend"></param>
     public void SetScripting(IScriptingManager scriptingFrontend)
     {
-      if (_scriptingManager != null)
-        throw new Exception($"Scripting has already set to {_scriptingManager.GetType().Name}");
+      if (_api.Scripting != null)
+        throw new Exception($"Scripting has already set to {_api.Scripting.GetType().Name}");
       
       // We not actually initialize scripting here, because Initialize() not called yet
       // see SetScripting
-      _scriptingManager = scriptingFrontend;
+      _api.Scripting = scriptingFrontend;
       LogManager.Log($"Using scripting frontend: {scriptingFrontend.GetType().Name}");
     }
 
@@ -106,17 +95,17 @@ namespace OxyEngine
     protected override void LoadContent()
     {
       LogManager.Log("Load event starting...");
-      _eventsManager.Load();
+      Events.Load();
     }
 
     protected override void UnloadContent()
     {
       LogManager.Log("UnLoad event starting...");
-      _eventsManager.Unload();
+      Events.Unload();
       
       // Free resources
-      _resourceManager.Dispose();
-      _resourceManager = null;
+      _api.Resources.Dispose();
+      _api.Resources = null;
     }
 
     protected override void Update(GameTime gameTime)
@@ -127,37 +116,18 @@ namespace OxyEngine
         Exit();
       }
 
-      UpdateInput();
+      Events.BeginUpdate();
+      Events.Update(gameTime.ElapsedGameTime.TotalSeconds);
+      Events.EndUpdate();
       
-      _eventsManager.Update(gameTime.ElapsedGameTime.TotalSeconds);
-
       base.Update(gameTime);
-    }
-
-    private void UpdateInput()
-    {
-      UpdateAllGamepadStates();
-      _inputManager.UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
-    }
-
-    private void UpdateAllGamepadStates()
-    {
-      var count = GamePad.MaximumGamePadCount;
-
-      if (_gamePadStates == null)
-        _gamePadStates = new GamePadState[count];
-      
-      for (int i = 0; i < count; i++)
-      {
-        _gamePadStates[i] = GamePad.GetState(i);
-      }
     }
     
     protected override void Draw(GameTime gameTime)
     {
-      _graphicsManager.BeginDraw();
-      _eventsManager.Draw();
-      _graphicsManager.EndDraw();
+      Events.BeginDraw();
+      Events.Draw();
+      Events.EndDraw();
 
       base.Draw(gameTime);
     }
@@ -165,7 +135,12 @@ namespace OxyEngine
     #endregion
 
     #region Initialization
-
+    
+    private void InitializeEvents()
+    {
+      Events = new GlobalEventsManager();
+    }
+    
     private void InitializeModules()
     {    
       // Resources
@@ -175,7 +150,7 @@ namespace OxyEngine
       InitializeGraphics();
 
       // Audio
-      InitializeGraphics();
+      InitializeAudio();
       
       // Input
       InitializeInput();
@@ -183,58 +158,46 @@ namespace OxyEngine
       // Window
       InitializeWindow();
       
-      //  Scripting
+      // Scripting
       InitializeScripting();
-    }
-
-    private void InitializeEvents()
-    {
-      _eventsManager = new GlobalEventsManager();
-      _api.Events = _eventsManager;
     }
 
     private void InitializeResources()
     {
-      _resourceManager = new ResourceManager(Content, Project.GameSettings.ResourcesSettings);
-      _api.Resources = _resourceManager;
+      _api.Resources = new ResourceManager(this, Content, Project.GameSettings.ResourcesSettings);
     }
 
     private void InitializeGraphics()
     {
-      _defaultSpriteBatch = new SpriteBatch(GraphicsDevice);
-      _graphicsManager = new GraphicsManager(GraphicsDeviceManager, _defaultSpriteBatch, Project.GameSettings.GraphicsSettings);
-      _api.Graphics = _graphicsManager;
+      var spriteBatch = new SpriteBatch(GraphicsDevice);
+      _api.Graphics = new GraphicsManager(this, GraphicsDeviceManager, spriteBatch, Project.GameSettings.GraphicsSettings);
     }
     
     private void InitializeAudio()
     {
-      _audioManager = new AudioManager();
-      _api.Audio = _audioManager;
+      _api.Audio = new AudioManager();
     }
 
     private void InitializeInput()
     {
-      _inputManager = new InputManager();
-      _api.Input = _inputManager;
+      _api.Input = new InputManager(this);
     }
     
     private void InitializeWindow()
     {
-      _windowManager = new WindowManager(this);
-      _api.Window = _windowManager;
+      _api.Window = new WindowManager(this);
     }
     
     private void InitializeScripting()
     {
       // No scripting frontend provided
-      if (_scriptingManager == null)
+      if (_api.Scripting == null)
         return;
       
-      _scriptingManager.Initialize(Project.ContentFolderPath);
+      _api.Scripting.Initialize(Project.ContentFolderPath);
       
       // Add API to scripts
-      _scriptingManager.SetGlobal("Oxy", _api);
-      _api.Scripting = _scriptingManager;
+      _api.Scripting.SetGlobal("Oxy", _api);
     }
 
     #endregion

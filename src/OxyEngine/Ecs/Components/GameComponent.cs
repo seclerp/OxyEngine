@@ -7,7 +7,7 @@ using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Components
 {
-  public abstract class GameComponent : UniqueObject, IApiUser
+  public abstract class GameComponent : UniqueObject, IApiProvider
   {
     public GameEntity Entity { get; private set; }
     public string SystemName { get; }

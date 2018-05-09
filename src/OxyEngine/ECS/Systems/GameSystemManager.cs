@@ -11,7 +11,6 @@ namespace OxyEngine.Ecs.Systems
     public GenericSystem GenericSystem { get; private set; }
     public DrawSystem DrawSystem { get; private set; }
 
-    private GlobalEventsManager _events;
     private GameInstance _gameInstance;
 
     public GameSystemManager(GameInstance gameInstance)
@@ -22,17 +21,16 @@ namespace OxyEngine.Ecs.Systems
 
     public void InitializeEventListeners()
     {
-      _events = _gameInstance.GetApi().Events;
-      _events.Global.StartListening(EventNames.Initialization.OnInit, 
+      _gameInstance.Events.Global.StartListening(EventNames.Initialization.OnInit, 
         (sender, args) => Init()
       );
-      _events.Global.StartListening(EventNames.Initialization.OnLoad, 
+      _gameInstance.Events.Global.StartListening(EventNames.Initialization.OnLoad, 
         (sender, args) => Load()
       );
-      _events.Global.StartListening(EventNames.Gameloop.OnUpdate, 
+      _gameInstance.Events.Global.StartListening(EventNames.Gameloop.Update.OnUpdate, 
         (sender, args) => Update((float)((EngineUpdateEventArgs)args).DeltaTime)
       );
-      _events.Global.StartListening(EventNames.Graphics.OnDraw, 
+      _gameInstance.Events.Global.StartListening(EventNames.Gameloop.Draw.OnDraw, 
         (sender, args) => Draw()
       );
     }

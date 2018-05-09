@@ -90,7 +90,7 @@
     <Compile Include="Helpers\CollectionsHelper.cs" />
     <Compile Include="Helpers\DelegatesHelper.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Interfaces\IApiUser.cs" />
+    <Compile Include="Interfaces\IApiProvider.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />

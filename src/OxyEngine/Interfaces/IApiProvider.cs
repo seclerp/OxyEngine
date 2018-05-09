@@ -1,6 +1,6 @@
 ﻿namespace OxyEngine.Interfaces
 {
-  public interface IApiUser
+  public interface IApiProvider
   {
     OxyApi GetApi();
   }
