@@ -102,14 +102,11 @@ namespace OxyEngine
     {
       LogManager.Log("UnLoad event starting...");
       Events.Unload();
-      
-      // Free resources
-      _api.Resources.Dispose();
-      _api.Resources = null;
     }
 
     protected override void Update(GameTime gameTime)
     {
+      // TODO: Move to input module`
       if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
           Keyboard.GetState().IsKeyDown(Keys.Escape))
       {
