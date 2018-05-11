@@ -2,6 +2,6 @@
 {
   public interface IApiProvider
   {
-    OxyApi GetApi();
+    ApiManager GetApi();
   }
 }

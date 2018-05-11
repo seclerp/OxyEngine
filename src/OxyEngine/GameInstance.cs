@@ -27,7 +27,7 @@ namespace OxyEngine
     // Must be protected, because inherit members may use it
     protected GameProject Project;
 
-    private OxyApi _api;
+    private ApiManager _apiManager;
     
     public GameInstance(GameProject project)
     {
@@ -35,7 +35,7 @@ namespace OxyEngine
       Project = project;
       GraphicsDeviceManager = new GraphicsDeviceManager(this);
       Content.RootDirectory = project.ContentFolderPath;
-      _api = new OxyApi();
+      _apiManager = new ApiManager();
       
       // Events must be initialized before Initialize (because other modules depends on it)
       InitializeEvents();
@@ -70,12 +70,12 @@ namespace OxyEngine
     /// <param name="scriptingFrontend"></param>
     public void SetScripting(IScriptingManager scriptingFrontend)
     {
-      if (_api.Scripting != null)
-        throw new Exception($"Scripting has already set to {_api.Scripting.GetType().Name}");
+      if (_apiManager.Scripting != null)
+        throw new Exception($"Scripting has already set to {_apiManager.Scripting.GetType().Name}");
       
       // We not actually initialize scripting here, because Initialize() not called yet
       // see SetScripting
-      _api.Scripting = scriptingFrontend;
+      _apiManager.Scripting = scriptingFrontend;
       LogManager.Log($"Using scripting frontend: {scriptingFrontend.GetType().Name}");
     }
 
@@ -83,9 +83,9 @@ namespace OxyEngine
     ///   Returns API object that contain engine modules
     /// </summary>
     /// <returns></returns>
-    public OxyApi GetApi()
+    public ApiManager GetApi()
     {
-      return _api;
+      return _apiManager;
     }
     
     #endregion
@@ -106,13 +106,6 @@ namespace OxyEngine
 
     protected override void Update(GameTime gameTime)
     {
-      // TODO: Move to input module`
-      if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
-          Keyboard.GetState().IsKeyDown(Keys.Escape))
-      {
-        Exit();
-      }
-
       Events.BeginUpdate();
       Events.Update(gameTime.ElapsedGameTime.TotalSeconds);
       Events.EndUpdate();
@@ -161,40 +154,40 @@ namespace OxyEngine
 
     private void InitializeResources()
     {
-      _api.Resources = new ResourceManager(this, Content, Project.GameSettings.ResourcesSettings);
+      _apiManager.Resources = new ResourceManager(this, Content, Project.GameSettings.ResourcesSettings);
     }
 
     private void InitializeGraphics()
     {
       var spriteBatch = new SpriteBatch(GraphicsDevice);
-      _api.Graphics = new GraphicsManager(this, GraphicsDeviceManager, spriteBatch, Project.GameSettings.GraphicsSettings);
+      _apiManager.Graphics = new GraphicsManager(this, GraphicsDeviceManager, spriteBatch, Project.GameSettings.GraphicsSettings);
     }
     
     private void InitializeAudio()
     {
-      _api.Audio = new AudioManager();
+      _apiManager.Audio = new AudioManager();
     }
 
     private void InitializeInput()
     {
-      _api.Input = new InputManager(this);
+      _apiManager.Input = new InputManager(this);
     }
     
     private void InitializeWindow()
     {
-      _api.Window = new WindowManager(this);
+      _apiManager.Window = new WindowManager(this);
     }
     
     private void InitializeScripting()
     {
       // No scripting frontend provided
-      if (_api.Scripting == null)
+      if (_apiManager.Scripting == null)
         return;
       
-      _api.Scripting.Initialize(Project.ContentFolderPath);
+      _apiManager.Scripting.Initialize(Project.ContentFolderPath);
       
       // Add API to scripts
-      _api.Scripting.SetGlobal("Oxy", _api);
+      _apiManager.Scripting.SetGlobal("Oxy", _apiManager);
     }
 
     #endregion

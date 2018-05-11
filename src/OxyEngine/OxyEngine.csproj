@@ -98,7 +98,7 @@
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Loggers\LogManager.cs" />
     <Compile Include="Mapping\InputMap.cs" />
-    <Compile Include="OxyApi.cs" />
+    <Compile Include="ApiManager.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="Projects\GameProject.cs" />
     <Compile Include="Projects\GameProjectLoader.cs" />
