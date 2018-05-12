@@ -17,7 +17,7 @@ namespace OxyEngine.Settings
     {
       instance.Window.AllowAltF4 = true;
 
-      var window = instance.GetApi().Window;
+      var window = instance.GetApiManager().Window;
       
       window.SetTitle(Title);
       window.SetResizable(Resizable);

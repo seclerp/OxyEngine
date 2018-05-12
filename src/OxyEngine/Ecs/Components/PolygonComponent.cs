@@ -3,8 +3,14 @@ using Microsoft.Xna.Framework;
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for drawing polygons
+  /// </summary>
   public class PolygonComponent : FigureComponent
   {
+    /// <summary>
+    ///   Corners coordinates
+    /// </summary>
     public List<Vector2> Points;
 
     public PolygonComponent()

@@ -1,8 +1,14 @@
 ﻿namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for drawing circles
+  /// </summary>
   public class CircleComponent : FigureComponent
   {
-    public float Radius;
+    /// <summary>
+    ///   Radius of a circle
+    /// </summary>
+    public float Radius { get; set; }
 
     public CircleComponent()
     {

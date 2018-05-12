@@ -16,9 +16,9 @@ using OxyEngine.Window;
 namespace OxyEngine
 {
   /// <summary>
-  /// This is the main type for your game.
+  ///   Base class for game entry point
   /// </summary>
-  public class GameInstance : Game, IApiProvider
+  public class GameInstance : Game, IApiManagerProvider
   {
     public GlobalEventsManager Events { get; private set; }
     
@@ -83,7 +83,7 @@ namespace OxyEngine
     ///   Returns API object that contain engine modules
     /// </summary>
     /// <returns></returns>
-    public ApiManager GetApi()
+    public ApiManager GetApiManager()
     {
       return _apiManager;
     }

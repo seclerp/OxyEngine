@@ -22,7 +22,7 @@ namespace OxyEngine.Game
       
       var sprite = _child.AddComponent<SpriteComponent>();
       
-      sprite.Texture = GetApi().Resources.LoadTexture("example");
+      sprite.Texture = GetApiManager().Resources.LoadTexture("example");
       sprite.SourceRectangle = new Rectangle(0, 0, sprite.Texture.Width, sprite.Texture.Height);
       sprite.Offset = new Vector2(sprite.Texture.Width / 2, sprite.Texture.Height / 2);
       

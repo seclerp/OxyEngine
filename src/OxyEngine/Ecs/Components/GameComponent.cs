@@ -7,10 +7,15 @@ using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Components
 {
-  public abstract class GameComponent : UniqueObject, IApiProvider
+  /// <summary>
+  ///   Base class for every game component
+  /// </summary>
+  public abstract class GameComponent : UniqueObject, IApiManagerProvider
   {
+    /// <summary>
+    ///   Entity, which this component attached to
+    /// </summary>
     public GameEntity Entity { get; private set; }
-    public string SystemName { get; }
 
     private EventSystem _eventSystem;
     
@@ -52,9 +57,9 @@ namespace OxyEngine.Ecs.Components
       return component;
     }
 
-    public ApiManager GetApi()
+    public ApiManager GetApiManager()
     {
-      return Container.Instance.ResolveByName<ApiManager>(InstanceName.Api);
+      return Container.Instance.ResolveByName<ApiManager>(InstanceName.ApiManager);
     }
   }
 }

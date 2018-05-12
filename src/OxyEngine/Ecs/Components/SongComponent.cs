@@ -4,31 +4,50 @@ using OxyEngine.Ecs.Behaviours;
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for playing songs (ambient, long audio files)
+  /// </summary>
   public class SongComponent : GameComponent, ILoadable
   {
+    /// <summary>
+    ///   Song to play
+    /// </summary>
     public Song Song { get; set; }
+    
+    /// <summary>
+    ///   If song must be looped
+    /// </summary>
     public bool Loop { get; set; }
     
-    private AudioManager _manager;
+    private AudioManager _audioManager;
     
     public void Load()
     {
-      _manager = GetApi().Audio;
+      _audioManager = GetApiManager().Audio;
     }
 
+    /// <summary>
+    ///   Start playing of a song
+    /// </summary>
     public void Play()
     {
-      _manager.PlaySong(Song);
+      _audioManager.PlaySong(Song);
     }
     
+    /// <summary>
+    ///   Pause song
+    /// </summary>
     public void Pause()
     {
-      _manager.PauseSong();
+      _audioManager.PauseSong();
     }
     
+    /// <summary>
+    ///   Stop song
+    /// </summary>
     public void Stop()
     {
-      _manager.StopSong();
+      _audioManager.StopSong();
     }
   }
 }

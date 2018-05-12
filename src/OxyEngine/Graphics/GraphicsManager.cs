@@ -57,6 +57,7 @@ namespace OxyEngine.Graphics
 
       ClearTransformationStack();
       
+      // TODO: Make listeners binding using attributes (gameInstance.Events.Global.AddListenersFromAttributes();)
       gameInstance.Events.Global.StartListening(EventNames.Gameloop.Draw.OnBeginDraw, OnBeginDraw);
       gameInstance.Events.Global.StartListening(EventNames.Gameloop.Draw.OnEndDraw, OnEndDraw);
     }

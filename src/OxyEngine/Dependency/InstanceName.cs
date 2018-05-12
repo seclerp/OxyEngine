@@ -2,6 +2,6 @@
 {
   public static class InstanceName
   {
-    public static string Api = "Api";
+    public static string ApiManager = "ApiManager";
   }
 }

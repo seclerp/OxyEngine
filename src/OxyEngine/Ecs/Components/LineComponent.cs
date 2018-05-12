@@ -2,11 +2,25 @@
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for drawing lines
+  /// </summary>
   public class LineComponent : FigureComponent
   {
-    public float Thickness;
-    public Vector2 From;
-    public Vector2 To;
+    /// <summary>
+    ///   Line thickness
+    /// </summary>
+    public float Thickness { get; set; }
+    
+    /// <summary>
+    ///   Line start point
+    /// </summary>
+    public Vector2 From { get; set; }
+    
+    /// <summary>
+    ///   Line end point
+    /// </summary>
+    public Vector2 To { get; set; }
 
     public LineComponent()
     {

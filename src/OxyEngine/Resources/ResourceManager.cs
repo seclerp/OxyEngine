@@ -32,6 +32,7 @@ namespace OxyEngine.Resources
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
       _loadedResources = new List<IDisposable>();
       
+      // TODO: Make listeners binding using attributes (gameInstance.Events.Global.AddListenersFromAttributes();)
       gameInstance.Events.Global.StartListening(EventNames.Initialization.OnUnload, OnUnload);
     }
 
