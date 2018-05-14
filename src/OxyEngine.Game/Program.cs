@@ -25,7 +25,7 @@ namespace OxyEngine.Game
           EventNames.Initialization.OnInit, 
           (sender, eventArgs) =>
           {
-            var gameScene = new TransformScene();
+            var gameScene = new UIScene();
             ecsInstance.SetRootEntity(gameScene);
           }
         );

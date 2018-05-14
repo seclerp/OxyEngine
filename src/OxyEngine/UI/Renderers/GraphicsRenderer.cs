@@ -16,56 +16,56 @@ namespace OxyEngine.UI.Renderers
       _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
     
-    public void Text(SpriteFont font, string text, Color textColor, Color backColor, 
+    public void Text(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor, 
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
       var beforeColor = _graphicsManager.GetColor();
-      _graphicsManager.SetColor(_widget.BackgroundColor.R, _widget.BackgroundColor.G, _widget.BackgroundColor.B, _widget.BackgroundColor.A);
-      _graphicsManager.Rectangle("fill", (int) _widget.X, (int) _widget.Y, (int) _widget.Width, (int) _widget.Height);
+      _graphicsManager.SetColor(backColor.R, backColor.G, backColor.B, backColor.A);
+      _graphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
       
       var beforeFont = _graphicsManager.GetFont();
-      _graphicsManager.SetFont(_widget.Font);
-      _graphicsManager.SetColor(_widget.ForegroundColor.R, _widget.ForegroundColor.G, _widget.ForegroundColor.B, _widget.ForegroundColor.A);
+      _graphicsManager.SetFont(font);
+      _graphicsManager.SetColor(textColor.R, textColor.G, textColor.B, textColor.A);
 
-      var textSize = _widget.Font.MeasureString(_widget.Value);
+      var textSize = font.MeasureString(text);
       var finalX = 0f;
       var finalY = 0f;
       
-      switch (_widget.HTextAlign)
+      switch (hTextAlign)
       {
         case HorizontalAlignment.Left:
-          finalX = _widget.PaddingLeft;
+          finalX = 0;
           break;
         case HorizontalAlignment.Center:
-          finalX = (_widget.Size.X - _widget.PaddingLeft - _widget.PaddingRight - textSize.X) / 2;
+          finalX = (rect.Size.X - textSize.X) / 2;
           break;
         case HorizontalAlignment.Right:
-          finalX = _widget.Size.X - _widget.PaddingRight - textSize.X;
+          finalX = rect.Size.X - textSize.X;
           break;
       }
       
-      switch (_widget.VTextAlign)
+      switch (vTextAlign)
       {
         case VerticalAlignment.Top:
-          finalY = _widget.PaddingTop;
+          finalY = 0;
           break;
         case VerticalAlignment.Middle:
-          finalY = (_widget.Size.Y - _widget.PaddingTop - _widget.PaddingBottom - textSize.Y) / 2;
+          finalY = (rect.Size.Y - textSize.Y) / 2;
           break;
         case VerticalAlignment.Bottom:
-          finalY = _widget.Size.Y - _widget.PaddingBottom - textSize.Y;
+          finalY = rect.Size.Y - textSize.Y;
           break;
       }
       
-      GraphicsApi.Print(_widget.Value, finalX, finalY);
+      _graphicsManager.Print(text, rect.X + finalX, rect.Y + finalY);
 
-      GraphicsApi.SetFont(beforeFont);
-      GraphicsApi.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
+      _graphicsManager.SetFont(beforeFont);
+      _graphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
     }
     
     public void Text(TextModel model)
     {
-      Text(model.Font, model.Text, model.TextColor, model.TextColor, model.HorizontalAlignment, model.VerticalAlignment);
+      Text(model.Rect, model.Font, model.Text, model.TextColor, model.BackgroundColor, model.HorizontalAlignment, model.VerticalAlignment);
     }
   }
 }

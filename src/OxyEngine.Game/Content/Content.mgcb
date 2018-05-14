@@ -25,3 +25,10 @@
 /processorParam:TextureFormat=Color
 /build:example.jpg
 
+#begin font.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:font.spritefont
+

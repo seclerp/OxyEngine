@@ -198,6 +198,7 @@ namespace OxyEngine.Graphics
     public void SetRenderTexture(RenderTarget2D texture = null)
     {
       _graphicsDeviceManager.GraphicsDevice.SetRenderTarget(texture);
+      _graphicsDeviceManager.GraphicsDevice.Clear(Color.Transparent);
     }
 
     /// <summary>
@@ -270,6 +271,15 @@ namespace OxyEngine.Graphics
 
     #region Drawing
 
+    /// <summary>
+    ///   Clears screen or rendertarget with given color
+    /// </summary>
+    /// <param name="color">New background color</param>
+    public void Clear(Color color)
+    {
+      _graphicsDeviceManager.GraphicsDevice.Clear(color);
+    }
+    
     /// <summary>
     ///   Prints text on screen
     /// </summary>
@@ -346,7 +356,7 @@ namespace OxyEngine.Graphics
       switch (style)
       {
         case "fill":
-          _defaultSpriteBatch.FillRectangle(rect, _currentState.ForegroundColor, _currentState.LineWidth);
+          _defaultSpriteBatch.FillRectangle(rect, _currentState.ForegroundColor);
           break;
         case "line":
           _defaultSpriteBatch.DrawRectangle(rect, _currentState.ForegroundColor, _currentState.LineWidth);
@@ -427,6 +437,23 @@ namespace OxyEngine.Graphics
     public void Point(float x, float y)
     {
       _defaultSpriteBatch.PutPixel(new Vector2(x, y), _currentState.ForegroundColor);
+    }
+
+    /// <summary>
+    ///   Draws things on target using action
+    /// </summary>
+    /// <param name="target">Render texture to draw on</param>
+    /// <param name="action">Action that draws</param>
+    public void DrawOn(RenderTarget2D target, Action action)
+    {
+      SetRenderTexture(target);
+      _graphicsDeviceManager.GraphicsDevice.Clear(Color.Transparent);
+      _defaultSpriteBatch.End();
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
+      action();
+      _defaultSpriteBatch.End();
+      SetRenderTexture(null);
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
     }
     
     #endregion
