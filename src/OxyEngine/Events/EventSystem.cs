@@ -12,6 +12,10 @@ namespace OxyEngine.Events
   /// </summary>
   public class EventSystem : UniqueObject
   {
+    private const BindingFlags BindingFlasgAll =  
+      BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
+      BindingFlags.Static | BindingFlags.FlattenHierarchy;
+    
     private Dictionary<string, EngineEventHandler> _registry;
 
     public bool LogEventCalls { get; set; }
@@ -42,14 +46,12 @@ namespace OxyEngine.Events
     public void AddListenersUsingAttributes(object obj)
     {
       var type = obj.GetType();
-      var bindingFlasgAll = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
-                            BindingFlags.Static | BindingFlags.FlattenHierarchy;
       
-      foreach (var methodInfo in type.GetMethods(bindingFlasgAll))
+      foreach (var methodInfo in type.GetMethods(BindingFlasgAll))
       {
         foreach (var attribute in methodInfo.GetCustomAttributes<ListenEventAttribute>(true))
         {
-          var method = type.GetMethod(attribute.MethodName, bindingFlasgAll);
+          var method = type.GetMethod(attribute.MethodName, BindingFlasgAll);
 
           if (method is null)
           {
