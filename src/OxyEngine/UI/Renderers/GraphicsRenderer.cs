@@ -1,30 +1,31 @@
-﻿using System.Runtime.Serialization.Formatters;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Dependency;
+using OxyEngine.Graphics;
 using OxyEngine.UI.Enums;
 using OxyEngine.UI.Models;
-using OxyEngine.UI.Nodes;
 
 namespace OxyEngine.UI.Renderers
 {
-  public class TextRenderer : WidgetRenderer
+  public class GraphicsRenderer
   {
-    private TextModel _widget;
+    private GraphicsManager _graphicsManager;
     
-    public TextRenderer(WidgetNode node) : base(node)
+    public GraphicsRenderer()
     {
-      Node = node;
-      
-      _widget = Node.Model as TextModel;
+      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
-
-    public override void Render()
+    
+    public void Text(SpriteFont font, string text, Color textColor, Color backColor, 
+      HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
-      var beforeColor = GraphicsApi.GetColor();
-      GraphicsApi.SetColor(_widget.BackgroundColor.R, _widget.BackgroundColor.G, _widget.BackgroundColor.B, _widget.BackgroundColor.A);
-      GraphicsApi.Rectangle("fill", (int) _widget.X, (int) _widget.Y, (int) _widget.Width, (int) _widget.Height);
+      var beforeColor = _graphicsManager.GetColor();
+      _graphicsManager.SetColor(_widget.BackgroundColor.R, _widget.BackgroundColor.G, _widget.BackgroundColor.B, _widget.BackgroundColor.A);
+      _graphicsManager.Rectangle("fill", (int) _widget.X, (int) _widget.Y, (int) _widget.Width, (int) _widget.Height);
       
-      var beforeFont = GraphicsApi.GetFont();
-      GraphicsApi.SetFont(_widget.Font);
-      GraphicsApi.SetColor(_widget.ForegroundColor.R, _widget.ForegroundColor.G, _widget.ForegroundColor.B, _widget.ForegroundColor.A);
+      var beforeFont = _graphicsManager.GetFont();
+      _graphicsManager.SetFont(_widget.Font);
+      _graphicsManager.SetColor(_widget.ForegroundColor.R, _widget.ForegroundColor.G, _widget.ForegroundColor.B, _widget.ForegroundColor.A);
 
       var textSize = _widget.Font.MeasureString(_widget.Value);
       var finalX = 0f;
@@ -60,6 +61,11 @@ namespace OxyEngine.UI.Renderers
 
       GraphicsApi.SetFont(beforeFont);
       GraphicsApi.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
+    }
+    
+    public void Text(TextModel model)
+    {
+      Text(model.Font, model.Text, model.TextColor, model.TextColor, model.HorizontalAlignment, model.VerticalAlignment);
     }
   }
 }

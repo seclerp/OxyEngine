@@ -137,7 +137,7 @@ namespace OxyEngine.Graphics
     /// <param name="width">Width of render texture</param>
     /// <param name="height">Height of render texture</param>
     /// <returns></returns>
-    public Texture2D NewRenderTexture(int width, int height)
+    public RenderTarget2D NewRenderTexture(int width, int height)
     {
       return new RenderTarget2D(
         graphicsDevice: _graphicsDeviceManager.GraphicsDevice, 

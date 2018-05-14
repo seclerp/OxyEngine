@@ -1,19 +1,17 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.UI.Enums;
-using OxyEngine.UI.Nodes;
 
 namespace OxyEngine.UI.Models
 {
-  public class TextModel : GraphicsWidgetModel
+  public struct TextModel
   {
-    public SpriteFont Font { get; set; }
-    public string Value { get; set; }
-    
-    public HorizontalAlignment HTextAlign { get; set; }
-    public VerticalAlignment VTextAlign { get; set; }
-
-    public TextModel(WidgetNode node) : base(node)
-    {
-    }
+    public Color BackgroundColor;
+    public Color TextColor;
+    public SpriteFont Font;
+    public string Text;
+    public Rectangle Rect;
+    public VerticalAlignment VerticalAlignment;
+    public HorizontalAlignment HorizontalAlignment;
   }
 }
