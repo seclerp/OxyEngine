@@ -32,8 +32,7 @@ namespace OxyEngine.Resources
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
       _loadedResources = new List<IDisposable>();
       
-      // TODO: Make listeners binding using attributes (gameInstance.Events.Global.AddListenersFromAttributes();)
-      gameInstance.Events.Global.StartListening(EventNames.Initialization.OnUnload, OnUnload);
+      gameInstance.Events.Global.AddListenersUsingAttributes(this);
     }
 
     #endregion
@@ -57,6 +56,7 @@ namespace OxyEngine.Resources
     /// <summary>
     ///   Event listener for global unload event
     /// </summary>
+    [ListenEvent(EventNames.Initialization.OnUnload)]
     private void OnUnload(object sender, EngineEventArgs args)
     {
       Dispose();

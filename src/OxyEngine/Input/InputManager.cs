@@ -29,10 +29,10 @@ namespace OxyEngine.Input
       _anyGamePadConnected = false;
       _gameInstance = gameInstance;
       
-      // TODO: Make listeners binding using attributes (gameInstance.Events.Global.AddListenersFromAttributes();)
-      _gameInstance.Events.Global.StartListening(EventNames.Gameloop.Update.OnBeginUpdate, OnBeginUpdate);
+      _gameInstance.Events.Global.AddListenersUsingAttributes(this);
     }
     
+    [ListenEvent(EventNames.Gameloop.Update.OnBeginUpdate)]
     private void OnBeginUpdate(object sender, EngineEventArgs args)
     {
       UpdateAllGamepadStates();

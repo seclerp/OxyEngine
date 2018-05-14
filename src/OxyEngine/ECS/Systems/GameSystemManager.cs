@@ -34,8 +34,6 @@ namespace OxyEngine.Ecs.Systems
     /// </summary>
     public void InitializeEventListeners()
     {
-      // TODO: Make listeners binding use attributes (_gameInstance.Events.Global.AddListenersFromAttributes();)
-      
       _gameInstance.Events.Global.StartListening(EventNames.Initialization.OnInit, 
         (sender, args) => Init()
       );

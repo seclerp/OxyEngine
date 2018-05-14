@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using OxyEngine.Events.Args;
 using OxyEngine.Events.Handlers;
-using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
 
 namespace OxyEngine.Events
@@ -39,17 +39,34 @@ namespace OxyEngine.Events
       }
     }
 
-    public void AddListenersFromAttributes(object obj)
+    public void AddListenersUsingAttributes(object obj)
     {
       var type = obj.GetType();
-      var attributes = type.GetCustomAttributes(typeof(ListenEventAttribute), true);
-
-      foreach (ListenEventAttribute attribute in attributes)
+      var bindingFlasgAll = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
+                            BindingFlags.Static | BindingFlags.FlattenHierarchy;
+      
+      foreach (var methodInfo in type.GetMethods(bindingFlasgAll))
       {
-        var method = type.GetMethod(attribute.MethodName);
-        _registry.Add(attribute.EventName, 
-          (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler),
-          method ?? throw new NullReferenceException(nameof(attribute.MethodName))));
+        foreach (var attribute in methodInfo.GetCustomAttributes<ListenEventAttribute>(true))
+        {
+          var method = type.GetMethod(attribute.MethodName, bindingFlasgAll);
+
+          if (method is null)
+          {
+            throw new NullReferenceException(nameof(method));
+          }
+
+          if (method.IsStatic)
+          {
+            _registry.Add(attribute.EventName, 
+              (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler), method));
+          }
+          else
+          {
+            _registry.Add(attribute.EventName, 
+              (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler), obj, method.Name));
+          }
+        }
       }
     }
     

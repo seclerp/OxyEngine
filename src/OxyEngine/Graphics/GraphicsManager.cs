@@ -41,6 +41,7 @@ namespace OxyEngine.Graphics
 
     #region Initialization
 
+    
     internal GraphicsManager(GameInstance gameInstance, GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
       GraphicsSettings settings)
     {
@@ -57,14 +58,13 @@ namespace OxyEngine.Graphics
 
       ClearTransformationStack();
       
-      // TODO: Make listeners binding using attributes (gameInstance.Events.Global.AddListenersFromAttributes();)
-      gameInstance.Events.Global.StartListening(EventNames.Gameloop.Draw.OnBeginDraw, OnBeginDraw);
-      gameInstance.Events.Global.StartListening(EventNames.Gameloop.Draw.OnEndDraw, OnEndDraw);
+      gameInstance.Events.Global.AddListenersUsingAttributes(this);
     }
     
     /// <summary>
     ///   Event listener for global beforedraw event
     /// </summary>
+    [ListenEvent(EventNames.Gameloop.Draw.OnBeginDraw)]
     private void OnBeginDraw(object sender, EngineEventArgs args)
     {
       BeginDraw();
@@ -73,6 +73,7 @@ namespace OxyEngine.Graphics
     /// <summary>
     ///   Event listener for global afterdraw event
     /// </summary>
+    [ListenEvent(EventNames.Gameloop.Draw.OnEndDraw)]
     private void OnEndDraw(object sender, EngineEventArgs args)
     {
       EndDraw();
