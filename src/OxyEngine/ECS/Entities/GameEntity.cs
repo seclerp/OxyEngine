@@ -1,20 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using OxyEngine.Dependency;
 using OxyEngine.Ecs.Components;
 using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Ecs.Systems;
-using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Entities
 {
-  public class GameEntity : UniqueObject, IConstructable, IApiUser
+  /// <summary>
+  ///   Base class for every game entity
+  /// </summary>
+  public class GameEntity : UniqueObject, IConstructable
   {
+    /// <summary>
+    ///   Name of an entity
+    /// </summary>
     public string Name { get; set; }
     
+    /// <summary>
+    ///   Parent for this entity
+    ///   null if entity is root
+    /// </summary>
     public GameEntity Parent { get; private set; }
     
+    /// <summary>
+    ///   Collection of entity children
+    /// </summary>
     public IEnumerable<GameEntity> Children =>  _children;
+    
+    /// <summary>
+    ///   Collection of entity components
+    /// </summary>
     public IEnumerable<GameComponent> Components =>  _components;
 
     internal GameSystemManager GameSystemManager { get; set; }
@@ -38,11 +53,6 @@ namespace OxyEngine.Ecs.Entities
 
     #region Components actions
     
-    /// <summary>
-    ///   Adds component to the entity
-    /// </summary>
-    /// <param name="component">Component object</param>
-    /// <exception cref="ArgumentNullException">If component is null</exception>
     public void AddComponent(GameComponent component)
     {
       if (component == null)
@@ -52,10 +62,6 @@ namespace OxyEngine.Ecs.Entities
       _components.Add(component);
     }
 
-    /// <summary>
-    ///   Adds component to the entity
-    /// </summary>
-    /// <typeparam name="T">Component type</typeparam>
     public T AddComponent<T>() where T : GameComponent
     {
       var component = Activator.CreateInstance<T>();
@@ -65,12 +71,6 @@ namespace OxyEngine.Ecs.Entities
       return component;
     }
 
-    /// <summary>
-    ///   Returns first component of given type
-    /// </summary>
-    /// <typeparam name="T">Component type</typeparam>
-    /// <returns>First component of given type</returns>
-    /// <exception cref="Exception">If component with that type not found</exception>
     public T GetComponent<T>() where T : GameComponent
     {
       foreach (var component in _components)
@@ -82,11 +82,6 @@ namespace OxyEngine.Ecs.Entities
       throw new Exception($"Component of type '{typeof(T).Name}' not found");
     }
 
-    /// <summary>
-    ///   Returns all components of given type
-    /// </summary>
-    /// <typeparam name="T">Component type</typeparam>
-    /// <returns>Collection of all components of given type</returns>
     public IEnumerable<T> GetComponents<T>() where T : GameComponent
     {
       var result = new List<T>();
@@ -100,12 +95,6 @@ namespace OxyEngine.Ecs.Entities
       return result;
     }
 
-    /// <summary>
-    ///   Removes component from entity
-    /// </summary>
-    /// <param name="component">Component object</param>
-    /// <returns>True if deleted more than 0</returns>
-    /// <exception cref="ArgumentNullException"></exception>
     public bool RemoveComponent(GameComponent component)
     {
       if (component == null)
@@ -118,11 +107,6 @@ namespace OxyEngine.Ecs.Entities
       return _components.Remove(component);
     }
 
-    /// <summary>
-    ///   Removes component with given type from entity
-    /// </summary>
-    /// <typeparam name="T">Component type</typeparam>
-    /// <returns>True if deleted more than 0</returns>
     public bool RemoveComponent<T>() where T : GameComponent
     {
       for (int i = 0; i < _components.Count; i++)
@@ -138,11 +122,6 @@ namespace OxyEngine.Ecs.Entities
       return false;
     }
 
-    /// <summary>
-    ///   Removes all components with given type from entity
-    /// </summary>
-    /// <typeparam name="T">Component type</typeparam>
-    /// <returns>True if deleted more than 0</returns>
     public bool RemoveComponents<T>() where T : GameComponent
     {
       var success = false;
@@ -302,10 +281,5 @@ namespace OxyEngine.Ecs.Entities
     }
 
     #endregion
-
-    public IOxyApi GetApi()
-    {
-      return Container.Instance.ResolveByName<IOxyApi>(InstanceName.Api);
-    }
   }
 } 

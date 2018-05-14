@@ -3,10 +3,20 @@ using OxyEngine.Ecs.Enums;
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for drawing rectangles
+  /// </summary>
   public class RectangleComponent : FigureComponent
   {
-    public Rectangle Rectangle;
-    public FigureFillStyle FillStyle;
+    /// <summary>
+    ///   Coordinate and size of rectangle to draw
+    /// </summary>
+    public Rectangle Rectangle { get; set; }
+    
+    /// <summary>
+    ///   Fill style
+    /// </summary>
+    public FigureFillStyle FillStyle { get; set; }
 
     public RectangleComponent()
     {

@@ -1,14 +1,29 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
 
 namespace OxyEngine.Ecs.Components
 {
-  public class SpriteComponent : GameComponent, ILoadable, Behaviours.IDrawable
+  /// <summary>
+  ///   Component for drawing sprites
+  /// </summary>
+  public class SpriteComponent : GameComponent, Behaviours.ILoadable, Behaviours.IDrawable
   {
+    /// <summary>
+    ///   Rectangle on texture, used to determine position and size of a sprite
+    /// </summary>
     public Rectangle SourceRectangle { get; set; }
+    
+    /// <summary>
+    ///   Offset (origin) point
+    /// </summary>
     public Vector2 Offset { get; set; }
+    
+    /// <summary>
+    ///   Reference texture
+    /// </summary>
     public Texture2D Texture { get; set; }
 
     private GraphicsManager _graphicsManager;
@@ -18,7 +33,7 @@ namespace OxyEngine.Ecs.Components
       // This is for DrawSystem, to not fail when using GetComponent with NullReferenceExcepion
       RequireComponent<TransformComponent>();
 
-      _graphicsManager = GetApi().Graphics;
+      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     public void Draw()

@@ -1,6 +1,8 @@
 using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using OxyEngine.Events;
+using OxyEngine.Events.Args;
 using OxyEngine.Interfaces;
 using OxyEngine.Mapping;
 
@@ -16,13 +18,46 @@ namespace OxyEngine.Input
     private KeyboardState _keyboardState;
     private MouseState _mouseState;
     private GamePadState[] _gamePadStates;
+
+    private GameInstance _gameInstance;
     
     private bool _anyGamePadConnected;
 
-    public InputManager()
+    public InputManager(GameInstance gameInstance)
     {
       _map = new InputMap();
       _anyGamePadConnected = false;
+      _gameInstance = gameInstance;
+      
+      _gameInstance.Events.Global.AddListenersUsingAttributes(this);
+    }
+    
+    [ListenEvent(EventNames.Gameloop.Update.OnBeginUpdate)]
+    private void OnBeginUpdate(object sender, EngineEventArgs args)
+    {
+      UpdateAllGamepadStates();
+      UpdateInputState(Keyboard.GetState(), Mouse.GetState(), _gamePadStates);
+      
+      // TODO: Make configurable
+      // Handle Alt+F4
+      if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+          Keyboard.GetState().IsKeyDown(Keys.Escape))
+      {
+        _gameInstance.Exit();
+      }
+    }
+
+    private void UpdateAllGamepadStates()
+    {
+      var count = GamePad.MaximumGamePadCount;
+
+      if (_gamePadStates == null)
+        _gamePadStates = new GamePadState[count];
+      
+      for (int i = 0; i < count; i++)
+      {
+        _gamePadStates[i] = GamePad.GetState(i);
+      }
     }
     
     public void UpdateInputState(KeyboardState keyboardState, MouseState mouseState, GamePadState[] gamePadStates)

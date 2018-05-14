@@ -5,6 +5,9 @@ using OxyEngine.Projects;
 
 namespace OxyEngine.Ecs
 {
+  /// <summary>
+  ///   Base class for game entry point that uses Entity-Component-System
+  /// </summary>
   public class EcsInstance : GameInstance
   {
     private GameSystemManager _gameSystemManager;

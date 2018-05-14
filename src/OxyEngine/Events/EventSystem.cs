@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using OxyEngine.Events.Args;
 using OxyEngine.Events.Handlers;
-using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
 
 namespace OxyEngine.Events
@@ -12,6 +12,10 @@ namespace OxyEngine.Events
   /// </summary>
   public class EventSystem : UniqueObject
   {
+    private const BindingFlags BindingFlasgAll =  
+      BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |
+      BindingFlags.Static | BindingFlags.FlattenHierarchy;
+    
     private Dictionary<string, EngineEventHandler> _registry;
 
     public bool LogEventCalls { get; set; }
@@ -39,17 +43,32 @@ namespace OxyEngine.Events
       }
     }
 
-    public void AddListenersFromAttributes(object obj)
+    public void AddListenersUsingAttributes(object obj)
     {
       var type = obj.GetType();
-      var attributes = type.GetCustomAttributes(typeof(ListenEventAttribute), true);
-
-      foreach (ListenEventAttribute attribute in attributes)
+      
+      foreach (var methodInfo in type.GetMethods(BindingFlasgAll))
       {
-        var method = type.GetMethod(attribute.MethodName);
-        _registry.Add(attribute.EventName, 
-          (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler),
-          method ?? throw new NullReferenceException(nameof(attribute.MethodName))));
+        foreach (var attribute in methodInfo.GetCustomAttributes<ListenEventAttribute>(true))
+        {
+          var method = type.GetMethod(attribute.MethodName, BindingFlasgAll);
+
+          if (method is null)
+          {
+            throw new NullReferenceException(nameof(method));
+          }
+
+          if (method.IsStatic)
+          {
+            _registry.Add(attribute.EventName, 
+              (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler), method));
+          }
+          else
+          {
+            _registry.Add(attribute.EventName, 
+              (EngineEventHandler)Delegate.CreateDelegate(typeof(EngineEventHandler), obj, method.Name));
+          }
+        }
       }
     }
     

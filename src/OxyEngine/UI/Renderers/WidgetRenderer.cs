@@ -11,7 +11,7 @@ namespace OxyEngine.UI.Renderers
     
     protected WidgetRenderer()
     {
-      GraphicsApi = Container.Instance.ResolveByName<OxyApi>(InstanceName.Api).Graphics;
+      GraphicsApi = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     public abstract void Render();

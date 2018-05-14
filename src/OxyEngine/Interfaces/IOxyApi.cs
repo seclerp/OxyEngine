@@ -13,7 +13,6 @@ namespace OxyEngine.Interfaces
     GraphicsManager Graphics { get; }
     AudioManager Audio { get; }
     IScriptingManager Scripting { get; }
-    GlobalEventsManager Events { get; }
     InputManager Input { get; }
     WindowManager Window { get; }
   }

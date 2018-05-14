@@ -2,9 +2,15 @@
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for drawing points
+  /// </summary>
   public class PointComponent : FigureComponent
   {
-    public Vector2 Point;
+    /// <summary>
+    ///   Point coordinates
+    /// </summary>
+    public Vector2 Point { get; set; }
 
     public PointComponent()
     {

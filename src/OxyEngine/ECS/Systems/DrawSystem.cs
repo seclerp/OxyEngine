@@ -4,6 +4,9 @@ using OxyEngine.Ecs.Entities;
 
 namespace OxyEngine.Ecs.Systems
 {
+  /// <summary>
+  ///   System that draws entities and components on screen
+  /// </summary>
   public class DrawSystem : GameSystem, IDrawable
   {
     public DrawSystem(GameEntity rootEntity) : base(rootEntity)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Events;
+using OxyEngine.Events.Args;
 using OxyEngine.Graphics.Extensions;
 using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
@@ -40,7 +42,8 @@ namespace OxyEngine.Graphics
 
     #region Initialization
 
-    internal GraphicsManager(GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
+    
+    internal GraphicsManager(GameInstance gameInstance, GraphicsDeviceManager graphicsDeviceManager, SpriteBatch defaultSpriteBatch, 
       GraphicsSettings settings)
     {
       _graphicsDeviceManager = graphicsDeviceManager;
@@ -55,8 +58,28 @@ namespace OxyEngine.Graphics
       };
 
       ClearTransformationStack();
+      
+      gameInstance.Events.Global.AddListenersUsingAttributes(this);
     }
-
+    
+    /// <summary>
+    ///   Event listener for global beforedraw event
+    /// </summary>
+    [ListenEvent(EventNames.Gameloop.Draw.OnBeginDraw)]
+    private void OnBeginDraw(object sender, EngineEventArgs args)
+    {
+      BeginDraw();
+    }
+    
+    /// <summary>
+    ///   Event listener for global afterdraw event
+    /// </summary>
+    [ListenEvent(EventNames.Gameloop.Draw.OnEndDraw)]
+    private void OnEndDraw(object sender, EngineEventArgs args)
+    {
+      EndDraw();
+    }
+    
     private void ClearTransformationStack()
     {
       _currentState.TransformationStack.Clear();
@@ -65,7 +88,7 @@ namespace OxyEngine.Graphics
       _currentState.TransformationStack.Push(new Transformation(new Vector2(0, 0), 0, new Vector2(1, 1)));
     }
 
-    internal void BeginDraw()
+    private void BeginDraw()
     {
       ClearTransformationStack();
       _graphicsDeviceManager.GraphicsDevice.Clear(GetBackgroundColor());
@@ -73,7 +96,7 @@ namespace OxyEngine.Graphics
       _defaultSpriteBatch.Begin(samplerState: SamplerState.LinearWrap);
     }
 
-    internal void EndDraw()
+    private void EndDraw()
     {
       _defaultSpriteBatch.End();
     }

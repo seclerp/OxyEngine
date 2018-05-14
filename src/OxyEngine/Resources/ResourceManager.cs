@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using OxyEngine.Events;
+using OxyEngine.Events.Args;
 using OxyEngine.Interfaces;
 using OxyEngine.Loggers;
 using OxyEngine.Settings;
@@ -25,10 +27,12 @@ namespace OxyEngine.Resources
     ///   Initialize Resources module
     /// </summary>
     /// <param name="manager">MonoGame ContentManager to use</param>
-    public ResourceManager(ContentManager manager, ResourcesSettings settings)
+    public ResourceManager(GameInstance gameInstance, ContentManager manager, ResourcesSettings settings)
     {
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
       _loadedResources = new List<IDisposable>();
+      
+      gameInstance.Events.Global.AddListenersUsingAttributes(this);
     }
 
     #endregion
@@ -47,6 +51,15 @@ namespace OxyEngine.Resources
         t?.Dispose();
         t = null;
       }
+    }
+    
+    /// <summary>
+    ///   Event listener for global unload event
+    /// </summary>
+    [ListenEvent(EventNames.Initialization.OnUnload)]
+    private void OnUnload(object sender, EngineEventArgs args)
+    {
+      Dispose();
     }
     
     #region Public API
@@ -100,7 +113,7 @@ namespace OxyEngine.Resources
     #endregion
 
     #region Private members
-
+    
     private T LoadValidate<T>(string path)
     {
       if (path == null)

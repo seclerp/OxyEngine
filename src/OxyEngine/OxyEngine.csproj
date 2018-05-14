@@ -77,9 +77,8 @@
     <Compile Include="Ecs\Systems\GameSystem.cs" />
     <Compile Include="Ecs\Systems\DrawSystem.cs" />
     <Compile Include="Ecs\Systems\GameSystemManager.cs" />
-    <Compile Include="Ecs\Systems\GameSystems.cs" />
+    <Compile Include="Ecs\Systems\GameSystemNames.cs" />
     <Compile Include="Ecs\Systems\GenericSystem.cs" />
-    <Compile Include="Ecs\Systems\GameSystemActionAttribute.cs" />
     <Compile Include="Events\Args\EngineEventArgs.cs" />
     <Compile Include="Events\Args\EngineUpdateEventArgs.cs" />
     <Compile Include="Events\ListenEventAttribute.cs" />
@@ -91,7 +90,6 @@
     <Compile Include="Helpers\CollectionsHelper.cs" />
     <Compile Include="Helpers\DelegatesHelper.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Interfaces\IApiUser.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\IOxyApi.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
@@ -100,7 +98,6 @@
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Loggers\LogManager.cs" />
     <Compile Include="Mapping\InputMap.cs" />
-    <Compile Include="OxyApi.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="Projects\GameProject.cs" />
     <Compile Include="Projects\GameProjectLoader.cs" />

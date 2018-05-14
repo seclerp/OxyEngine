@@ -1,13 +1,20 @@
 ﻿using Microsoft.Xna.Framework;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
 using IDrawable = OxyEngine.Ecs.Behaviours.IDrawable;
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component base for drawing figures 
+  /// </summary>
   public abstract class FigureComponent : GameComponent, ILoadable, IDrawable
   {
-    public Color Color;
+    /// <summary>
+    ///   Main drawing color
+    /// </summary>
+    public Color Color { get; set; }
     
     protected GraphicsManager GraphicsManager;
 
@@ -20,7 +27,7 @@ namespace OxyEngine.Ecs.Components
     {
       // This is for DrawSystem, to not fail when using GetComponent with NullReferenceExcepion
       RequireComponent<TransformComponent>();
-      GraphicsManager = GetApi().Graphics;
+      GraphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     public abstract void Draw();

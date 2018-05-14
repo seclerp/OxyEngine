@@ -47,14 +47,34 @@ namespace OxyEngine.Events
       Global.Invoke(EventNames.Initialization.OnUnload, null);
     }
     
+    internal void BeginUpdate()
+    {
+      Global.Invoke(EventNames.Gameloop.Update.OnBeginUpdate, null);
+    }
+    
     internal void Update(double dt)
     {
-      Global.Invoke(EventNames.Gameloop.OnUpdate, new EngineUpdateEventArgs { DeltaTime = dt });
+      Global.Invoke(EventNames.Gameloop.Update.OnUpdate, new EngineUpdateEventArgs { DeltaTime = dt });
+    }
+    
+    internal void EndUpdate()
+    {
+      Global.Invoke(EventNames.Gameloop.Update.OnEndUpdate, null);
+    }
+    
+    internal void BeginDraw()
+    {
+      Global.Invoke(EventNames.Gameloop.Draw.OnBeginDraw, null);
     }
     
     internal void Draw()
     {
-      Global.Invoke(EventNames.Graphics.OnDraw, null);
+      Global.Invoke(EventNames.Gameloop.Draw.OnDraw, null);
+    }
+    
+    internal void EndDraw()
+    {
+      Global.Invoke(EventNames.Gameloop.Draw.OnEndDraw, null);
     }
     
     internal void Resize()

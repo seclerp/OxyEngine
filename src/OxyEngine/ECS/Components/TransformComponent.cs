@@ -1,9 +1,13 @@
 ﻿using Microsoft.Xna.Framework;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Graphics;
 
 namespace OxyEngine.Ecs.Components
 {
+  /// <summary>
+  ///   Component for manipulating transformation (position, rotation, scale) of a gamobject
+  /// </summary>
   public class TransformComponent : GameComponent, ITransformable
   {
     private GraphicsManager _graphicsManager;
@@ -11,7 +15,7 @@ namespace OxyEngine.Ecs.Components
     public TransformComponent()
     {
       _transformation = new Transformation();
-      _graphicsManager = GetApi().Graphics;
+      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     #region Local transformation
@@ -35,7 +39,6 @@ namespace OxyEngine.Ecs.Components
     }
 
     public Matrix Matrix => _transformation.Matrix;
-    
 
     #endregion
 
@@ -83,7 +86,7 @@ namespace OxyEngine.Ecs.Components
     {
       Translate(new Vector2(x, y));
     }
-  
+
     public void Translate(Vector2 vector)
     {
       _transformation.Translate(vector);
@@ -98,12 +101,15 @@ namespace OxyEngine.Ecs.Components
     {
       Zoom(new Vector2(x, y));
     }
-  
+
     public void Zoom(Vector2 vector)
     {
       _transformation.Zoom(vector);
     }
 
+    /// <summary>
+    ///   Adds transformation of an object to transformation stack
+    /// </summary>
     public void AttachTransformation()
     {
       _graphicsManager.PushMatrix();
@@ -112,6 +118,9 @@ namespace OxyEngine.Ecs.Components
       _graphicsManager.Scale(Scale.X, Scale.Y);
     }
     
+    /// <summary>
+    ///   Removes transformation of an object to transformation stack
+    /// </summary>
     public void DetachTransformation()
     {
       _graphicsManager.PopMatrix();

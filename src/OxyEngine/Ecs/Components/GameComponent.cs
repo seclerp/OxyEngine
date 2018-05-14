@@ -1,23 +1,28 @@
 ﻿using System;
 using OxyEngine.Dependency;
 using OxyEngine.Ecs.Entities;
-using OxyEngine.Ecs.Systems;
 using OxyEngine.Events;
+using OxyEngine.Events.Args;
 using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Components
 {
-  public abstract class GameComponent : UniqueObject, IApiUser
+  /// <summary>
+  ///   Base class for every game component
+  /// </summary>
+  public abstract class GameComponent : UniqueObject
   {
+    /// <summary>
+    ///   Entity, which this component attached to
+    /// </summary>
     public GameEntity Entity { get; private set; }
-    public string SystemName { get; }
 
     private EventSystem _eventSystem;
     
     protected GameComponent(GameEntity entity)
     {
       _eventSystem = new EventSystem();
-      _eventSystem.AddListenersFromAttributes(this);
+      _eventSystem.AddListenersUsingAttributes(this);
       
       SetEntity(entity);
     }
@@ -27,7 +32,7 @@ namespace OxyEngine.Ecs.Components
     }
 
     [ListenEvent(EventNames.Initialization.OnInit)]
-    public virtual void OnInit()
+    public virtual void OnInit(object sender, EngineEventArgs args)
     {
     }
     
@@ -50,11 +55,6 @@ namespace OxyEngine.Ecs.Components
       }
 
       return component;
-    }
-
-    public IOxyApi GetApi()
-    {
-      return Container.Instance.ResolveByName<IOxyApi>(InstanceName.Api);
     }
   }
 }
