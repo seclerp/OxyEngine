@@ -11,7 +11,7 @@ namespace OxyEngine.Ecs.Entities
   /// <summary>
   ///   Base class for every game entity
   /// </summary>
-  public class GameEntity : UniqueObject, IConstructable, IApiManagerProvider
+  public class GameEntity : UniqueObject, IConstructable
   {
     /// <summary>
     ///   Name of an entity
@@ -283,10 +283,5 @@ namespace OxyEngine.Ecs.Entities
     }
 
     #endregion
-
-    public ApiManager GetApiManager()
-    {
-      return Container.Instance.ResolveByName<ApiManager>(InstanceName.ApiManager);
-    }
   }
 } 

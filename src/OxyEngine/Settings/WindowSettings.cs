@@ -1,5 +1,7 @@
-﻿using System.Security.Principal;
+﻿using Microsoft.Xna.Framework;
+using OxyEngine.Dependency;
 using OxyEngine.Interfaces;
+using OxyEngine.Window;
 
 namespace OxyEngine.Settings
 {
@@ -15,9 +17,9 @@ namespace OxyEngine.Settings
     
     public void Apply(GameInstance instance)
     {
-      instance.Window.AllowAltF4 = true;
+      (instance as Game).Window.AllowAltF4 = true;
 
-      var window = instance.GetApiManager().Window;
+      var window = Container.Instance.ResolveByName<WindowManager>(InstanceName.WindowManager);
       
       window.SetTitle(Title);
       window.SetResizable(Resizable);

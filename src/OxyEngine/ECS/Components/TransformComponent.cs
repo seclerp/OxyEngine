@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Graphics;
 
@@ -14,7 +15,7 @@ namespace OxyEngine.Ecs.Components
     public TransformComponent()
     {
       _transformation = new Transformation();
-      _graphicsManager = GetApiManager().Graphics;
+      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     #region Local transformation

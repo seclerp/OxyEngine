@@ -1,4 +1,5 @@
-﻿using OxyEngine.Interfaces;
+﻿using Microsoft.Xna.Framework;
+using OxyEngine.Interfaces;
 
 namespace OxyEngine.Window
 {
@@ -19,7 +20,7 @@ namespace OxyEngine.Window
     /// <returns>true if window has borders</returns>
     public bool GetBorders()
     {
-      return !_instance.Window.IsBorderless;
+      return !(_instance as Game).Window.IsBorderless;
     }
 
     /// <summary>
@@ -55,7 +56,7 @@ namespace OxyEngine.Window
     /// <returns>Window's title</returns>
     public string GetTitle()
     {
-      return _instance.Window.Title;
+      return (_instance as Game).Window.Title;
     }
     
     /// <summary>
@@ -64,7 +65,7 @@ namespace OxyEngine.Window
     /// <returns>true if window could be resized by user</returns>
     public bool GetResizable()
     {
-      return _instance.Window.AllowUserResizing;
+      return (_instance as Game).Window.AllowUserResizing;
     }
     
     /// <summary>
@@ -86,7 +87,7 @@ namespace OxyEngine.Window
     /// <param name="hasBorders">true to enable borders, otherwise false</param>
     public void SetBorders(bool hasBorders = true)
     {
-      _instance.Window.IsBorderless = !hasBorders;
+      (_instance as Game).Window.IsBorderless = !hasBorders;
     } 
     
     /// <summary>
@@ -122,7 +123,7 @@ namespace OxyEngine.Window
     /// <param name="title">New window's title</param>
     public void SetTitle(string title)
     {
-      _instance.Window.Title = title;
+      (_instance as Game).Window.Title = title;
     }
     
     /// <summary>
@@ -131,7 +132,7 @@ namespace OxyEngine.Window
     /// <param name="isResizable">true to enable resize, otherwise false</param>
     public void SetResizable(bool isResizable = true)
     {
-      _instance.Window.AllowUserResizing = isResizable;
+      (_instance as Game).Window.AllowUserResizing = isResizable;
     }
     
     /// <summary>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
 
@@ -32,7 +33,7 @@ namespace OxyEngine.Ecs.Components
       // This is for DrawSystem, to not fail when using GetComponent with NullReferenceExcepion
       RequireComponent<TransformComponent>();
 
-      _graphicsManager = GetApiManager().Graphics;
+      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     public void Draw()

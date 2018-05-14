@@ -1,5 +1,4 @@
-﻿using OxyEngine.Dependency;
-using OxyEngine.Ecs.Behaviours;
+﻿using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Entities;
 using OxyEngine.Events;
 using OxyEngine.Events.Args;
@@ -26,7 +25,6 @@ namespace OxyEngine.Ecs.Systems
     public GameSystemManager(GameInstance gameInstance)
     {
       _gameInstance = gameInstance;
-      Container.Instance.RegisterByName(InstanceName.ApiManager, _gameInstance.GetApiManager());
     }
 
     /// <summary>

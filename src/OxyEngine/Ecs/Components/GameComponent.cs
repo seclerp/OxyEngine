@@ -10,7 +10,7 @@ namespace OxyEngine.Ecs.Components
   /// <summary>
   ///   Base class for every game component
   /// </summary>
-  public abstract class GameComponent : UniqueObject, IApiManagerProvider
+  public abstract class GameComponent : UniqueObject
   {
     /// <summary>
     ///   Entity, which this component attached to
@@ -55,11 +55,6 @@ namespace OxyEngine.Ecs.Components
       }
 
       return component;
-    }
-
-    public ApiManager GetApiManager()
-    {
-      return Container.Instance.ResolveByName<ApiManager>(InstanceName.ApiManager);
     }
   }
 }

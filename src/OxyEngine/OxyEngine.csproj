@@ -89,7 +89,6 @@
     <Compile Include="Helpers\CollectionsHelper.cs" />
     <Compile Include="Helpers\DelegatesHelper.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Interfaces\IApiManagerProvider.cs" />
     <Compile Include="Interfaces\ILogger.cs" />
     <Compile Include="Interfaces\ISettings.cs" />
     <Compile Include="Interfaces\IModule.cs" />
@@ -97,7 +96,6 @@
     <Compile Include="Loggers\ConsoleLogger.cs" />
     <Compile Include="Loggers\LogManager.cs" />
     <Compile Include="Mapping\InputMap.cs" />
-    <Compile Include="ApiManager.cs" />
     <Compile Include="GameInstance.cs" />
     <Compile Include="Projects\GameProject.cs" />
     <Compile Include="Projects\GameProjectLoader.cs" />
