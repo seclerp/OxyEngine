@@ -26,7 +26,7 @@ namespace OxyEngine.Ecs.Systems
     public GameSystemManager(GameInstance gameInstance)
     {
       _gameInstance = gameInstance;
-      Container.Instance.RegisterByName("Api", _gameInstance.GetApiManager());
+      Container.Instance.RegisterByName(InstanceName.ApiManager, _gameInstance.GetApiManager());
     }
 
     /// <summary>
