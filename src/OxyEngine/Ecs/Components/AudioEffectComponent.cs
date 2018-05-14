@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Audio;
 using OxyEngine.Audio;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 
 namespace OxyEngine.Ecs.Components
@@ -30,7 +31,7 @@ namespace OxyEngine.Ecs.Components
     
     public void Load()
     {
-      _manager = GetApiManager().Audio;
+      _manager = Container.Instance.ResolveByName<AudioManager>(InstanceName.AudioManager);
     }
     
     /// <summary>

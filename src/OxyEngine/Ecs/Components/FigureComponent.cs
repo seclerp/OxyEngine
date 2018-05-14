@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
 using IDrawable = OxyEngine.Ecs.Behaviours.IDrawable;
@@ -26,7 +27,7 @@ namespace OxyEngine.Ecs.Components
     {
       // This is for DrawSystem, to not fail when using GetComponent with NullReferenceExcepion
       RequireComponent<TransformComponent>();
-      GraphicsManager = GetApiManager().Graphics;
+      GraphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
 
     public abstract void Draw();
