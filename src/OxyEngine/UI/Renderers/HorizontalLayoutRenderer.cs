@@ -1,17 +1,18 @@
 ﻿using System.Runtime.Remoting.Channels;
 using Microsoft.Xna.Framework;
 using OxyEngine.UI.Enums;
-using OxyEngine.UI.Widgets;
+using OxyEngine.UI.Models;
+using OxyEngine.UI.Nodes;
 
 namespace OxyEngine.UI.Renderers
 {
   public class HorizontalLayoutRenderer : WidgetRenderer
   {
-    private HorizontalLayout _widget;
+    private HorizontalLayoutModel _widget;
     
-    public HorizontalLayoutRenderer(HorizontalLayout widget)
+    public HorizontalLayoutRenderer(WidgetNode node) : base(node)
     {
-      _widget = widget;
+      _widget = node.Model as HorizontalLayoutModel;
     }
     
     public override void Render()
@@ -48,7 +49,7 @@ namespace OxyEngine.UI.Renderers
         child.Size = finalSize;
         child.Position = finalPosition;
 
-        child.Render();
+        child.Node.Renderer.Render();
         
         uiCursor += child.FullSize.X;
       }

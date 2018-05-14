@@ -1,19 +1,17 @@
-﻿using OxyEngine.UI.DataBinders;
-using OxyEngine.UI.Renderers;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Microsoft.Xna.Framework;
 using OxyEngine.Annotations;
+using OxyEngine.UI.Nodes;
 
-namespace OxyEngine.UI.Widgets
+namespace OxyEngine.UI.Models
 {
-  public abstract class Widget : INotifyPropertyChanged
+  // WidgetModel - represents metadata and layout properties of the widget. Also connects together with renderer and databinder
+  public abstract class WidgetModel : WidgetPart, INotifyPropertyChanged
   {
-    private WidgetRenderer _renderer;
-    private WidgetDataBinder _dataBinder;
-
     public Vector2 Position { get; set; }
     public Vector2 Size { get; set; }
+    
     // Size + Margin
     public Vector2 FullSize => new Vector2(Size.X + MarginLeft + MarginRight, Size.Y + MarginTop + MarginBottom);
 
@@ -53,35 +51,11 @@ namespace OxyEngine.UI.Widgets
 
     public bool IsVisible { get; set; } = true;
 
-    protected Widget(WidgetRenderer renderer, WidgetDataBinder dataBinder)
+    public WidgetModel(WidgetNode node)
     {
-      _renderer = renderer;
-      _dataBinder = dataBinder;
-    }
-
-    public void Render()
-    {
-      if (IsVisible)
-      {
-        _renderer.Render();
-      }
+      Node = node;
     }
     
-    public void BindRead()
-    {
-      _dataBinder.BindRead();
-    }
-    
-    public void BindWrite()
-    {
-      _dataBinder.BindWrite();
-    }
-    
-    public void BindReadWrite()
-    {
-      _dataBinder.BindReadWrite();
-    }
-
     #region INotifyPropertyChanged Implementation
 
     public event PropertyChangedEventHandler PropertyChanged;

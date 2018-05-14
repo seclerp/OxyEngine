@@ -1,16 +1,19 @@
 ﻿using System.Runtime.Serialization.Formatters;
 using OxyEngine.UI.Enums;
-using OxyEngine.UI.Widgets;
+using OxyEngine.UI.Models;
+using OxyEngine.UI.Nodes;
 
 namespace OxyEngine.UI.Renderers
 {
   public class TextRenderer : WidgetRenderer
   {
-    private Text _widget;
+    private TextModel _widget;
     
-    public TextRenderer(Text widget)
+    public TextRenderer(WidgetNode node) : base(node)
     {
-      _widget = widget;
+      Node = node;
+      
+      _widget = Node.Model as TextModel;
     }
 
     public override void Render()

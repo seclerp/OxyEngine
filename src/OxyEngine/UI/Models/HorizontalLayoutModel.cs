@@ -1,14 +1,15 @@
 ﻿using OxyEngine.UI.DataBinders;
 using OxyEngine.UI.Enums;
+using OxyEngine.UI.Nodes;
 using OxyEngine.UI.Renderers;
 
-namespace OxyEngine.UI.Widgets
+namespace OxyEngine.UI.Models
 {
-  public class HorizontalLayout : LayoutWidget
+  public class HorizontalLayoutModel : LayoutWidgetModel
   {
     public VerticalAlignment VAlign { get; set; } = VerticalAlignment.FullHeight;
     
-    public HorizontalLayout(WidgetRenderer renderer, WidgetDataBinder dataBinder) : base(renderer, dataBinder)
+    public HorizontalLayoutModel(WidgetNode node) : base(node)
     {
     }
   }
