@@ -104,6 +104,7 @@ We use **[Semantic Versioning](http://semver.org/)** for versioning. For the ver
 # Authors
 
 * **Andrey Rublyov** - *Programmer* - **[AndrewRublyov](https://github.com/AndrewRublyov)**
+* **Roman Velychko** - *Programmer* - **[RufusZero](https://github.com/RufusZero)**
 * **Andrey Belyaev** - *Programmer* - **[Svetomech](https://github.com/Svetomech)**
 
 See also the list of **[contributors](https://github.com/OxyTeam/OxyEngine/contributors)** who participated in this project.
