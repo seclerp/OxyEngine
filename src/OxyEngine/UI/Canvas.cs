@@ -9,32 +9,34 @@ namespace OxyEngine.UI
 {
   public class Canvas
   {
-    public GraphicsRenderer Graphics { get; }
+    public FreeGraphicsRenderer FreeGraphics { get; }
 
     private GraphicsManager _graphicsManager;
     private RenderTarget2D _renderTarget;
-
-    private Rectangle _rect;
+    private RootRenderer _rendrer;
+    
+    private Rectangle _canvasArea;
     
     public Canvas(int x, int y, int width, int height)
     {
-      _rect = new Rectangle(x, y, width, height);
+      _canvasArea = new Rectangle(x, y, width, height);
       
-      Graphics = new GraphicsRenderer();
+      FreeGraphics = new FreeGraphicsRenderer();
       
       _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
+      _rendrer = new RootRenderer();
       
-      Resize(_rect.Width, _rect.Height);
+      Resize(_canvasArea.Width, _canvasArea.Height);
     }
 
     public void Resize(int width, int height)
     {
-      _rect = new Rectangle(_rect.X, _rect.Y, width, height);
+      _canvasArea = new Rectangle(_canvasArea.X, _canvasArea.Y, width, height);
     }
     
-    public void Draw(Action drawAction)
+    public void Draw(Action<RootRenderer> action)
     {
-      drawAction();
+      action(_rendrer);
     }
   }
 }

@@ -7,21 +7,31 @@ using OxyEngine.UI.Models;
 
 namespace OxyEngine.UI.Renderers
 {
-  public class GraphicsRenderer
+  public class LayoutGraphicsRenderer : RootRenderer
   {
     private GraphicsManager _graphicsManager;
+    private AreaWrapper _areaWrapper;
+    private Point _pen;
     
-    public GraphicsRenderer()
+    public LayoutGraphicsRenderer(AreaWrapper areaWrapper) : base(areaWrapper)
     {
+      _areaWrapper = areaWrapper;
       _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
+
+      Reset();
+    }
+
+    public void Reset()
+    {
+      _pen = Point.Zero;
     }
     
-    public void Text(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor, 
+    public void Text(SpriteFont font, string text, Color textColor, Color backColor, 
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
       var beforeColor = _graphicsManager.GetColor();
       _graphicsManager.SetColor(backColor.R, backColor.G, backColor.B, backColor.A);
-      _graphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
+      _graphicsManager.Rectangle("fill", _areaWrapper.Area.X + _pen.X, _areaWrapper.Area.Y + _pen.Y, rect.Width, rect.Height);
       
       var beforeFont = _graphicsManager.GetFont();
       _graphicsManager.SetFont(font);

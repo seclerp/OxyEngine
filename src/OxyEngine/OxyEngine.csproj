@@ -113,11 +113,15 @@
     <Compile Include="Settings\GameSettingsRoot.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
     <Compile Include="UI\Canvas.cs" />
+    <Compile Include="UI\AreaWrapper.cs" />
     <Compile Include="UI\Enums\HorizontalAlignment.cs" />
     <Compile Include="UI\Enums\ImageFitMode.cs" />
     <Compile Include="UI\Enums\VerticalAlignment.cs" />
     <Compile Include="UI\Models\TextModel.cs" />
-    <Compile Include="UI\Renderers\GraphicsRenderer.cs" />
+    <Compile Include="UI\Renderers\FreeGraphicsRenderer.cs" />
+    <Compile Include="UI\Renderers\LayoutGraphicsRenderer.cs" />
+    <Compile Include="UI\Renderers\RootRenderer.cs" />
+    <Compile Include="UI\Renderers\TextRenderer.cs" />
     <Compile Include="UniqueObject.cs" />
     <Compile Include="Window\WindowManager.cs" />
   </ItemGroup>
