@@ -10,6 +10,8 @@ namespace OxyEngine.Graphics
     public Color BackgroundColor { get; set; }
     public float LineWidth { get; set; }
     public SpriteFont Font { get; set; }
+    public Rectangle BackupCropping { get; set; }
+    public RasterizerState RasterizerState { get; set; }
     
     internal Stack<Transformation> TransformationStack { get; set; }
   }

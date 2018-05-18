@@ -6,25 +6,22 @@ using OxyEngine.UI.Enums;
 
 namespace OxyEngine.UI.Renderers
 {
-  public class TextRenderer
+  public class TextRenderer : Renderer
   {
-    private GraphicsManager _graphicsManager;
-    
-    public TextRenderer()
-    {
-      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
-    }
-    
     public void Render(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor,
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
-      var beforeColor = _graphicsManager.GetColor();
-      _graphicsManager.SetColor(backColor.R, backColor.G, backColor.B, backColor.A);
-      _graphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
+      // TODO Rework scissors feature
+      // Coordinates now are relative to rect
+      //GraphicsManager.SetCropping(rect);
       
-      var beforeFont = _graphicsManager.GetFont();
-      _graphicsManager.SetFont(font);
-      _graphicsManager.SetColor(textColor.R, textColor.G, textColor.B, textColor.A);
+      var beforeColor = GraphicsManager.GetColor();
+      GraphicsManager.SetColor(backColor.R, backColor.G, backColor.B, backColor.A);
+      GraphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
+      
+      var beforeFont = GraphicsManager.GetFont();
+      GraphicsManager.SetFont(font);
+      GraphicsManager.SetColor(textColor.R, textColor.G, textColor.B, textColor.A);
 
       var textSize = font.MeasureString(text);
       var finalX = 0f;
@@ -58,10 +55,11 @@ namespace OxyEngine.UI.Renderers
           break;
       }
       
-      _graphicsManager.Print(text, rect.X + finalX, rect.Y + finalY);
+      GraphicsManager.Print(text, rect.X + finalX, rect.Y + finalY);
 
-      _graphicsManager.SetFont(beforeFont);
-      _graphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
+      GraphicsManager.SetFont(beforeFont);
+      GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
+      //GraphicsManager.SetCropping();
     }
   }
 }

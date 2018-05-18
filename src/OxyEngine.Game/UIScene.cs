@@ -40,15 +40,18 @@ namespace OxyEngine.Game
     
     public void Draw()
     {
-      _canvas.Draw(() =>
+      _canvas.Draw(rootRederer =>
       {
-        _canvas.FreeGraphics.Text(_textModel.Rect, _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Left);
-        _canvas.FreeGraphics.Text(
-          new Rectangle(_textModel.Rect.X, _textModel.Rect.Y + _textModel.Rect.Height + 50, _textModel.Rect.Width, _textModel.Rect.Height),
-          _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Center);
-        _canvas.FreeGraphics.Text(
-          new Rectangle(_textModel.Rect.X, _textModel.Rect.Y + _textModel.Rect.Height * 2 + 100, _textModel.Rect.Width, _textModel.Rect.Height),
-          _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Right);
+        rootRederer.FreeLayout(graphicsRenderer =>
+        {
+          graphicsRenderer.Text(_textModel.Rect, _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Left);
+          graphicsRenderer.Text(
+            new Rectangle(_textModel.Rect.X, _textModel.Rect.Y + _textModel.Rect.Height + 50, _textModel.Rect.Width, _textModel.Rect.Height),
+            _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Center);
+          graphicsRenderer.Text(
+            new Rectangle(_textModel.Rect.X, _textModel.Rect.Y + _textModel.Rect.Height * 2 + 100, _textModel.Rect.Width, _textModel.Rect.Height),
+            _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Right);
+        });
       });
     }
   }

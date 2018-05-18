@@ -54,7 +54,8 @@ namespace OxyEngine.Graphics
         BackgroundColor = new Color(DefaultBgColorR, DefaultBgColorG, DefaultBgColorB, DefaultBgColorA),
         ForegroundColor = new Color(DefaultColorR, DefaultColorG, DefaultColorB, DefaultColorA),
         LineWidth = 1,
-        TransformationStack = new Stack<Transformation>()
+        TransformationStack = new Stack<Transformation>(),
+        RasterizerState = new RasterizerState { ScissorTestEnable = true }
       };
 
       ClearTransformationStack();
@@ -93,7 +94,7 @@ namespace OxyEngine.Graphics
       ClearTransformationStack();
       _graphicsDeviceManager.GraphicsDevice.Clear(GetBackgroundColor());
 
-      _defaultSpriteBatch.Begin(samplerState: SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(samplerState: SamplerState.LinearWrap, rasterizerState: _currentState.RasterizerState);
     }
 
     private void EndDraw()
@@ -209,6 +210,24 @@ namespace OxyEngine.Graphics
     {
       _currentState.Font = font;
     }
+
+    /// <summary>
+    ///   Set cropping drawing rectangle
+    ///   null to reset it to default state
+    /// </summary>
+    /// <param name="cropping">Cropping drawing rectangle</param>
+    public void SetCropping(Rectangle? cropping = null)
+    {
+      _currentState.BackupCropping = _graphicsDeviceManager.GraphicsDevice.ScissorRectangle;
+        
+      if (cropping is null)
+      {
+        _graphicsDeviceManager.GraphicsDevice.ScissorRectangle = _currentState.BackupCropping;
+        return;
+      }
+
+      _graphicsDeviceManager.GraphicsDevice.ScissorRectangle = cropping.Value;
+    }
     
     #endregion
 
@@ -265,6 +284,15 @@ namespace OxyEngine.Graphics
     public SpriteFont GetFont()
     {
       return _currentState.Font;
+    }
+
+    /// <summary>
+    ///   Returns current cropping draw rectangle
+    /// </summary>
+    /// <returns></returns>
+    public Rectangle GetCropping()
+    {
+      return _graphicsDeviceManager.GraphicsDevice.ScissorRectangle;
     }
 
     #endregion
@@ -449,13 +477,18 @@ namespace OxyEngine.Graphics
       SetRenderTexture(target);
       _graphicsDeviceManager.GraphicsDevice.Clear(Color.Transparent);
       _defaultSpriteBatch.End();
-      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap, rasterizerState: _currentState.RasterizerState);
       action();
       _defaultSpriteBatch.End();
-      SetRenderTexture(null);
-      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
+      SetRenderTexture();
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap, rasterizerState: _currentState.RasterizerState);
     }
-    
+
+    // TODO
+    public void DrawCropped(RenderTarget2D target, Action action)
+    {
+    }
+
     #endregion
 
     #region Matrix transformations
@@ -490,7 +523,8 @@ namespace OxyEngine.Graphics
     {
       _defaultSpriteBatch.End();
       _currentState.TransformationStack.Peek().Translate(new Vector2(x, y));
-      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, samplerState: SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, 
+        samplerState: SamplerState.LinearWrap, rasterizerState: _currentState.RasterizerState);
     }
 
     /// <summary>
@@ -501,7 +535,8 @@ namespace OxyEngine.Graphics
     {
       _defaultSpriteBatch.End();
       _currentState.TransformationStack.Peek().Rotate(r);
-      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, samplerState: SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, 
+        samplerState: SamplerState.LinearWrap, rasterizerState: _currentState.RasterizerState);
     }
 
     /// <summary>
@@ -513,7 +548,8 @@ namespace OxyEngine.Graphics
     {
       _defaultSpriteBatch.End();
       _currentState.TransformationStack.Peek().Zoom(new Vector2(sx, sy));
-      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, samplerState: SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(transformMatrix: _currentState.TransformationStack.Peek().Matrix, 
+        samplerState: SamplerState.LinearWrap, rasterizerState: _currentState.RasterizerState);
     }
 
     /// <summary>

@@ -7,21 +7,19 @@ using OxyEngine.UI.Models;
 
 namespace OxyEngine.UI.Renderers
 {
-  public class FreeGraphicsRenderer : RootRenderer
+  public class FreeGraphicsRenderer : Renderer
   {
-    private AreaWrapper _areaWrapper;
-    private GraphicsManager _graphicsManager;
+    private TextRenderer _textRenderer;
     
-    public FreeGraphicsRenderer(AreaWrapper areaWrapper) : base(areaWrapper)
+    public FreeGraphicsRenderer(AreaWrapper areaWrapper)
     {
-      _areaWrapper = areaWrapper;
-      _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
+      _textRenderer = new TextRenderer();
     }
     
     public void Text(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor, 
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
-      
+      _textRenderer.Render(rect, font, text, textColor, backColor, hTextAlign, vTextAlign);
     }
     
     public void Text(TextModel model)
