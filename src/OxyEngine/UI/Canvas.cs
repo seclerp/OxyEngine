@@ -17,17 +17,18 @@ namespace OxyEngine.UI
     private FreeGraphicsRenderer _freeGraphics { get; }
     
     private Rectangle _canvasArea;
-    private AreaWrapper _clientArea;
+    private AreaStack _areaStack;
     
     public Canvas(int x, int y, int width, int height)
     {
       _canvasArea = new Rectangle(x, y, width, height);
-      _clientArea = new AreaWrapper { Area = _canvasArea };
+      _areaStack = new AreaStack();
       
-      _freeGraphics = new FreeGraphicsRenderer(_clientArea);
-      
+      // Renderers
+      _freeGraphics = new FreeGraphicsRenderer(_areaStack);
+      _renderer = new RootRenderer(_areaStack);
+
       _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
-      _renderer = new RootRenderer(_clientArea);
       
       Resize(_canvasArea.Width, _canvasArea.Height);
     }
@@ -39,7 +40,13 @@ namespace OxyEngine.UI
     
     public void Draw(Action<RootRenderer> action)
     {
-      _clientArea.Area = _canvasArea;
+      _graphicsManager.SetColor(100, 100, 100);
+      _graphicsManager.Rectangle("fill", _canvasArea);
+      _graphicsManager.SetColor();
+      
+      _areaStack.Clear();
+      _areaStack.Push(_canvasArea);
+      
       action(_renderer);
     }
   }

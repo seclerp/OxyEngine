@@ -8,13 +8,13 @@ namespace OxyEngine.UI.Renderers
 {
   public class TextRenderer : Renderer
   {
+    public TextRenderer(AreaStack areaStack) : base(areaStack)
+    {
+    }
+    
     public void Render(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor,
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
-      // TODO Rework scissors feature
-      // Coordinates now are relative to rect
-      //GraphicsManager.SetCropping(rect);
-      
       var beforeColor = GraphicsManager.GetColor();
       GraphicsManager.SetColor(backColor.R, backColor.G, backColor.B, backColor.A);
       GraphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
@@ -55,11 +55,13 @@ namespace OxyEngine.UI.Renderers
           break;
       }
       
-      GraphicsManager.Print(text, rect.X + finalX, rect.Y + finalY);
-
+      GraphicsManager.DrawCropped(rect, () =>
+      {
+        GraphicsManager.Print(text, rect.X + finalX, rect.Y + finalY);
+      });
+      
       GraphicsManager.SetFont(beforeFont);
       GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
-      //GraphicsManager.SetCropping();
     }
   }
 }

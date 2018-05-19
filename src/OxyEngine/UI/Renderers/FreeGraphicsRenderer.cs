@@ -11,15 +11,17 @@ namespace OxyEngine.UI.Renderers
   {
     private TextRenderer _textRenderer;
     
-    public FreeGraphicsRenderer(AreaWrapper areaWrapper)
+    public FreeGraphicsRenderer(AreaStack areaStack) : base(areaStack)
     {
-      _textRenderer = new TextRenderer();
+      _textRenderer = new TextRenderer(areaStack);
     }
     
     public void Text(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor, 
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
-      _textRenderer.Render(rect, font, text, textColor, backColor, hTextAlign, vTextAlign);
+      AreaStack.Push(rect);
+      _textRenderer.Render(AreaStack.Peek(), font, text, textColor, backColor, hTextAlign, vTextAlign);
+      AreaStack.Pop();
     }
     
     public void Text(TextModel model)

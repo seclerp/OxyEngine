@@ -112,6 +112,7 @@
     <Compile Include="Settings\SettingsManager.cs" />
     <Compile Include="Settings\GameSettingsRoot.cs" />
     <Compile Include="Settings\WindowSettings.cs" />
+    <Compile Include="UI\AreaStack.cs" />
     <Compile Include="UI\Canvas.cs" />
     <Compile Include="UI\AreaWrapper.cs" />
     <Compile Include="UI\Enums\HorizontalAlignment.cs" />

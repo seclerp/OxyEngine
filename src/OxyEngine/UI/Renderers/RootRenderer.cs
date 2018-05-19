@@ -1,21 +1,20 @@
 ﻿using System;
+using Microsoft.Xna.Framework;
 using OxyEngine.UI.Enums;
 
 namespace OxyEngine.UI.Renderers
 {
   public class RootRenderer : Renderer
   {
-    private AreaWrapper _areaWrapper;
     private LayoutGraphicsRenderer _horizontalLayoutRenderer;
     private LayoutGraphicsRenderer _verticalLayoutRenderer;
     private FreeGraphicsRenderer _freeGraphicsRenderer;
     
-    public RootRenderer(AreaWrapper areaWrapper)
+    public RootRenderer(AreaStack areaStack) : base(areaStack)
     {
-      _areaWrapper = areaWrapper;
-      _horizontalLayoutRenderer = new LayoutGraphicsRenderer(areaWrapper);
-      _verticalLayoutRenderer = new LayoutGraphicsRenderer(areaWrapper);
-      _freeGraphicsRenderer = new FreeGraphicsRenderer(areaWrapper);
+      _horizontalLayoutRenderer = new LayoutGraphicsRenderer(areaStack);
+      _verticalLayoutRenderer = new LayoutGraphicsRenderer(areaStack);
+      _freeGraphicsRenderer = new FreeGraphicsRenderer(areaStack);
     }
     
     public void HorizontalLayout(Action<LayoutGraphicsRenderer> action)
@@ -28,9 +27,11 @@ namespace OxyEngine.UI.Renderers
       
     }
     
-    public void FreeLayout(Action<FreeGraphicsRenderer> action)
+    public void FreeLayout(Rectangle rectangle, Action<FreeGraphicsRenderer> action)
     {
-      action(_freeGraphicsRenderer);
+      AreaStack.Push(rectangle);
+      GraphicsManager.DrawCropped(AreaStack.Peek(), () => action(_freeGraphicsRenderer));
+      AreaStack.Pop();
     }
   }
 }

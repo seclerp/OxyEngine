@@ -28,21 +28,21 @@ namespace OxyEngine.Game
 
       _textModel = new TextModel
       {
-        Rect = new Rectangle(50, 50, 500, 50),
-        Text = "нееш подумоб",
+        Rect = new Rectangle(0, 0, 500, 40),
+        Text = "нееш подумооооб.....",
         Font = _resourceManager.LoadFont("font"),
         TextColor = Color.White,
         BackgroundColor = Color.DarkGray
       };
-      
-      _canvas = new Canvas(0, 0, _windowManager.GetWidth(), _windowManager.GetHeight());
+
+      _canvas = new Canvas(50, 50, 300, 300); //_windowManager.GetWidth(), _windowManager.GetHeight());
     }
     
     public void Draw()
     {
       _canvas.Draw(rootRederer =>
       {
-        rootRederer.FreeLayout(graphicsRenderer =>
+        rootRederer.FreeLayout(new Rectangle(50, 50, 200, 200), graphicsRenderer =>
         {
           graphicsRenderer.Text(_textModel.Rect, _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Left);
           graphicsRenderer.Text(
@@ -51,6 +51,9 @@ namespace OxyEngine.Game
           graphicsRenderer.Text(
             new Rectangle(_textModel.Rect.X, _textModel.Rect.Y + _textModel.Rect.Height * 2 + 100, _textModel.Rect.Width, _textModel.Rect.Height),
             _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Right);
+          graphicsRenderer.Text(
+            new Rectangle(_textModel.Rect.X, _textModel.Rect.Y + _textModel.Rect.Height * 2 + 200, 50, _textModel.Rect.Height),
+            _textModel.Font, _textModel.Text, _textModel.TextColor, _textModel.BackgroundColor, HorizontalAlignment.Left);
         });
       });
     }

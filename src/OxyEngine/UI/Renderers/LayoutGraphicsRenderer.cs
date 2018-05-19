@@ -9,19 +9,15 @@ namespace OxyEngine.UI.Renderers
 {
   public class LayoutGraphicsRenderer : Renderer
   {
-    private AreaWrapper _areaWrapper;
-    
     // Current state info
     private Point _pen;
     private Color _background;
 
     private TextRenderer _textRenderer;
     
-    public LayoutGraphicsRenderer(AreaWrapper areaWrapper)
+    public LayoutGraphicsRenderer(AreaStack areaStack) : base(areaStack)
     {
-      _areaWrapper = areaWrapper;
-
-      _textRenderer = new TextRenderer();
+      _textRenderer = new TextRenderer(areaStack);
     }
 
     public void Reset(Color background)
@@ -30,7 +26,7 @@ namespace OxyEngine.UI.Renderers
       _background = background;
 
       var beforeColor = GraphicsManager.GetColor();
-      GraphicsManager.Rectangle("fill", _areaWrapper.Area);
+      //GraphicsManager.Rectangle("fill", _areaWrapper.Area);
     }
     
     public void Text(SpriteFont font, string text, Color textColor, Color backColor, 
