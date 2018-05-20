@@ -5,6 +5,6 @@
     Top = 0,
     Middle = 1,
     Bottom = 2,
-    FullHeight = 3
+    Stretch = 3
   }
 }

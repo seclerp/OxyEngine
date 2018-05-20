@@ -12,16 +12,19 @@ namespace OxyEngine.UI.Renderers
     {
     }
     
-    public void Render(Rectangle rect, SpriteFont font, string text, Color textColor, Color backColor,
+    public void Render(Rectangle rect, SpriteFont font, string text, Color? textColor = null, Color? backColor = null,
       HorizontalAlignment hTextAlign = HorizontalAlignment.Left, VerticalAlignment vTextAlign = VerticalAlignment.Top)
     {
+      var textColorValue = textColor ?? Color.White;
+      var backColorValue = backColor ?? Color.Transparent;
+      
       var beforeColor = GraphicsManager.GetColor();
-      GraphicsManager.SetColor(backColor.R, backColor.G, backColor.B, backColor.A);
+      GraphicsManager.SetColor(backColorValue.R, backColorValue.G, backColorValue.B, backColorValue.A);
       GraphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
       
       var beforeFont = GraphicsManager.GetFont();
       GraphicsManager.SetFont(font);
-      GraphicsManager.SetColor(textColor.R, textColor.G, textColor.B, textColor.A);
+      GraphicsManager.SetColor(textColorValue.R, textColorValue.G, textColorValue.B, textColorValue.A);
 
       var textSize = font.MeasureString(text);
       var finalX = 0f;
@@ -47,7 +50,7 @@ namespace OxyEngine.UI.Renderers
           finalY = 0;
           break;
         case VerticalAlignment.Middle:
-        case VerticalAlignment.FullHeight:
+        case VerticalAlignment.Stretch:
           finalY = (rect.Size.Y - textSize.Y) / 2;
           break;
         case VerticalAlignment.Bottom:

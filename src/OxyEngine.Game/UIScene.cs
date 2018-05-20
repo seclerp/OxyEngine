@@ -30,7 +30,7 @@ namespace OxyEngine.Game
       {
         Rect = new Rectangle(0, 0, 500, 40),
         Text = "нееш подумооооб.....",
-        Font = _resourceManager.LoadFont("font"),
+        Font = _resourceManager.LoadFont("Roboto-Regular"),
         TextColor = Color.White,
         BackgroundColor = Color.DarkGray
       };
