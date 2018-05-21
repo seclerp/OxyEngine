@@ -9,12 +9,10 @@ namespace OxyEngine.UI
 {
   public class Canvas
   {
-
     private GraphicsManager _graphicsManager;
     private RenderTarget2D _renderTarget;
     
-    private RootRenderer _renderer;
-    private FreeGraphicsRenderer _freeGraphics { get; }
+    private UIRenderer _renderer;
     
     private Rectangle _canvasArea;
     private AreaStack _areaStack;
@@ -25,8 +23,7 @@ namespace OxyEngine.UI
       _areaStack = new AreaStack();
       
       // Renderers
-      _freeGraphics = new FreeGraphicsRenderer(_areaStack);
-      _renderer = new RootRenderer(_areaStack);
+      _renderer = new UIRenderer(_areaStack);
 
       _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
       
@@ -38,7 +35,7 @@ namespace OxyEngine.UI
       _canvasArea = new Rectangle(_canvasArea.X, _canvasArea.Y, width, height);
     }
     
-    public void Draw(Action<RootRenderer> action)
+    public void Draw(Action<UIRenderer> action)
     {
       _graphicsManager.SetColor(100, 100, 100);
       _graphicsManager.Rectangle("fill", _canvasArea);

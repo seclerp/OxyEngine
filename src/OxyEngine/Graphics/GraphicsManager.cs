@@ -477,14 +477,18 @@ namespace OxyEngine.Graphics
       SetRenderTexture(target);
       _graphicsDeviceManager.GraphicsDevice.Clear(Color.Transparent);
       _defaultSpriteBatch.End();
-      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap);
       action();
       _defaultSpriteBatch.End();
       SetRenderTexture();
-      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap);
     }
 
-    // TODO
+    /// <summary>
+    ///   Execute action and crops graphics to given rectangles
+    /// </summary>
+    /// <param name="cropRectangle">Rectangle for croping</param>
+    /// <param name="action">Action with graphics rendering</param>
     public void DrawCropped(Rectangle cropRectangle, Action action)
     {
       _defaultSpriteBatch.End();
@@ -495,7 +499,7 @@ namespace OxyEngine.Graphics
       SetCropping();
       
       _defaultSpriteBatch.End();
-      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Opaque, SamplerState.LinearWrap);
+      _defaultSpriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap);
     }
 
     #endregion

@@ -120,11 +120,10 @@
     <Compile Include="UI\Enums\VerticalAlignment.cs" />
     <Compile Include="UI\Models\Offset.cs" />
     <Compile Include="UI\Models\TextModel.cs" />
-    <Compile Include="UI\Renderers\FreeGraphicsRenderer.cs" />
     <Compile Include="UI\Renderers\ImageRenderer.cs" />
     <Compile Include="UI\Renderers\LayoutGraphicsRenderer.cs" />
     <Compile Include="UI\Renderers\Renderer.cs" />
-    <Compile Include="UI\Renderers\RootRenderer.cs" />
+    <Compile Include="UI\Renderers\UIRenderer.cs" />
     <Compile Include="UI\Renderers\TextRenderer.cs" />
     <Compile Include="UniqueObject.cs" />
     <Compile Include="Window\WindowManager.cs" />
