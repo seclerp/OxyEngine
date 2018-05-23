@@ -1,7 +1,7 @@
 
 #----------------------------- Global Properties ----------------------------#
 
-/outputDir:bin/$(Platform)
+/outputDir:../../../artifacts/$(Configuration)/OxyEngine.Game/Content
 /intermediateDir:obj/$(Platform)
 /platform:DesktopGL
 /config:

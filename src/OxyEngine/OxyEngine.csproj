@@ -117,14 +117,16 @@
     <Compile Include="UI\AreaWrapper.cs" />
     <Compile Include="UI\Enums\HorizontalAlignment.cs" />
     <Compile Include="UI\Enums\ImageFitMode.cs" />
+    <Compile Include="UI\Enums\ImageSizeMode.cs" />
     <Compile Include="UI\Enums\VerticalAlignment.cs" />
     <Compile Include="UI\Models\Offset.cs" />
     <Compile Include="UI\Models\TextModel.cs" />
     <Compile Include="UI\Renderers\ImageRenderer.cs" />
-    <Compile Include="UI\Renderers\LayoutGraphicsRenderer.cs" />
     <Compile Include="UI\Renderers\Renderer.cs" />
     <Compile Include="UI\Renderers\UIRenderer.cs" />
     <Compile Include="UI\Renderers\TextRenderer.cs" />
+    <Compile Include="UI\Styles\Style.cs" />
+    <Compile Include="UI\Styles\StyleDatabase.cs" />
     <Compile Include="UniqueObject.cs" />
     <Compile Include="Window\WindowManager.cs" />
   </ItemGroup>
