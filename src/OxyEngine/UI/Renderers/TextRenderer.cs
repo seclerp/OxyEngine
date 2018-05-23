@@ -18,13 +18,13 @@ namespace OxyEngine.UI.Renderers
       _wrapCache = new Dictionary<(SpriteFont, string, int), string>();
     }
     
-    public void Render(Rectangle rect, string text, string styleSelector)
+    public void Render(Rectangle rect, string text, Style style = null)
     {
-      var textStyles = Styles.GetStyle(styleSelector);
-      var font = textStyles.GetRule<SpriteFont>("font");
+      style = style ?? GetDefaultStyle();
+      var font = style.GetRule<SpriteFont>("font");
       
-      var textColorValue = textStyles.GetRule<Color>("color");
-      var backColorValue = textStyles.GetRule<Color>("background-color");
+      var textColorValue = style.GetRule<Color>("color");
+      var backColorValue = style.GetRule<Color>("background-color");
       
       var beforeColor = GraphicsManager.GetColor();
       GraphicsManager.SetColor(backColorValue.R, backColorValue.G, backColorValue.B, backColorValue.A);
@@ -34,7 +34,7 @@ namespace OxyEngine.UI.Renderers
       GraphicsManager.SetFont(font);
       GraphicsManager.SetColor(textColorValue.R, textColorValue.G, textColorValue.B, textColorValue.A);
 
-      var finalText = textStyles.GetRule<bool>("text-wrap") 
+      var finalText = style.GetRule<bool>("text-wrap") 
         ? WrapText(font, text, rect.Width) 
         : text;
       
@@ -42,7 +42,7 @@ namespace OxyEngine.UI.Renderers
       var finalX = 0f;
       var finalY = 0f;
       
-      switch (textStyles.GetRule<HorizontalAlignment>("h-align"))
+      switch (style.GetRule<HorizontalAlignment>("h-align"))
       {
         case HorizontalAlignment.Left:
           finalX = 0;
@@ -56,7 +56,7 @@ namespace OxyEngine.UI.Renderers
           break;
       }
       
-      switch (textStyles.GetRule<VerticalAlignment>("v-align"))
+      switch (style.GetRule<VerticalAlignment>("v-align"))
       {
         case VerticalAlignment.Top:
           finalY = 0;

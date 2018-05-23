@@ -18,5 +18,10 @@ namespace OxyEngine.UI.Renderers
       Styles = styles;
       GraphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
     }
+
+    protected Style GetDefaultStyle()
+    {
+      return Styles.GetStyle("");
+    }
   }
 }

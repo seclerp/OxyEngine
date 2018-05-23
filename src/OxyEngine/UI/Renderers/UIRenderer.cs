@@ -16,11 +16,13 @@ namespace OxyEngine.UI.Renderers
       _textRenderer = new TextRenderer(areaStack, styles);
     }
     
-    public void FreeLayout(Rectangle rectangle, Action<UIRenderer> action = null, string styleSelector = "")
+    public void FreeLayout(Rectangle rectangle, Action<UIRenderer> action = null, Style style = null)
     {
-      var backColor = Styles.GetStyle(styleSelector).GetRule<Color>("background-color");
-      var borderColor = Styles.GetStyle(styleSelector).GetRule<Color>("border-color");
-      var borderWidth = Styles.GetStyle(styleSelector).GetRule<float>("border-width");
+      style = style ?? GetDefaultStyle();
+      
+      var backColor = style.GetRule<Color>("background-color");
+      var borderColor = style.GetRule<Color>("border-color");
+      var borderWidth = style.GetRule<float>("border-width");
       
       AreaStack.Push(rectangle);
       rectangle = AreaStack.Peek();
@@ -41,26 +43,24 @@ namespace OxyEngine.UI.Renderers
     }
     
     public Rectangle Panel(Rectangle rect, string title = "Panel", 
-      Action<UIRenderer> action = null, string panelStyleSelector = "", string headerStyleSelector = "")
+      Action<UIRenderer> action = null, Style headerStyle = null,  Style panelStyle = null)
     {
-      var panelStyles = Styles.GetStyle(panelStyleSelector);
-      
       Text(new Rectangle(rect.X, rect.Y, rect.Width, 25)
         , title
-        , headerStyleSelector
+        , headerStyle
       );
       FreeLayout(new Rectangle(rect.X, rect.Y + 25, rect.Width, rect.Height)
         , action
-        , panelStyleSelector
+        , panelStyle
       );
 
       return rect;
     }
     
-    public void Text(Rectangle rect, string text, string styleSelector = "")
+    public void Text(Rectangle rect, string text, Style style = null)
     {
       AreaStack.Push(rect);
-      _textRenderer.Render(AreaStack.Peek(), text, styleSelector);
+      _textRenderer.Render(AreaStack.Peek(), text, style);
       AreaStack.Pop();
     }
   }

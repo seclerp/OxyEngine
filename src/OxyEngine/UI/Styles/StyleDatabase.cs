@@ -7,15 +7,10 @@ namespace OxyEngine.UI.Styles
   public class StyleDatabase
   {
     private Dictionary<string, Style> _database;
-    
-    // key - child selector, value - parent selector
-    // childs "inherit" styles
-    private Dictionary<string, string> _childrenToParents;
-    
+
     public StyleDatabase()
     {
       _database = new Dictionary<string, Style>();
-      _childrenToParents = new Dictionary<string, string>();
     }
 
     public StyleDatabase AddStyle(string selector, Style rule)
@@ -53,12 +48,22 @@ namespace OxyEngine.UI.Styles
     
     public StyleDatabase SetChildRelation(string child, string parent)
     {
-      _childrenToParents[child] = parent;
+      if (!IsSimpleSelector(child) || !IsSimpleSelector(parent))
+      {
+        throw new Exception("'child' and 'parent' selectors must be simple selectors (withour spaces)");
+      }
+      
+      if (!_database.ContainsKey(child) || !_database.ContainsKey(parent))
+      {
+        throw new Exception("'child' and 'parent' styles must exists in style database");
+      }
 
+      _database[child].SetParent(_database[parent]);
+      
       return this;
     }
     
-    private bool IsSimpleSelector(string selector)
+    private static bool IsSimpleSelector(string selector)
     {
       return !selector.Contains(" ");
     }
