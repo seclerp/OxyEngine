@@ -12,10 +12,15 @@ namespace OxyEngine.UI.Renderers
     {
     }
 
-    public void Render(Texture2D texture = null, Rectangle? rect = null, Rectangle? sourceRect = null, 
-      HorizontalAlignment hAlign = HorizontalAlignment.FullWidth, VerticalAlignment vAlign = VerticalAlignment.Stretch)
+    public void Render(Texture2D texture, Rectangle rect, Rectangle sourceRect, Style style = null)
     {
+      style = style ?? GetDefaultStyle();
       
+      var backColorValue = style.GetRule<Color>("background-color");
+      
+      var beforeColor = GraphicsManager.GetColor();
+      GraphicsManager.SetColor(backColorValue.R, backColorValue.G, backColorValue.B, backColorValue.A);
+      GraphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
     }
   }
 }
