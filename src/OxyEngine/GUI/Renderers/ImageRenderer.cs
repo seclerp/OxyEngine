@@ -112,7 +112,6 @@ namespace OxyEngine.GUI.Renderers
       {
         GraphicsManager.Draw(texture, sourceRect, destRect);
       });
-      
     }
   }
 }

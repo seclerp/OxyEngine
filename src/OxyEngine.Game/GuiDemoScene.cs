@@ -1,4 +1,4 @@
-﻿using System.Net.Mime;
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Dependency;
@@ -8,27 +8,35 @@ using OxyEngine.GUI;
 using OxyEngine.GUI.Enums;
 using OxyEngine.GUI.Renderers;
 using OxyEngine.GUI.Styles;
+using OxyEngine.Input;
 using OxyEngine.Resources;
 using OxyEngine.Window;
 using IDrawable = OxyEngine.Ecs.Behaviours.IDrawable;
+using IUpdateable = OxyEngine.Ecs.Behaviours.IUpdateable;
 
 namespace OxyEngine.Game
 {
-  public class GuiDemoScene : TransformEntity, IInitializable, IDrawable
+  public class GuiDemoScene : TransformEntity, IInitializable, IUpdateable, IDrawable
   {
     private Canvas _canvas;
     private WindowManager _windowManager;
     private ResourceManager _resourceManager;
+    private InputManager _inputManager;
 
     private Texture2D _exampleImage;
     private Texture2D _exampleImage2;
     
     private StyleDatabase _styles;
 
+    private Action<GuiRenderer> _currentWindowRenderer;
+    private int _currentWindowRendererId;
+    private Action<GuiRenderer>[] _windowRenderers;
+    
     public void Init()
     {
       _windowManager = Container.Instance.ResolveByName<WindowManager>(InstanceName.WindowManager);
       _resourceManager = Container.Instance.ResolveByName<ResourceManager>(InstanceName.ResourceManager);
+      _inputManager = Container.Instance.ResolveByName<InputManager>(InstanceName.InputManager);
 
       _exampleImage = _resourceManager.LoadTexture("planet");
       _exampleImage2 = _resourceManager.LoadTexture("mario");
@@ -59,6 +67,35 @@ namespace OxyEngine.Game
         .SetChildRelation("panel", "canvas");
       
       _canvas = new Canvas(0, 0, _windowManager.GetWidth(), _windowManager.GetHeight(), _styles);
+
+      InitializeExampleWindowRenderers();
+    }
+    
+    public void Update(float dt)
+    {
+      if (_inputManager.IsKeyPressed("right"))
+      {
+        _currentWindowRendererId++;
+        
+        if (_currentWindowRendererId >= _windowRenderers.Length)
+        {
+          _currentWindowRendererId = 0;
+        }
+
+        _currentWindowRenderer = _windowRenderers[_currentWindowRendererId];
+      }
+      
+      if (_inputManager.IsKeyPressed("left"))
+      {
+        _currentWindowRendererId--;
+        
+        if (_currentWindowRendererId < 0)
+        {
+          _currentWindowRendererId = _windowRenderers.Length - 1;
+        }
+
+        _currentWindowRenderer = _windowRenderers[_currentWindowRendererId];
+      }
     }
     
     public void Draw()
@@ -66,43 +103,69 @@ namespace OxyEngine.Game
       _canvas.Draw(rootRederer =>
       {
         // Root panel with background
-        rootRederer.FreeLayout(new Rectangle(0, 0, _windowManager.GetWidth(), _windowManager.GetHeight()),
-          freeLayoutRenderer =>
-          {
-            // Text examples panel
-            freeLayoutRenderer.Panel(new Rectangle(50, 50, 230, 400), "Text", renderer =>
-              {
-                TextAlignment(freeLayoutRenderer);
-                TextWrapping(freeLayoutRenderer);
-                
-              }
-              , _styles.GetStyle("panel panel-header")
-              , _styles.GetStyle("panel")
-            );
-            
-            // Image examples panel
-            freeLayoutRenderer.Panel(new Rectangle(330, 50, 230, 400), "Images", renderer =>
-              {
-                ImageAlignment(freeLayoutRenderer);
-                ImageSize(freeLayoutRenderer);
-              }
-              , _styles.GetStyle("panel panel-header")
-              , _styles.GetStyle("panel")
-            );
-          }
+        rootRederer.FreeLayout(new Rectangle(0, 0, _windowManager.GetWidth(), _windowManager.GetHeight())
+          , _currentWindowRenderer
           , _styles.GetStyle("canvas")
         );
       });
     }
 
+    private void InitializeExampleWindowRenderers()
+    {
+      _windowRenderers = new Action<GuiRenderer>[]
+      {
+        Example1_TextAndImages,
+        Example2_Buttons
+      };
+      
+      _currentWindowRenderer = _windowRenderers[0];
+    }
+    
+    #region Example 1
+
+    private void Example1_TextAndImages(GuiRenderer renderer)
+    {
+      // Header
+      renderer.Text(new Rectangle(0, 0, _windowManager.GetWidth(), 25)
+        , "1. Text and Images"
+        , Style.Merge(_styles.GetStyle("panel panel-header")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
+      );
+      
+      // Text examples panel
+      renderer.Panel(new Rectangle(50, 50, 230, 400), "Text", 
+        panelRenderer =>
+        {
+          TextAlignment(panelRenderer);
+          TextWrapping(panelRenderer);
+        }
+        , _styles.GetStyle("panel panel-header")
+        , _styles.GetStyle("panel")
+      );
+            
+      // Image examples panel
+      renderer.Panel(new Rectangle(330, 50, 230, 400), "Images", 
+        panelRenderer =>
+        {
+          ImageAlignment(panelRenderer);
+          ImageSize(panelRenderer);
+        }
+        , _styles.GetStyle("panel panel-header")
+        , _styles.GetStyle("panel")
+      );
+    }
+    
     private void TextAlignment(GuiRenderer renderer)
     {
       renderer.Text(new Rectangle(5, 5, 220, 25), "Alignment:"
         , Style.Merge(_styles.GetStyle("panel")
-            , new Style()
-              .SetRule("h-align", HorizontalAlignment.Center)
-              .SetRule("v-align", VerticalAlignment.Middle)
-          )
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
       );
       
       renderer.Text(new Rectangle(5, 30, 70, 70), "Text"
@@ -356,6 +419,44 @@ namespace OxyEngine.Game
             .SetRule("v-align", VerticalAlignment.Middle)
         )
       );
+    }
+
+    #endregion
+    
+    private void Example2_Buttons(GuiRenderer renderer)
+    {
+      // Header
+      renderer.Text(new Rectangle(0, 0, _windowManager.GetWidth(), 25)
+        , "2. Buttons"
+        , Style.Merge(_styles.GetStyle("panel panel-header")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
+      );
+      
+      // Text examples panel
+//      renderer.Panel(new Rectangle(50, 50, 230, 400), "Text", 
+//        panelRenderer =>
+//        {
+//          TextAlignment(panelRenderer);
+//          TextWrapping(panelRenderer);
+//                
+//        }
+//        , _styles.GetStyle("panel panel-header")
+//        , _styles.GetStyle("panel")
+//      );
+//            
+//      // Image examples panel
+//      renderer.Panel(new Rectangle(330, 50, 230, 400), "Images", 
+//        panelRenderer =>
+//        {
+//          ImageAlignment(panelRenderer);
+//          ImageSize(panelRenderer);
+//        }
+//        , _styles.GetStyle("panel panel-header")
+//        , _styles.GetStyle("panel")
+//      );
     }
   }
 }

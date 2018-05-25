@@ -16,7 +16,9 @@ namespace OxyEngine.Input
     private readonly InputMap _map;
     
     private KeyboardState _keyboardState;
+    private KeyboardState _lastKeyboardState;
     private MouseState _mouseState;
+    private MouseState _lastMouseState;
     private GamePadState[] _gamePadStates;
 
     private GameInstance _gameInstance;
@@ -28,6 +30,12 @@ namespace OxyEngine.Input
       _map = new InputMap();
       _anyGamePadConnected = false;
       _gameInstance = gameInstance;
+      
+      _keyboardState = new KeyboardState(new Keys[]{});
+      _lastKeyboardState = new KeyboardState(new Keys[]{});
+      
+      _mouseState = new MouseState();
+      _lastMouseState = new MouseState();
       
       _gameInstance.Events.Global.AddListenersUsingAttributes(this);
     }
@@ -62,6 +70,9 @@ namespace OxyEngine.Input
     
     public void UpdateInputState(KeyboardState keyboardState, MouseState mouseState, GamePadState[] gamePadStates)
     {
+      _lastKeyboardState = _keyboardState;
+      _lastMouseState = _mouseState;
+      
       _keyboardState = keyboardState;
       _mouseState = mouseState;
       _gamePadStates = gamePadStates;
@@ -69,10 +80,10 @@ namespace OxyEngine.Input
     }
     
     /// <summary>
-    ///   Return true if specified keyboard key is pressed, otherwise false
+    ///   Return true if specified keyboard key is down, otherwise false
     /// </summary>
     /// <param name="key">Keyboard key to check</param>
-    public bool IsKeyPressed(string key)
+    public bool IsKeyDown(string key)
     {
       if (!_map.KeyMap.ContainsKey(key))
         throw new Exception($"Unknown keyboard key '{key}'");
@@ -81,11 +92,35 @@ namespace OxyEngine.Input
     }
     
     /// <summary>
+    ///   Return true if specified keyboard key is just pressed, otherwise false
+    /// </summary>
+    /// <param name="key">Keyboard key to check</param>
+    public bool IsKeyPressed(string key)
+    {
+      if (!_map.KeyMap.ContainsKey(key))
+        throw new Exception($"Unknown keyboard key '{key}'");
+      
+      return _keyboardState.IsKeyDown(_map.KeyMap[key]) && !_lastKeyboardState.IsKeyDown(_map.KeyMap[key]);
+    }
+    
+    /// <summary>
+    ///   Return true if specified keyboard key is just released, otherwise false
+    /// </summary>
+    /// <param name="key">Keyboard key to check</param>
+    public bool IsKeyReleased(string key)
+    {
+      if (!_map.KeyMap.ContainsKey(key))
+        throw new Exception($"Unknown keyboard key '{key}'");
+      
+      return !_keyboardState.IsKeyDown(_map.KeyMap[key]) && _lastKeyboardState.IsKeyDown(_map.KeyMap[key]);
+    }
+    
+    /// <summary>
     ///   Return true if specified gamepad button is pressed, otherwise false
     /// </summary>
     /// <param name="gamePad">Gamepad ID</param>
     /// <param name="button">Gamepad button to check</param>
-    public bool IsGamePadButtonPressed(int gamePad, string button)
+    public bool IsGamePadButtonDown(int gamePad, string button)
     {
       CheckGamepadConnected(gamePad);
       return _map.CheckGamePadButton(_gamePadStates[gamePad], button);
@@ -114,12 +149,30 @@ namespace OxyEngine.Input
     }
 
     /// <summary>
-    ///   Return true if specified keyboard key is pressed, otherwise false
+    ///   Return true if specified keyboard key is down, otherwise false
+    /// </summary>
+    /// <param name="button">Mouse button to check</param>
+    public bool IsMouseDown(string button)
+    {
+      return _map.CheckMouseButton(_mouseState, button);
+    }
+    
+    /// <summary>
+    ///   Return true if specified keyboard key is just pressed, otherwise false
     /// </summary>
     /// <param name="button">Mouse button to check</param>
     public bool IsMousePressed(string button)
     {
-      return _map.CheckMouseButton(_mouseState, button);
+      return _map.CheckMouseButton(_mouseState, button) && !_map.CheckMouseButton(_lastMouseState, button);
+    }
+    
+    /// <summary>
+    ///   Return true if specified keyboard key is just pressed, otherwise false
+    /// </summary>
+    /// <param name="button">Mouse button to check</param>
+    public bool IsMouseReleased(string button)
+    {
+      return !_map.CheckMouseButton(_mouseState, button) && _map.CheckMouseButton(_lastMouseState, button);
     }
 
     /// <summary>
