@@ -3,13 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
+using IDrawable = OxyEngine.Ecs.Behaviours.IDrawable;
 
 namespace OxyEngine.Ecs.Components
 {
   /// <summary>
   ///   Component for drawing sprites
   /// </summary>
-  public class SpriteComponent : GameComponent, Behaviours.ILoadable, Behaviours.IDrawable
+  public class SpriteComponent : GameComponent, ILoadable, IDrawable
   {
     /// <summary>
     ///   Rectangle on texture, used to determine position and size of a sprite

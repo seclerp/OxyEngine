@@ -13,11 +13,13 @@ namespace OxyEngine.Ecs.Components
     /// <summary>
     ///   Effect to play
     /// </summary>
+    // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public SoundEffect AudioEffect { get; set; }
     
     /// <summary>
     ///   Play mode
     /// </summary>
+    // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public AudioEffectPlayMode PlayMode { get; set; }
     
     /// <summary>

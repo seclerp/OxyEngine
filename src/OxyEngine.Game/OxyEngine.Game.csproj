@@ -46,7 +46,7 @@
     <Compile Include="TransformScene.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UIScene.cs" />
+    <Compile Include="GuiDemoScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

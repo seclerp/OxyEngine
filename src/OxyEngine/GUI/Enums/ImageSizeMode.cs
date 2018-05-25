@@ -1,10 +1,9 @@
-﻿namespace OxyEngine.UI.Enums
+﻿namespace OxyEngine.GUI.Enums
 {
   public enum ImageSizeMode
   {
     KeepSize,
     Stretch,
-    Tile,
     Contain,
     Cover
   }

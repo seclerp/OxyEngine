@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 
-namespace OxyEngine.UI.Styles
+namespace OxyEngine.GUI.Styles
 {
   public class Style
   {

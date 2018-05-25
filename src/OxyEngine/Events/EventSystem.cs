@@ -72,14 +72,6 @@ namespace OxyEngine.Events
       }
     }
     
-    public void StopListening(string eventName, EngineEventHandler handler)
-    {
-      if (!_registry.ContainsKey(eventName))
-        throw new Exception($"No handlers for event with name '{eventName}'',\n\t  event system '{Id}'");
-      
-      _registry[eventName] -= handler;
-    }
-
     public void Invoke(string eventName, EngineEventArgs args, bool checkEventExists = false)
     {
       if (!_registry.ContainsKey(eventName))

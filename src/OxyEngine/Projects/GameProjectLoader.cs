@@ -7,7 +7,6 @@ namespace OxyEngine.Projects
 {
   public class GameProjectLoader
   {
-    private const string EntryFileName = "entry.py";
     private const string SettingsFileName = "settings.xml";
     
     /// <summary>

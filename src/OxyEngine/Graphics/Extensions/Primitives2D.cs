@@ -13,14 +13,14 @@ namespace OxyEngine.Graphics.Extensions
 	{
 		#region Private Members
 
-		private static readonly Dictionary<String, List<Vector2>> circleCache = new Dictionary<string, List<Vector2>>();
+		private static readonly Dictionary<String, List<Vector2>> CircleCache = new Dictionary<string, List<Vector2>>();
 		//private static readonly Dictionary<String, List<Vector2>> arcCache = new Dictionary<string, List<Vector2>>();
-		private static Texture2D pixel;
+		private static Texture2D _pixel;
 
 		private static void CreateThePixel(SpriteBatch spriteBatch)
 		{
-			pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
-			pixel.SetData(new[]{ Color.White });
+			_pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+			_pixel.SetData(new[]{ Color.White });
 		}
 
 
@@ -34,9 +34,9 @@ namespace OxyEngine.Graphics.Extensions
 		{
 			// Look for a cached version of this circle
 			String circleKey = radius + "x" + sides;
-			if (circleCache.ContainsKey(circleKey))
+			if (CircleCache.ContainsKey(circleKey))
 			{
-				return circleCache[circleKey];
+				return CircleCache[circleKey];
 			}
 
 			List<Vector2> vectors = new List<Vector2>();
@@ -53,7 +53,7 @@ namespace OxyEngine.Graphics.Extensions
 			vectors.Add(new Vector2((float)(radius * Math.Cos(0)), (float)(radius * Math.Sin(0))));
 
 			// Cache this circle so that it can be quickly drawn next time
-			circleCache.Add(circleKey, vectors);
+			CircleCache.Add(circleKey, vectors);
 
 			return vectors;
 		}
@@ -69,13 +69,13 @@ namespace OxyEngine.Graphics.Extensions
 		/// <returns>A list of vectors that, if connected, will create an arc</returns>
 		private static List<Vector2> CreateArc(float radius, int sides, float startingAngle, float radians)
 		{
-			List<Vector2> points = new List<Vector2>();
+			var points = new List<Vector2>();
 			points.AddRange(CreateCircle(radius, sides));
 			points.RemoveAt(points.Count - 1); // remove the last point because it's a duplicate of the first
 
 			// The circle starts at (radius, 0)
-			double curAngle = 0.0;
-			double anglePerSide = MathHelper.TwoPi / sides;
+			var curAngle = 0.0;
+			var anglePerSide = MathHelper.TwoPi / sides;
 
 			// "Rotate" to the starting point
 			while ((curAngle + (anglePerSide / 2.0)) < startingAngle)
@@ -91,7 +91,7 @@ namespace OxyEngine.Graphics.Extensions
 			points.Add(points[0]);
 
 			// Now remove the points at the end of the circle to create the arc
-			int sidesInArc = (int)((radians / anglePerSide) + 0.5);
+			var sidesInArc = (int)((radians / anglePerSide) + 0.5);
 			points.RemoveRange(sidesInArc + 1, points.Count - sidesInArc - 1);
 
 			return points;
@@ -122,7 +122,6 @@ namespace OxyEngine.Graphics.Extensions
 		
 		#endregion
 		
-		
 		#region FillRectangle
 
 		/// <summary>
@@ -133,13 +132,13 @@ namespace OxyEngine.Graphics.Extensions
 		/// <param name="color">The color to draw the rectangle in</param>
 		public static void FillRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color)
 		{
-			if (pixel == null)
+			if (_pixel == null)
 			{
 				CreateThePixel(spriteBatch);
 			}
 
 			// Simply use the function already there
-			spriteBatch.Draw(pixel, rect, color);
+			spriteBatch.Draw(_pixel, rect, color);
 		}
 
 
@@ -152,12 +151,12 @@ namespace OxyEngine.Graphics.Extensions
 		/// <param name="angle">The angle in radians to draw the rectangle at</param>
 		public static void FillRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color, float angle)
 		{
-			if (pixel == null)
+			if (_pixel == null)
 			{
 				CreateThePixel(spriteBatch);
 			}
 
-			spriteBatch.Draw(pixel, rect, null, color, angle, Vector2.Zero, SpriteEffects.None, 0);
+			spriteBatch.Draw(_pixel, rect, null, color, angle, Vector2.Zero, SpriteEffects.None, 0);
 		}
 
 
@@ -184,13 +183,13 @@ namespace OxyEngine.Graphics.Extensions
 		/// <param name="color">The color to draw the rectangle in</param>
 		public static void FillRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color, float angle)
 		{
-			if (pixel == null)
+			if (_pixel == null)
 			{
 				CreateThePixel(spriteBatch);
 			}
 
 			// stretch the pixel between the two vectors
-			spriteBatch.Draw(pixel,
+			spriteBatch.Draw(_pixel,
 			                 location,
 			                 null,
 			                 color,
@@ -387,13 +386,13 @@ namespace OxyEngine.Graphics.Extensions
 		/// <param name="thickness">The thickness of the line</param>
 		public static void DrawLine(this SpriteBatch spriteBatch, Vector2 point, float length, float angle, Color color, float thickness)
 		{
-			if (pixel == null)
+			if (_pixel == null)
 			{
 				CreateThePixel(spriteBatch);
 			}
 
 			// stretch the pixel between the two vectors
-			spriteBatch.Draw(pixel,
+			spriteBatch.Draw(_pixel,
 			                 point,
 			                 null,
 			                 color,
@@ -416,12 +415,12 @@ namespace OxyEngine.Graphics.Extensions
 
 		public static void PutPixel(this SpriteBatch spriteBatch, Vector2 position, Color color)
 		{
-			if (pixel == null)
+			if (_pixel == null)
 			{
 				CreateThePixel(spriteBatch);
 			}
 
-			spriteBatch.Draw(pixel, position, color);
+			spriteBatch.Draw(_pixel, position, color);
 		}
 
 		#endregion
@@ -506,7 +505,6 @@ namespace OxyEngine.Graphics.Extensions
 			DrawArc(spriteBatch, center, radius, sides, startingAngle, radians, color, 1.0f);
 		}
 
-
 		/// <summary>
 		/// Draw a arc
 		/// </summary>
@@ -520,7 +518,7 @@ namespace OxyEngine.Graphics.Extensions
 		/// <param name="thickness">The thickness of the arc</param>
 		public static void DrawArc(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, float startingAngle, float radians, Color color, float thickness)
 		{
-			List<Vector2> arc = CreateArc(radius, sides, startingAngle, radians);
+			var arc = CreateArc(radius, sides, startingAngle, radians);
 			//List<Vector2> arc = CreateArc2(radius, sides, startingAngle, degrees);
 			DrawPolygon(spriteBatch, center, arc, color, thickness);
 		}

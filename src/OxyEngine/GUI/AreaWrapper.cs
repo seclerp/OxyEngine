@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace OxyEngine.UI
+namespace OxyEngine.GUI
 {
   public class AreaWrapper
   {

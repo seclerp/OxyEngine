@@ -1,19 +1,18 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using OxyEngine.UI.Renderers;
 using OxyEngine.Dependency;
 using OxyEngine.Graphics;
-using OxyEngine.UI.Styles;
+using OxyEngine.GUI.Renderers;
+using OxyEngine.GUI.Styles;
 
-namespace OxyEngine.UI
+namespace OxyEngine.GUI
 {
   public class Canvas
   {
     private readonly StyleDatabase _styles;
     private readonly GraphicsManager _graphicsManager;
     
-    private readonly UIRenderer _renderer;
+    private readonly GuiRenderer _renderer;
     
     private Rectangle _canvasArea;
     private AreaStack _areaStack;
@@ -25,7 +24,7 @@ namespace OxyEngine.UI
       _areaStack = new AreaStack();
       
       // Renderers
-      _renderer = new UIRenderer(_areaStack, styles);
+      _renderer = new GuiRenderer(_areaStack, styles);
 
       _graphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
       
@@ -37,7 +36,7 @@ namespace OxyEngine.UI
       _canvasArea = new Rectangle(_canvasArea.X, _canvasArea.Y, width, height);
     }
     
-    public void Draw(Action<UIRenderer> action, string canvasSelector = "canvas")
+    public void Draw(Action<GuiRenderer> action, string canvasSelector = "canvas")
     {
       var color = _styles.GetStyle(canvasSelector).GetRule<Color>("background-color");
       _graphicsManager.SetColor(color.R, color.G, color.B, color.A);

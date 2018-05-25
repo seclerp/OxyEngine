@@ -11,8 +11,7 @@ namespace OxyEngine.Game
 {
   public class TransformScene : TransformEntity, IInitializable, IUpdateable
   {
-    private Vector2 _scale;
-    private float Timer;
+    private float _timer;
     private TransformEntity _child;
     
     public void Init()
@@ -35,9 +34,9 @@ namespace OxyEngine.Game
 
     public void Update(float dt)
     {
-      Timer += dt;
+      _timer += dt;
 
-      _child.Transform.Rotation = (float) Math.Sin(Timer);
+      _child.Transform.Rotation = (float) Math.Sin(_timer);
     }
   }
 }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OxyEngine.UI.Enums;
+using OxyEngine.GUI.Enums;
 
-namespace OxyEngine.UI.Models
+namespace OxyEngine.GUI.Models
 {
   public struct TextModel
   {

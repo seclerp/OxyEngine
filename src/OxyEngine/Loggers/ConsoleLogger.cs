@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using OxyEngine.Interfaces;
 
 namespace OxyEngine.Loggers

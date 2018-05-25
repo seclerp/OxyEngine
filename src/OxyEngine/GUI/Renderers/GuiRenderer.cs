@@ -1,22 +1,22 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OxyEngine.UI.Enums;
-using OxyEngine.UI.Models;
-using OxyEngine.UI.Styles;
+using OxyEngine.GUI.Styles;
 
-namespace OxyEngine.UI.Renderers
+namespace OxyEngine.GUI.Renderers
 {
-  public class UIRenderer : Renderer
+  public class GuiRenderer : Renderer
   {
     private readonly TextRenderer _textRenderer;
+    private readonly ImageRenderer _imageRenderer;
     
-    public UIRenderer(AreaStack areaStack, StyleDatabase styles) : base(areaStack, styles)
+    public GuiRenderer(AreaStack areaStack, StyleDatabase styles) : base(areaStack, styles)
     {
       _textRenderer = new TextRenderer(areaStack, styles);
+      _imageRenderer = new ImageRenderer(areaStack, styles);
     }
     
-    public void FreeLayout(Rectangle rectangle, Action<UIRenderer> action = null, Style style = null)
+    public void FreeLayout(Rectangle rectangle, Action<GuiRenderer> action = null, Style style = null)
     {
       style = style ?? GetDefaultStyle();
       
@@ -43,7 +43,7 @@ namespace OxyEngine.UI.Renderers
     }
     
     public Rectangle Panel(Rectangle rect, string title = "Panel", 
-      Action<UIRenderer> action = null, Style headerStyle = null,  Style panelStyle = null)
+      Action<GuiRenderer> action = null, Style headerStyle = null,  Style panelStyle = null)
     {
       Text(new Rectangle(rect.X, rect.Y, rect.Width, 25)
         , title
@@ -61,6 +61,13 @@ namespace OxyEngine.UI.Renderers
     {
       AreaStack.Push(rect);
       _textRenderer.Render(AreaStack.Peek(), text, style);
+      AreaStack.Pop();
+    }
+    
+    public void Image(Texture2D texture, Rectangle rect, Rectangle sourceRect, Style style = null)
+    {
+      AreaStack.Push(rect);
+      _imageRenderer.Render(texture, AreaStack.Peek(), sourceRect, style);
       AreaStack.Pop();
     }
   }

@@ -1,5 +1,4 @@
-﻿using OxyEngine.Dependency;
-using OxyEngine.Ecs.Entities;
+﻿using OxyEngine.Ecs.Entities;
 using OxyEngine.Ecs.Systems;
 using OxyEngine.Projects;
 

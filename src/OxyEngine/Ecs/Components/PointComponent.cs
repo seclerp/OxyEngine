@@ -20,7 +20,6 @@ namespace OxyEngine.Ecs.Components
     public override void Draw()
     {
       var currColor = GraphicsManager.GetColor();
-      var currThickness = GraphicsManager.GetLineWidth();
       
       GraphicsManager.SetColor(Color.R, Color.G, Color.B, Color.A);
       GraphicsManager.Point(Point.X, Point.Y);

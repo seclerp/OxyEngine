@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace OxyEngine.UI
+namespace OxyEngine.GUI
 {
   /// <summary>
   ///   Special stack for area bounding rectangles

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Dynamic;
 using System.Runtime.CompilerServices;
 
 namespace OxyEngine.Events

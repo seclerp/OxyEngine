@@ -13,7 +13,7 @@ namespace OxyEngine.Python
     private static readonly List<string> ImportantScriptAssemblies = new List<string>
     {
       "MonoGame.Framework",
-      "OxyEngine",
+      "OxyEngine"
     };
     
     private static readonly List<string> ScriptAssemblies = new List<string>();
@@ -66,7 +66,7 @@ namespace OxyEngine.Python
 
     public void ExecuteScript(string path)
     {
-      ScriptScope scope = CreateConfiguredScope();
+      var scope = CreateConfiguredScope();
 
       try
       {
@@ -94,7 +94,7 @@ namespace OxyEngine.Python
 
     private ScriptScope CreateConfiguredScope()
     {
-      ScriptScope scope = _scriptEngine.CreateScope();
+      var scope = _scriptEngine.CreateScope();
       scope.ImportModule("clr");
 
       _scriptEngine.Execute("import clr", scope);

@@ -1,9 +1,5 @@
 ﻿using System;
-using OxyEngine.Dependency;
 using OxyEngine.Ecs.Entities;
-using OxyEngine.Events;
-using OxyEngine.Events.Args;
-using OxyEngine.Interfaces;
 
 namespace OxyEngine.Ecs.Components
 {
@@ -17,13 +13,8 @@ namespace OxyEngine.Ecs.Components
     /// </summary>
     public GameEntity Entity { get; private set; }
 
-    private EventSystem _eventSystem;
-    
     protected GameComponent(GameEntity entity)
     {
-      _eventSystem = new EventSystem();
-      _eventSystem.AddListenersUsingAttributes(this);
-      
       SetEntity(entity);
     }
 
@@ -31,11 +22,6 @@ namespace OxyEngine.Ecs.Components
     {
     }
 
-    [ListenEvent(EventNames.Initialization.OnInit)]
-    public virtual void OnInit(object sender, EngineEventArgs args)
-    {
-    }
-    
     public bool IsDetached()
     {
       return Entity == null;

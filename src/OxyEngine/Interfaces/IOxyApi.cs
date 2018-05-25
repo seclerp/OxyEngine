@@ -1,5 +1,4 @@
 ﻿using OxyEngine.Audio;
-using OxyEngine.Events;
 using OxyEngine.Graphics;
 using OxyEngine.Input;
 using OxyEngine.Resources;

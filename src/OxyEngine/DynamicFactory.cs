@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Management.Instrumentation;
 using System.Reflection;
 
 namespace OxyEngine
 {
   public static class DynamicFactory
   {
-    private static readonly Dictionary<Type, object> _objectActivatorCache = new Dictionary<Type, object>();
+    private static readonly Dictionary<Type, object> ObjectActivatorCache = new Dictionary<Type, object>();
     
     private delegate T ObjectActivator<out T>(params object[] args);
 
@@ -23,12 +22,12 @@ namespace OxyEngine
     {
       var type = typeof(T);
 
-      if (!_objectActivatorCache.ContainsKey(type))
+      if (!ObjectActivatorCache.ContainsKey(type))
       {
         AddObjectActivator<T>();
       }
 
-      return ((ObjectActivator<T>) _objectActivatorCache[type]).Invoke(args);
+      return ((ObjectActivator<T>) ObjectActivatorCache[type]).Invoke(args);
     }
 
     /// <summary>
@@ -39,42 +38,42 @@ namespace OxyEngine
     {     
       var type = typeof(T);
 
-      ConstructorInfo ctor = type.GetConstructors().First();
-      ObjectActivator<T> createdActivator = GetActivator<T>(ctor);
+      var ctor = type.GetConstructors().First();
+      var createdActivator = GetActivator<T>(ctor);
 
-      _objectActivatorCache.Add(type, createdActivator);
+      ObjectActivatorCache.Add(type, createdActivator);
     }
     
     private static ObjectActivator<T> GetActivator<T>(ConstructorInfo ctor)
     {
-      Type type = ctor.DeclaringType;
-      ParameterInfo[] paramsInfo = ctor.GetParameters();
+      var type = ctor.DeclaringType;
+      var paramsInfo = ctor.GetParameters();
 
       // Create a single param of type object[]
-      ParameterExpression param = Expression.Parameter(typeof(object[]), "args");
+      var param = Expression.Parameter(typeof(object[]), "args");
 
-      Expression[] argsExp = new Expression[paramsInfo.Length];
+      var argsExp = new Expression[paramsInfo.Length];
 
       // Pick each arg from the params array 
       // and create a typed expression of them
       for (var i = 0; i < paramsInfo.Length; i++)
       {
-        Expression index = Expression.Constant(i);
-        Type paramType = paramsInfo[i].ParameterType;
+        var index = Expression.Constant(i);
+        var paramType = paramsInfo[i].ParameterType;
 
-        Expression paramAccessorExp = Expression.ArrayIndex(param, index);
-        Expression paramCastExp = Expression.Convert(paramAccessorExp, paramType);
+        var paramAccessorExp = Expression.ArrayIndex(param, index);
+        var paramCastExp = Expression.Convert(paramAccessorExp, paramType);
 
         argsExp[i] = paramCastExp;
       }
 
       // Make a NewExpression that calls the
       // ctor with the args we just created
-      NewExpression newExp = Expression.New(ctor, argsExp);
+      var newExp = Expression.New(ctor, argsExp);
 
       // Create a lambda with the New
       // Expression as body and our param object[] as arg
-      LambdaExpression lambda = Expression.Lambda(typeof(ObjectActivator<T>), newExp, param);
+      var lambda = Expression.Lambda(typeof(ObjectActivator<T>), newExp, param);
 
       // Compile it
       var compiled = (ObjectActivator<T>) lambda.Compile();

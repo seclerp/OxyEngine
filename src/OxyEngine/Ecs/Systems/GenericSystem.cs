@@ -31,6 +31,7 @@ namespace OxyEngine.Ecs.Systems
       
       foreach (var component in entity.Components)
       {
+        // ReSharper disable once SuspiciousTypeConversion.Global
         if (component is IInitializable componentInitializable)
           componentInitializable.Init();
       }
@@ -43,6 +44,7 @@ namespace OxyEngine.Ecs.Systems
     
     private void LoadRecursive(GameEntity entity)
     {
+      // ReSharper disable once SuspiciousTypeConversion.Global
       if (entity is ILoadable entityLoadable)
         entityLoadable.Load();
 
@@ -60,6 +62,7 @@ namespace OxyEngine.Ecs.Systems
 
     private void UpdateRecursive(GameEntity entity, float dt)
     {
+      // ReSharper disable once SuspiciousTypeConversion.Global
       if (entity is IUpdateable entityUpdatable)
         entityUpdatable.Update(dt);
 

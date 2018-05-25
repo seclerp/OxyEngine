@@ -20,15 +20,20 @@ namespace OxyEngine.Resources
   {
     private ContentManager _manager;
     private IEnumerable<IDisposable> _loadedResources;
+    // ReSharper disable once NotAccessedField.Local
+    private ResourcesSettings _settings;
     
     #region Initialization
 
     /// <summary>
     ///   Initialize Resources module
     /// </summary>
+    /// <param name="gameInstance">Game entry point</param>
     /// <param name="manager">MonoGame ContentManager to use</param>
+    /// <param name="settings">Resources settings</param>
     public ResourceManager(GameInstance gameInstance, ContentManager manager, ResourcesSettings settings)
     {
+      _settings = settings;
       _manager = manager ?? throw new NullReferenceException(nameof(manager));
       _loadedResources = new List<IDisposable>();
       
@@ -49,7 +54,6 @@ namespace OxyEngine.Resources
         var t = resource;
         // resource can be null already, so check it before call to not catch NullReferenceException
         t?.Dispose();
-        t = null;
       }
     }
     

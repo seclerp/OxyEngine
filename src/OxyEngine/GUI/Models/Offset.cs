@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.UI.Models
+﻿namespace OxyEngine.GUI.Models
 {
   public struct Offset
   {

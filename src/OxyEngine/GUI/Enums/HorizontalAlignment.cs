@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.UI.Enums
+﻿namespace OxyEngine.GUI.Enums
 {
   public enum HorizontalAlignment
   {

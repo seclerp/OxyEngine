@@ -2,12 +2,10 @@
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using OxyEngine.Dependency;
-using OxyEngine.Graphics;
-using OxyEngine.UI.Enums;
-using OxyEngine.UI.Styles;
+using OxyEngine.GUI.Enums;
+using OxyEngine.GUI.Styles;
 
-namespace OxyEngine.UI.Renderers
+namespace OxyEngine.GUI.Renderers
 {
   public class TextRenderer : Renderer
   {

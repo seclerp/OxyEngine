@@ -13,6 +13,7 @@ namespace OxyEngine.Ecs.Components
     /// <summary>
     ///   Song to play
     /// </summary>
+    // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public Song Song { get; set; }
     
     /// <summary>

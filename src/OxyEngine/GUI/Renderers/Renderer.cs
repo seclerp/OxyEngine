@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using Microsoft.Xna.Framework;
-using OxyEngine.Dependency;
+﻿using OxyEngine.Dependency;
 using OxyEngine.Graphics;
-using OxyEngine.UI.Styles;
+using OxyEngine.GUI.Styles;
 
-namespace OxyEngine.UI.Renderers
+namespace OxyEngine.GUI.Renderers
 {
   public class Renderer
   {
