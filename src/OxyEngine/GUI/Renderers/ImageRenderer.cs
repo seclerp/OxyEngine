@@ -33,38 +33,38 @@ namespace OxyEngine.GUI.Renderers
           break;
           
         case ImageSizeMode.Stretch:
-          finalWidth = rect.X;
-          finalHeight = rect.Y;
+          finalWidth = rect.Size.X;
+          finalHeight = rect.Size.Y;
           
           break;
           
         case ImageSizeMode.Contain:
           // 1. Find smallest side of container
-          var smallestSide = Math.Min(rect.Size.X, rect.Size.Y);
+          var smallestContainerSide = Math.Min(rect.Size.X, rect.Size.Y);
           
           // 2. Get ratio between smallest side of container and child
-          var containRatio = smallestSide == rect.Size.X 
-            ? smallestSide / sourceRect.Size.X 
-            : smallestSide / sourceRect.Size.Y;
+          float containRatio = smallestContainerSide == rect.Size.X 
+            ? (float)smallestContainerSide / sourceRect.Size.X 
+            : (float)smallestContainerSide / sourceRect.Size.Y;
           
           // 3. Multiply sides by this ratio
-          finalWidth = sourceRect.Size.X * containRatio;
-          finalHeight = sourceRect.Size.Y * containRatio;
+          finalWidth = (int)(sourceRect.Size.X * containRatio);
+          finalHeight = (int)(sourceRect.Size.Y * containRatio);
           
           break;
         
         case ImageSizeMode.Cover:
           // 1. Find biggest side of container
-          var biggestSide = Math.Max(rect.Size.X, rect.Size.Y);
+          var smallestSourceSide = Math.Min(sourceRect.Size.X, sourceRect.Size.Y);
           
           // 2. Get ratio between smallest side of container and child
-          var coverRatio = biggestSide == rect.Size.X 
-            ? biggestSide / sourceRect.Size.X 
-            : biggestSide / sourceRect.Size.Y;
+          float coverRatio = smallestSourceSide == rect.Size.X 
+            ? (float)smallestSourceSide / sourceRect.Size.X 
+            : (float)smallestSourceSide / sourceRect.Size.Y;
           
           // 3. Multiply sides by this ratio
-          finalWidth = sourceRect.Size.X * coverRatio;
-          finalHeight = sourceRect.Size.Y * coverRatio;
+          finalWidth = (int)(sourceRect.Size.X * coverRatio);
+          finalHeight = (int)(sourceRect.Size.Y * coverRatio);
           
           break;
         
@@ -106,12 +106,13 @@ namespace OxyEngine.GUI.Renderers
       
       var destRect = new Rectangle(rect.X + finalX, rect.Y + finalY, finalWidth, finalHeight);
       
+      GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
+      
       GraphicsManager.DrawCropped(rect, () =>
       {
         GraphicsManager.Draw(texture, sourceRect, destRect);
       });
       
-      GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
     }
   }
 }

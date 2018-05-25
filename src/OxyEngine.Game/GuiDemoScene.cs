@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System.Net.Mime;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
@@ -19,12 +20,18 @@ namespace OxyEngine.Game
     private WindowManager _windowManager;
     private ResourceManager _resourceManager;
 
+    private Texture2D _exampleImage;
+    private Texture2D _exampleImage2;
+    
     private StyleDatabase _styles;
 
     public void Init()
     {
       _windowManager = Container.Instance.ResolveByName<WindowManager>(InstanceName.WindowManager);
       _resourceManager = Container.Instance.ResolveByName<ResourceManager>(InstanceName.ResourceManager);
+
+      _exampleImage = _resourceManager.LoadTexture("planet");
+      _exampleImage2 = _resourceManager.LoadTexture("mario");
       
       _styles = new StyleDatabase();
 
@@ -67,6 +74,7 @@ namespace OxyEngine.Game
               {
                 TextAlignment(freeLayoutRenderer);
                 TextWrapping(freeLayoutRenderer);
+                
               }
               , _styles.GetStyle("panel panel-header")
               , _styles.GetStyle("panel")
@@ -75,6 +83,8 @@ namespace OxyEngine.Game
             // Image examples panel
             freeLayoutRenderer.Panel(new Rectangle(330, 50, 230, 400), "Images", renderer =>
               {
+                ImageAlignment(freeLayoutRenderer);
+                ImageSize(freeLayoutRenderer);
               }
               , _styles.GetStyle("panel panel-header")
               , _styles.GetStyle("panel")
@@ -189,13 +199,15 @@ namespace OxyEngine.Game
     {
       renderer.Text(new Rectangle(5, 5, 220, 25), "Alignment:"
         , Style.Merge(_styles.GetStyle("panel")
-            , new Style()
-              .SetRule("h-align", HorizontalAlignment.Center)
-              .SetRule("v-align", VerticalAlignment.Middle)
-          )
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
       );
       
-      renderer.Text(new Rectangle(5, 30, 70, 70), "Text"`
+      renderer.Image(_exampleImage
+        ,new Rectangle(5, 30, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
@@ -203,14 +215,18 @@ namespace OxyEngine.Game
         )
       );
       
-      renderer.Text(new Rectangle(80, 30, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(80, 30, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Top)
         )
       );
-      renderer.Text(new Rectangle(155, 30, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(155, 30, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
@@ -218,21 +234,27 @@ namespace OxyEngine.Game
         )
       );
       
-      renderer.Text(new Rectangle(5, 110, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(5, 110, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
             .SetRule("v-align", VerticalAlignment.Middle)
         )
       );
-      renderer.Text(new Rectangle(80, 110, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(80, 110, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Middle)
         )
       );
-      renderer.Text(new Rectangle(155, 110, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(155, 110, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
@@ -240,25 +262,98 @@ namespace OxyEngine.Game
         )
       );
       
-      renderer.Text(new Rectangle(5, 185, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(5, 185, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
             .SetRule("v-align", VerticalAlignment.Bottom)
         )
       );
-      renderer.Text(new Rectangle(80, 185, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(80, 185, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Bottom)
         )
       );
-      renderer.Text(new Rectangle(155, 185, 70, 70), "Text"
+      renderer.Image(_exampleImage
+        , new Rectangle(155, 185, 70, 70)
+        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
             .SetRule("v-align", VerticalAlignment.Bottom)
+        )
+      );
+    }
+    
+    private void ImageSize(GuiRenderer renderer)
+    {
+      renderer.Text(new Rectangle(5, 260, 220, 25), "Image size mode:"
+        , Style.Merge(_styles.GetStyle("panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
+      );
+      
+      renderer.Image(_exampleImage2
+        , new Rectangle(5, 285, 70, 70)
+        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , Style.Merge(_styles.GetStyle("panel inner-panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.Stretch)
+        )
+      );
+      renderer.Image(_exampleImage2
+        , new Rectangle(80, 285, 70, 70)
+        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , Style.Merge(_styles.GetStyle("panel inner-panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.Cover)
+        )
+      );
+      renderer.Image(_exampleImage2
+        , new Rectangle(155, 285, 70, 70)
+        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , Style.Merge(_styles.GetStyle("panel inner-panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.Contain)
+        )
+      );
+      
+      
+      renderer.Text(new Rectangle(5, 285 + 70, 70, 25), "Stretch"
+        , Style.Merge(_styles.GetStyle("panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
+      );
+      
+      renderer.Text(new Rectangle(80, 285 + 70, 70, 25), "Cover"
+        , Style.Merge(_styles.GetStyle("panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
+      );
+      
+      renderer.Text(new Rectangle(155, 285 + 70, 70, 25), "Contain"
+        , Style.Merge(_styles.GetStyle("panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
         )
       );
     }
