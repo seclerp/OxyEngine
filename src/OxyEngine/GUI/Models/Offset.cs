@@ -2,12 +2,12 @@
 {
   public struct Offset
   {
-    public readonly float Top;
-    public readonly float Left;
-    public readonly float Right;
-    public readonly float Bottom;
+    public readonly int Top;
+    public readonly int Left;
+    public readonly int Right;
+    public readonly int Bottom;
 
-    public Offset(float top, float left, float right, float bottom)
+    public Offset(int top, int left, int right, int bottom)
     {
       Top = top;
       Left = left;

@@ -6,6 +6,7 @@ using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Entities;
 using OxyEngine.GUI;
 using OxyEngine.GUI.Enums;
+using OxyEngine.GUI.Models;
 using OxyEngine.GUI.Renderers;
 using OxyEngine.GUI.Styles;
 using OxyEngine.Input;
@@ -25,6 +26,7 @@ namespace OxyEngine.Game
 
     private Texture2D _exampleImage;
     private Texture2D _exampleImage2;
+    private Texture2D _exampleImage3;
     
     private StyleDatabase _styles;
 
@@ -40,6 +42,7 @@ namespace OxyEngine.Game
 
       _exampleImage = _resourceManager.LoadTexture("planet");
       _exampleImage2 = _resourceManager.LoadTexture("mario");
+      _exampleImage3 = _resourceManager.LoadTexture("borders");
       
       _styles = new StyleDatabase();
 
@@ -147,11 +150,12 @@ namespace OxyEngine.Game
       );
             
       // Image examples panel
-      renderer.Panel(new Rectangle(330, 50, 230, 400), "Images", 
+      renderer.Panel(new Rectangle(330, 50, 230, 475), "Images", 
         panelRenderer =>
         {
           ImageAlignment(panelRenderer);
           ImageSize(panelRenderer);
+          ImageSlicing(panelRenderer);
         }
         , _styles.GetStyle("panel panel-header")
         , _styles.GetStyle("panel")
@@ -168,7 +172,7 @@ namespace OxyEngine.Game
         )
       );
       
-      renderer.Text(new Rectangle(5, 30, 70, 70), "Text"
+      renderer.Text(new Rectangle(5, 35, 70, 70), "Text"
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
@@ -176,14 +180,14 @@ namespace OxyEngine.Game
         )
       );
       
-      renderer.Text(new Rectangle(80, 30, 70, 70), "Text"
+      renderer.Text(new Rectangle(80, 35, 70, 70), "Text"
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Top)
         )
       );
-      renderer.Text(new Rectangle(155, 30, 70, 70), "Text"
+      renderer.Text(new Rectangle(155, 35, 70, 70), "Text"
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
@@ -269,7 +273,7 @@ namespace OxyEngine.Game
       );
       
       renderer.Image(_exampleImage
-        ,new Rectangle(5, 30, 70, 70)
+        ,new Rectangle(5, 35, 70, 70)
         , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
@@ -279,7 +283,7 @@ namespace OxyEngine.Game
       );
       
       renderer.Image(_exampleImage
-        , new Rectangle(80, 30, 70, 70)
+        , new Rectangle(80, 35, 70, 70)
         , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
@@ -288,7 +292,7 @@ namespace OxyEngine.Game
         )
       );
       renderer.Image(_exampleImage
-        , new Rectangle(155, 30, 70, 70)
+        , new Rectangle(155, 35, 70, 70)
         , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
@@ -353,7 +357,7 @@ namespace OxyEngine.Game
         )
       );
     }
-    
+   
     private void ImageSize(GuiRenderer renderer)
     {
       renderer.Text(new Rectangle(5, 260, 220, 25), "Image size mode:"
@@ -421,8 +425,44 @@ namespace OxyEngine.Game
       );
     }
 
-    #endregion
+    private void ImageSlicing(GuiRenderer renderer)
+    {
+      renderer.Text(new Rectangle(5, 375, 220, 25), "Slicing:"
+        , Style.Merge(_styles.GetStyle("panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+        )
+      );
+      
+      renderer.Image(_exampleImage3
+        , new Rectangle(5, 400, 107, 70)
+        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , Style.Merge(_styles.GetStyle("panel inner-panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.Contain)
+        )
+      );
+      
+      renderer.ImageSliced(_exampleImage3
+        , new Rectangle(117, 400, 107, 70)
+        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , new Offset(5, 5, 5, 5)
+        , Style.Merge(_styles.GetStyle("panel inner-panel")
+          , new Style()
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.Contain)
+        )
+      );
+    }
     
+    #endregion
+
+    #region Example 2
+
     private void Example2_Buttons(GuiRenderer renderer)
     {
       // Header
@@ -458,5 +498,7 @@ namespace OxyEngine.Game
 //        , _styles.GetStyle("panel")
 //      );
     }
+
+    #endregion
   }
 }

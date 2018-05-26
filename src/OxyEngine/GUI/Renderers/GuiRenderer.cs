@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using OxyEngine.GUI.Models;
 using OxyEngine.GUI.Styles;
 
 namespace OxyEngine.GUI.Renderers
@@ -68,6 +69,13 @@ namespace OxyEngine.GUI.Renderers
     {
       AreaStack.Push(rect);
       _imageRenderer.Render(texture, AreaStack.Peek(), sourceRect, style);
+      AreaStack.Pop();
+    }
+    
+    public void ImageSliced(Texture2D texture, Rectangle rect, Rectangle sourceRect, Offset offset, Style style = null)
+    {
+      AreaStack.Push(rect);
+      _imageRenderer.RenderSliced(texture, AreaStack.Peek(), sourceRect, offset, style);
       AreaStack.Pop();
     }
   }

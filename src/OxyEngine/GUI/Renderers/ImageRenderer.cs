@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.GUI.Enums;
+using OxyEngine.GUI.Models;
 using OxyEngine.GUI.Styles;
 
 namespace OxyEngine.GUI.Renderers
@@ -112,6 +113,89 @@ namespace OxyEngine.GUI.Renderers
       {
         GraphicsManager.Draw(texture, sourceRect, destRect);
       });
+    }
+
+    public void RenderSliced(Texture2D texture, Rectangle rect, Rectangle sourceRect, Offset offset, Style style = null)
+    {
+      var source1 = new Rectangle(sourceRect.X, sourceRect.Y, 
+        offset.Left, offset.Top);
+      var source2 = new Rectangle(sourceRect.X + offset.Left, sourceRect.Y, 
+        sourceRect.Size.X - offset.Left - offset.Right, offset.Top);
+      var source3 = new Rectangle(sourceRect.X + sourceRect.Size.X - offset.Right, sourceRect.Y, 
+        offset.Right, offset.Top);
+      
+      var source4 = new Rectangle(sourceRect.X, sourceRect.Y + offset.Top, 
+        offset.Left, sourceRect.Size.Y - offset.Top - offset.Bottom);
+      var source5 = new Rectangle(sourceRect.X + offset.Left, sourceRect.Y + offset.Top, 
+        sourceRect.Size.X - offset.Left - offset.Right, sourceRect.Size.Y - offset.Top - offset.Bottom);
+      var source6 = new Rectangle(sourceRect.X + sourceRect.Size.X - offset.Right, sourceRect.Y + offset.Top, 
+        offset.Right, sourceRect.Size.Y - offset.Top - offset.Bottom);
+      
+      var source7 = new Rectangle(sourceRect.X, sourceRect.Y + sourceRect.Size.Y - offset.Bottom, 
+        offset.Left, offset.Bottom);
+      var source8 = new Rectangle(sourceRect.X + offset.Left, sourceRect.Y + sourceRect.Size.Y - offset.Bottom, 
+        sourceRect.Size.X - offset.Left - offset.Right, offset.Bottom);
+      var source9 = new Rectangle(sourceRect.X + sourceRect.Size.X - offset.Right, sourceRect.Y + sourceRect.Size.Y - offset.Bottom, 
+        offset.Right, offset.Bottom);
+      
+      // TODO:
+      
+      var dest1 = new Rectangle(rect.X, rect.Y, 
+        offset.Left, offset.Top);
+      var dest2 = new Rectangle(rect.X + offset.Left, rect.Y, 
+        sourceRect.Size.X - offset.Left - offset.Right, offset.Top);
+      var dest3 = new Rectangle(rect.X + sourceRect.Size.X - offset.Right, rect.Y, 
+        offset.Right, offset.Top);
+      
+      var dest4 = new Rectangle(rect.X, rect.Y + offset.Top, 
+        offset.Left, sourceRect.Size.Y - offset.Top - offset.Bottom);
+      var dest5 = new Rectangle(rect.X + offset.Left, rect.Y + offset.Top, 
+        sourceRect.Size.X - offset.Left - offset.Right, sourceRect.Size.Y - offset.Top - offset.Bottom);
+      var dest6 = new Rectangle(rect.X + sourceRect.Size.X - offset.Right, rect.Y + offset.Top, 
+        offset.Right, sourceRect.Size.Y - offset.Top - offset.Bottom);
+      
+      var dest7 = new Rectangle(rect.X, rect.Y + sourceRect.Size.Y - offset.Bottom, 
+        offset.Left, offset.Bottom);
+      var dest8 = new Rectangle(rect.X + offset.Left, rect.Y + sourceRect.Size.Y - offset.Bottom, 
+        sourceRect.Size.X - offset.Left - offset.Right, offset.Bottom);
+      var dest9 = new Rectangle(rect.X + sourceRect.Size.X - offset.Right, rect.Y + sourceRect.Size.Y - offset.Bottom, 
+        offset.Right, offset.Bottom);
+      
+      AreaStack.Push(dest1);
+      Render(texture, dest1, source1, style);
+      AreaStack.Pop();
+      
+      AreaStack.Push(dest2);
+      Render(texture, dest2, source2, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest3);
+      Render(texture, dest3, source3, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest4);
+      Render(texture, dest4, source4, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest5);
+      Render(texture, dest5, source5, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest6);
+      Render(texture, dest6, source6, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest7);
+      Render(texture, dest7, source7, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest8);
+      Render(texture, dest8, source8, style);
+      AreaStack.Pop();
+
+      AreaStack.Push(dest9);
+      Render(texture, dest9, source9, style);
+      AreaStack.Pop();
     }
   }
 }
