@@ -437,25 +437,21 @@ namespace OxyEngine.Game
       
       renderer.Image(_exampleImage3
         , new Rectangle(5, 400, 107, 70)
-        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , new Rectangle(0, 0, _exampleImage3.Width, _exampleImage3.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
-            .SetRule("h-align", HorizontalAlignment.Center)
-            .SetRule("v-align", VerticalAlignment.Middle)
-            .SetRule("image-size-mode", ImageSizeMode.Contain)
+            .SetRule("image-size-mode", ImageSizeMode.Stretch)
         )
       );
       
       renderer.ImageSliced(_exampleImage3
         , new Rectangle(117, 400, 107, 70)
-        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
+        , new Rectangle(0, 0, _exampleImage3.Width, _exampleImage3.Height)
         , new Offset(5, 5, 5, 5)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
-            .SetRule("h-align", HorizontalAlignment.Center)
-            .SetRule("v-align", VerticalAlignment.Middle)
-            .SetRule("image-size-mode", ImageSizeMode.Contain)
-        )
+            .SetRule("image-size-mode", ImageSizeMode.Stretch)
+          )
       );
     }
     

@@ -46,7 +46,7 @@ namespace OxyEngine.GUI.Renderers
           finalX = 0;
           break;
         case HorizontalAlignment.Center:
-        case HorizontalAlignment.FullWidth:
+        case HorizontalAlignment.Stretch:
           finalX = (rect.Size.X - textSize.X) / 2;
           break;
         case HorizontalAlignment.Right:

@@ -5,6 +5,6 @@
     Left = 0,
     Center = 1,
     Right = 2,
-    FullWidth = 3
+    Stretch = 3
   }
 }

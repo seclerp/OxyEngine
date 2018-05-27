@@ -79,7 +79,7 @@ namespace OxyEngine.GUI.Renderers
           finalX = 0;
           break;
         case HorizontalAlignment.Center:
-        case HorizontalAlignment.FullWidth:
+        case HorizontalAlignment.Stretch:
           finalX = (rect.Size.X - finalWidth) / 2;
           break;
         case HorizontalAlignment.Right:
@@ -138,28 +138,28 @@ namespace OxyEngine.GUI.Renderers
       var source9 = new Rectangle(sourceRect.X + sourceRect.Size.X - offset.Right, sourceRect.Y + sourceRect.Size.Y - offset.Bottom, 
         offset.Right, offset.Bottom);
       
-      // TODO:
-      
       var dest1 = new Rectangle(rect.X, rect.Y, 
         offset.Left, offset.Top);
       var dest2 = new Rectangle(rect.X + offset.Left, rect.Y, 
-        sourceRect.Size.X - offset.Left - offset.Right, offset.Top);
-      var dest3 = new Rectangle(rect.X + sourceRect.Size.X - offset.Right, rect.Y, 
+        rect.Size.X - offset.Left - offset.Right, offset.Top);
+      var dest3 = new Rectangle(rect.X + rect.Size.X - offset.Right, rect.Y, 
         offset.Right, offset.Top);
       
       var dest4 = new Rectangle(rect.X, rect.Y + offset.Top, 
-        offset.Left, sourceRect.Size.Y - offset.Top - offset.Bottom);
+        offset.Left, rect.Size.Y - offset.Top - offset.Bottom);
       var dest5 = new Rectangle(rect.X + offset.Left, rect.Y + offset.Top, 
-        sourceRect.Size.X - offset.Left - offset.Right, sourceRect.Size.Y - offset.Top - offset.Bottom);
-      var dest6 = new Rectangle(rect.X + sourceRect.Size.X - offset.Right, rect.Y + offset.Top, 
-        offset.Right, sourceRect.Size.Y - offset.Top - offset.Bottom);
+        rect.Size.X - offset.Left - offset.Right, rect.Size.Y - offset.Top - offset.Bottom);
+      var dest6 = new Rectangle(rect.X + rect.Size.X - offset.Right, rect.Y + offset.Top, 
+        offset.Right, rect.Size.Y - offset.Top - offset.Bottom);
       
-      var dest7 = new Rectangle(rect.X, rect.Y + sourceRect.Size.Y - offset.Bottom, 
+      var dest7 = new Rectangle(rect.X, rect.Y + rect.Size.Y - offset.Bottom, 
         offset.Left, offset.Bottom);
-      var dest8 = new Rectangle(rect.X + offset.Left, rect.Y + sourceRect.Size.Y - offset.Bottom, 
-        sourceRect.Size.X - offset.Left - offset.Right, offset.Bottom);
-      var dest9 = new Rectangle(rect.X + sourceRect.Size.X - offset.Right, rect.Y + sourceRect.Size.Y - offset.Bottom, 
+      var dest8 = new Rectangle(rect.X + offset.Left, rect.Y + rect.Size.Y - offset.Bottom, 
+        rect.Size.X - offset.Left - offset.Right, offset.Bottom);
+      var dest9 = new Rectangle(rect.X + rect.Size.X - offset.Right, rect.Y + rect.Size.Y - offset.Bottom, 
         offset.Right, offset.Bottom);
+      
+      // TODO: Remove Render calls, use direct GraphicsManager.DrawCropped instead
       
       AreaStack.Push(dest1);
       Render(texture, dest1, source1, style);
