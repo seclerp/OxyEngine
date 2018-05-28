@@ -87,6 +87,8 @@
     <Compile Include="Events\GlobalEventsManager.cs" />
     <Compile Include="Events\Handlers\EngineEventHandler.cs" />
     <Compile Include="Graphics\Transformation.cs" />
+    <Compile Include="GUI\Renderers\ButtonRenderer.cs" />
+    <Compile Include="GUI\States\ButtonState.cs" />
     <Compile Include="Helpers\CollectionsHelper.cs" />
     <Compile Include="Helpers\DelegatesHelper.cs" />
     <Compile Include="Input\InputManager.cs" />
@@ -134,6 +136,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GUI\Styles\StyleNames.txt" />
     <Content Include="OxyEngine.Desktop.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

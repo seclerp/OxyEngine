@@ -279,6 +279,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
             .SetRule("v-align", VerticalAlignment.Top)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       
@@ -289,6 +290,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Top)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       renderer.Image(_exampleImage
@@ -298,6 +300,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
             .SetRule("v-align", VerticalAlignment.Top)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       
@@ -308,6 +311,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
             .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       renderer.Image(_exampleImage
@@ -317,6 +321,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       renderer.Image(_exampleImage
@@ -326,6 +331,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
             .SetRule("v-align", VerticalAlignment.Middle)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       
@@ -336,6 +342,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
             .SetRule("v-align", VerticalAlignment.Bottom)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       renderer.Image(_exampleImage
@@ -345,6 +352,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
             .SetRule("v-align", VerticalAlignment.Bottom)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
       renderer.Image(_exampleImage
@@ -354,6 +362,7 @@ namespace OxyEngine.Game
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
             .SetRule("v-align", VerticalAlignment.Bottom)
+            .SetRule("image-size-mode", ImageSizeMode.KeepSize)
         )
       );
     }
@@ -438,20 +447,17 @@ namespace OxyEngine.Game
       renderer.Image(_exampleImage3
         , new Rectangle(5, 400, 107, 70)
         , new Rectangle(0, 0, _exampleImage3.Width, _exampleImage3.Height)
-        , Style.Merge(_styles.GetStyle("panel inner-panel")
-          , new Style()
-            .SetRule("image-size-mode", ImageSizeMode.Stretch)
-        )
+        , _styles.GetStyle("panel inner-panel")
       );
       
-      renderer.ImageSliced(_exampleImage3
+      renderer.Image(_exampleImage3
         , new Rectangle(117, 400, 107, 70)
         , new Rectangle(0, 0, _exampleImage3.Width, _exampleImage3.Height)
-        , new Offset(5, 5, 5, 5)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
-            .SetRule("image-size-mode", ImageSizeMode.Stretch)
-          )
+            .SetRule("image-size-mode", ImageSizeMode.Sliced)
+            .SetRule("offset", new Offset(5, 5, 5, 5))
+        )
       );
     }
     
@@ -471,28 +477,17 @@ namespace OxyEngine.Game
         )
       );
       
-      // Text examples panel
-//      renderer.Panel(new Rectangle(50, 50, 230, 400), "Text", 
-//        panelRenderer =>
-//        {
-//          TextAlignment(panelRenderer);
-//          TextWrapping(panelRenderer);
-//                
-//        }
-//        , _styles.GetStyle("panel panel-header")
-//        , _styles.GetStyle("panel")
-//      );
-//            
-//      // Image examples panel
-//      renderer.Panel(new Rectangle(330, 50, 230, 400), "Images", 
-//        panelRenderer =>
-//        {
-//          ImageAlignment(panelRenderer);
-//          ImageSize(panelRenderer);
-//        }
-//        , _styles.GetStyle("panel panel-header")
-//        , _styles.GetStyle("panel")
-//      );
+      // Buttons examples panel
+      renderer.Panel(new Rectangle(50, 50, 230, 400), "Buttons"
+        , Buttons
+        , _styles.GetStyle("panel panel-header")
+        , _styles.GetStyle("panel")
+      );
+    }
+
+    private void Buttons(GuiRenderer renderer)
+    {
+      
     }
 
     #endregion

@@ -71,12 +71,5 @@ namespace OxyEngine.GUI.Renderers
       _imageRenderer.Render(texture, AreaStack.Peek(), sourceRect, style);
       AreaStack.Pop();
     }
-    
-    public void ImageSliced(Texture2D texture, Rectangle rect, Rectangle sourceRect, Offset offset, Style style = null)
-    {
-      AreaStack.Push(rect);
-      _imageRenderer.RenderSliced(texture, AreaStack.Peek(), sourceRect, offset, style);
-      AreaStack.Pop();
-    }
   }
 }

@@ -2,9 +2,10 @@
 {
   public enum ImageSizeMode
   {
-    KeepSize,
     Stretch,
+    KeepSize,
     Contain,
-    Cover
+    Cover,
+    Sliced
   }
 }

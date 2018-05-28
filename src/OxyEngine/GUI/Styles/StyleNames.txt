@@ -1,0 +1,9 @@
+background-color    : Color                 // Background color
+color               : Color                 // Main color
+h-align             : HorizontalAlignment   // Horizontal alignment
+v-align             : VerticalAlignment     // Vertical Alignment
+image-size-mode     : ImageSizeMode         // Image size mode when container size is differs
+text-wrap           : Boolean               // Use text wrapping
+background-image    : Texture2D             // Image drawed over background
+background-offset   : Offset                // Offset for background image
+offset              : Offset                // Offset for images (image-size-mode == Sliced)
