@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using OxyEngine.Dependency;
+using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Components;
 using OxyEngine.Ecs.Interfaces;
 using OxyEngine.Ecs.Systems;
@@ -62,6 +63,16 @@ namespace OxyEngine.Ecs.Entities
       
       component.SetEntity(this);
       _components.Add(component);
+
+      if (component is IInitializable initializableComponent)
+      {
+        GenericSystem.InitializeQueue.Enqueue(initializableComponent);
+      }
+      
+      if (component is ILoadable loadableComponent)
+      {
+        GenericSystem.LoadQueue.Enqueue(loadableComponent);
+      }
     }
 
     public T AddComponent<T>() where T : GameComponent
@@ -152,6 +163,21 @@ namespace OxyEngine.Ecs.Entities
     internal void SetParent(GameEntity parent)
     {
       Parent = parent;
+
+      if (parent == null)
+      {
+        return;
+      }
+      
+      if (this is IInitializable initializableEntity)
+      {
+        GenericSystem.InitializeQueue.Enqueue(initializableEntity);
+      }
+      
+      if (this is ILoadable loadableEntity)
+      {
+        GenericSystem.LoadQueue.Enqueue(loadableEntity);
+      }
     }
 
     /// <summary>
@@ -175,7 +201,10 @@ namespace OxyEngine.Ecs.Entities
     /// <returns>Newly created Entity</returns>
     public T AddChild<T>() where T : GameEntity
     {
-      return (T) Activator.CreateInstance(typeof(T), this);
+      var child = (T) Activator.CreateInstance(typeof(T), this);
+      
+      AddChild(child);
+      return child;
     }
 
     /// <summary>
