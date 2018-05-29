@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
+using OxyEngine.GUI.Enums;
+using OxyEngine.GUI.Models;
 
 namespace OxyEngine.GUI.Styles
 {
@@ -7,6 +10,21 @@ namespace OxyEngine.GUI.Styles
   {
     private Dictionary<string, Style> _database;
 
+    private static Style _defaultStyle;
+
+    public static Style DefaultStyle
+    {
+      get
+      {
+        if (_defaultStyle is null)
+        {
+          _defaultStyle = GetDefaultStyle();
+        }
+
+        return _defaultStyle;
+      }
+    }
+    
     public StyleDatabase()
     {
       _database = new Dictionary<string, Style>();
@@ -65,6 +83,24 @@ namespace OxyEngine.GUI.Styles
     private static bool IsSimpleSelector(string selector)
     {
       return !selector.Contains(" ");
+    }
+
+    private static Style GetDefaultStyle()
+    {
+      return new Style()
+          .SetRule("background-color", Color.Transparent)
+          .SetRule("background-image", null)
+          .SetRule("color", Color.White)
+          .SetRule("h-align", HorizontalAlignment.Left)
+          .SetRule("v-align", VerticalAlignment.Top)
+          .SetRule("border-width", 0)
+          .SetRule("border-color", Color.Transparent)
+          .SetRule("text-wrap", true)
+          .SetRule("font", null)
+          .SetRule("image-size-mode", ImageSizeMode.Stretch)
+          .SetRule("offset", new Offset(0, 0, 0, 0))
+          .SetRule("source-rect", Rectangle.Empty)
+        ;
     }
   }
 }

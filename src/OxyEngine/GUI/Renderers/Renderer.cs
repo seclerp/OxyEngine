@@ -19,10 +19,5 @@ namespace OxyEngine.GUI.Renderers
       GraphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
       EmptyTexture2D = GraphicsManager.NewTexture(1, 1);
     }
-
-    protected Style GetDefaultStyle()
-    {
-      return Styles.GetStyle("");
-    }
   }
 }

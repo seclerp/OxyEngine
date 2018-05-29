@@ -13,24 +13,33 @@ namespace OxyEngine.GUI.Renderers
     {
     }
 
-    public void Render(Texture2D texture, Rectangle rect, Rectangle sourceRect, Style style = null)
+    public void Render(Texture2D texture, Rectangle rect, Style style = null)
     {
-      style = style ?? GetDefaultStyle();
-
+      style = style ?? StyleDatabase.DefaultStyle;
+      
+      var mainColorValue = style.GetRule<Color>("color");
+      var beforeColor = GraphicsManager.GetColor();
+      
+      GraphicsManager.SetColor(mainColorValue.R, mainColorValue.G, mainColorValue.B, mainColorValue.A);
+      
       if (style.GetRule<ImageSizeMode>("image-size-mode") == ImageSizeMode.Sliced)
       {
-        RenderSlicedInternal(texture, rect, sourceRect, style);
+        RenderSlicedInternal(texture, rect, style);
       }
       else
       {
-        RenderInternal(texture, rect, sourceRect, style);
+        RenderInternal(texture, rect, style);
       }
+      
+      GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
     }
 
-    private void RenderSlicedInternal(Texture2D texture, Rectangle rect, Rectangle sourceRect, Style style)
+    private void RenderSlicedInternal(Texture2D texture, Rectangle rect, Style style)
     {
       var offset = style.GetRule<Offset>("offset");
-      
+      var sourceRect = style.GetRule<Rectangle>("source-rect");
+      sourceRect = sourceRect == Rectangle.Empty ? new Rectangle(0, 0, texture.Width, texture.Height) : sourceRect;
+        
       var source1 = new Rectangle(sourceRect.X, sourceRect.Y, 
         offset.Left, offset.Top);
       var source2 = new Rectangle(sourceRect.X + offset.Left, sourceRect.Y, 
@@ -84,20 +93,16 @@ namespace OxyEngine.GUI.Renderers
       RenderImage(texture, dest9, source9);
     }
 
-    private void RenderInternal(Texture2D texture, Rectangle rect, Rectangle sourceRect, Style style)
+    private void RenderInternal(Texture2D texture, Rectangle rect, Style style)
     {
-      var backColorValue = style.GetRule<Color>("background-color");
-      var beforeColor = GraphicsManager.GetColor();
-      GraphicsManager.SetColor(backColorValue.R, backColorValue.G, backColorValue.B, backColorValue.A);
-      GraphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
-
+      var sourceRect = style.GetRule<Rectangle>("source-rect");
+      sourceRect = sourceRect == Rectangle.Empty ? new Rectangle(0, 0, texture.Width, texture.Height) : sourceRect;
+      
       var finalSize = CalculateSize(rect, sourceRect, style.GetRule<ImageSizeMode>("image-size-mode"));
       var finalPosition = CalculatePosition(rect, finalSize,
         style.GetRule<HorizontalAlignment>("h-align"), style.GetRule<VerticalAlignment>("v-align"));
       
       var destRect = new Rectangle(rect.X + finalPosition.X, rect.Y + finalPosition.Y, finalSize.X, finalSize.Y);
-      
-      GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
 
       RenderImage(texture, destRect, sourceRect);
     }

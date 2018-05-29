@@ -16,13 +16,9 @@ namespace OxyEngine.GUI.Renderers
       _imageRenderer = new ImageRenderer(areaStack, styles);
     }
 
-    public ButtonState Render(string text, Rectangle rect, Rectangle sourceRect,
-      Style style = null)
+    public ButtonState Render(string text, Rectangle rect, Style style)
     {
-      style = style ?? GetDefaultStyle();
-      var backTexture = style.GetRule<Texture2D>("background-image") ?? EmptyTexture2D;
-      
-      _imageRenderer.Render(backTexture, rect, sourceRect, style);
+      //_imageRenderer.Render(backTexture, rect, style);
       
       return new ButtonState();
     } 

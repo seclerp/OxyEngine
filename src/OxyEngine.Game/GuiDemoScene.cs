@@ -273,8 +273,7 @@ namespace OxyEngine.Game
       );
       
       renderer.Image(_exampleImage
-        ,new Rectangle(5, 35, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
+        , new Rectangle(5, 35, 70, 70)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
@@ -285,7 +284,6 @@ namespace OxyEngine.Game
       
       renderer.Image(_exampleImage
         , new Rectangle(80, 35, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
@@ -295,7 +293,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage
         , new Rectangle(155, 35, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
@@ -306,7 +303,6 @@ namespace OxyEngine.Game
       
       renderer.Image(_exampleImage
         , new Rectangle(5, 110, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
@@ -316,7 +312,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage
         , new Rectangle(80, 110, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
@@ -326,7 +321,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage
         , new Rectangle(155, 110, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
@@ -337,7 +331,6 @@ namespace OxyEngine.Game
       
       renderer.Image(_exampleImage
         , new Rectangle(5, 185, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Left)
@@ -347,7 +340,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage
         , new Rectangle(80, 185, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
@@ -357,7 +349,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage
         , new Rectangle(155, 185, 70, 70)
-        , new Rectangle(0, 0, _exampleImage.Width, _exampleImage.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Right)
@@ -379,7 +370,6 @@ namespace OxyEngine.Game
       
       renderer.Image(_exampleImage2
         , new Rectangle(5, 285, 70, 70)
-        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
@@ -389,7 +379,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage2
         , new Rectangle(80, 285, 70, 70)
-        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
@@ -399,7 +388,6 @@ namespace OxyEngine.Game
       );
       renderer.Image(_exampleImage2
         , new Rectangle(155, 285, 70, 70)
-        , new Rectangle(0, 0, _exampleImage2.Width, _exampleImage2.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("h-align", HorizontalAlignment.Center)
@@ -446,13 +434,11 @@ namespace OxyEngine.Game
       
       renderer.Image(_exampleImage3
         , new Rectangle(5, 400, 107, 70)
-        , new Rectangle(0, 0, _exampleImage3.Width, _exampleImage3.Height)
         , _styles.GetStyle("panel inner-panel")
       );
       
       renderer.Image(_exampleImage3
         , new Rectangle(117, 400, 107, 70)
-        , new Rectangle(0, 0, _exampleImage3.Width, _exampleImage3.Height)
         , Style.Merge(_styles.GetStyle("panel inner-panel")
           , new Style()
             .SetRule("image-size-mode", ImageSizeMode.Sliced)

@@ -16,21 +16,10 @@ namespace OxyEngine.GUI.Renderers
       _wrapCache = new Dictionary<(SpriteFont, string, int), string>();
     }
     
-    public void Render(Rectangle rect, string text, Style style = null)
+    public void Render(Rectangle rect, string text, Style style)
     {
-      style = style ?? GetDefaultStyle();
       var font = style.GetRule<SpriteFont>("font");
-      
-      var textColorValue = style.GetRule<Color>("color");
-      var backColorValue = style.GetRule<Color>("background-color");
-      
-      var beforeColor = GraphicsManager.GetColor();
-      GraphicsManager.SetColor(backColorValue.R, backColorValue.G, backColorValue.B, backColorValue.A);
-      GraphicsManager.Rectangle("fill", rect.X, rect.Y, rect.Width, rect.Height);
-      
-      var beforeFont = GraphicsManager.GetFont();
-      GraphicsManager.SetFont(font);
-      GraphicsManager.SetColor(textColorValue.R, textColorValue.G, textColorValue.B, textColorValue.A);
+      var mainColorValue = style.GetRule<Color>("color");
 
       var finalText = style.GetRule<bool>("text-wrap") 
         ? WrapText(font, text, rect.Width) 
@@ -68,10 +57,12 @@ namespace OxyEngine.GUI.Renderers
           break;
       }
       
-      GraphicsManager.DrawCropped(rect, () =>
-      {
-        GraphicsManager.Print(finalText, rect.X + finalX, rect.Y + finalY);
-      });
+      var beforeFont = GraphicsManager.GetFont();
+      GraphicsManager.SetFont(font);
+      var beforeColor = GraphicsManager.GetColor();
+      GraphicsManager.SetColor(mainColorValue.R, mainColorValue.G, mainColorValue.B, mainColorValue.A);
+      
+      GraphicsManager.Print(finalText, rect.X + finalX, rect.Y + finalY);
       
       GraphicsManager.SetFont(beforeFont);
       GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
