@@ -179,9 +179,9 @@ namespace OxyEngine.Input
     ///   Return cursor position relative to window
     /// </summary>
     /// <returns>Vector2 with cursor position relative to window</returns>
-    public Vector2 GetCursorPosition()
+    public Point GetCursorPosition()
     {
-      return new Vector2(_mouseState.X, _mouseState.Y);
+      return new Point(_mouseState.X, _mouseState.Y);
     }
 
     /// <summary>

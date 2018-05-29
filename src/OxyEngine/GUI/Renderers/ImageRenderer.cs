@@ -13,7 +13,7 @@ namespace OxyEngine.GUI.Renderers
     {
     }
 
-    public void Render(Texture2D texture, Rectangle rect, Style style = null)
+    public void Render(Texture2D texture, Rectangle rect, Style style, bool isBackground = false)
     {
       style = style ?? StyleDatabase.DefaultStyle;
       
@@ -22,22 +22,22 @@ namespace OxyEngine.GUI.Renderers
       
       GraphicsManager.SetColor(mainColorValue.R, mainColorValue.G, mainColorValue.B, mainColorValue.A);
       
-      if (style.GetRule<ImageSizeMode>("image-size-mode") == ImageSizeMode.Sliced)
+      if (style.GetRule<ImageSizeMode>(!isBackground ? "image-size-mode" : "background-size-mode") == ImageSizeMode.Sliced)
       {
-        RenderSlicedInternal(texture, rect, style);
+        RenderSlicedInternal(texture, rect, style, isBackground);
       }
       else
       {
-        RenderInternal(texture, rect, style);
+        RenderInternal(texture, rect, style, isBackground);
       }
       
       GraphicsManager.SetColor(beforeColor.R, beforeColor.G, beforeColor.B, beforeColor.A);
     }
 
-    private void RenderSlicedInternal(Texture2D texture, Rectangle rect, Style style)
+    private void RenderSlicedInternal(Texture2D texture, Rectangle rect, Style style, bool isBackground = false)
     {
-      var offset = style.GetRule<Offset>("offset");
-      var sourceRect = style.GetRule<Rectangle>("source-rect");
+      var offset = style.GetRule<Offset>(!isBackground ? "offset" : "background-offset");
+      var sourceRect = style.GetRule<Rectangle>(!isBackground ? "source-rect" : "background-source-rect");
       sourceRect = sourceRect == Rectangle.Empty ? new Rectangle(0, 0, texture.Width, texture.Height) : sourceRect;
         
       var source1 = new Rectangle(sourceRect.X, sourceRect.Y, 
@@ -93,14 +93,16 @@ namespace OxyEngine.GUI.Renderers
       RenderImage(texture, dest9, source9);
     }
 
-    private void RenderInternal(Texture2D texture, Rectangle rect, Style style)
+    private void RenderInternal(Texture2D texture, Rectangle rect, Style style, bool isBackground = false)
     {
-      var sourceRect = style.GetRule<Rectangle>("source-rect");
+      var sourceRect = style.GetRule<Rectangle>(!isBackground ? "source-rect" : "background-source-rect");
       sourceRect = sourceRect == Rectangle.Empty ? new Rectangle(0, 0, texture.Width, texture.Height) : sourceRect;
       
-      var finalSize = CalculateSize(rect, sourceRect, style.GetRule<ImageSizeMode>("image-size-mode"));
-      var finalPosition = CalculatePosition(rect, finalSize,
-        style.GetRule<HorizontalAlignment>("h-align"), style.GetRule<VerticalAlignment>("v-align"));
+      var finalSize = CalculateSize(rect, sourceRect, style.GetRule<ImageSizeMode>(!isBackground ? "image-size-mode" : "background-size-mode"));
+      var finalPosition = CalculatePosition(rect, finalSize
+        , style.GetRule<HorizontalAlignment>(!isBackground ? "h-align" : "background-h-align")
+        , style.GetRule<VerticalAlignment>(!isBackground ? "v-align" : "background-v-align")
+      );
       
       var destRect = new Rectangle(rect.X + finalPosition.X, rect.Y + finalPosition.Y, finalSize.X, finalSize.Y);
 

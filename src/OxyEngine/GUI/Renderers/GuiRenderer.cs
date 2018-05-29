@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Graphics;
 using OxyEngine.GUI.Models;
+using OxyEngine.GUI.States;
 using OxyEngine.GUI.Styles;
 
 namespace OxyEngine.GUI.Renderers
@@ -77,6 +78,52 @@ namespace OxyEngine.GUI.Renderers
       AreaStack.Pop();
     }
 
+    public ButtonState Button(Rectangle rect, string text, ButtonState buttonState = default, Style style = null, Style textStyle = null)
+    {
+      style = style ?? StyleDatabase.DefaultStyle;
+      textStyle = textStyle ?? StyleDatabase.DefaultStyle;
+
+      var backImageNormal = style.GetRule<Texture2D>("background-image") ?? EmptyTexture2D;
+      var backImageHover = style.GetState("hover").GetRule<Texture2D>("background-image") ?? EmptyTexture2D;
+      var backImagePressed = style.GetState("pressed").GetRule<Texture2D>("background-image") ?? EmptyTexture2D;
+
+      var isPressed = false;
+      var isMouseOver = false;
+      var mousePosition = InputManager.GetCursorPosition();
+
+      AreaStack.Push(rect);
+      GraphicsManager.DrawCropped(AreaStack.Peek(), () =>
+      {
+        BackgroundLayer(AreaStack.Peek(), style);
+        if (AreaStack.Peek().Contains(mousePosition) && InputManager.IsMouseDown("left"))
+        {
+          isPressed = true;
+          isMouseOver = true;
+          _imageRenderer.Render(backImagePressed, AreaStack.Peek(), style.GetState("pressed"), isBackground: true);
+        }
+        else
+        {
+          if (AreaStack.Peek().Contains(mousePosition))
+          {
+            isMouseOver = true;
+            _imageRenderer.Render(backImageHover, AreaStack.Peek(), style.GetState("hover"), isBackground: true);
+          }
+          else
+          {
+            _imageRenderer.Render(backImageNormal, AreaStack.Peek(), style, isBackground: true);
+          }
+        }
+        
+        _textRenderer.Render(AreaStack.Peek(), text, textStyle);
+
+        BordersLayer(AreaStack.Peek(), style);
+        
+      });
+      AreaStack.Pop();
+      
+      return new ButtonState(isPressed, !buttonState.IsClicked && isPressed, isMouseOver);
+    }
+    
     private void BackgroundLayer(Rectangle rect, Style style)
     {
       var backColor = style.GetRule<Color>("background-color");

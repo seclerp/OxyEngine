@@ -1,17 +1,22 @@
 Generic:
-    background-image    : Texture2D             // Image drawed over background
-    background-color    : Color                 // Background color
-    color               : Color                 // Main color
-    h-align             : HorizontalAlignment   // Horizontal alignment (for text and images)
-    v-align             : VerticalAlignment     // Vertical Alignment
-    border-width        : int                   // Width of the borders
-    border-color        : Color                 // Color of borders 
+    background-image        : Texture2D             // Image drawed over background
+    background-offset       : Offset                // Offset for background (image-size-mode == Sliced)
+    background-source-rect  : Rectangle             // Source rectangle on background texture
+    background-size-mode    : ImageSizeMode         // Background size mode when container size is differs
+    background-color        : Color                 // Background color
+    background-h-align      : HorizontalAlignment   // Horizontal alignment (for background)
+    background-v-align      : VerticalAlignment     // Vertical Alignment (for background)
+    color                   : Color                 // Main color
+    h-align                 : HorizontalAlignment   // Horizontal alignment (for text and images)
+    v-align                 : VerticalAlignment     // Vertical Alignment (for text and images)
+    border-width            : int                   // Width of the borders
+    border-color            : Color                 // Color of borders 
 
 Text:
-    text-wrap           : Boolean               // Use text wrapping
-    font                : SpriteFont            // Font for printing
+    text-wrap               : Boolean               // Use text wrapping
+    font                    : SpriteFont            // Font for printing
 
 Images:
-    image-size-mode     : ImageSizeMode         // Image size mode when container size is differs
-    offset              : Offset                // Offset for images (image-size-mode == Sliced)
-    source-rect         : Rectangle             // Source rectangle on texture (for images)
+    image-size-mode         : ImageSizeMode         // Image size mode when container size is differs
+    offset                  : Offset                // Offset for images (image-size-mode == Sliced)
+    source-rect             : Rectangle             // Source rectangle on texture (for images)

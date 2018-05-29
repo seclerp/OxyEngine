@@ -8,6 +8,7 @@ using OxyEngine.GUI;
 using OxyEngine.GUI.Enums;
 using OxyEngine.GUI.Models;
 using OxyEngine.GUI.Renderers;
+using OxyEngine.GUI.States;
 using OxyEngine.GUI.Styles;
 using OxyEngine.Input;
 using OxyEngine.Resources;
@@ -27,12 +28,15 @@ namespace OxyEngine.Game
     private Texture2D _exampleImage;
     private Texture2D _exampleImage2;
     private Texture2D _exampleImage3;
+    private Texture2D _exampleImage4;
     
     private StyleDatabase _styles;
 
     private Action<GuiRenderer> _currentWindowRenderer;
     private int _currentWindowRendererId;
     private Action<GuiRenderer>[] _windowRenderers;
+
+    private ButtonState _simpleButtonState;
     
     public void Init()
     {
@@ -43,6 +47,7 @@ namespace OxyEngine.Game
       _exampleImage = _resourceManager.LoadTexture("planet");
       _exampleImage2 = _resourceManager.LoadTexture("mario");
       _exampleImage3 = _resourceManager.LoadTexture("borders");
+      _exampleImage4 = _resourceManager.LoadTexture("ui_atlas");
       
       _styles = new StyleDatabase();
 
@@ -66,6 +71,29 @@ namespace OxyEngine.Game
         .AddStyle("inner-panel", // Inner panel styles
           new Style()
             .SetRule("background-color", new Color(9, 119, 116))
+        )
+        .AddStyle("simple-button", // Inner panel styles
+          new Style()
+            .SetRule("color", Color.White)
+            .SetRule("background-image", _exampleImage4)
+            .SetRule("background-source-rect", new Rectangle(0, 0, 32, 32))
+            .SetRule("background-offset", new Offset(5, 5, 5, 5))
+            .SetRule("background-size-mode", ImageSizeMode.Sliced)
+            .SetState("hover", 
+              new Style()
+                .SetRule("background-source-rect", new Rectangle(32, 0, 32, 32))
+            )
+            .SetState("pressed", 
+              new Style()
+                .SetRule("background-source-rect", new Rectangle(64, 0, 32, 32))
+            )
+        )
+        .AddStyle("simple-button-text", // Panel header styles
+          new Style()
+            .SetRule("color", Color.White)
+            .SetRule("font", _resourceManager.LoadFont("Roboto-Regular"))
+            .SetRule("h-align", HorizontalAlignment.Center)
+            .SetRule("v-align", VerticalAlignment.Middle)
         )
         .SetChildRelation("panel", "canvas");
       
@@ -473,7 +501,12 @@ namespace OxyEngine.Game
 
     private void Buttons(GuiRenderer renderer)
     {
-      
+      _simpleButtonState = renderer.Button(new Rectangle(15, 35, 200, 25)
+        , "Test button"
+        , _simpleButtonState
+        , _styles.GetStyle("simple-button")
+        , _styles.GetStyle("simple-button-text")
+      );
     }
 
     #endregion

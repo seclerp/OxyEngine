@@ -7,10 +7,12 @@ namespace OxyEngine.GUI.Styles
   {
     private Dictionary<string, object> _styles;
     private Style _parentStyle;
+    private Dictionary<string, Style> _states;
     
     public Style()
     {
       _styles = new Dictionary<string, object>();
+      _states = new Dictionary<string, Style>();
     }
 
     public Style SetRule(string key, object value)
@@ -18,6 +20,24 @@ namespace OxyEngine.GUI.Styles
       _styles[key] = value;
       
       return this;
+    }
+
+    public Style SetState(string stateName, Style stateStyle)
+    {
+      _states[stateName] = Merge(this, stateStyle);
+
+      return this;
+    }
+    
+    public Style GetState(string stateName)
+    {
+      if (!_states.ContainsKey(stateName))
+      {
+        // Return normal state - this
+        return this;
+      }
+
+      return Merge(this, _states[stateName]);
     }
 
     public T GetRule<T>(string key)
