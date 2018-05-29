@@ -3,7 +3,7 @@ using OxyEngine.Audio;
 using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 
-namespace OxyEngine.Ecs.Components
+namespace OxyEngine.Ecs.Components.Sound
 {
   /// <summary>
   ///   Component for playing songs (ambient, long audio files)

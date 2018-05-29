@@ -2,6 +2,7 @@
 using System.Linq;
 using NUnit.Framework;
 using OxyEngine.Ecs.Components;
+using OxyEngine.Ecs.Components.Graphics;
 using OxyEngine.Ecs.Entities;
 
 namespace OxyEngine.Test.ECS

@@ -1,10 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using OxyEngine.Dependency;
-using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
 
-namespace OxyEngine.Ecs.Components
+namespace OxyEngine.Ecs.Components.Graphics
 {
   /// <summary>
   ///   Component for drawing sprites
