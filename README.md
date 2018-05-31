@@ -37,7 +37,7 @@ Latest MonoGame SDK can be found **[here](http://www.monogame.net/downloads/)**.
 
 ## Tutorials
 
-You can found tutorials on the **[wiki page](wiki)**.
+You can found tutorials on the **[wiki page](https://github.com/OxyTeam/OxyEngine/wiki)**.
 
 ## Compatibility
 
