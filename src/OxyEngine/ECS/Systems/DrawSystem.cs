@@ -41,7 +41,7 @@ namespace OxyEngine.Ecs.Systems
       
       if (entity is IAfterDrawable entityAfterDrawable)
       {
-        entityAfterDrawable.AfterDraw();();
+        entityAfterDrawable.AfterDraw();
       }
 
       foreach (var child in entity.Children)
