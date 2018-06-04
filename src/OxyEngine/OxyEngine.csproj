@@ -72,6 +72,9 @@
     <Compile Include="Ecs\Components\Sound\AudioEffectPlayMode.cs" />
     <Compile Include="Ecs\Components\Sound\SongComponent.cs" />
     <Compile Include="Ecs\Components\TransformComponent.cs" />
+    <Compile Include="Ecs\Components\UI\ClickableComponent.cs" />
+    <Compile Include="Ecs\Components\UI\TextComponent.cs" />
+    <Compile Include="Ecs\Components\UI\UIComponent.cs" />
     <Compile Include="Ecs\EcsInstance.cs" />
     <Compile Include="Ecs\Entities\GameEntity.cs" />
     <Compile Include="Ecs\Entities\TransformEntity.cs" />
@@ -83,6 +86,7 @@
     <Compile Include="Ecs\Systems\GameSystemManager.cs" />
     <Compile Include="Ecs\Systems\GameSystemNames.cs" />
     <Compile Include="Ecs\Systems\GenericSystem.cs" />
+    <Compile Include="Ecs\Systems\UISystem.cs" />
     <Compile Include="Events\Args\EngineEventArgs.cs" />
     <Compile Include="Events\Args\EngineUpdateEventArgs.cs" />
     <Compile Include="Events\ListenEventAttribute.cs" />
@@ -142,6 +146,9 @@
   <ItemGroup>
     <Content Include="GUI\Styles\StyleNames.txt" />
     <Content Include="OxyEngine.Desktop.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Ecs\Entities\UI" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
