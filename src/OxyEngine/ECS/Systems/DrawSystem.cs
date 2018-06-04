@@ -22,16 +22,28 @@ namespace OxyEngine.Ecs.Systems
     {
       var transform =  entity.GetComponent<TransformComponent>();
       transform?.AttachTransformation();
+
+      if (entity is IBeforeDrawable entityBeforeDrawable)
+      {
+        entityBeforeDrawable.BeforeDraw();
+      }
       
       if (entity is IDrawable entityDrawable)
+      {
         entityDrawable.Draw();
-
+      }
+      
       foreach (var component in entity.Components)
       {
         if (component is IDrawable componentDrawable)
           componentDrawable.Draw();
       }
       
+      if (entity is IAfterDrawable entityAfterDrawable)
+      {
+        entityAfterDrawable.AfterDraw();();
+      }
+
       foreach (var child in entity.Children)
       {
         DrawRecursive(child);

@@ -44,14 +44,38 @@ namespace OxyEngine.Ecs.Systems
     {
       ProcessInitQueue();
       ProcessLoadQueue();
+
+      if (entity is IBeforeUpdateable entityBeforeUpdatable)
+      {
+        entityBeforeUpdatable.BeforeUpdate();
+      }
       
       if (entity is IUpdateable entityUpdatable)
+      {
         entityUpdatable.Update(dt);
+      }
 
       foreach (var component in entity.Components)
       {
-        if (component is IUpdateable componentUpdatable)
-          componentUpdatable.Update(dt);
+        if (component is IBeforeUpdateable componentBeforeUpdateable)
+        {
+          componentBeforeUpdateable.BeforeUpdate();
+        }
+        
+        if (component is IUpdateable componentUpdateable)
+        {
+          componentUpdateable.Update(dt);
+        }
+        
+        if (component is IAfterUpdateable componentAfterUpdateable)
+        {
+          componentAfterUpdateable.AfterUpdate();
+        }
+      }
+      
+      if (entity is IAfterUpdateable entityAfterUpdatable)
+      {
+        entityAfterUpdatable.AfterUpdate();
       }
       
       foreach (var child in entity.Children)

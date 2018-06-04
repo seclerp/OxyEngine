@@ -51,6 +51,10 @@
     <Compile Include="Audio\AudioManager.cs" />
     <Compile Include="Dependency\Container.cs" />
     <Compile Include="Dependency\InstanceName.cs" />
+    <Compile Include="Ecs\Behaviours\IAfterDrawable.cs" />
+    <Compile Include="Ecs\Behaviours\IAfterUpdateable.cs" />
+    <Compile Include="Ecs\Behaviours\IBeforeDrawable.cs" />
+    <Compile Include="Ecs\Behaviours\IBeforeUpdateable.cs" />
     <Compile Include="Ecs\Behaviours\IDrawable.cs" />
     <Compile Include="Ecs\Behaviours\IInitializable.cs" />
     <Compile Include="Ecs\Behaviours\ILoadable.cs" />
