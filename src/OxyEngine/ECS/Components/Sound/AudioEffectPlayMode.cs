@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.Ecs.Components
+﻿namespace OxyEngine.Ecs.Components.Sound
 {
   /// <summary>
   ///   Audio effect play mode

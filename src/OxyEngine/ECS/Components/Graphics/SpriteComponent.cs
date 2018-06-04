@@ -5,7 +5,7 @@ using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Graphics;
 using IDrawable = OxyEngine.Ecs.Behaviours.IDrawable;
 
-namespace OxyEngine.Ecs.Components
+namespace OxyEngine.Ecs.Components.Graphics
 {
   /// <summary>
   ///   Component for drawing sprites

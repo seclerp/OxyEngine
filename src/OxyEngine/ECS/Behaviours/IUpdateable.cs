@@ -6,7 +6,7 @@
   public interface IUpdateable
   {
     /// <summary>
-    ///   Update handler for IDrawable
+    ///   Update handler for IUpdatable
     /// </summary>
     void Update(float dt);
   }
