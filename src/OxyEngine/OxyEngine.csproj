@@ -84,6 +84,9 @@
     <Compile Include="Ecs\Systems\GenericSystem.cs" />
     <Compile Include="Events\Args\EngineEventArgs.cs" />
     <Compile Include="Events\Args\EngineUpdateEventArgs.cs" />
+    <Compile Include="Events\IEventBus.cs" />
+    <Compile Include="Events\QueuedEventBus.cs" />
+    <Compile Include="Events\ReactiveEventBus.cs" />
     <Compile Include="Events\ListenEventAttribute.cs" />
     <Compile Include="Events\EventNames.cs" />
     <Compile Include="Events\EventSystem.cs" />
@@ -107,6 +110,10 @@
     <Compile Include="Graphics\Extensions\Primitives2D.cs" />
     <Compile Include="Graphics\GraphicsManager.cs" />
     <Compile Include="Graphics\GraphicsState.cs" />
+    <Compile Include="PureECS\Component.cs" />
+    <Compile Include="PureECS\Entity.cs" />
+    <Compile Include="PureECS\System.cs" />
+    <Compile Include="PureECS\SystemManager.cs" />
     <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Settings\GraphicsSettings.cs" />
     <Compile Include="Settings\ResourcesSettings.cs" />
@@ -121,6 +128,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="OxyEngine.Desktop.nuspec" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PureECS\Components" />
+    <Folder Include="PureECS\Systems" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
