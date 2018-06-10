@@ -78,7 +78,8 @@ namespace OxyEngine.GUI.Renderers
       AreaStack.Pop();
     }
 
-    public ButtonState Button(Rectangle rect, string text, ButtonState buttonState = default, Style style = null, Style textStyle = null)
+    public ButtonState Button(Rectangle rect, string text, ButtonState buttonState = default, 
+      Style style = null, Style textStyle = null)
     {
       style = style ?? StyleDatabase.DefaultStyle;
       textStyle = textStyle ?? StyleDatabase.DefaultStyle;

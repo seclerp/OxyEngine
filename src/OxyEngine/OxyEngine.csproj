@@ -87,7 +87,6 @@
     <Compile Include="Events\GlobalEventsManager.cs" />
     <Compile Include="Events\Handlers\EngineEventHandler.cs" />
     <Compile Include="Graphics\Transformation.cs" />
-    <Compile Include="GUI\Renderers\ButtonRenderer.cs" />
     <Compile Include="GUI\States\ButtonState.cs" />
     <Compile Include="Helpers\CollectionsHelper.cs" />
     <Compile Include="Helpers\DelegatesHelper.cs" />
