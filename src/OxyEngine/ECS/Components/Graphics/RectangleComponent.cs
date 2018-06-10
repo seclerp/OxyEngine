@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using OxyEngine.Ecs.Enums;
 
-namespace OxyEngine.Ecs.Components
+namespace OxyEngine.Ecs.Components.Graphics
 {
   /// <summary>
   ///   Component for drawing rectangles

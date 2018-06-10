@@ -1,4 +1,4 @@
-﻿namespace OxyEngine.Ecs.Components
+﻿namespace OxyEngine.Ecs.Components.Graphics
 {
   /// <summary>
   ///   Component for drawing circles

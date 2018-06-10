@@ -81,7 +81,7 @@ namespace OxyEngine.Events
     {
       Global.Invoke(EventNames.Window.OnResize, null);
     }
-
+    
     #endregion
   }
 }

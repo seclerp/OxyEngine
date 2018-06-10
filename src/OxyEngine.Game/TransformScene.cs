@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using OxyEngine.Dependency;
 using OxyEngine.Ecs.Behaviours;
 using OxyEngine.Ecs.Components;
+using OxyEngine.Ecs.Components.Graphics;
 using OxyEngine.Ecs.Entities;
 using OxyEngine.Resources;
 using IUpdateable = OxyEngine.Ecs.Behaviours.IUpdateable;
