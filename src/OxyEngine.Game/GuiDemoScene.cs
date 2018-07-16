@@ -507,6 +507,13 @@ namespace OxyEngine.Game
         , _styles.GetStyle("simple-button")
         , _styles.GetStyle("simple-button-text")
       );
+      
+      _simpleButtonState = renderer.Button(new Rectangle(30, 50, 200, 25)
+        , "Test button"
+        , _simpleButtonState
+        , _styles.GetStyle("simple-button")
+        , _styles.GetStyle("simple-button-text")
+      );
     }
 
     #endregion
