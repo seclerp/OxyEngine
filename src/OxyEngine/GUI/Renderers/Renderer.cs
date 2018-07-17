@@ -9,15 +9,14 @@ namespace OxyEngine.GUI.Renderers
   public class Renderer
   {
     protected readonly AreaStack AreaStack;
-    protected GraphicsManager GraphicsManager;
-    protected InputManager InputManager;
-    protected StyleDatabase Styles;
-    protected Texture2D EmptyTexture2D;
+    protected readonly GraphicsManager GraphicsManager;
+    protected readonly InputManager InputManager;
+    protected readonly Texture2D EmptyTexture2D;
     
     public Renderer(AreaStack areaStack, StyleDatabase styles)
     {
       AreaStack = areaStack;
-      Styles = styles;
+      //Styles = styles;
       GraphicsManager = Container.Instance.ResolveByName<GraphicsManager>(InstanceName.GraphicsManager);
       InputManager = Container.Instance.ResolveByName<InputManager>(InstanceName.InputManager);
       EmptyTexture2D = GraphicsManager.NewTexture(1, 1);
